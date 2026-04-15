@@ -3,208 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sede Electrónica | Reino de Gatolandia</title>
+    <title>Mi Carpeta Ciudadana | Reino de Gatolandia</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --gob-blue: #001f3d;
-            --gob-accent: #005bb7;
             --gob-gold: #b8924e;
-            --gob-silver: #e2e8f0;
+            --gob-bg: #f1f5f9;
             --white: #ffffff;
-            --text-main: #0f172a;
+            --danger: #e74c3c;
         }
 
-        /* --- RESET Y BASE --- */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background-color: #f8fafc; color: var(--text-main); line-height: 1.6; }
-
-        /* --- BARRA DE CARGA --- */
-        #loading-bar { position: fixed; top: 0; left: 0; height: 3px; background: var(--gob-gold); width: 0%; z-index: 9999; transition: width 0.4s; }
-
-        /* --- NAVEGACIÓN SUPERIOR (FIJA) --- */
-        .nav-wrapper { position: sticky; top: 0; z-index: 2000; width: 100%; }
-
-        .top-bar { 
-            background: var(--gob-blue); color: white; padding: 8px 8%; 
-            display: flex; justify-content: space-between; align-items: center; 
-            font-size: 0.7rem; letter-spacing: 0.5px;
+        
+        /* Oculto inicialmente por seguridad */
+        #content { display: none; }
+        
+        #loader { 
+            position: fixed; inset: 0; background: var(--gob-bg); 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999; 
         }
 
-        header { 
-            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); 
-            padding: 15px 8%; display: flex; justify-content: space-between; align-items: center; 
-            border-bottom: 1px solid var(--gob-silver); box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        body { background-color: var(--gob-bg); color: #1e293b; min-height: 100vh; }
+
+        /* --- LAYOUT --- */
+        .layout { display: grid; grid-template-columns: 280px 1fr; min-height: 100vh; }
+        
+        aside { background: var(--gob-blue); color: white; padding: 30px 20px; position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; }
+        .aside-header { border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; margin-bottom: 20px; }
+        
+        .user-pill { 
+            background: rgba(255,255,255,0.1); padding: 15px; border-radius: 12px; font-size: 0.8rem; 
+            overflow-wrap: break-word; border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        nav ul { list-style: none; margin-top: 30px; flex-grow: 1; }
+        nav li { 
+            padding: 12px 15px; border-radius: 8px; cursor: pointer; margin-bottom: 5px; 
+            font-size: 0.9rem; display: flex; align-items: center; gap: 12px; transition: 0.2s; 
+        }
+        nav li:hover, nav li.active { background: var(--gob-gold); color: white; }
+
+        /* --- MAIN CONTENT --- */
+        main { padding: 40px 5%; }
+        .header-main { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; gap: 20px; }
+        
+        .search-box { width: 100%; max-width: 500px; position: relative; }
+        .search-box input { 
+            width: 100%; padding: 15px 20px 15px 45px; border-radius: 12px; border: 1px solid #ddd; 
+            outline: none; font-size: 0.9rem; box-shadow: 0 4px 6px rgba(0,0,0,0.02); 
+        }
+        .search-box i { position: absolute; left: 15px; top: 18px; color: #64748b; }
+
+        /* --- LISTA DE TRÁMITES --- */
+        .tramites-container { display: grid; gap: 12px; }
+        .tramite-card { 
+            background: white; padding: 18px 25px; border-radius: 12px; 
+            display: grid; grid-template-columns: 1fr auto; align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02); border-left: 5px solid var(--gob-gold);
+            text-decoration: none; color: inherit; transition: 0.3s;
+        }
+        .tramite-card:hover { transform: translateX(10px); background: #fffdf9; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        
+        .tramite-info h4 { font-size: 1rem; color: var(--gob-blue); margin-bottom: 4px; }
+        .tramite-info p { font-size: 0.7rem; color: #64748b; text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px; }
+        
+        .btn-go { color: var(--gob-gold); font-size: 1.2rem; }
+
+        .btn-logout { 
+            background: var(--danger); color: white; border: none; padding: 12px; 
+            border-radius: 10px; cursor: pointer; font-weight: 700; width: 100%; 
+            margin-top: 20px; display: flex; align-items: center; justify-content: center; gap: 10px; 
         }
 
-        .brand { display: flex; align-items: center; gap: 15px; text-decoration: none; color: var(--gob-blue); }
-        .brand img { width: 45px; }
-        .brand h1 { font-size: 1.2rem; font-weight: 800; border-left: 2px solid var(--gob-gold); padding-left: 15px; }
-
-        /* --- BOTÓN PASAPORTE --- */
-        .btn-passport { 
-            background: var(--gob-blue); color: white; padding: 12px 24px; border-radius: 50px; 
-            font-weight: 700; border: none; cursor: pointer; display: flex; align-items: center; 
-            gap: 10px; font-size: 0.85rem; position: relative; overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,31,61,0.2);
+        @media (max-width: 900px) {
+            .layout { grid-template-columns: 1fr; }
+            aside { display: none; }
+            .header-main { flex-direction: column; }
         }
-        .btn-passport::after {
-            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
-            transform: rotate(45deg); animation: shine 4s infinite;
-        }
-        @keyframes shine { 0% { left: -100%; } 100% { left: 100%; } }
-
-        /* --- HERO SECTION --- */
-        .hero { 
-            background: linear-gradient(135deg, #001f3d 0%, #003366 100%); 
-            padding: 100px 8% 120px; color: white; text-align: center;
-        }
-        .hero h2 { font-size: 3rem; font-weight: 800; margin-bottom: 20px; letter-spacing: -1px; }
-        .hero p { font-size: 1.1rem; opacity: 0.8; max-width: 650px; margin: 0 auto 35px; }
-
-        /* --- CONTENEDOR PRINCIPAL (CORREGIDO EL SOLAPAMIENTO) --- */
-        .main-content { 
-            max-width: 1200px; margin: -50px auto 60px; padding: 0 20px; 
-            position: relative; z-index: 10; 
-        }
-
-        /* --- TRÁMITES (GRID) --- */
-        .services-grid { 
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
-            gap: 20px; margin-bottom: 50px; 
-        }
-        .service-card { 
-            background: white; padding: 30px 20px; border-radius: 16px; text-align: center; 
-            text-decoration: none; color: var(--gob-blue); box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            border-bottom: 3px solid transparent; transition: all 0.3s ease;
-        }
-        .service-card:hover { transform: translateY(-8px); border-bottom: 3px solid var(--gob-gold); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
-        .service-card i { font-size: 2.2rem; color: var(--gob-gold); margin-bottom: 15px; display: block; }
-        .service-card h4 { font-size: 0.9rem; font-weight: 700; }
-
-        /* --- SECCIÓN INFORMATIVA --- */
-        .info-section { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; margin-top: 40px; }
-        .panel { background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
-        .panel h3 { margin-bottom: 20px; color: var(--gob-blue); display: flex; align-items: center; gap: 10px; }
-        .news-item { display: flex; gap: 20px; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #f1f5f9; }
-        .news-img { width: 100px; height: 70px; border-radius: 8px; background: #eee; flex-shrink: 0; }
-
-        /* --- MODAL --- */
-        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 3000; }
-        .modal-box { background: white; width: 90%; max-width: 400px; padding: 40px; border-radius: 24px; position: relative; }
-        .modal-box h3 { text-align: center; margin-bottom: 25px; color: var(--gob-blue); }
-        .modal-box input { width: 100%; padding: 15px; margin-bottom: 15px; border: 2px solid #f1f5f9; border-radius: 12px; outline: none; }
-        .modal-box input:focus { border-color: var(--gob-gold); }
-
-        /* --- TOAST --- */
-        #toast { position: fixed; bottom: 30px; right: 30px; background: var(--gob-blue); color: white; padding: 15px 25px; border-radius: 10px; display: none; z-index: 4000; animation: fadeIn 0.3s; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-        footer { background: #e2e8f0; color: #64748b; padding: 40px 8%; text-align: center; font-size: 0.8rem; margin-top: 60px; }
     </style>
 </head>
 <body>
 
-    <div id="loading-bar"></div>
+    <div id="loader">
+        <i class="fa-solid fa-spinner fa-spin" style="font-size: 3rem; color: var(--gob-blue);"></i>
+        <p style="margin-top: 20px; font-weight: 600;">Sincronizando Pasaporte Digital...</p>
+    </div>
 
-    <div class="nav-wrapper">
-        <div class="top-bar">
-            <span>REINO DE GATOLANDIA | SEDE ELECTRÓNICA OFICIAL</span>
-            <span id="live-clock">Cargando hora...</span>
-        </div>
-        <header>
-            <a href="#" class="brand">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmc--YeQPZVE_Rs3xrp3DhwyCJe9lVXL0LqA&s" alt="Escudo">
-                <h1>ADMINISTRACIÓN <br><span style="color: var(--gob-gold); font-size: 0.7rem;">DIGITAL</span></h1>
-            </a>
-            <button class="btn-passport" id="openAuth">
-                <i class="fa-solid fa-fingerprint"></i> Pasaporte de Identidad Digital
+    <div id="content" class="layout">
+        <aside>
+            <div class="aside-header">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmc--YeQPZVE_Rs3xrp3DhwyCJe9lVXL0LqA&s" width="50">
+                <h2 style="font-size: 1.1rem; margin-top: 15px; letter-spacing: 1px;">MI CARPETA</h2>
+            </div>
+            <div class="user-pill">
+                <p style="opacity: 0.7; font-size: 0.6rem; margin-bottom: 5px;">CIUDADANO:</p>
+                <i class="fa-solid fa-circle-user"></i> <span id="user-email">Cargando...</span>
+            </div>
+            <nav>
+                <ul>
+                    <li class="active"><i class="fa-solid fa-list-check"></i> Catálogo Total</li>
+                    <li><i class="fa-solid fa-bell"></i> Notificaciones (0)</li>
+                    <li><i class="fa-solid fa-file-shield"></i> Documentos</li>
+                </ul>
+            </nav>
+            <button class="btn-logout" id="doLogout">
+                <i class="fa-solid fa-power-off"></i> Cerrar Sesión
             </button>
-        </header>
-    </div>
+        </aside>
 
-    <section class="hero">
-        <h2>Servicios Públicos en Red</h2>
-        <p>Acceda de forma segura a su carpeta, realice trámites administrativos y consulte sus notificaciones oficiales del Reino.</p>
-    </section>
-
-    <main class="main-content">
-        <div class="services-grid">
-            <a href="javascript:checkAuth('Empadronamiento')" class="service-card">
-                <i class="fa-solid fa-house-user"></i>
-                <h4>Empadronamiento</h4>
-            </a>
-            <a href="javascript:checkAuth('Salud')" class="service-card">
-                <i class="fa-solid fa-notes-medical"></i>
-                <h4>Salud Pública</h4>
-            </a>
-            <a href="javascript:checkAuth('Tributos')" class="service-card">
-                <i class="fa-solid fa-wallet"></i>
-                <h4>Mis Tributos</h4>
-            </a>
-            <a href="javascript:checkAuth('Educación')" class="service-card">
-                <i class="fa-solid fa-graduation-cap"></i>
-                <h4>Educación y Becas</h4>
-            </a>
-            <a href="https://cocacolalandia.github.io/gatolandia/bor" class="service-card">
-                <i class="fa-solid fa-gavel"></i>
-                <h4>BOR Oficial</h4>
-            </a>
-        </div>
-
-        <div class="info-section">
-            <section class="panel">
-                <h3><i class="fa-solid fa-newspaper"></i> Actualidad de la Sede</h3>
-                <div class="news-item">
-                    <div class="news-img" style="background: url('https://img.freepik.com/foto-gratis/gato-leyendo-periodico_23-2148133580.jpg') center/cover;"></div>
-                    <div>
-                        <h4 style="font-size: 0.9rem;">Nueva Ley de Rascadores Urbanos</h4>
-                        <p style="font-size: 0.8rem; color: #64748b;">Publicada hoy en el BOR la normativa que regula los espacios públicos...</p>
-                    </div>
+        <main>
+            <div class="header-main">
+                <div>
+                    <h1 style="font-size: 1.8rem; color: var(--gob-blue);">Sede Electrónica Personal</h1>
+                    <p style="color: #64748b;">Lista oficial de trámites del Reino de Gatolandia.</p>
                 </div>
-                <div class="news-item">
-                    <div class="news-img" style="background: url('https://www.comunidad.madrid/sites/default/files/styles/image_style_16_9/public/doc/salud/perro-gato.jpg') center/cover;"></div>
-                    <div>
-                        <h4 style="font-size: 0.9rem;">Cita Previa: Vacunación Felina</h4>
-                        <p style="font-size: 0.8rem; color: #64748b;">Ya puede solicitar su turno para la campaña de primavera desde su carpeta.</p>
-                    </div>
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="filterInput" placeholder="Buscar por ministerio o nombre...">
                 </div>
-            </section>
+            </div>
 
-            <aside class="panel" style="background: var(--gob-blue); color: white;">
-                <h3><i class="fa-solid fa-circle-info" style="color: var(--gob-gold);"></i> Ayuda</h3>
-                <p style="font-size: 0.85rem; opacity: 0.9; margin-bottom: 20px;">
-                    ¿Tiene problemas para acceder? Contacte con la oficina de atención ciudadana o consulte los manuales de usuario.
-                </p>
-                <button class="btn-passport" style="width: 100%; justify-content: center; background: var(--gob-gold);">Ver Tutoriales</button>
-            </aside>
-        </div>
-    </main>
-
-    <div class="modal" id="modalAuth">
-        <div class="modal-box">
-            <i class="fa-solid fa-xmark" id="closeAuth" style="position: absolute; top: 20px; right: 20px; cursor: pointer; color: #94a3b8;"></i>
-            <h3>Acceso Seguro</h3>
-            <p style="text-align: center; font-size: 0.8rem; color: #64748b; margin-bottom: 25px;">Identifíquese con sus credenciales de Pasaporte Digital</p>
-            <input type="email" id="email" placeholder="Correo electrónico">
-            <input type="password" id="password" placeholder="Contraseña">
-            <button class="btn-passport" id="doLogin" style="width: 100%; justify-content: center;">Verificar Identidad</button>
-        </div>
+            <div class="tramites-container" id="lista-tramites">
+                </div>
+        </main>
     </div>
-
-    <div id="toast"></div>
-
-    <footer>
-        <p>© 2026 Reino de Gatolandia - Ministerio de Asuntos Digitales</p>
-        <p>Este sitio web utiliza encriptación de 256 bits para proteger su identidad.</p>
-    </footer>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { 
+            getAuth, 
+            onAuthStateChanged, 
+            signOut, 
+            setPersistence, 
+            browserLocalPersistence 
+        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
+        // CONFIGURACIÓN DE TU PROYECTO
         const firebaseConfig = {
             apiKey: "AIzaSyCUBDdTMyQTwQo4FzKpDZDpOAKGPVcki4I",
             authDomain: "sedegatogob.firebaseapp.com",
@@ -217,52 +153,110 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        const lBar = document.getElementById('loading-bar');
-        const modal = document.getElementById('modalAuth');
-        const toast = document.getElementById('toast');
-
-        const msg = (t) => { toast.innerText = t; toast.style.display = 'block'; setTimeout(()=>toast.style.display='none', 3000); };
-
-        // UI INTERACTIVA
-        document.getElementById('openAuth').onclick = () => modal.style.display = 'flex';
-        document.getElementById('closeAuth').onclick = () => modal.style.display = 'none';
-
-        document.getElementById('doLogin').onclick = async () => {
-            const m = document.getElementById('email').value;
-            const p = document.getElementById('password').value;
-            lBar.style.width = '50%';
+        // --- LÓGICA DE PERSISTENCIA Y CARGA ---
+        const init = async () => {
             try {
-                await signInWithEmailAndPassword(auth, m, p);
-                lBar.style.width = '100%';
-                msg("Identidad Confirmada. Redirigiendo...");
-                setTimeout(() => window.location.href = 'mi-carpeta.html', 1200);
-            } catch (e) {
-                lBar.style.width = '0%';
-                msg("Error: Credenciales no válidas.");
+                // Forzamos a Firebase a recordar la sesión en este navegador
+                await setPersistence(auth, browserLocalPersistence);
+                
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        document.getElementById('loader').style.display = 'none';
+                        document.getElementById('content').style.display = 'grid';
+                        document.getElementById('user-email').innerText = user.email;
+                        renderTramites();
+                    } else {
+                        // Si no hay sesión, al index
+                        window.location.href = 'index.html';
+                    }
+                });
+            } catch (error) {
+                console.error("Error de inicialización:", error);
             }
         };
 
-        // RELOJ
-        setInterval(() => {
-            document.getElementById('live-clock').innerText = new Date().toLocaleTimeString('es-ES');
-        }, 1000);
+        init();
 
-        // VERIFICACIÓN DE TRÁMITES
-        window.checkAuth = (area) => {
-            if(!auth.currentUser) {
-                msg("Identificación requerida para " + area);
-                modal.style.display = 'flex';
-            } else {
-                window.location.href = 'mi-carpeta.html';
-            }
+        document.getElementById('doLogout').onclick = () => {
+            signOut(auth).then(() => window.location.href = 'index.html');
         };
 
-        onAuthStateChanged(auth, (user) => {
-            if(user) {
-                document.getElementById('openAuth').innerHTML = `<i class="fa-solid fa-user-check"></i> MI CARPETA`;
-                document.getElementById('openAuth').onclick = () => window.location.href = 'mi-carpeta.html';
-            }
-        });
+        // --- LISTA EXTENSÍSIMA DE TRÁMITES (50+) ---
+        const db = [
+            { n: "Declaración de la Renta (Modelo 100)", m: "hacienda", u: "renta" },
+            { n: "Impuesto sobre el Patrimonio", m: "hacienda", u: "patrimonio" },
+            { n: "Certificado de Estar al Corriente de Pago", m: "hacienda", u: "corriente-pago" },
+            { n: "Declaración Informativa de Bienes", m: "hacienda", u: "bienes-extranjero" },
+            { n: "Consulta de Deudas Pendientes", m: "hacienda", u: "deudas" },
+            { n: "Cita Previa Agencia Tributaria", m: "hacienda", u: "cita-fiscal" },
+            { n: "Vida Laboral (Informe de Situación)", m: "empleo", u: "vida-laboral" },
+            { n: "Solicitud de Pensión de Jubilación", m: "empleo", u: "jubilacion" },
+            { n: "Prestación por Desempleo", m: "empleo", u: "paro" },
+            { n: "Alta en el Régimen de Autónomos", m: "empleo", u: "autonomos" },
+            { n: "Solicitud de Ingreso Mínimo Vital", m: "empleo", u: "imv" },
+            { n: "Baja por Maternidad o Paternidad", m: "empleo", u: "nacimiento" },
+            { n: "Historial Clínico Digital Unificado", m: "salud", u: "historial" },
+            { n: "Cita Previa Médica Primaria", m: "salud", u: "cita-medica" },
+            { n: "Renovación Tarjeta Sanitaria", m: "salud", u: "tarjeta" },
+            { n: "Certificado COVID Digital", m: "salud", u: "covid" },
+            { n: "Beca de Estudios Universitarios", m: "educacion", u: "beca-uni" },
+            { n: "Homologación de Títulos Extranjeros", m: "educacion", u: "titulos" },
+            { n: "Matrícula en Escuela Oficial de Idiomas", m: "educacion", u: "eoi" },
+            { n: "Beca de Comedor Escolar", m: "educacion", u: "comedor" },
+            { n: "Certificado de Antecedentes Penales", m: "justicia", u: "penales" },
+            { n: "Certificado de Delitos de Naturaleza Sexual", m: "justicia", u: "sexuales" },
+            { n: "Nacionalidad por Residencia", m: "justicia", u: "nacionalidad" },
+            { n: "Registro de Últimas Voluntades", m: "justicia", u: "voluntades" },
+            { n: "Cita para Renovación DNI / Pasaporte", m: "interior", u: "dni" },
+            { n: "Solicitud de Voto por Correo", m: "interior", u: "voto" },
+            { n: "Quejas y Sugerencias Administrativas", m: "administracion", u: "quejas" },
+            { n: "Puntos del Permiso de Conducción", m: "transportes", u: "puntos" },
+            { n: "Renovación Licencia de Conducir", m: "transportes", u: "licencia" },
+            { n: "Ayuda al Alquiler de Rascadores", m: "vivienda", u: "alquiler" },
+            { n: "Consulta de Datos Catastrales", m: "vivienda", u: "catastro" },
+            { n: "Subvención para Vehículos Eléctricos", m: "industria", u: "moves" },
+            { n: "Licencia de Pesca en Río Real", m: "agricultura", u: "pesca" },
+            { n: "Registro de Animales de Compañía", m: "agricultura", u: "mascotas" },
+            { n: "Carnet de Familia Numerosa", m: "social", u: "familia" },
+            { n: "Subvención para Placas Solares", m: "industria", u: "solar" },
+            { n: "Solicitud de Grado de Discapacidad", m: "social", u: "discapacidad" },
+            { n: "Registro de Propiedad Intelectual", m: "cultura", u: "copyright" },
+            { n: "Aviso de Mudanza (Padrón)", m: "interior", u: "padron" },
+            { n: "Consulta del Censo Electoral", m: "interior", u: "censo" },
+            { n: "Abono Transporte Joven", m: "transportes", u: "abono" },
+            { n: "Beca de Formación Profesional", m: "educacion", u: "fp" },
+            { n: "Declaración de Aduanas", m: "hacienda", u: "aduanas" },
+            { n: "Solicitud de Arbitraje de Consumo", m: "administracion", u: "arbitraje" },
+            { n: "Inscripción como Demandante de Empleo", m: "empleo", u: "darde" },
+            { n: "Ayuda por Hijo a Cargo", m: "social", u: "hijos" },
+            { n: "Cita Previa Seguridad Social", m: "empleo", u: "cita-ss" },
+            { n: "Informe de Bases de Cotización", m: "empleo", u: "cotizacion" },
+            { n: "Duplicado de Título Bachiller", m: "educacion", u: "titulo-bach" },
+            { n: "Licencia de Caza", m: "interior", u: "caza" },
+            { n: "Certificado de Representante", m: "hacienda", u: "representante" }
+        ];
+
+        function renderTramites(filtro = "") {
+            const container = document.getElementById('lista-tramites');
+            container.innerHTML = "";
+            const f = db.filter(t => t.n.toLowerCase().includes(filtro.toLowerCase()) || t.m.toLowerCase().includes(filtro.toLowerCase()));
+            
+            f.forEach(t => {
+                const a = document.createElement('a');
+                a.className = "tramite-card";
+                a.href = `https://gobiernodegatolandia.github.io/${t.m}/${t.u}`;
+                a.innerHTML = `
+                    <div class="tramite-info">
+                        <p>Ministerio de ${t.m}</p>
+                        <h4>${t.n}</h4>
+                    </div>
+                    <div class="btn-go"><i class="fa-solid fa-arrow-right-long"></i></div>
+                `;
+                container.appendChild(a);
+            });
+        }
+
+        document.getElementById('filterInput').oninput = (e) => renderTramites(e.target.value);
     </script>
 </body>
 </html>
