@@ -16,27 +16,35 @@
         
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--gob-bg); color: #1e293b; margin: 0; padding: 20px; }
         .container { max-width: 850px; margin: 40px auto; background: white; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); overflow: hidden; }
+        
+        /* Cabecera */
         .gov-header { background-color: var(--gob-blue); color: white; padding: 30px; display: flex; justify-content: space-between; align-items: center; }
         .gov-header h1 { margin: 0; font-size: 1.1rem; letter-spacing: 1px; text-transform: uppercase; }
+        
         .content { padding: 40px; }
         
-        /* Tarjeta Fiscal */
+        /* Bloque de datos */
         .fiscal-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; margin-top: 20px; }
         .data-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f1f5f9; }
         .label { font-weight: 600; color: #64748b; font-size: 0.85rem; }
         .value { font-weight: 700; color: var(--gob-blue); }
         
-        /* Resultado */
+        /* Resultado Final */
         .total-row { margin-top: 20px; padding: 20px; background: #f1f5f9; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
         .total-amount { font-size: 1.6rem; color: #dc2626; font-weight: 800; }
         .total-amount.exento { color: var(--success); }
         
-        .actions { margin-top: 30px; }
-        .btn-primary { background: var(--gob-blue); color: white; border: none; padding: 18px; width: 100%; font-weight: 700; cursor: pointer; border-radius: 6px; text-transform: uppercase; transition: 0.3s; }
+        .btn-primary { 
+            background: var(--gob-blue); color: white; border: none; padding: 18px; width: 100%; 
+            font-weight: 700; cursor: pointer; border-radius: 6px; text-transform: uppercase; transition: 0.3s; 
+            margin-top: 20px;
+        }
         .btn-primary:hover { background: var(--gob-gold); }
         
         .disclaimer { font-size: 0.7rem; color: #94a3b8; margin-top: 25px; line-height: 1.5; text-align: center; }
         #loader { text-align: center; padding: 60px; }
+        
+        .already-done { text-align: center; padding: 40px; }
     </style>
 </head>
 <body>
@@ -53,16 +61,16 @@
     <div class="content">
         <div id="loader">
             <i class="fa-solid fa-spinner fa-spin fa-2x" style="color: var(--gob-gold);"></i>
-            <p style="margin-top:15px; font-size: 0.9rem; color: #64748b;">Accediendo a datos fiscales del contribuyente...</p>
+            <p style="margin-top:15px; font-size: 0.9rem; color: #64748b;">Validando estado de su expediente fiscal...</p>
         </div>
 
         <div id="main-content" style="display: none;">
-            <p>Estimado/a contribuyente <strong id="user-name">...</strong>,</p>
-            <p style="font-size: 0.9rem; color: #475569;">De acuerdo con sus rendimientos del trabajo declarados por su empleador, se ha generado el siguiente borrador:</p>
+            <p>Contribuyente: <strong id="user-name">...</strong></p>
+            <p style="font-size: 0.9rem; color: #475569;">Borrador generado automáticamente según rendimientos íntegros del trabajo:</p>
 
             <div class="fiscal-card">
                 <div class="data-row">
-                    <span class="label">NIF / DNI:</span>
+                    <span class="label">NIF / IDENTIFICADOR:</span>
                     <span id="res-dni" class="value">...</span>
                 </div>
                 <div class="data-row">
@@ -70,34 +78,31 @@
                     <span id="res-sueldo" class="value">0 RG</span>
                 </div>
                 <div class="data-row">
-                    <span class="label">MÍNIMO VITAL EXENTO:</span>
+                    <span class="label">EXENCIÓN POR MÍNIMO VITAL:</span>
                     <span class="value" style="color: var(--success);">- 25.000,00 RG</span>
                 </div>
                 <div class="data-row">
-                    <span class="label">TRAMO FISCAL:</span>
+                    <span class="label">TRAMO APLICABLE:</span>
                     <span id="res-tramo" class="value">---</span>
                 </div>
             </div>
 
             <div class="total-row">
                 <div>
-                    <span style="display:block; font-size:0.65rem; font-weight:800; color:#64748b; text-transform: uppercase;">Resultado de Autoliquidación</span>
+                    <span style="display:block; font-size:0.65rem; font-weight:800; color:#64748b; text-transform: uppercase;">Liquidación</span>
                     <span style="font-size:1rem; font-weight:700;" id="texto-resultado">CUOTA A INGRESAR</span>
                 </div>
                 <div class="total-amount" id="res-cuota">0,00 RG</div>
             </div>
 
-            <div style="text-align: right; margin-top: 10px; font-size: 0.8rem; color: #64748b; font-style: italic;">
-                Valoración internacional: <span id="res-euro">0,00 €</span> (Tasa 1 RG = 0,50€)
+            <div style="text-align: right; margin-top: 10px; font-size: 0.8rem; color: #64748b;">
+                Equivalencia oficial: <span id="res-euro">0,00 €</span> (1 RG = 0,50€)
             </div>
 
-            <div class="actions">
-                <button class="btn-primary" onclick="presentarRenta()">Confirmar y Presentar Declaración</button>
-            </div>
+            <button class="btn-primary" onclick="presentarRenta()">Presentar Declaración Oficial</button>
 
             <p class="disclaimer">
-                El impuesto sobre patrimonio (viviendas y vehículos) se liquida en el momento de la compra.<br>
-                Esta declaración se limita a los rendimientos del trabajo personal.
+                Gatolandia garantiza un coste de vida inferior a la UE. Los impuestos sobre inmuebles y vehículos no se incluyen en esta autoliquidación por gravarse en el momento de la transmisión.
             </p>
         </div>
     </div>
@@ -108,6 +113,7 @@
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
     import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
+    // Credenciales oficiales proporcionadas
     const firebaseConfig = {
         apiKey: "AIzaSyCUBDdTMyQTwQo4FzKpDZDpOAKGPVcki4I",
         authDomain: "sedegatogob.firebaseapp.com",
@@ -128,13 +134,27 @@
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
-            const data = docSnap.data().perfil;
-            const sueldo = data.sueldo || 0;
+            const fullData = docSnap.data();
             
+            // --- BLOQUEO: Verificar si ya se presentó ---
+            if (fullData.tramites && fullData.tramites.renta_2026) {
+                document.getElementById('loader').innerHTML = `
+                    <div class="already-done">
+                        <i class="fa-solid fa-file-circle-check fa-4x" style="color: var(--success); margin-bottom: 20px;"></i>
+                        <h2 style="color: var(--gob-blue);">DECLARACIÓN YA PRESENTADA</h2>
+                        <p style="color: #64748b;">Usted ya cumplió con sus obligaciones fiscales para el ejercicio 2026.</p>
+                        <button class="btn-primary" onclick="window.location.href='../mi-carpeta.html'" style="width:auto; padding: 12px 40px;">VOLVER AL PORTAL</button>
+                    </div>
+                `;
+                return;
+            }
+
+            const perfil = fullData.perfil;
+            const sueldo = perfil.sueldo || 0;
             let cuota = 0;
             let tramoNombre = "";
 
-            // --- Lógica Fiscal de Gatolandia (Seria y Progresiva) ---
+            // --- CÁLCULO GATOLANDÉS ---
             if (sueldo <= 25000) {
                 cuota = 0;
                 tramoNombre = "Exento (Mínimo Vital)";
@@ -151,19 +171,20 @@
                 tramoNombre = "28% (Grandes Rentas)";
             }
 
-            // Inyectar datos
-            document.getElementById('user-name').innerText = data.nombre;
-            document.getElementById('res-dni').innerText = data.dni;
+            // Inyectar Datos en UI
+            document.getElementById('user-name').innerText = perfil.nombre + " " + (perfil.apellidos || "");
+            document.getElementById('res-dni').innerText = perfil.dni;
             document.getElementById('res-sueldo').innerText = sueldo.toLocaleString() + " RG";
             document.getElementById('res-tramo').innerText = tramoNombre;
-            document.getElementById('res-cuota').innerText = cuota.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + " RG";
-            document.getElementById('res-euro').innerText = (cuota * 0.5).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + " €";
+            document.getElementById('res-cuota').innerText = cuota.toLocaleString(undefined, {minimumFractionDigits: 2}) + " RG";
+            document.getElementById('res-euro').innerText = (cuota * 0.5).toLocaleString(undefined, {minimumFractionDigits: 2}) + " €";
 
             document.getElementById('loader').style.display = 'none';
             document.getElementById('main-content').style.display = 'block';
 
+            // Función de Presentación
             window.presentarRenta = async () => {
-                if(confirm("¿Declara que estos datos son correctos? La firma se registrará en su expediente oficial.")) {
+                if(confirm("Al confirmar, se generará un asiento electrónico irreversible en Hacienda. ¿Proceder?")) {
                     try {
                         await updateDoc(docRef, {
                             [`tramites.renta_2026`]: {
@@ -174,10 +195,10 @@
                                 estado: "COMPLETADO"
                             }
                         });
-                        alert("Declaración presentada correctamente.");
+                        alert("Declaración registrada correctamente en la Sede Electrónica.");
                         window.location.href = "../mi-carpeta.html";
                     } catch (e) {
-                        alert("Error en el sistema de Hacienda: " + e.message);
+                        alert("Error de conexión con el servidor fiscal.");
                     }
                 }
             };
