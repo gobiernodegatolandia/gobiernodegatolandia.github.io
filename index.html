@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sede Electrónica | Gobierno de Gatolandia</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gob-blue: #003366;
+            --gob-accent: #d4af37;
+            --bg-light: #f4f7f9;
+            --white: #ffffff;
+            --text-dark: #1a1a1a;
+            --text-muted: #576574;
+            --success: #10ac84;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* BARRA SUPERIOR INSTITUCIONAL */
+        .top-bar {
+            background: var(--gob-blue);
+            color: white;
+            padding: 10px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+        }
+
+        .gob-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: white;
+            opacity: 0.9;
+        }
+
+        .gob-link:hover {
+            opacity: 1;
+        }
+
+        /* HEADER PRINCIPAL */
+        header {
+            background: var(--white);
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-area img {
+            width: 50px;
+            border-radius: 4px;
+            border: 1px solid var(--gob-accent);
+        }
+
+        .logo-area div h1 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--gob-blue);
+            letter-spacing: -0.5px;
+        }
+
+        .logo-area div p {
+            font-size: 0.75rem;
+            color: var(--gob-accent);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-outline {
+            border: 1.5px solid var(--gob-blue);
+            color: var(--gob-blue);
+        }
+
+        .btn-primary {
+            background: var(--gob-blue);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #004080;
+            transform: translateY(-2px);
+        }
+
+        /* HERO SECTION */
+        .hero {
+            background: linear-gradient(rgba(0, 51, 102, 0.9), rgba(0, 51, 102, 0.9)), url('https://www.transparenttextures.com/patterns/cubes.png');
+            padding: 80px 5%;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .search-box {
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 20px 30px 20px 60px;
+            border-radius: 12px;
+            border: none;
+            font-size: 1.1rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gob-blue);
+            font-size: 1.2rem;
+        }
+
+        /* GRID DE SERVICIOS */
+        .container {
+            max-width: 1200px;
+            margin: -50px auto 50px;
+            padding: 0 20px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            border-bottom: 4px solid transparent;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gob-accent);
+        }
+
+        .card i {
+            font-size: 2.5rem;
+            color: var(--gob-blue);
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--gob-blue);
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* ESTADO DE SERVICIOS */
+        .status-bar {
+            background: #fff;
+            padding: 15px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+            font-size: 0.85rem;
+            border: 1px solid var(--border);
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(16, 172, 132, 0.7);
+            }
+
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 10px rgba(16, 172, 132, 0);
+            }
+
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(16, 172, 132, 0);
+            }
+        }
+
+        footer {
+            background: #1e272e;
+            color: white;
+            padding: 50px 5%;
+            margin-top: 100px;
+            text-align: center;
+        }
+
+        /* TOAST NOTIFICATION */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gob-blue);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            display: none;
+            z-index: 2000;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-bar">
+        <a href="#" class="gob-link"><i class="fa-solid fa-crown"></i> Portal Institucional del Reino</a>
+        <div>Miércoles, 15 de Abril de 2026</div>
+    </div>
+
+    <header>
+        <div class="logo-area">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmc--YeQPZVE_Rs3xrp3DhwyCJe9lVXL0LqA&s" alt="Escudo Gatolandia">
+            <div>
+                <h1>SEDE ELECTRÓNICA</h1>
+                <p>Gobierno de Gatolandia</p>
+            </div>
+        </div>
+        <div class="auth-buttons">
+            <button class="btn btn-outline" onclick="window.location.href='https://cocacolalandia.github.io/gatolandia/bor'"><i class="fa-solid fa-book"></i> BOR</button>
+            <button class="btn btn-primary" onclick="iniciarSesion()"><i class="fa-solid fa-id-card"></i> Identidad Gatuna</button>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h2>¿Qué trámite desea realizar?</h2>
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="Ej: Solicitar Beca Miaumiau, Renovación de DNI-G...">
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="services-grid">
+            <a href="#" class="card" onclick="irATramite('Carpeta Ciudadana')">
+                <i class="fa-solid fa-folder-open"></i>
+                <h3>Mi Carpeta</h3>
+                <p>Consulte sus expedientes, documentos y notificaciones oficiales.</p>
+            </a>
+            <a href="#" class="card" onclick="irATramite('Padron Municipal')">
+                <i class="fa-solid fa-house-user"></i>
+                <h3>Empadronamiento</h3>
+                <p>Alta, cambio de domicilio y certificados de residencia en el Reino.</p>
+            </a>
+            <a href="#" class="card" onclick="irATramite('Impuestos y Tasas')">
+                <i class="fa-solid fa-coins"></i>
+                <h3>Impuestos y Tasas</h3>
+                <p>Pago de tributos reales, autoliquidaciones y aplazamientos.</p>
+            </a>
+            <a href="#" class="card" onclick="irATramite('Salud Gatuna')">
+                <i class="fa-solid fa-heart-pulse"></i>
+                <h3>Salud Pública</h3>
+                <p>Cita previa sanitaria y acceso a su historial clínico gatuno.</p>
+            </a>
+            <a href="#" class="card" onclick="irATramite('Empleo Publico')">
+                <i class="fa-solid fa-briefcase"></i>
+                <h3>Empleo Público</h3>
+                <p>Oposiciones, bolsas de trabajo y concursos de traslados.</p>
+            </a>
+            <a href="#" class="card" onclick="irATramite('Registro Electronico')">
+                <i class="fa-solid fa-pen-nib"></i>
+                <h3>Registro Electrónico</h3>
+                <p>Presentación de instancias y documentos de forma oficial.</p>
+            </a>
+        </div>
+
+        <div class="status-bar">
+            <div class="status-item">
+                <div class="dot"></div> Firma Electrónica: Operativa
+            </div>
+            <div class="status-item">
+                <div class="dot"></div> Pasarela de Pagos: Operativa
+            </div>
+            <div class="status-item">
+                <div class="dot"></div> Verificación de Documentos: Activa
+            </div>
+        </div>
+    </div>
+
+    <div id="toast">Accediendo a la pasarela segura...</div>
+
+    <footer>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmc--YeQPZVE_Rs3xrp3DhwyCJe9lVXL0LqA&s" style="width: 40px; margin-bottom: 20px; opacity: 0.5;">
+        <p>&copy; 2026 Gobierno del Reino de Gatolandia. Todos los derechos reservados.</p>
+        <p style="font-size: 0.8rem; margin-top: 10px; opacity: 0.6;">Contacto | Aviso Legal | Accesibilidad | Política de Cookies</p>
+    </footer>
+
+    <script>
+        function iniciarSesion() {
+            const toast = document.getElementById('toast');
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.innerText = "⚠️ Identidad Gatuna no detectada. Por favor, inserte su tarjeta en el lector.";
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 3000);
+            }, 1500);
+        }
+
+        function irATramite(nombre) {
+            const toast = document.getElementById('toast');
+            toast.style.display = 'block';
+            toast.innerText = "Redirigiendo a: " + nombre + "...";
+            setTimeout(() => {
+                toast.innerText = "Esta sección de la Sede está en mantenimiento programado.";
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 3000);
+            }, 2000);
+        }
+    </script>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import {
+            initializeApp
+        } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCUBDdTMyQTwQo4FzKpDZDpOAKGPVcki4I",
+            authDomain: "sedegatogob.firebaseapp.com",
+            projectId: "sedegatogob",
+            storageBucket: "sedegatogob.firebasestorage.app",
+            messagingSenderId: "764639776502",
+            appId: "1:764639776502:web:99f6e1a045f5d4810666d7"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+    </script>
+</body>
+
+</html>
