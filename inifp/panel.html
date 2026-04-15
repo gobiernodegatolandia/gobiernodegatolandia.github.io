@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIAE - Sistema de Identificación y Alta de Expedientes | INIFP</title>
+    <title>SIAE - Gestión de Identidades | INIFP</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Source+Sans+3:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <style>
@@ -19,10 +19,9 @@
             font-family: 'Source Sans 3', sans-serif; 
             background-color: #eef2f5; 
             color: #1a1a1a; 
-            display: none; /* Seguridad: Solo se muestra si es funcionario */
+            display: none; /* Seguridad */
         }
 
-        /* --- CABECERA GUBERNAMENTAL --- */
         header { 
             background: var(--inifp-dark); 
             color: white; 
@@ -32,10 +31,7 @@
             align-items: center;
             border-bottom: 3px solid var(--inifp-accent);
         }
-        .logo-area { display: flex; align-items: center; gap: 15px; }
-        .logo-area h1 { font-size: 1.1rem; letter-spacing: 2px; font-weight: 900; }
 
-        /* --- FORMULARIO DE ALTA --- */
         .container { max-width: 900px; margin: 40px auto; padding: 20px; }
         .office-card { 
             background: white; 
@@ -48,11 +44,23 @@
         .header-form { border-bottom: 1px solid #ddd; margin-bottom: 30px; padding-bottom: 20px; }
         .header-form h2 { font-size: 1.5rem; color: var(--inifp-dark); text-transform: uppercase; }
 
+        .section-label { 
+            grid-column: span 2; 
+            background: #f8f9fa; 
+            padding: 8px 15px; 
+            font-weight: 800; 
+            font-size: 0.7rem; 
+            color: #666; 
+            border-left: 3px solid var(--inifp-accent);
+            margin: 10px 0;
+        }
+
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .full { grid-column: span 2; }
 
-        .field { margin-bottom: 20px; }
-        label { display: block; font-size: 0.75rem; font-weight: 700; color: #555; text-transform: uppercase; margin-bottom: 5px; }
+        .field { margin-bottom: 15px; }
+        label { display: block; font-size: 0.7rem; font-weight: 700; color: #555; text-transform: uppercase; margin-bottom: 5px; }
+        
         input, select { 
             width: 100%; 
             padding: 12px; 
@@ -60,8 +68,9 @@
             background: #fafafa;
             font-family: 'Roboto Mono', monospace;
             font-size: 0.9rem;
+            border-radius: 4px;
         }
-        input:focus { border-color: var(--inifp-accent); outline: none; background: white; }
+        input:focus, select:focus { border-color: var(--inifp-accent); outline: none; background: white; }
 
         .btn-register { 
             background: var(--inifp-dark); 
@@ -73,7 +82,6 @@
             cursor: pointer; 
             text-transform: uppercase;
             letter-spacing: 1px;
-            transition: 0.3s;
             margin-top: 20px;
         }
         .btn-register:hover { background: #002b52; }
@@ -84,38 +92,41 @@
             font-weight: 700; 
             text-align: center; 
             display: none; 
-            border: 1px solid transparent;
         }
-        .msg-ok { background: #e8f5e9; color: var(--success); border-color: var(--success); }
-        .msg-err { background: #ffebee; color: var(--danger); border-color: var(--danger); }
-
-        .footer-note { text-align: center; margin-top: 30px; font-size: 0.7rem; color: #999; }
+        .msg-ok { background: #e8f5e9; color: var(--success); border: 1px solid var(--success); }
+        .msg-err { background: #ffebee; color: var(--danger); border: 1px solid var(--danger); }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo-area">
-            <i class="fa-solid fa-building-shield" style="color: var(--inifp-accent); font-size: 1.5rem;"></i>
-            <h1>INIFP <span style="font-weight: 300; color: #aaa;">| GOBIERNO DE GATOLANDIA</span></h1>
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <i class="fa-solid fa-building-columns" style="color: var(--inifp-accent); font-size: 1.5rem;"></i>
+            <h1 style="font-size: 1.1rem; letter-spacing: 2px;">INIFP <span style="font-weight: 300; color: #aaa;">| ALTA CIUDADANA</span></h1>
         </div>
-        <div id="func-info" style="font-size: 0.7rem; font-family: 'Roboto Mono';">
-            AUTENTICANDO FUNCIONARIO...
-        </div>
+        <div id="func-name" style="font-size: 0.7rem; font-family: 'Roboto Mono';">AUTENTICANDO...</div>
     </header>
 
     <div class="container">
         <div class="office-card">
             <div class="header-form">
-                <h2>Emisión de Identidad Fiscal y Personal</h2>
-                <p style="font-size: 0.8rem; color: #777;">Registro oficial en el Pasaporte Digital del Reino.</p>
+                <h2>Emisión de Pasaporte Digital</h2>
+                <p style="font-size: 0.8rem; color: #777;">Registro de credenciales y datos biográficos oficiales.</p>
             </div>
 
             <div class="grid">
-                <div class="field full">
-                    <label><i class="fa-solid fa-key"></i> UID de Firebase (Identificador Único del Ciudadano)</label>
-                    <input type="text" id="uid" placeholder="uR7x9Wz..." required>
+                <div class="section-label">CREDENCIALES DE ACCESO AL SISTEMA</div>
+                
+                <div class="field">
+                    <label>Correo Electrónico Oficial</label>
+                    <input type="email" id="reg-email" placeholder="ejemplo@gatolandia.gob" required>
                 </div>
+                <div class="field">
+                    <label>Contraseña Provisional</label>
+                    <input type="text" id="reg-password" placeholder="Min. 6 caracteres" required>
+                </div>
+
+                <div class="section-label">DATOS DE IDENTIDAD PERSONAL</div>
 
                 <div class="field">
                     <label>Nombre(s)</label>
@@ -125,49 +136,51 @@
                     <label>Apellidos</label>
                     <input type="text" id="apellidos" required>
                 </div>
-
                 <div class="field">
                     <label>DNI / NIE / CIF</label>
-                    <input type="text" id="dni" placeholder="00000000X" required>
+                    <input type="text" id="dni" required>
                 </div>
                 <div class="field">
-                    <label>Tipo de Entidad</label>
+                    <label>Tipo de Sujeto</label>
                     <select id="tipo">
                         <option value="ciudadano">Ciudadano</option>
-                        <option value="empresa">Empresa / Entidad Jurídica</option>
+                        <option value="empresa">Empresa / Persona Jurídica</option>
                         <option value="inifp">Funcionario INIFP</option>
                     </select>
                 </div>
 
+                <div class="section-label">VÍNCULO LABORAL Y RESIDENCIA</div>
+
                 <div class="field">
-                    <label>Profesión / Actividad</label>
-                    <input type="text" id="trabajo" placeholder="Ej: Analista de Datos">
+                    <label>Empresa Empleadora</label>
+                    <select id="empresa-select">
+                        <option value="Sin empleo / Autónomo">Sin empleo / Autónomo</option>
+                        <option value="Gobierno de Gatolandia">Gobierno de Gatolandia</option>
+                        </select>
                 </div>
                 <div class="field">
-                    <label>Sueldo Base Anual (G)</label>
-                    <input type="number" id="sueldo" placeholder="0.00">
+                    <label>Cargo / Puesto de Trabajo</label>
+                    <input type="text" id="puesto" placeholder="Ej: Analista de Sistemas">
                 </div>
 
                 <div class="field full">
-                    <label>Dirección Fiscal / Residencia</label>
-                    <input type="text" id="direccion" placeholder="Calle, Número, Piso, Ciudad">
+                    <label>Dirección Postal Registrada</label>
+                    <input type="text" id="direccion" required>
                 </div>
             </div>
 
-            <button class="btn-register" id="btnEmitir">
-                <i class="fa-solid fa-file-signature"></i> Firmar y Emitir Identidad
+            <button class="btn-register" id="btnProcesar">
+                <i class="fa-solid fa-stamp"></i> Registrar y Emitir Pasaporte
             </button>
 
             <div id="status-msg"></div>
         </div>
-        
-        <p class="footer-note">El uso no autorizado de este sistema está penado por el Código Penal de Gatolandia.</p>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCUBDdTMyQTwQo4FzKpDZDpOAKGPVcki4I",
@@ -182,17 +195,19 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // --- CONTROL DE ACCESO ---
+        // Instancia secundaria para no desloguear al funcionario
+        const secondaryApp = initializeApp(firebaseConfig, "Secondary");
+        const secondaryAuth = getAuth(secondaryApp);
+
+        // --- 1. VERIFICAR RANGO Y CARGAR EMPRESAS ---
         onAuthStateChanged(auth, async (user) => {
             if (user) {
-                const docRef = doc(db, "usuarios", user.uid);
-                const docSnap = await getDoc(docRef);
-
+                const docSnap = await getDoc(doc(db, "usuarios", user.uid));
                 if (docSnap.exists() && docSnap.data().perfil.tipo === "inifp") {
                     document.body.style.display = 'block';
-                    document.getElementById('func-info').innerText = "FUNCIONARIO ID: " + user.uid.substring(0,8).toUpperCase();
+                    document.getElementById('func-name').innerText = "FUNCIONARIO: " + user.email;
+                    cargarEmpresas();
                 } else {
-                    alert("ACCESO RESTRINGIDO: Solo personal del INIFP.");
                     window.location.href = "../mi-carpeta.html";
                 }
             } else {
@@ -200,46 +215,59 @@
             }
         });
 
-        // --- EMISIÓN DE DATOS ---
-        document.getElementById('btnEmitir').onclick = async () => {
-            const btn = document.getElementById('btnEmitir');
-            const uid = document.getElementById('uid').value.trim();
-            const msg = document.getElementById('status-msg');
+        // --- 2. BUSCAR EMPRESAS EN LA BASE DE DATOS ---
+        async function cargarEmpresas() {
+            const q = query(collection(db, "usuarios"), where("perfil.tipo", "==", "empresa"));
+            const querySnapshot = await getDocs(q);
+            const select = document.getElementById('empresa-select');
+            
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                const option = document.createElement('option');
+                option.value = data.perfil.nombre;
+                option.textContent = data.perfil.nombre;
+                select.appendChild(option);
+            });
+        }
 
-            if(!uid) { alert("UID de ciudadano requerido"); return; }
+        // --- 3. PROCESAR ALTA ---
+        document.getElementById('btnProcesar').onclick = async () => {
+            const email = document.getElementById('reg-email').value;
+            const pass = document.getElementById('reg-password').value;
+            const status = document.getElementById('status-msg');
 
-            btn.disabled = true;
-            btn.innerText = "PROCESANDO FIRMA DIGITAL...";
-
-            const payload = {
-                perfil: {
-                    nombre: document.getElementById('nombre').value,
-                    apellidos: document.getElementById('apellidos').value,
-                    dni: document.getElementById('dni').value,
-                    tipo: document.getElementById('tipo').value,
-                    trabajo: document.getElementById('trabajo').value,
-                    sueldo: Number(document.getElementById('sueldo').value),
-                    direccion: document.getElementById('direccion').value
-                },
-                tramites: {} // Historial vacío para empezar
-            };
+            if(!email || !pass) return alert("Email y Password son obligatorios");
 
             try {
-                await setDoc(doc(db, "usuarios", uid), payload);
+                // Crear en Auth
+                const userCred = await createUserWithEmailAndPassword(secondaryAuth, email, pass);
+                const uid = userCred.user.uid;
+
+                // Crear en Firestore
+                await setDoc(doc(db, "usuarios", uid), {
+                    perfil: {
+                        nombre: document.getElementById('nombre').value,
+                        apellidos: document.getElementById('apellidos').value,
+                        dni: document.getElementById('dni').value,
+                        tipo: document.getElementById('tipo').value,
+                        trabajo: document.getElementById('puesto').value,
+                        empresa: document.getElementById('empresa-select').value,
+                        direccion: document.getElementById('direccion').value
+                    },
+                    tramites: {}
+                });
+
+                await signOut(secondaryAuth);
                 
-                msg.innerText = "IDENTIDAD EMITIDA: El ciudadano ya puede acceder a su Carpeta.";
-                msg.className = "msg-ok";
-                msg.style.display = "block";
-                
-                // Limpiar formulario
+                status.innerText = "ALTA EXITOSA: " + email;
+                status.className = "msg-ok";
+                status.style.display = "block";
                 document.querySelectorAll('input').forEach(i => i.value = "");
+
             } catch (error) {
-                msg.innerText = "ERROR DE SISTEMA: " + error.message;
-                msg.className = "msg-err";
-                msg.style.display = "block";
-            } finally {
-                btn.disabled = false;
-                btn.innerText = "FIRMAR Y EMITIR IDENTIDAD";
+                status.innerText = "ERROR: " + error.message;
+                status.className = "msg-err";
+                status.style.display = "block";
             }
         };
     </script>
