@@ -3,109 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Carpeta | Gobierno de Gatolandia</title>
+    <title>Sede Electrónica | Reino de Gatolandia</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --gob-blue: #001f3d; --gob-gold: #b8924e; --gob-bg: #f8fafc;
-            --white: #ffffff; --success: #10b981; --danger: #ef4444;
+            --white: #ffffff; --success: #10b981; --warning: #f59e0b; --danger: #ef4444;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
         body { background-color: var(--gob-bg); color: #1e293b; }
 
+        /* Estructura Base */
         #loader { position: fixed; inset:0; background:white; display:flex; flex-direction:column; align-items:center; justify-content:center; z-index:9999; }
         #content { display: none; grid-template-columns: 280px 1fr; min-height: 100vh; }
-        
         aside { background: var(--gob-blue); color: white; padding: 30px; position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; }
         main { padding: 40px 5%; overflow-y: auto; }
 
-        .id-card { 
-            background: white; padding: 25px; border-radius: 20px; margin-bottom: 30px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;
-            display: flex; gap: 20px; align-items: center;
-        }
+        /* Componentes UI */
+        .card { background: white; padding: 25px; border-radius: 20px; margin-bottom: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
+        .section-title { font-size: 1.1rem; color: var(--gob-blue); margin: 35px 0 15px; display: flex; align-items: center; gap: 10px; text-transform: uppercase; letter-spacing: 1px; }
+        
+        /* Grid de Datos */
+        .data-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 20px; }
         .data-item label { font-size: 0.6rem; color: #64748b; font-weight: 800; text-transform: uppercase; display: block; }
-        .data-item span { font-size: 0.9rem; font-weight: 700; color: var(--gob-blue); }
+        .data-item span { font-size: 0.95rem; font-weight: 700; color: var(--gob-blue); }
 
-        /* Panel de Empresa */
-        .empresa-panel { background: #eff6ff; border: 1px solid #bfdbfe; padding: 25px; border-radius: 20px; margin-top: 20px; }
-        .form-empresa { display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 10px; margin-top: 15px; }
-        input { padding: 10px; border: 1px solid #ccc; border-radius: 8px; }
-        
-        .btn-update { background: var(--gob-blue); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 700; }
-        .btn-update:hover { background: var(--gob-gold); }
+        /* Tablas y Formularios */
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.85rem; }
+        th { background: #f1f5f9; text-align: left; padding: 12px; font-size: 0.65rem; color: #64748b; }
+        td { padding: 12px; border-bottom: 1px solid #eee; }
+        .form-row { display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
+        input { padding: 10px; border: 1px solid #ccc; border-radius: 8px; flex: 1; min-width: 150px; }
 
-        .section-title { font-size: 1.2rem; color: var(--gob-blue); margin: 30px 0 20px; display: flex; align-items: center; gap: 10px; }
-        .btn-logout { background: var(--danger); color: white; border: none; padding: 12px; border-radius: 10px; cursor: pointer; font-weight: 700; margin-top: auto; width: 100%; }
-        
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; border-radius: 10px; overflow: hidden; }
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; font-size: 0.9rem; }
-        th { background: #f1f5f9; color: #64748b; text-transform: uppercase; font-size: 0.7rem; }
+        /* Botones y Varios */
+        .btn-primary { background: var(--gob-blue); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 700; }
+        .btn-logout { background: var(--danger); color: white; border: none; padding: 12px; border-radius: 10px; cursor: pointer; font-weight: 700; margin-top: auto; }
     </style>
 </head>
 <body>
 
-    <div id="loader">
-        <i class="fa-solid fa-shield-cat fa-spin" style="font-size: 3rem; color: var(--gob-blue);"></i>
-        <p style="margin-top: 15px; font-weight: 600;">Sincronizando con el Banco Central...</p>
-    </div>
+    <div id="loader"><i class="fa-solid fa-shield-cat fa-spin" style="font-size: 3rem; color: var(--gob-blue);"></i></div>
 
     <div id="content">
         <aside>
             <div style="text-align: center; margin-bottom: 30px;">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmc--YeQPZVE_Rs3xrp3DhwyCJe9lVXL0LqA&s" width="60">
-                <h2 style="font-size: 0.9rem; margin-top: 10px; color: var(--gob-gold);">SEDE ELECTRÓNICA</h2>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmc--YeQPZVE_Rs3xrp3DhwyCJe9lVXL0LqA&s" width="55">
+                <h2 style="font-size: 0.8rem; margin-top: 10px; color: var(--gob-gold);">REINO DE GATOLANDIA</h2>
             </div>
-            <nav id="menu">
-                </nav>
+            <div id="nav-user-info" style="font-size: 0.7rem; margin-bottom: 20px; opacity: 0.8;"></div>
             <button class="btn-logout" id="logoutBtn">CERRAR SESIÓN</button>
         </aside>
 
-        <main>
-            <h2 class="section-title"><i class="fa-solid fa-id-badge"></i> Perfil Oficial</h2>
-            <div class="id-card" id="profile-card">
-                <div class="id-details" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; width: 100%;">
-                    <div class="data-item"><label>Titular</label><span id="val-nombre">...</span></div>
-                    <div class="data-item"><label>Identificación</label><span id="val-dni">...</span></div>
-                    <div class="data-item"><label>Entidad/Cargo</label><span id="val-trabajo">...</span></div>
-                    <div class="data-item"><label>Renta Anual</label><span id="val-sueldo" style="color: var(--success);">...</span></div>
-                </div>
-            </div>
+        <main id="app-viewport">
+            <section id="mod-identidad"></section>
 
-            <div id="panel-gestion-empresa" style="display: none;">
-                <h2 class="section-title"><i class="fa-solid fa-users-gear"></i> Gestión de Capital Humano</h2>
-                <div class="empresa-panel">
-                    <p style="font-size: 0.8rem; font-weight: 700; color: var(--gob-blue);">ASIGNAR / EDITAR TRABAJADOR</p>
-                    <div class="form-empresa">
-                        <input type="text" id="emp-dni" placeholder="DNI del trabajador">
-                        <input type="text" id="emp-puesto" placeholder="Cargo">
-                        <input type="number" id="emp-sueldo" placeholder="Sueldo (Reales)">
-                        <button class="btn-update" id="btnAsignar">ACTUALIZAR FICHA</button>
-                    </div>
-                </div>
+            <section id="mod-rol-especifico"></section>
 
-                <h2 class="section-title"><i class="fa-solid fa-list-check"></i> Plantilla Registrada</h2>
-                <table id="tabla-empleados">
-                    <thead>
-                        <tr>
-                            <th>Trabajador</th>
-                            <th>DNI</th>
-                            <th>Cargo</th>
-                            <th>Sueldo Anual</th>
-                        </tr>
-                    </thead>
-                    <tbody id="lista-empleados">
-                        </tbody>
-                </table>
-            </div>
+            <section id="mod-tramites"></section>
 
-            <div id="panel-ciudadano">
-                <h2 class="section-title"><i class="fa-solid fa-briefcase"></i> Mi Situación Laboral</h2>
-                <div class="id-card">
-                    <p id="msg-laboral">Cargando vinculación empresarial...</p>
-                </div>
-            </div>
+            <section id="mod-catalogo"></section>
         </main>
     </div>
 
@@ -127,27 +84,13 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
+        // --- MOTOR DEL SISTEMA ---
         onAuthStateChanged(auth, async (user) => {
             if (user) {
-                const docRef = doc(db, "usuarios", user.uid);
-                const docSnap = await getDoc(docRef);
-
-                if (docSnap.exists()) {
-                    const data = docSnap.data();
-                    const perfil = data.perfil;
-                    
-                    // Actualizar Ficha Básica
-                    document.getElementById('val-nombre').innerText = `${perfil.nombre} ${perfil.apellidos || ''}`;
-                    document.getElementById('val-dni').innerText = perfil.dni;
-                    document.getElementById('val-trabajo').innerText = perfil.trabajo || "Sin asignar";
-                    document.getElementById('val-sueldo').innerText = `${perfil.sueldo || 0} Reales Gatolandeses`;
-
-                    if (perfil.tipo === "empresa") {
-                        mostrarPanelEmpresa(perfil.nombre);
-                    } else {
-                        document.getElementById('panel-ciudadano').style.display = 'block';
-                        document.getElementById('msg-laboral').innerText = perfil.empresa ? `Empleado en: ${perfil.empresa}` : "Actualmente no figura vinculación con ninguna empresa.";
-                    }
+                const userDoc = await getDoc(doc(db, "usuarios", user.uid));
+                if (userDoc.exists()) {
+                    const userData = userDoc.data();
+                    inicializarModulos(userData, user.uid);
                 }
                 document.getElementById('loader').style.display = 'none';
                 document.getElementById('content').style.display = 'grid';
@@ -156,59 +99,118 @@
             }
         });
 
-        // --- LÓGICA DE EMPRESA ---
-        async function mostrarPanelEmpresa(nombreEmpresa) {
-            document.getElementById('panel-gestion-empresa').style.display = 'block';
-            document.getElementById('panel-ciudadano').style.display = 'none';
+        function inicializarModulos(data, uid) {
+            renderIdentidad(data.perfil);
+            renderTramites(data.tramites);
+            renderCatalogo();
             
-            // Cargar empleados actuales
-            const q = query(collection(db, "usuarios"), where("perfil.empresa", "==", nombreEmpresa));
-            const querySnapshot = await getDocs(q);
-            const tbody = document.getElementById('lista-empleados');
-            tbody.innerHTML = "";
-            
-            querySnapshot.forEach((doc) => {
-                const p = doc.data().perfil;
-                tbody.innerHTML += `<tr>
-                    <td>${p.nombre} ${p.apellidos}</td>
-                    <td>${p.dni}</td>
-                    <td>${p.trabajo}</td>
-                    <td>${p.sueldo} RG</td>
-                </tr>`;
-            });
+            // Inyección condicional de módulo de ROL
+            if (data.perfil.tipo === 'empresa') {
+                renderModuloEmpresa(data.perfil.nombre);
+            } else {
+                renderModuloCiudadano(data.perfil.empresa);
+            }
+            document.getElementById('nav-user-info').innerText = data.perfil.dni;
         }
 
-        // --- ASIGNAR/EDITAR TRABAJADOR ---
-        document.getElementById('btnAsignar').onclick = async () => {
-            const dniBusca = document.getElementById('emp-dni').value;
-            const nuevoPuesto = document.getElementById('emp-puesto').value;
-            const nuevoSueldo = Number(document.getElementById('emp-sueldo').value);
-            
-            // 1. Buscar al trabajador por DNI
-            const q = query(collection(db, "usuarios"), where("perfil.dni", "==", dniBusca));
+        // --- MODULO: IDENTIDAD ---
+        function renderIdentidad(p) {
+            document.getElementById('mod-identidad').innerHTML = `
+                <h2 class="section-title"><i class="fa-solid fa-id-card"></i> Identidad Digital</h2>
+                <div class="card">
+                    <div class="data-grid">
+                        <div class="data-item"><label>Titular</label><span>${p.nombre} ${p.apellidos || ''}</span></div>
+                        <div class="data-item"><label>ID Oficial</label><span>${p.dni}</span></div>
+                        <div class="data-item"><label>Actividad</label><span>${p.trabajo || 'N/A'}</span></div>
+                        <div class="data-item"><label>Renta Anual</label><span style="color:var(--success)">${p.sueldo || 0} Reales Gatolandeses</span></div>
+                    </div>
+                </div>`;
+        }
+
+        // --- MODULO: EMPRESA ---
+        async function renderModuloEmpresa(nombreEmpresa) {
+            const container = document.getElementById('mod-rol-especifico');
+            container.innerHTML = `
+                <h2 class="section-title"><i class="fa-solid fa-users-gear"></i> Gestión de Personal</h2>
+                <div class="card" style="background:#f0f7ff">
+                    <div class="form-row">
+                        <input type="text" id="inp-dni" placeholder="DNI del trabajador">
+                        <input type="text" id="inp-puesto" placeholder="Cargo">
+                        <input type="number" id="inp-sueldo" placeholder="Sueldo (RG)">
+                        <button class="btn-primary" id="btn-actualizar-emp">ACTUALIZAR</button>
+                    </div>
+                    <table id="tabla-nomina">
+                        <thead><tr><th>Nombre</th><th>DNI</th><th>Cargo</th><th>Sueldo</th></tr></thead>
+                        <tbody id="lista-empleados-body"></tbody>
+                    </table>
+                </div>`;
+
+            // Lógica interna del módulo empresa
+            const q = query(collection(db, "usuarios"), where("perfil.empresa", "==", nombreEmpresa));
             const snap = await getDocs(q);
-
-            if (snap.empty) {
-                alert("No se encontró ningún ciudadano con ese DNI.");
-                return;
-            }
-
-            const trabajadorDoc = snap.docs[0];
-            const trabajadorUid = trabajadorDoc.id;
-            const nombreEmpresa = document.getElementById('val-nombre').innerText;
-
-            // 2. Actualizar su ficha
-            await updateDoc(doc(db, "usuarios", trabajadorUid), {
-                "perfil.trabajo": nuevoPuesto,
-                "perfil.sueldo": nuevoSueldo,
-                "perfil.empresa": nombreEmpresa
+            const body = document.getElementById('lista-empleados-body');
+            snap.forEach(doc => {
+                const emp = doc.data().perfil;
+                body.innerHTML += `<tr><td>${emp.nombre}</td><td>${emp.dni}</td><td>${emp.trabajo}</td><td>${emp.sueldo} RG</td></tr>`;
             });
 
-            alert("Ficha del trabajador actualizada correctamente.");
-            location.reload();
-        };
+            document.getElementById('btn-actualizar-emp').onclick = async () => {
+                const dni = document.getElementById('inp-dni').value;
+                const qUser = query(collection(db, "usuarios"), where("perfil.dni", "==", dni));
+                const res = await getDocs(qUser);
+                if(!res.empty) {
+                    await updateDoc(doc(db, "usuarios", res.docs[0].id), {
+                        "perfil.trabajo": document.getElementById('inp-puesto').value,
+                        "perfil.sueldo": Number(document.getElementById('inp-sueldo').value),
+                        "perfil.empresa": nombreEmpresa
+                    });
+                    location.reload();
+                }
+            };
+        }
+
+        // --- MODULO: CIUDADANO ---
+        function renderModuloCiudadano(empresa) {
+            document.getElementById('mod-rol-especifico').innerHTML = `
+                <h2 class="section-title"><i class="fa-solid fa-briefcase"></i> Situación Laboral</h2>
+                <div class="card">
+                    <p style="font-weight:700">${empresa ? 'TRABAJANDO EN: ' + empresa.toUpperCase() : 'BUSCANDO EMPLEO / AUTÓNOMO'}</p>
+                </div>`;
+        }
+
+        // --- MODULO: TRÁMITES ---
+        function renderTramites(tramites) {
+            const container = document.getElementById('mod-tramites');
+            let html = `<h2 class="section-title"><i class="fa-solid fa-clock-rotate-left"></i> Mis Expedientes</h2><div class="data-grid">`;
+            
+            if (tramites && Object.keys(tramites).length > 0) {
+                Object.values(tramites).forEach(t => {
+                    html += `<div class="card" style="margin-bottom:0; border-left:5px solid ${t.estado==='completado'?'var(--success)':'var(--warning)'}">
+                        <small>${t.estado.toUpperCase()}</small>
+                        <p style="font-weight:800; margin:5px 0;">${t.nombre}</p>
+                        <small style="opacity:0.6">${t.fecha}</small>
+                    </div>`;
+                });
+            } else {
+                html += `<p style="grid-column: span 3; opacity:0.5">No hay expedientes registrados.</p>`;
+            }
+            container.innerHTML = html + `</div>`;
+        }
+
+        // --- MODULO: CATÁLOGO ---
+        function renderCatalogo() {
+            document.getElementById('mod-catalogo').innerHTML = `
+                <h2 class="section-title"><i class="fa-solid fa-boxes-stacked"></i> Catálogo de Trámites</h2>
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap:10px;">
+                    <div class="card" style="text-align:center; cursor:pointer;"><i class="fa-solid fa-coins"></i><br><small>Hacienda</small></div>
+                    <div class="card" style="text-align:center; cursor:pointer;"><i class="fa-solid fa-house"></i><br><small>Padrón</small></div>
+                    <div class="card" style="text-align:center; cursor:pointer;"><i class="fa-solid fa-medkit"></i><br><small>Salud</small></div>
+                    <div class="card" style="text-align:center; cursor:pointer;"><i class="fa-solid fa-building"></i><br><small>Empresas</small></div>
+                </div>`;
+        }
 
         document.getElementById('logoutBtn').onclick = () => signOut(auth);
+
     </script>
 </body>
 </html>
