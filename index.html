@@ -235,7 +235,7 @@
                 await signInWithEmailAndPassword(auth, m, p);
                 lBar.style.width = '100%';
                 msg("Identidad Confirmada. Redirigiendo...");
-                setTimeout(() => window.location.href = 'mi-carpeta.html', 1200);
+                setTimeout(() => window.location.href = 'mi-carpeta', 1200);
             } catch (e) {
                 lBar.style.width = '0%';
                 msg("Error: Credenciales no válidas.");
