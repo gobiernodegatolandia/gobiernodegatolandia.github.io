@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sede Electrónica | Agencia Tributaria de Gatolandia</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root { 
+            --gob-blue: #001f3d; 
+            --gob-gold: #b8924e; 
+            --gob-bg: #f8fafc;
+            --success: #16a34a;
+        }
+        
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--gob-bg); color: #1e293b; margin: 0; padding: 20px; }
+        .container { max-width: 850px; margin: 40px auto; background: white; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); overflow: hidden; }
+        .gov-header { background-color: var(--gob-blue); color: white; padding: 30px; display: flex; justify-content: space-between; align-items: center; }
+        .gov-header h1 { margin: 0; font-size: 1.1rem; letter-spacing: 1px; text-transform: uppercase; }
+        .content { padding: 40px; }
+        
+        /* Tarjeta Fiscal */
+        .fiscal-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; margin-top: 20px; }
+        .data-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f1f5f9; }
+        .label { font-weight: 600; color: #64748b; font-size: 0.85rem; }
+        .value { font-weight: 700; color: var(--gob-blue); }
+        
+        /* Resultado */
+        .total-row { margin-top: 20px; padding: 20px; background: #f1f5f9; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
+        .total-amount { font-size: 1.6rem; color: #dc2626; font-weight: 800; }
+        .total-amount.exento { color: var(--success); }
+        
+        .actions { margin-top: 30px; }
+        .btn-primary { background: var(--gob-blue); color: white; border: none; padding: 18px; width: 100%; font-weight: 700; cursor: pointer; border-radius: 6px; text-transform: uppercase; transition: 0.3s; }
+        .btn-primary:hover { background: var(--gob-gold); }
+        
+        .disclaimer { font-size: 0.7rem; color: #94a3b8; margin-top: 25px; line-height: 1.5; text-align: center; }
+        #loader { text-align: center; padding: 60px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="gov-header">
+        <div>
+            <div style="font-size: 0.6rem; opacity: 0.8; margin-bottom: 5px; font-weight: 800; letter-spacing: 2px;">REINO DE GATOLANDIA</div>
+            <h1>Agencia Tributaria - Borrador I.R.G. 2026</h1>
+        </div>
+        <i class="fa-solid fa-shield-cat fa-2x" style="color: var(--gob-gold);"></i>
+    </div>
+
+    <div class="content">
+        <div id="loader">
+            <i class="fa-solid fa-spinner fa-spin fa-2x" style="color: var(--gob-gold);"></i>
+            <p style="margin-top:15px; font-size: 0.9rem; color: #64748b;">Accediendo a datos fiscales del contribuyente...</p>
+        </div>
+
+        <div id="main-content" style="display: none;">
+            <p>Estimado/a contribuyente <strong id="user-name">...</strong>,</p>
+            <p style="font-size: 0.9rem; color: #475569;">De acuerdo con sus rendimientos del trabajo declarados por su empleador, se ha generado el siguiente borrador:</p>
+
+            <div class="fiscal-card">
+                <div class="data-row">
+                    <span class="label">NIF / DNI:</span>
+                    <span id="res-dni" class="value">...</span>
+                </div>
+                <div class="data-row">
+                    <span class="label">RENDIMIENTOS BRUTOS:</span>
+                    <span id="res-sueldo" class="value">0 RG</span>
+                </div>
+                <div class="data-row">
+                    <span class="label">MÍNIMO VITAL EXENTO:</span>
+                    <span class="value" style="color: var(--success);">- 25.000,00 RG</span>
+                </div>
+                <div class="data-row">
+                    <span class="label">TRAMO FISCAL:</span>
+                    <span id="res-tramo" class="value">---</span>
+                </div>
+            </div>
+
+            <div class="total-row">
+                <div>
+                    <span style="display:block; font-size:0.65rem; font-weight:800; color:#64748b; text-transform: uppercase;">Resultado de Autoliquidación</span>
+                    <span style="font-size:1rem; font-weight:700;" id="texto-resultado">CUOTA A INGRESAR</span>
+                </div>
+                <div class="total-amount" id="res-cuota">0,00 RG</div>
+            </div>
+
+            <div style="text-align: right; margin-top: 10px; font-size: 0.8rem; color: #64748b; font-style: italic;">
+                Valoración internacional: <span id="res-euro">0,00 €</span> (Tasa 1 RG = 0,50€)
+            </div>
+
+            <div class="actions">
+                <button class="btn-primary" onclick="presentarRenta()">Confirmar y Presentar Declaración</button>
+            </div>
+
+            <p class="disclaimer">
+                El impuesto sobre patrimonio (viviendas y vehículos) se liquida en el momento de la compra.<br>
+                Esta declaración se limita a los rendimientos del trabajo personal.
+            </p>
+        </div>
+    </div>
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyCUBDdTMyQTwQo4FzKpDZDpOAKGPVcki4I",
+        authDomain: "sedegatogob.firebaseapp.com",
+        projectId: "sedegatogob",
+        storageBucket: "sedegatogob.firebasestorage.app",
+        messagingSenderId: "764639776502",
+        appId: "1:764639776502:web:99f6e1a045f5d4810666d7"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    onAuthStateChanged(auth, async (user) => {
+        if (!user) return window.location.href = "../index.html";
+
+        const docRef = doc(db, "usuarios", user.uid);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            const data = docSnap.data().perfil;
+            const sueldo = data.sueldo || 0;
+            
+            let cuota = 0;
+            let tramoNombre = "";
+
+            // --- Lógica Fiscal de Gatolandia (Seria y Progresiva) ---
+            if (sueldo <= 25000) {
+                cuota = 0;
+                tramoNombre = "Exento (Mínimo Vital)";
+                document.getElementById('res-cuota').classList.add('exento');
+                document.getElementById('texto-resultado').innerText = "RESULTADO: EXENTO";
+            } else if (sueldo <= 60000) {
+                cuota = (sueldo - 25000) * 0.10;
+                tramoNombre = "10% (Tramo General)";
+            } else if (sueldo <= 120000) {
+                cuota = (35000 * 0.10) + ((sueldo - 60000) * 0.18);
+                tramoNombre = "18% (Tramo Profesional)";
+            } else {
+                cuota = (35000 * 0.10) + (60000 * 0.18) + ((sueldo - 120000) * 0.28);
+                tramoNombre = "28% (Grandes Rentas)";
+            }
+
+            // Inyectar datos
+            document.getElementById('user-name').innerText = data.nombre;
+            document.getElementById('res-dni').innerText = data.dni;
+            document.getElementById('res-sueldo').innerText = sueldo.toLocaleString() + " RG";
+            document.getElementById('res-tramo').innerText = tramoNombre;
+            document.getElementById('res-cuota').innerText = cuota.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + " RG";
+            document.getElementById('res-euro').innerText = (cuota * 0.5).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + " €";
+
+            document.getElementById('loader').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+
+            window.presentarRenta = async () => {
+                if(confirm("¿Declara que estos datos son correctos? La firma se registrará en su expediente oficial.")) {
+                    try {
+                        await updateDoc(docRef, {
+                            [`tramites.renta_2026`]: {
+                                nombre: "Declaración de la Renta 2026",
+                                ministerio: "Agencia Tributaria Real",
+                                fecha: new Date().toLocaleDateString(),
+                                resultado: cuota.toFixed(2) + " RG",
+                                estado: "COMPLETADO"
+                            }
+                        });
+                        alert("Declaración presentada correctamente.");
+                        window.location.href = "../mi-carpeta.html";
+                    } catch (e) {
+                        alert("Error en el sistema de Hacienda: " + e.message);
+                    }
+                }
+            };
+        }
+    });
+</script>
+</body>
+</html>
