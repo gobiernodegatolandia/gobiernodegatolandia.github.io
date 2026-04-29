@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Carpeta Ciudadana | Sede Electrónica Gatolandia</title>
+    <title>Sede Electrónica | Carpeta Ciudadana de Gatolandia</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
@@ -12,191 +12,176 @@
             --gob-blue: #001f3d;
             --gob-accent: #b8924e;
             --gob-light-blue: #eef2ff;
-            --gob-bg: #f1f5f9;
+            --gob-bg: #f8fafc;
             --success: #059669;
             --warning: #d97706;
             --danger: #dc2626;
-            --text-main: #1e293b;
             --sidebar-width: 280px;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-        
-        body { background-color: var(--gob-bg); color: var(--text-main); overflow: hidden; }
+        body { background-color: var(--gob-bg); color: #1e293b; overflow: hidden; }
 
-        /* --- PANTALLA DE CARGA --- */
+        /* Pantalla de Carga Pro */
         #loader { 
             position: fixed; inset: 0; background: white; 
             display: flex; flex-direction: column; align-items: center; justify-content: center; 
-            z-index: 9999; transition: opacity 0.5s;
+            z-index: 9999; transition: 0.5s;
         }
 
-        /* --- LAYOUT PRINCIPAL --- */
+        /* Layout */
         #content { display: none; height: 100vh; grid-template-columns: var(--sidebar-width) 1fr; }
 
-        /* --- SIDEBAR GUBERNAMENTAL --- */
+        /* Sidebar con Estilo */
         aside { 
             background: var(--gob-blue); color: white; padding: 25px; 
             display: flex; flex-direction: column; border-right: 4px solid var(--gob-accent);
         }
-
-        .brand-panel { text-align: center; padding-bottom: 30px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 25px; }
-        .brand-panel img { width: 60px; margin-bottom: 10px; }
-        .brand-panel h2 { font-size: 0.9rem; letter-spacing: 2px; color: var(--gob-accent); }
-
-        .nav-menu { flex-grow: 1; list-style: none; }
+        .brand { text-align: center; margin-bottom: 35px; }
+        .brand img { width: 55px; filter: drop-shadow(0 0 10px rgba(184, 146, 78, 0.3)); }
+        
+        .nav-menu { flex-grow: 1; }
         .nav-item { 
-            padding: 12px 15px; border-radius: 8px; margin-bottom: 8px; cursor: pointer;
-            display: flex; align-items: center; gap: 12px; transition: 0.3s; font-size: 0.9rem;
+            padding: 14px 18px; border-radius: 12px; margin-bottom: 10px; cursor: pointer;
+            display: flex; align-items: center; gap: 15px; transition: 0.3s;
+            color: rgba(255,255,255,0.6); position: relative;
         }
-        .nav-item:hover, .nav-item.active { background: rgba(255,255,255,0.1); color: var(--gob-accent); }
-
-        /* --- ÁREA PRINCIPAL --- */
-        main { padding: 40px; overflow-y: auto; position: relative; }
-
-        .top-header { 
-            display: flex; justify-content: space-between; align-items: center; 
-            margin-bottom: 40px; padding-bottom: 20px; border-bottom: 2px solid #e2e8f0;
+        .nav-item:hover, .nav-item.active { background: rgba(255,255,255,0.1); color: white; }
+        .nav-item.active { border-left: 4px solid var(--gob-accent); }
+        .nav-item .badge { 
+            position: absolute; right: 15px; background: var(--danger); 
+            color: white; font-size: 0.6rem; padding: 2px 6px; border-radius: 10px;
         }
 
-        /* --- COMPONENTES DE DATOS --- */
+        /* Secciones Animadas */
+        main { padding: 40px; overflow-y: auto; }
+        .page-section { display: none; animation: slideUp 0.4s ease forwards; }
+        .page-section.active { display: block; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Tarjetas y UI */
         .card { 
-            background: white; border-radius: 12px; padding: 25px; 
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); border: 1px solid #e2e8f0;
-            margin-bottom: 25px;
+            background: white; border-radius: 16px; padding: 25px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03); border: 1px solid #e2e8f0; margin-bottom: 25px;
         }
+        .section-title { font-size: 1.5rem; font-weight: 800; margin-bottom: 25px; display: flex; align-items: center; gap: 12px; }
+        
+        /* Grid de Datos */
+        .data-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+        .data-item { padding: 15px; background: #f8fafc; border-radius: 12px; border: 1px solid #edf2f7; }
+        .data-item label { display: block; font-size: 0.65rem; font-weight: 800; color: #64748b; text-transform: uppercase; margin-bottom: 5px; }
+        .data-item p { font-size: 1rem; font-weight: 700; color: var(--gob-blue); }
 
-        .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; color: var(--gob-blue); }
-        .section-header i { color: var(--gob-accent); }
-
-        .data-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; }
-        .data-box label { font-size: 0.7rem; font-weight: 800; color: #64748b; text-transform: uppercase; display: block; margin-bottom: 5px; }
-        .data-box p { font-size: 1.1rem; font-weight: 700; color: var(--gob-blue); }
-
-        /* --- EXPEDIENTES --- */
-        .expediente-row {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 15px; border-bottom: 1px solid #f1f5f9; transition: 0.2s;
+        /* Formularios Modernos */
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-size: 0.8rem; font-weight: 700; margin-bottom: 8px; color: var(--gob-blue); }
+        input { 
+            width: 100%; padding: 12px 16px; border-radius: 10px; border: 2px solid #e2e8f0;
+            transition: 0.3s; font-size: 0.95rem;
         }
-        .expediente-row:hover { background: var(--gob-light-blue); }
-        .status-pill { padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 800; }
-        .status-completado { background: #dcfce7; color: var(--success); }
+        input:focus { outline: none; border-color: var(--gob-accent); box-shadow: 0 0 0 4px rgba(184, 146, 78, 0.1); }
+
+        .btn-action { 
+            background: var(--gob-blue); color: white; border: none; padding: 14px 28px; 
+            border-radius: 10px; cursor: pointer; font-weight: 700; transition: 0.3s;
+        }
+        .btn-action:hover { background: #002d5a; transform: translateY(-2px); }
+
+        /* Listas de trámites */
+        .row-item { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 20px; border-bottom: 1px solid #f1f5f9; transition: 0.2s;
+        }
+        .row-item:hover { background: var(--gob-light-blue); }
+        .status { padding: 5px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; }
         .status-pendiente { background: #fef3c7; color: var(--warning); }
-
-        /* --- BOTONES --- */
-        .btn-logout { 
-            background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid #ef4444;
-            padding: 12px; border-radius: 8px; cursor: pointer; font-weight: 700; width: 100%; transition: 0.3s;
-        }
-        .btn-logout:hover { background: #ef4444; color: white; }
-
-        /* --- MÓVIL --- */
-        @media (max-width: 900px) {
-            #content { grid-template-columns: 1fr; }
-            aside { display: none; } /* En un entorno real añadirías un menú hamburguesa */
-            main { padding: 20px; }
-        }
+        .status-completado { background: #dcfce7; color: var(--success); }
     </style>
 </head>
 <body>
 
     <div id="loader">
-        <i class="fa-solid fa-shield-halved fa-spin" style="font-size: 3.5rem; color: var(--gob-blue);"></i>
-        <p style="margin-top: 20px; font-weight: 600; color: var(--gob-blue);">Verificando Identidad Digital...</p>
+        <i class="fa-solid fa-shield-cat fa-spin" style="font-size: 3.5rem; color: var(--gob-blue);"></i>
+        <p style="margin-top: 20px; font-weight: 700; color: var(--gob-blue); letter-spacing: 1px;">AUTENTICANDO CIUDADANO...</p>
     </div>
 
     <div id="content">
         <aside>
-            <div class="brand-panel">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmc--YeQPZVE_Rs3xrp3DhwyCJe9lVXL0LqA&s" alt="Escudo">
-                <h2>GATOLANDIA</h2>
-                <p style="font-size: 0.6rem; opacity: 0.7;">SEDE ELECTRÓNICA CENTRAL</p>
+            <div class="brand">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmc--YeQPZVE_Rs3xrp3DhwyCJe9lVXL0LqA&s">
+                <h2 style="font-size: 0.75rem; margin-top: 10px; letter-spacing: 2px; color: var(--gob-accent);">REINO DE GATOLANDIA</h2>
             </div>
 
-            <ul class="nav-menu">
-                <li class="nav-item active"><i class="fa-solid fa-house"></i> Inicio</li>
-                <li class="nav-item"><i class="fa-solid fa-folder-open"></i> Mis Expedientes</li>
-                <li class="nav-item"><i class="fa-solid fa-envelope-open-text"></i> Notificaciones</li>
-                <li class="nav-item"><i class="fa-solid fa-user-gear"></i> Ajustes de Perfil</li>
-            </ul>
+            <nav class="nav-menu">
+                <div class="nav-item active" onclick="nav('inicio', this)"><i class="fa-solid fa-grid-2"></i> Mi Panel</div>
+                <div class="nav-item" onclick="nav('tramites', this)"><i class="fa-solid fa-file-contract"></i> Mis Trámites <span class="badge" id="badge-tramites">0</span></div>
+                <div class="nav-item" onclick="nav('notificaciones', this)"><i class="fa-solid fa-bell"></i> Notificaciones</div>
+                <div class="nav-item" onclick="nav('perfil', this)"><i class="fa-solid fa-user-gear"></i> Ajustes de Perfil</div>
+            </nav>
 
-            <div id="nav-user-dni" style="font-size: 0.75rem; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 6px; margin-bottom: 15px; text-align: center;"></div>
-            <button class="btn-logout" id="logoutBtn"><i class="fa-solid fa-power-off"></i> FINALIZAR SESIÓN</button>
+            <button onclick="cerrarSesion()" style="margin-top: auto; padding: 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.2); background: none; color: white; cursor: pointer; font-weight: 700;">
+                <i class="fa-solid fa-right-from-bracket"></i> SALIR
+            </button>
         </aside>
 
         <main>
-            <header class="top-header">
-                <div>
-                    <h1 style="font-size: 1.5rem;">Bienvenido/a a su Carpeta Ciudadana</h1>
-                    <p style="color: #64748b; font-size: 0.9rem;" id="current-date"></p>
-                </div>
-                <div style="display: flex; gap: 15px;">
-                    <div class="card" style="margin:0; padding: 10px 20px; display: flex; align-items: center; gap: 10px;">
-                        <i class="fa-solid fa-bell" style="color: var(--warning);"></i>
-                        <span style="font-size: 0.8rem; font-weight: 700;">2 Avisos</span>
-                    </div>
-                </div>
-            </header>
-
-            <!-- SECCIÓN: DATOS DE IDENTIDAD -->
-            <section>
-                <div class="section-header">
-                    <i class="fa-solid fa-id-card-clip"></i>
-                    <h3>DATOS DEL TITULAR</h3>
-                </div>
+            <!-- SECCIÓN 1: INICIO -->
+            <section id="inicio" class="page-section active">
+                <h1 class="section-title"><i class="fa-solid fa-house-user" style="color:var(--gob-accent)"></i> Carpeta Ciudadana</h1>
+                
                 <div class="card">
-                    <div class="data-strip" id="perfil-container">
-                        <!-- Renderizado dinámico -->
+                    <h3 style="margin-bottom: 20px; font-size: 0.9rem; color: #64748b;">IDENTIDAD DIGITAL VERIFICADA</h3>
+                    <div class="data-grid" id="grid-identidad">
+                        <!-- Dinámico -->
+                    </div>
+                </div>
+
+                <div class="card" style="border-left: 5px solid var(--success);">
+                    <h3>Situación Laboral</h3>
+                    <div class="data-grid" id="grid-laboral" style="margin-top: 15px;">
+                        <!-- Dinámico -->
                     </div>
                 </div>
             </section>
 
-            <!-- SECCIÓN: TRABAJO -->
-            <section id="work-section">
-                <div class="section-header">
-                    <i class="fa-solid fa-briefcase"></i>
-                    <h3>SITUACIÓN LABORAL ACTUAL</h3>
-                </div>
-                <div class="card" id="laboral-container">
-                    <!-- Renderizado dinámico -->
-                </div>
-            </section>
-
-            <!-- SECCIÓN: EXPEDIENTES RECIENTES -->
-            <section>
-                <div class="section-header">
-                    <i class="fa-solid fa-file-invoice"></i>
-                    <h3>EXPEDIENTES Y SOLICITUDES</h3>
-                </div>
+            <!-- SECCIÓN 2: TRAMITES -->
+            <section id="tramites" class="page-section">
+                <h1 class="section-title"><i class="fa-solid fa-folder-tree"></i> Mis Expedientes</h1>
                 <div class="card" style="padding: 0;">
-                    <div id="expedientes-list">
-                        <!-- Renderizado dinámico -->
-                    </div>
-                    <div style="padding: 15px; text-align: center;">
-                        <button style="background: none; border: none; color: var(--gob-accent); font-weight: 700; cursor: pointer; font-size: 0.8rem;">VER TODOS LOS EXPEDIENTES</button>
+                    <div id="lista-tramites"></div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 3: NOTIFICACIONES -->
+            <section id="notificaciones" class="page-section">
+                <h1 class="section-title"><i class="fa-solid fa-envelope-open-text"></i> Notificaciones Oficiales</h1>
+                <div id="lista-avisos">
+                    <div class="card" style="background: var(--gob-light-blue); border: none;">
+                        <p style="font-weight: 700;"><i class="fa-solid fa-circle-info"></i> Bienvenido a la nueva Sede Electrónica</p>
+                        <p style="font-size: 0.85rem; margin-top: 5px; color: #475569;">Ya puede realizar todos sus trámites desde este nuevo panel centralizado.</p>
                     </div>
                 </div>
             </section>
 
-            <!-- SECCIÓN: CATÁLOGO -->
-            <section>
-                <div class="section-header">
-                    <i class="fa-solid fa-layer-group"></i>
-                    <h3>TRÁMITES DESTACADOS</h3>
-                </div>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px;">
-                    <div class="card" style="text-align: center; cursor: pointer; border-bottom: 3px solid var(--gob-accent);">
-                        <i class="fa-solid fa-coins" style="font-size: 1.5rem; margin-bottom: 10px; color: var(--gob-blue);"></i>
-                        <p style="font-size: 0.8rem; font-weight: 700;">Declaración Renta</p>
+            <!-- SECCIÓN 4: AJUSTES / PERFIL -->
+            <section id="perfil" class="page-section">
+                <h1 class="section-title"><i class="fa-solid fa-sliders"></i> Configuración de Identidad</h1>
+                <div class="card">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div class="form-group">
+                            <label>Nombre del Titular</label>
+                            <input type="text" id="edit-nombre">
+                        </div>
+                        <div class="form-group">
+                            <label>Apellidos</label>
+                            <input type="text" id="edit-apellidos">
+                        </div>
                     </div>
-                    <div class="card" style="text-align: center; cursor: pointer;">
-                        <i class="fa-solid fa-file-signature" style="font-size: 1.5rem; margin-bottom: 10px; color: var(--gob-blue);"></i>
-                        <p style="font-size: 0.8rem; font-weight: 700;">Certificado Padrón</p>
+                    <div class="form-group">
+                        <label>Documento de Identidad (No editable)</label>
+                        <input type="text" id="edit-dni" readonly style="background: #f1f5f9; cursor: not-allowed;">
                     </div>
-                    <div class="card" style="text-align: center; cursor: pointer;">
-                        <i class="fa-solid fa-hand-holding-heart" style="font-size: 1.5rem; margin-bottom: 10px; color: var(--gob-blue);"></i>
-                        <p style="font-size: 0.8rem; font-weight: 700;">Vida Laboral</p>
-                    </div>
+                    <button class="btn-action" id="save-perfil">ACTUALIZAR DATOS OFICIALES</button>
                 </div>
             </section>
         </main>
@@ -205,7 +190,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCUBDdTMyQTwQo4FzKpDZDpOAKGPVcki4I",
@@ -219,23 +204,23 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
-
-        // FECHA ACTUAL SERIA
-        document.getElementById('current-date').innerText = new Intl.DateTimeFormat('es-ES', { dateStyle: 'full' }).format(new Date());
+        let globalUser = null;
 
         onAuthStateChanged(auth, async (user) => {
             if (user) {
-                const userDoc = await getDoc(doc(db, "usuarios", user.uid));
-                if (userDoc.exists()) {
-                    const userData = userDoc.data();
+                const docRef = doc(db, "usuarios", user.uid);
+                const snap = await getDoc(docRef);
+                
+                if (snap.exists()) {
+                    globalUser = snap.data();
                     
-                    // SEGURIDAD: REDIRECCIÓN SI ES EMPRESA
-                    if (userData.perfil.tipo === 'empresa') {
-                        window.location.href = '/empresas'; // Redirección inmediata
+                    // REDIRECCIÓN SI ES EMPRESA
+                    if (globalUser.perfil.tipo === 'empresa') {
+                        window.location.href = 'empresas';
                         return;
                     }
 
-                    renderPortal(userData);
+                    renderTodo();
                     document.getElementById('loader').style.opacity = '0';
                     setTimeout(() => {
                         document.getElementById('loader').style.display = 'none';
@@ -247,50 +232,81 @@
             }
         });
 
-        function renderPortal(data) {
-            const p = data.perfil;
+        // NAVEGACIÓN SPA REAL
+        window.nav = (targetId, element) => {
+            document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            document.getElementById(targetId).classList.add('active');
+            element.classList.add('active');
+        };
+
+        function renderTodo() {
+            const p = globalUser.perfil;
+            const t = globalUser.tramites || {};
+
+            // Render Inicio
+            document.getElementById('grid-identidad').innerHTML = `
+                <div class="data-item"><label>Titular</label><p>${p.nombre} ${p.apellidos || ''}</p></div>
+                <div class="data-item"><label>DNI/NIE</label><p>${p.dni}</p></div>
+                <div class="data-item"><label>Estado Civil</label><p>Verificado</p></div>
+            `;
+            document.getElementById('grid-laboral').innerHTML = `
+                <div class="data-item"><label>Empresa Activa</label><p>${p.empresa || 'Desempleado / Autónomo'}</p></div>
+                <div class="data-item"><label>Ocupación</label><p>${p.trabajo || 'Buscando empleo'}</p></div>
+                <div class="data-item"><label>Base de Cotización</label><p style="color:var(--success)">${p.sueldo || 0} RG/año</p></div>
+            `;
+
+            // Render Trámites
+            const listaT = document.getElementById('lista-tramites');
+            const tramitesArray = Object.values(t);
+            document.getElementById('badge-tramites').innerText = tramitesArray.filter(x => x.estado === 'pendiente').length;
             
-            // Render Perfil
-            document.getElementById('nav-user-dni').innerText = `ID: ${p.dni}`;
-            document.getElementById('perfil-container').innerHTML = `
-                <div class="data-box"><label>Nombre Completo</label><p>${p.nombre} ${p.apellidos || ''}</p></div>
-                <div class="data-box"><label>Identificación</label><p>${p.dni}</p></div>
-                <div class="data-box"><label>Nacionalidad</label><p>Gatolanesa</p></div>
-            `;
-
-            // Render Laboral
-            document.getElementById('laboral-container').innerHTML = `
-                <div class="data-strip">
-                    <div class="data-box"><label>Empresa / Pagador</label><p>${p.empresa || 'SIN VÍNCULO LABORAL'}</p></div>
-                    <div class="data-box"><label>Puesto</label><p>${p.trabajo || 'EN BÚSQUEDA'}</p></div>
-                    <div class="data-box">
-                        <label>Renta Bruta Anual (Estimada)</label>
-                        <p style="color: var(--success);">${p.sueldo ? p.sueldo.toLocaleString() + ' RG' : '0 RG'}</p>
-                    </div>
-                </div>
-            `;
-
-            // Render Expedientes
-            const list = document.getElementById('expedientes-list');
-            if (data.tramites && Object.keys(data.tramites).length > 0) {
-                list.innerHTML = Object.values(data.tramites).map(t => `
-                    <div class="expediente-row">
+            if (tramitesArray.length > 0) {
+                listaT.innerHTML = tramitesArray.map(item => `
+                    <div class="row-item">
                         <div>
-                            <p style="font-weight: 700; font-size: 0.9rem;">${t.nombre}</p>
-                            <small style="color: #64748b;">Ref: ${Math.random().toString(36).substr(2, 9).toUpperCase()}</small>
+                            <p style="font-weight:700">${item.nombre}</p>
+                            <small style="color:#64748b">${item.fecha}</small>
                         </div>
-                        <div style="text-align: right;">
-                            <span class="status-pill status-${t.estado}">${t.estado.toUpperCase()}</span>
-                            <p style="font-size: 0.7rem; color: #64748b; margin-top: 5px;">${t.fecha}</p>
-                        </div>
+                        <span class="status status-${item.estado}">${item.estado}</span>
                     </div>
                 `).join('');
             } else {
-                list.innerHTML = `<p style="padding: 30px; text-align: center; opacity: 0.5;">No constan expedientes abiertos a su nombre.</p>`;
+                listaT.innerHTML = `<p style="padding:30px; text-align:center; color:#94a3b8;">No hay trámites registrados.</p>`;
             }
+
+            // Cargar datos en Inputs de Perfil
+            document.getElementById('edit-nombre').value = p.nombre;
+            document.getElementById('edit-apellidos').value = p.apellidos || '';
+            document.getElementById('edit-dni').value = p.dni;
         }
 
-        document.getElementById('logoutBtn').onclick = () => signOut(auth);
+        // LÓGICA DE GUARDADO DE PERFIL
+        document.getElementById('save-perfil').onclick = async () => {
+            const btn = document.getElementById('save-perfil');
+            const originalText = btn.innerText;
+            
+            btn.innerText = "PROCESANDO REGISTRO...";
+            btn.style.opacity = "0.7";
+
+            try {
+                const userRef = doc(db, "usuarios", auth.currentUser.uid);
+                await updateDoc(userRef, {
+                    "perfil.nombre": document.getElementById('edit-nombre').value,
+                    "perfil.apellidos": document.getElementById('edit-apellidos').value
+                });
+                
+                alert("DATOS ACTUALIZADOS CORRECTAMENTE EN EL REGISTRO CIVIL");
+                location.reload();
+            } catch (err) {
+                alert("ERROR DE CONEXIÓN CON EL SERVIDOR");
+                btn.innerText = originalText;
+                btn.style.opacity = "1";
+            }
+        };
+
+        window.cerrarSesion = () => signOut(auth);
+
     </script>
 </body>
 </html>
