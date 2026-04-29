@@ -3,378 +3,209 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sede Electrónica | Gobierno del Reino de Gatolandia</title>
-    
-    <!-- Librerías de confianza gubernamental -->
+    <title>Mi Carpeta Ciudadana | Sede Electrónica Gatolandia</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --gob-primary: #002d57; /* Azul Institucional */
-            --gob-accent: #b8924e;  /* Oro Heráldico */
-            --gob-error: #b91c1c;
+            --gob-blue: #001f3d;
+            --gob-accent: #b8924e;
+            --gob-light-blue: #eef2ff;
             --gob-bg: #f1f5f9;
-            --text-dark: #1e293b;
-            --font-main: 'Plus Jakarta Sans', sans-serif;
-            --fs-modifier: 0px;
+            --success: #059669;
+            --warning: #d97706;
+            --danger: #dc2626;
+            --text-main: #1e293b;
+            --sidebar-width: 280px;
         }
 
-        /* --- ACCESIBILIDAD --- */
-        .high-contrast {
-            --gob-primary: #000000;
-            --gob-accent: #ffff00;
-            --gob-bg: #000000;
-            --text-dark: #ffffff;
-        }
-        .high-contrast body { background: #000; color: #fff; }
-        .high-contrast .card, .high-contrast .panel { border: 2px solid #ffff00; background: #000; }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-main); }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
         
-        body { 
-            background-color: var(--gob-bg); 
-            color: var(--text-dark); 
-            line-height: 1.6;
-            font-size: calc(16px + var(--fs-modifier));
+        body { background-color: var(--gob-bg); color: var(--text-main); overflow: hidden; }
+
+        /* --- PANTALLA DE CARGA --- */
+        #loader { 
+            position: fixed; inset: 0; background: white; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            z-index: 9999; transition: opacity 0.5s;
         }
 
-        /* --- BARRA DE ESTADO GUBERNAMENTAL --- */
-        .gov-banner {
-            background: #fff;
-            padding: 5px 8%;
-            font-size: 11px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border-bottom: 1px solid #ddd;
-            color: #444;
+        /* --- LAYOUT PRINCIPAL --- */
+        #content { display: none; height: 100vh; grid-template-columns: var(--sidebar-width) 1fr; }
+
+        /* --- SIDEBAR GUBERNAMENTAL --- */
+        aside { 
+            background: var(--gob-blue); color: white; padding: 25px; 
+            display: flex; flex-direction: column; border-right: 4px solid var(--gob-accent);
         }
 
-        /* --- HEADER --- */
-        header {
-            background: var(--gob-primary);
-            color: white;
-            padding: 20px 8%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        .brand-panel { text-align: center; padding-bottom: 30px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 25px; }
+        .brand-panel img { width: 60px; margin-bottom: 10px; }
+        .brand-panel h2 { font-size: 0.9rem; letter-spacing: 2px; color: var(--gob-accent); }
+
+        .nav-menu { flex-grow: 1; list-style: none; }
+        .nav-item { 
+            padding: 12px 15px; border-radius: 8px; margin-bottom: 8px; cursor: pointer;
+            display: flex; align-items: center; gap: 12px; transition: 0.3s; font-size: 0.9rem;
+        }
+        .nav-item:hover, .nav-item.active { background: rgba(255,255,255,0.1); color: var(--gob-accent); }
+
+        /* --- ÁREA PRINCIPAL --- */
+        main { padding: 40px; overflow-y: auto; position: relative; }
+
+        .top-header { 
+            display: flex; justify-content: space-between; align-items: center; 
+            margin-bottom: 40px; padding-bottom: 20px; border-bottom: 2px solid #e2e8f0;
         }
 
-        .logo-area { display: flex; align-items: center; gap: 20px; }
-        .logo-area img { height: 60px; filter: drop-shadow(0 0 5px rgba(255,255,255,0.2)); }
-        .logo-text h1 { font-size: 1.2rem; font-weight: 800; letter-spacing: 1px; border-left: 2px solid var(--gob-accent); padding-left: 15px; }
-
-        /* --- ACCESO RÁPIDO (Móvil Adaptativo) --- */
-        .auth-nav { display: flex; gap: 10px; }
-        
-        .btn-access {
-            background: var(--gob-accent);
-            color: var(--gob-primary);
-            padding: 12px 25px;
-            border-radius: 4px;
-            font-weight: 800;
-            text-decoration: none;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            border: none;
-            cursor: pointer;
-            transition: 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        /* --- COMPONENTES DE DATOS --- */
+        .card { 
+            background: white; border-radius: 12px; padding: 25px; 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); border: 1px solid #e2e8f0;
+            margin-bottom: 25px;
         }
 
-        .btn-access:hover { background: #fff; }
+        .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; color: var(--gob-blue); }
+        .section-header i { color: var(--gob-accent); }
 
-        /* --- HERO SECTION --- */
-        .hero {
-            background: linear-gradient(135deg, #002d57 0%, #004d8c 100%);
-            color: white;
-            padding: 60px 8% 100px;
-            text-align: center;
+        .data-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; }
+        .data-box label { font-size: 0.7rem; font-weight: 800; color: #64748b; text-transform: uppercase; display: block; margin-bottom: 5px; }
+        .data-box p { font-size: 1.1rem; font-weight: 700; color: var(--gob-blue); }
+
+        /* --- EXPEDIENTES --- */
+        .expediente-row {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px; border-bottom: 1px solid #f1f5f9; transition: 0.2s;
         }
+        .expediente-row:hover { background: var(--gob-light-blue); }
+        .status-pill { padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 800; }
+        .status-completado { background: #dcfce7; color: var(--success); }
+        .status-pendiente { background: #fef3c7; color: var(--warning); }
 
-        .hero h2 { font-size: 2.5rem; margin-bottom: 20px; font-weight: 800; }
-        .hero p { max-width: 800px; margin: 0 auto; opacity: 0.9; font-size: 1.1rem; }
-
-        /* --- ÁREA DE TRÁMITES (GRID) --- */
-        .main-container {
-            max-width: 1200px;
-            margin: -50px auto 60px;
-            padding: 0 20px;
+        /* --- BOTONES --- */
+        .btn-logout { 
+            background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid #ef4444;
+            padding: 12px; border-radius: 8px; cursor: pointer; font-weight: 700; width: 100%; transition: 0.3s;
         }
+        .btn-logout:hover { background: #ef4444; color: white; }
 
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .service-card {
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
-            border-top: 4px solid var(--gob-accent);
-            text-decoration: none;
-            color: inherit;
-            transition: 0.3s ease;
-        }
-
-        .service-card:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
-        .service-card i { font-size: 2rem; color: var(--gob-primary); margin-bottom: 20px; }
-        .service-card h3 { margin-bottom: 10px; color: var(--gob-primary); }
-        .service-card p { font-size: 0.9rem; color: #64748b; }
-
-        /* --- PANEL DE ACCESIBILIDAD --- */
-        .accessibility-bar {
-            position: fixed;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: white;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            border-radius: 30px;
-            display: flex;
-            flex-direction: column;
-            padding: 10px;
-            gap: 15px;
-            z-index: 2000;
-        }
-
-        .acc-tool {
-            width: 40px; height: 40px; border-radius: 50%; border: 1px solid #eee;
-            background: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center;
-        }
-
-        /* --- MODAL DE IDENTIFICACIÓN (ESTILO CL@VE) --- */
-        .modal {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(5px); display: none;
-            align-items: center; justify-content: center; z-index: 3000; padding: 20px;
-        }
-
-        .login-box {
-            background: white;
-            width: 100%;
-            max-width: 500px;
-            border-radius: 8px;
-            overflow: hidden;
-            animation: slideUp 0.3s ease-out;
-        }
-
-        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-
-        .login-header { background: var(--gob-primary); color: white; padding: 25px; text-align: center; }
-        .login-body { padding: 40px; }
-
-        .auth-option {
-            border: 1px solid #cbd5e1;
-            padding: 15px;
-            border-radius: 6px;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .auth-option:hover { border-color: var(--gob-accent); background: #f8fafc; }
-
-        .input-group { margin-bottom: 15px; }
-        .input-group label { display: block; font-size: 0.8rem; font-weight: 700; margin-bottom: 5px; }
-        .input-group input { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 4px; }
-
-        /* --- FOOTER SERIO --- */
-        footer {
-            background: #1e293b;
-            color: #94a3b8;
-            padding: 60px 8% 40px;
-            font-size: 0.85rem;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            border-bottom: 1px solid #334155;
-            padding-bottom: 40px;
-            margin-bottom: 20px;
-        }
-
-        .legal-notice {
-            background: #f1f5f9;
-            padding: 20px 8%;
-            font-size: 0.75rem;
-            color: #64748b;
-            text-align: center;
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            header { flex-direction: column; gap: 20px; text-align: center; }
-            .logo-text h1 { border: none; padding: 0; }
-            .accessibility-bar { bottom: 20px; top: auto; right: 50%; transform: translateX(50%); flex-direction: row; }
-            .hero h2 { font-size: 1.8rem; }
+        /* --- MÓVIL --- */
+        @media (max-width: 900px) {
+            #content { grid-template-columns: 1fr; }
+            aside { display: none; } /* En un entorno real añadirías un menú hamburguesa */
+            main { padding: 20px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Herramientas de Accesibilidad Móviles/Desktop -->
-    <div class="accessibility-bar">
-        <button class="acc-tool" onclick="toggleContrast()" title="Alto Contraste"><i class="fa-solid fa-circle-half-stroke"></i></button>
-        <button class="acc-tool" onclick="adjustFont(2)" title="Aumentar letra"><i class="fa-solid fa-plus"></i></button>
-        <button class="acc-tool" onclick="adjustFont(-2)" title="Reducir letra"><i class="fa-solid fa-minus"></i></button>
+    <div id="loader">
+        <i class="fa-solid fa-shield-halved fa-spin" style="font-size: 3.5rem; color: var(--gob-blue);"></i>
+        <p style="margin-top: 20px; font-weight: 600; color: var(--gob-blue);">Verificando Identidad Digital...</p>
     </div>
 
-    <div class="gov-banner">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/Flag_of_Spain.svg" width="20" alt="Bandera">
-        <span>Sitio web oficial del Gobierno del Reino de Gatolandia | <strong>Gob.cat</strong></span>
-    </div>
-
-    <header>
-        <div class="logo-area">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmc--YeQPZVE_Rs3xrp3DhwyCJe9lVXL0LqA&s" alt="Escudo Gatolandia">
-            <div class="logo-text">
-                <h1>ADMINISTRACIÓN PÚBLICA<br>DIGITAL</h1>
+    <div id="content">
+        <aside>
+            <div class="brand-panel">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmc--YeQPZVE_Rs3xrp3DhwyCJe9lVXL0LqA&s" alt="Escudo">
+                <h2>GATOLANDIA</h2>
+                <p style="font-size: 0.6rem; opacity: 0.7;">SEDE ELECTRÓNICA CENTRAL</p>
             </div>
-        </div>
-        <div class="auth-nav">
-            <button class="btn-access" id="triggerAuth">
-                <i class="fa-solid fa-id-card-pin"></i> Acceso Mi Carpeta
-            </button>
-        </div>
-    </header>
 
-    <section class="hero">
-        <h2>Sede Electrónica General</h2>
-        <p>Realice trámites, consulte expedientes y reciba notificaciones fehacientes. El acceso requiere identificación oficial para garantizar la protección de sus datos personales.</p>
-    </section>
+            <ul class="nav-menu">
+                <li class="nav-item active"><i class="fa-solid fa-house"></i> Inicio</li>
+                <li class="nav-item"><i class="fa-solid fa-folder-open"></i> Mis Expedientes</li>
+                <li class="nav-item"><i class="fa-solid fa-envelope-open-text"></i> Notificaciones</li>
+                <li class="nav-item"><i class="fa-solid fa-user-gear"></i> Ajustes de Perfil</li>
+            </ul>
 
-    <main class="main-container">
-        <div class="services-grid">
-            <a href="#" class="service-card" onclick="openLogin()">
-                <i class="fa-solid fa-user-shield"></i>
-                <h3>Identidad y Residencia</h3>
-                <p>Certificados de empadronamiento, duplicados de DNI y gestión de domicilio fiscal.</p>
-            </a>
-            <a href="#" class="service-card" onclick="openLogin()">
-                <i class="fa-solid fa-hand-holding-dollar"></i>
-                <h3>Hacienda y Tasas</h3>
-                <p>Pago de impuestos municipales, tasas de circulación y consulta de deudas.</p>
-            </a>
-            <a href="#" class="service-card" onclick="openLogin()">
-                <i class="fa-solid fa-stethoscope"></i>
-                <h3>Salud Pública</h3>
-                <p>Gestión de Tarjeta Sanitaria, historial clínico y citas en centros de salud.</p>
-            </a>
-            <a href="#" class="service-card" onclick="openLogin()">
-                <i class="fa-solid fa-gavel"></i>
-                <h3>Justicia y Leyes</h3>
-                <p>Consulta del Boletín Oficial del Reino (BOR) y registro de actos jurídicos.</p>
-            </a>
-            <a href="#" class="service-card" onclick="openLogin()">
-                <i class="fa-solid fa-graduation-cap"></i>
-                <h3>Becas y Educación</h3>
-                <p>Solicitudes de becas universitarias, títulos oficiales y homologaciones.</p>
-            </a>
-            <a href="#" class="service-card" onclick="openLogin()">
-                <i class="fa-solid fa-briefcase"></i>
-                <h3>Empleo y Seguridad Social</h3>
-                <p>Informe de vida laboral, prestaciones y alta en el sistema nacional de empleo.</p>
-            </a>
-        </div>
-    </main>
+            <div id="nav-user-dni" style="font-size: 0.75rem; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 6px; margin-bottom: 15px; text-align: center;"></div>
+            <button class="btn-logout" id="logoutBtn"><i class="fa-solid fa-power-off"></i> FINALIZAR SESIÓN</button>
+        </aside>
 
-    <!-- MODAL DE LOGIN (REVISADO PARA SERIEDAD GUBERNAMENTAL) -->
-    <div class="modal" id="loginModal">
-        <div class="login-box">
-            <div class="login-header">
-                <h3>Identificación Ciudadana</h3>
-                <p style="font-size: 0.8rem; opacity: 0.8; margin-top: 5px;">Sede Segura - Conexión Cifrada AES-256</p>
-            </div>
-            
-            <div class="login-body">
-                <!-- Métodos de acceso estatales -->
-                <div class="auth-option">
-                    <i class="fa-solid fa-certificate" style="color: #0ea5e9;"></i>
-                    <div>
-                        <strong>Certificado Electrónico / DNIe</strong>
-                        <p style="font-size: 0.7rem; color: #64748b;">Acceso seguro mediante certificado local</p>
+        <main>
+            <header class="top-header">
+                <div>
+                    <h1 style="font-size: 1.5rem;">Bienvenido/a a su Carpeta Ciudadana</h1>
+                    <p style="color: #64748b; font-size: 0.9rem;" id="current-date"></p>
+                </div>
+                <div style="display: flex; gap: 15px;">
+                    <div class="card" style="margin:0; padding: 10px 20px; display: flex; align-items: center; gap: 10px;">
+                        <i class="fa-solid fa-bell" style="color: var(--warning);"></i>
+                        <span style="font-size: 0.8rem; font-weight: 700;">2 Avisos</span>
                     </div>
                 </div>
+            </header>
 
-                <div style="text-align: center; margin: 20px 0; position: relative;">
-                    <hr style="border: 0; border-top: 1px solid #e2e8f0;">
-                    <span style="position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: white; padding: 0 15px; font-size: 0.7rem; color: #94a3b8; font-weight: 800;">O MEDIANTE PASAPORTE DIGITAL</span>
+            <!-- SECCIÓN: DATOS DE IDENTIDAD -->
+            <section>
+                <div class="section-header">
+                    <i class="fa-solid fa-id-card-clip"></i>
+                    <h3>DATOS DEL TITULAR</h3>
                 </div>
-
-                <!-- Tu integración con Firebase -->
-                <div id="firebaseAuthContainer">
-                    <div class="input-group">
-                        <label>Identificador de Ciudadano (Email)</label>
-                        <input type="email" id="email" placeholder="ejemplo@correo.gob.cat">
+                <div class="card">
+                    <div class="data-strip" id="perfil-container">
+                        <!-- Renderizado dinámico -->
                     </div>
-                    <div class="input-group">
-                        <label>Contraseña de Acceso</label>
-                        <input type="password" id="password" placeholder="••••••••">
-                    </div>
-                    <button class="btn-access" id="doLogin" style="width: 100%; justify-content: center; margin-top: 10px;">
-                        Verificar Credenciales
-                    </button>
                 </div>
+            </section>
 
-                <p style="margin-top: 20px; font-size: 0.7rem; color: #ef4444; text-align: center; display: none;" id="loginError">
-                    <i class="fa-solid fa-triangle-exclamation"></i> Error de autenticación: El sistema no reconoce las credenciales proporcionadas.
-                </p>
-            </div>
-            
-            <div style="background: #f8fafc; padding: 15px; text-align: center;">
-                <button onclick="closeLogin()" style="background: none; border: none; font-size: 0.8rem; color: #64748b; cursor: pointer; text-decoration: underline;">Cancelar y volver al portal</button>
-            </div>
-        </div>
-    </div>
+            <!-- SECCIÓN: TRABAJO -->
+            <section id="work-section">
+                <div class="section-header">
+                    <i class="fa-solid fa-briefcase"></i>
+                    <h3>SITUACIÓN LABORAL ACTUAL</h3>
+                </div>
+                <div class="card" id="laboral-container">
+                    <!-- Renderizado dinámico -->
+                </div>
+            </section>
 
-    <footer>
-        <div class="footer-grid">
-            <div>
-                <h4 style="color: var(--gob-accent); margin-bottom: 20px;">Soporte Técnico</h4>
-                <p>Atención al Ciudadano: 012</p>
-                <p>Desde el extranjero: +34 900 000 000</p>
-                <p>Manuales de Usuario</p>
-            </div>
-            <div>
-                <h4 style="color: var(--gob-accent); margin-bottom: 20px;">Información Legal</h4>
-                <p>Aviso Legal</p>
-                <p>Política de Cookies</p>
-                <p>Accesibilidad</p>
-            </div>
-            <div>
-                <h4 style="color: var(--gob-accent); margin-bottom: 20px;">Seguridad</h4>
-                <p>Esquema Nacional de Seguridad</p>
-                <p>Protección de Datos (RGPD)</p>
-                <p>Verificación de documentos</p>
-            </div>
-        </div>
-        <div style="text-align: center; padding-top: 20px; opacity: 0.5;">
-            <p>© 2026 Gobierno del Reino de Gatolandia - Ministerio de Transformación Digital</p>
-        </div>
-    </footer>
+            <!-- SECCIÓN: EXPEDIENTES RECIENTES -->
+            <section>
+                <div class="section-header">
+                    <i class="fa-solid fa-file-invoice"></i>
+                    <h3>EXPEDIENTES Y SOLICITUDES</h3>
+                </div>
+                <div class="card" style="padding: 0;">
+                    <div id="expedientes-list">
+                        <!-- Renderizado dinámico -->
+                    </div>
+                    <div style="padding: 15px; text-align: center;">
+                        <button style="background: none; border: none; color: var(--gob-accent); font-weight: 700; cursor: pointer; font-size: 0.8rem;">VER TODOS LOS EXPEDIENTES</button>
+                    </div>
+                </div>
+            </section>
 
-    <div class="legal-notice">
-        Advertencia: El acceso no autorizado a este sistema o el uso indebido de las identidades digitales está penado por el Código Civil del Reino (Art. 452.1). Todas las direcciones IP son registradas con fines de auditoría.
+            <!-- SECCIÓN: CATÁLOGO -->
+            <section>
+                <div class="section-header">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <h3>TRÁMITES DESTACADOS</h3>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px;">
+                    <div class="card" style="text-align: center; cursor: pointer; border-bottom: 3px solid var(--gob-accent);">
+                        <i class="fa-solid fa-coins" style="font-size: 1.5rem; margin-bottom: 10px; color: var(--gob-blue);"></i>
+                        <p style="font-size: 0.8rem; font-weight: 700;">Declaración Renta</p>
+                    </div>
+                    <div class="card" style="text-align: center; cursor: pointer;">
+                        <i class="fa-solid fa-file-signature" style="font-size: 1.5rem; margin-bottom: 10px; color: var(--gob-blue);"></i>
+                        <p style="font-size: 0.8rem; font-weight: 700;">Certificado Padrón</p>
+                    </div>
+                    <div class="card" style="text-align: center; cursor: pointer;">
+                        <i class="fa-solid fa-hand-holding-heart" style="font-size: 1.5rem; margin-bottom: 10px; color: var(--gob-blue);"></i>
+                        <p style="font-size: 0.8rem; font-weight: 700;">Vida Laboral</p>
+                    </div>
+                </div>
+            </section>
+        </main>
     </div>
 
     <script type="module">
-        // Mantengo tu lógica de Firebase exacta
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCUBDdTMyQTwQo4FzKpDZDpOAKGPVcki4I",
@@ -387,35 +218,79 @@
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
+        const db = getFirestore(app);
 
-        // UI Logic
-        window.openLogin = () => document.getElementById('loginModal').style.display = 'flex';
-        window.closeLogin = () => document.getElementById('loginModal').style.display = 'none';
-        document.getElementById('triggerAuth').onclick = openLogin;
+        // FECHA ACTUAL SERIA
+        document.getElementById('current-date').innerText = new Intl.DateTimeFormat('es-ES', { dateStyle: 'full' }).format(new Date());
 
-        document.getElementById('doLogin').onclick = async () => {
-            const m = document.getElementById('email').value;
-            const p = document.getElementById('password').value;
-            const errorMsg = document.getElementById('loginError');
-            
-            errorMsg.style.display = 'none';
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                const userDoc = await getDoc(doc(db, "usuarios", user.uid));
+                if (userDoc.exists()) {
+                    const userData = userDoc.data();
+                    
+                    // SEGURIDAD: REDIRECCIÓN SI ES EMPRESA
+                    if (userData.perfil.tipo === 'empresa') {
+                        window.location.href = '/empresas'; // Redirección inmediata
+                        return;
+                    }
 
-            try {
-                await signInWithEmailAndPassword(auth, m, p);
-                window.location.href = 'mi-carpeta.html';
-            } catch (e) {
-                errorMsg.style.display = 'block';
+                    renderPortal(userData);
+                    document.getElementById('loader').style.opacity = '0';
+                    setTimeout(() => {
+                        document.getElementById('loader').style.display = 'none';
+                        document.getElementById('content').style.display = 'grid';
+                    }, 500);
+                }
+            } else {
+                window.location.href = 'index.html';
             }
-        };
+        });
 
-        // Accessibility Logic
-        window.toggleContrast = () => document.body.classList.toggle('high-contrast');
-        window.adjustFont = (delta) => {
-            const root = document.querySelector(':root');
-            const style = getComputedStyle(root);
-            let current = parseInt(style.getPropertyValue('--fs-modifier'));
-            root.style.setProperty('--fs-modifier', (current + delta) + "px");
-        };
+        function renderPortal(data) {
+            const p = data.perfil;
+            
+            // Render Perfil
+            document.getElementById('nav-user-dni').innerText = `ID: ${p.dni}`;
+            document.getElementById('perfil-container').innerHTML = `
+                <div class="data-box"><label>Nombre Completo</label><p>${p.nombre} ${p.apellidos || ''}</p></div>
+                <div class="data-box"><label>Identificación</label><p>${p.dni}</p></div>
+                <div class="data-box"><label>Nacionalidad</label><p>Gatolanesa</p></div>
+            `;
+
+            // Render Laboral
+            document.getElementById('laboral-container').innerHTML = `
+                <div class="data-strip">
+                    <div class="data-box"><label>Empresa / Pagador</label><p>${p.empresa || 'SIN VÍNCULO LABORAL'}</p></div>
+                    <div class="data-box"><label>Puesto</label><p>${p.trabajo || 'EN BÚSQUEDA'}</p></div>
+                    <div class="data-box">
+                        <label>Renta Bruta Anual (Estimada)</label>
+                        <p style="color: var(--success);">${p.sueldo ? p.sueldo.toLocaleString() + ' RG' : '0 RG'}</p>
+                    </div>
+                </div>
+            `;
+
+            // Render Expedientes
+            const list = document.getElementById('expedientes-list');
+            if (data.tramites && Object.keys(data.tramites).length > 0) {
+                list.innerHTML = Object.values(data.tramites).map(t => `
+                    <div class="expediente-row">
+                        <div>
+                            <p style="font-weight: 700; font-size: 0.9rem;">${t.nombre}</p>
+                            <small style="color: #64748b;">Ref: ${Math.random().toString(36).substr(2, 9).toUpperCase()}</small>
+                        </div>
+                        <div style="text-align: right;">
+                            <span class="status-pill status-${t.estado}">${t.estado.toUpperCase()}</span>
+                            <p style="font-size: 0.7rem; color: #64748b; margin-top: 5px;">${t.fecha}</p>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                list.innerHTML = `<p style="padding: 30px; text-align: center; opacity: 0.5;">No constan expedientes abiertos a su nombre.</p>`;
+            }
+        }
+
+        document.getElementById('logoutBtn').onclick = () => signOut(auth);
     </script>
 </body>
 </html>
