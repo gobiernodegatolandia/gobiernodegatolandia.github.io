@@ -514,20 +514,22 @@
                 }
             },
 
-            logout: () => signOut(auth)
-        };
-        showToast: function(mensaje, tipo = 'success') {
+            logout: () => signOut(auth), // He puesto una coma aquí para unir las piezas
+
+            showToast: function(mensaje, tipo = 'success') {
                 const container = document.getElementById('toast-container');
                 const toast = document.createElement('div');
                 toast.className = `toast ${tipo}`;
                 toast.innerHTML = `
-        <i class="fa-solid ${tipo === 'success' ? 'fa-check-circle' : 'fa-info-circle'}"></i>
-        <span>${mensaje}</span>
-    `;
+                    <i class="fa-solid ${tipo === 'success' ? 'fa-check-circle' : 'fa-info-circle'}"></i>
+                    <span>${mensaje}</span>
+                `;
                 container.appendChild(toast);
                 setTimeout(() => toast.remove(), 4000);
-            },
-            SedeGato.init();
+            } // Esta llave cierra la función
+        };
+
+        SedeGato.init();
     </script>
     <div id="toast-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000;"></div>
 </body>
