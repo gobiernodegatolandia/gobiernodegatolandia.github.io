@@ -1,210 +1,345 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sede Electrónica | Agencia Tributaria de Gatolandia</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
     <style>
-        :root { 
-            --gob-blue: #001f3d; 
-            --gob-gold: #b8924e; 
+        :root {
+            --gob-blue: #001f3d;
+            --gob-gold: #b8924e;
             --gob-bg: #f8fafc;
             --success: #16a34a;
+            --danger: #ef4444;
         }
-        
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--gob-bg); color: #1e293b; margin: 0; padding: 20px; }
-        .container { max-width: 850px; margin: 40px auto; background: white; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); overflow: hidden; }
-        
-        /* Cabecera */
-        .gov-header { background-color: var(--gob-blue); color: white; padding: 30px; display: flex; justify-content: space-between; align-items: center; }
-        .gov-header h1 { margin: 0; font-size: 1.1rem; letter-spacing: 1px; text-transform: uppercase; }
-        
-        .content { padding: 40px; }
-        
-        /* Bloque de datos */
-        .fiscal-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; margin-top: 20px; }
-        .data-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f1f5f9; }
-        .label { font-weight: 600; color: #64748b; font-size: 0.85rem; }
-        .value { font-weight: 700; color: var(--gob-blue); }
-        
-        /* Resultado Final */
-        .total-row { margin-top: 20px; padding: 20px; background: #f1f5f9; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
-        .total-amount { font-size: 1.6rem; color: #dc2626; font-weight: 800; }
-        .total-amount.exento { color: var(--success); }
-        
-        .btn-primary { 
-            background: var(--gob-blue); color: white; border: none; padding: 18px; width: 100%; 
-            font-weight: 700; cursor: pointer; border-radius: 6px; text-transform: uppercase; transition: 0.3s; 
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--gob-bg);
+            color: #1e293b;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 40px auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .gov-header {
+            background-color: var(--gob-blue);
+            color: white;
+            padding: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .fiscal-card {
+            background: #ffffff;
+            border: 2px solid #f1f5f9;
+            border-radius: 12px;
+            padding: 25px;
             margin-top: 20px;
+            position: relative;
         }
-        .btn-primary:hover { background: var(--gob-gold); }
-        
-        .disclaimer { font-size: 0.7rem; color: #94a3b8; margin-top: 25px; line-height: 1.5; text-align: center; }
-        #loader { text-align: center; padding: 60px; }
-        
-        .already-done { text-align: center; padding: 40px; }
+
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .label {
+            font-weight: 600;
+            color: #64748b;
+            font-size: 0.85rem;
+        }
+
+        .value {
+            font-weight: 700;
+            color: var(--gob-blue);
+        }
+
+        .total-row {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f1f5f9;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .total-amount {
+            font-size: 1.6rem;
+            color: #dc2626;
+            font-weight: 800;
+        }
+
+        .btn-primary {
+            background: var(--gob-blue);
+            color: white;
+            border: none;
+            padding: 18px;
+            width: 100%;
+            font-weight: 700;
+            cursor: pointer;
+            border-radius: 8px;
+            text-transform: uppercase;
+            transition: 0.3s;
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: var(--gob-gold);
+            transform: translateY(-2px);
+        }
+
+        .btn-primary:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+        }
+
+        #success-screen,
+        #error-screen {
+            display: none;
+            text-align: center;
+            padding: 60px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .csv-box {
+            border: 1px dashed #cbd5e1;
+            padding: 10px;
+            margin-top: 20px;
+            font-family: monospace;
+            font-size: 0.8rem;
+            color: #64748b;
+        }
     </style>
 </head>
+
 <body>
 
-<div class="container">
-    <div class="gov-header">
-        <div>
-            <div style="font-size: 0.6rem; opacity: 0.8; margin-bottom: 5px; font-weight: 800; letter-spacing: 2px;">REINO DE GATOLANDIA</div>
-            <h1>Agencia Tributaria - Borrador I.R.G. 2026</h1>
-        </div>
-        <i class="fa-solid fa-shield-cat fa-2x" style="color: var(--gob-gold);"></i>
-    </div>
-
-    <div class="content">
-        <div id="loader">
-            <i class="fa-solid fa-spinner fa-spin fa-2x" style="color: var(--gob-gold);"></i>
-            <p style="margin-top:15px; font-size: 0.9rem; color: #64748b;">Validando estado de su expediente fiscal...</p>
+    <div class="container" id="documento-hacienda">
+        <div class="gov-header">
+            <div>
+                <div style="font-size: 0.6rem; opacity: 0.8; margin-bottom: 5px; font-weight: 800; letter-spacing: 2px;">REINO DE GATOLANDIA</div>
+                <h1>Agencia Tributaria - Borrador I.R.G. 2026</h1>
+            </div>
+            <i class="fa-solid fa-shield-cat fa-2x" style="color: var(--gob-gold);"></i>
         </div>
 
-        <div id="main-content" style="display: none;">
-            <p>Contribuyente: <strong id="user-name">...</strong></p>
-            <p style="font-size: 0.9rem; color: #475569;">Borrador generado automáticamente según rendimientos íntegros del trabajo:</p>
-
-            <div class="fiscal-card">
-                <div class="data-row">
-                    <span class="label">NIF / IDENTIFICADOR:</span>
-                    <span id="res-dni" class="value">...</span>
-                </div>
-                <div class="data-row">
-                    <span class="label">RENDIMIENTOS BRUTOS:</span>
-                    <span id="res-sueldo" class="value">0 RG</span>
-                </div>
-                <div class="data-row">
-                    <span class="label">EXENCIÓN POR MÍNIMO VITAL:</span>
-                    <span class="value" style="color: var(--success);">- 25.000,00 RG</span>
-                </div>
-                <div class="data-row">
-                    <span class="label">TRAMO APLICABLE:</span>
-                    <span id="res-tramo" class="value">---</span>
-                </div>
+        <div class="content">
+            <!-- Loader -->
+            <div id="loader">
+                <i class="fa-solid fa-spinner fa-spin fa-2x" style="color: var(--gob-gold);"></i>
+                <p style="margin-top:15px;">Verificando integridad del expediente...</p>
             </div>
 
-            <div class="total-row">
-                <div>
-                    <span style="display:block; font-size:0.65rem; font-weight:800; color:#64748b; text-transform: uppercase;">Liquidación</span>
-                    <span style="font-size:1rem; font-weight:700;" id="texto-resultado">CUOTA A INGRESAR</span>
-                </div>
-                <div class="total-amount" id="res-cuota">0,00 RG</div>
+            <!-- Pantalla de Error (Anti-Inventos) -->
+            <div id="error-screen">
+                <i class="fa-solid fa-circle-exclamation fa-5x" style="color: var(--danger); margin-bottom: 20px;"></i>
+                <h2 style="color: var(--gob-blue);">EXPEDIENTE NO VÁLIDO</h2>
+                <p id="error-msg">Este número de trámite no existe en nuestros registros oficiales.</p>
+                <button class="btn-primary" onclick="window.location.href='../mi-carpeta.html'" style="background: #64748b;">VOLVER A LA CARPETA</button>
             </div>
 
-            <div style="text-align: right; margin-top: 10px; font-size: 0.8rem; color: #64748b;">
-                Equivalencia oficial: <span id="res-euro">0,00 €</span> (1 RG = 0,50€)
+            <!-- Pantalla de Éxito -->
+            <div id="success-screen">
+                <i class="fa-solid fa-circle-check fa-5x" style="color: var(--success); margin-bottom: 20px;"></i>
+                <h2 style="color: var(--gob-blue);">PRESENTADA CON ÉXITO</h2>
+                <div class="csv-box">CSV: <span id="final-csv-text"></span></div>
+                <button class="btn-primary" onclick="descargarPDF()" style="background: var(--success);"><i class="fa-solid fa-file-pdf"></i> DESCARGAR JUSTIFICANTE PDF</button>
+                <button class="btn-primary" onclick="window.close()" style="background: #64748b; margin-top: 10px;">CERRAR VENTANA</button>
             </div>
 
-            <button class="btn-primary" onclick="presentarRenta()">Presentar Declaración Oficial</button>
-
-            <p class="disclaimer">
-                Gatolandia garantiza un coste de vida inferior a la UE. Los impuestos sobre inmuebles y vehículos no se incluyen en esta autoliquidación por gravarse en el momento de la transmisión.
-            </p>
-        </div>
-    </div>
-</div>
-
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-    import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-    // Credenciales oficiales proporcionadas
-    const firebaseConfig = {
-        apiKey: "AIzaSyCUBDdTMyQTwQo4FzKpDZDpOAKGPVcki4I",
-        authDomain: "sedegatogob.firebaseapp.com",
-        projectId: "sedegatogob",
-        storageBucket: "sedegatogob.firebasestorage.app",
-        messagingSenderId: "764639776502",
-        appId: "1:764639776502:web:99f6e1a045f5d4810666d7"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-
-    onAuthStateChanged(auth, async (user) => {
-        if (!user) return window.location.href = "../index.html";
-
-        const docRef = doc(db, "usuarios", user.uid);
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists()) {
-            const fullData = docSnap.data();
-            
-            // --- BLOQUEO: Verificar si ya se presentó ---
-            if (fullData.tramites && fullData.tramites.renta_2026) {
-                document.getElementById('loader').innerHTML = `
-                    <div class="already-done">
-                        <i class="fa-solid fa-file-circle-check fa-4x" style="color: var(--success); margin-bottom: 20px;"></i>
-                        <h2 style="color: var(--gob-blue);">DECLARACIÓN YA PRESENTADA</h2>
-                        <p style="color: #64748b;">Usted ya cumplió con sus obligaciones fiscales para el ejercicio 2026.</p>
-                        <button class="btn-primary" onclick="window.location.href='../mi-carpeta.html'" style="width:auto; padding: 12px 40px;">VOLVER AL PORTAL</button>
+            <!-- Contenido Principal -->
+            <div id="main-content" style="display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+                    <div>
+                        <p>Contribuyente: <strong id="user-name">...</strong></p>
+                        <p style="font-size: 0.8rem; color: #64748b;">NIF: <span id="res-dni">...</span></p>
                     </div>
-                `;
+                    <div style="text-align: right; font-size: 0.7rem; color: #94a3b8;">
+                        CÓDIGO OFICIAL:<br><strong id="exp-id-display" style="color: var(--gob-blue);">...</strong>
+                    </div>
+                </div>
+
+                <div class="fiscal-card">
+                    <div class="data-row"><span class="label">RENDIMIENTOS BRUTOS:</span><span id="res-sueldo" class="value">0 RG</span></div>
+                    <div class="data-row"><span class="label">MÍNIMO EXENTO VITAL:</span><span class="value" style="color: var(--success);">- 25.000,00 RG</span></div>
+                    <div class="data-row"><span class="label">TRAMO APLICABLE:</span><span id="res-tramo" class="value">---</span></div>
+                </div>
+
+                <div class="total-row">
+                    <div>
+                        <span style="display:block; font-size:0.65rem; font-weight:800; color:#64748b;">AUTOLIQUIDACIÓN FINAL</span>
+                        <span style="font-size:1.1rem; font-weight:800;" id="texto-resultado">A INGRESAR</span>
+                    </div>
+                    <div class="total-amount" id="res-cuota">0,00 RG</div>
+                </div>
+
+                <button class="btn-primary" id="btn-presentar" onclick="presentarRenta()">
+                    <i class="fa-solid fa-signature"></i> FIRMAR Y PRESENTAR DECLARACIÓN
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import {
+            initializeApp
+        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import {
+            getAuth,
+            onAuthStateChanged
+        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import {
+            getFirestore,
+            doc,
+            getDoc,
+            updateDoc
+        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCUBDdTMyQTwQo4FzKpDZDpOAKGPVcki4I",
+            authDomain: "sedegatogob.firebaseapp.com",
+            projectId: "sedegatogob",
+            storageBucket: "sedegatogob.firebasestorage.app",
+            messagingSenderId: "764639776502",
+            appId: "1:764639776502:web:99f6e1a045f5d4810666d7"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        let cuotaGlobal = 0;
+        const params = new URLSearchParams(window.location.search);
+        const idExpediente = params.get('id');
+
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) return window.location.href = "../index.html";
+
+            const docRef = doc(db, "usuarios", user.uid);
+            const docSnap = await getDoc(docRef);
+            const data = docSnap.data();
+
+            // --- BLOQUEO DE SEGURIDAD: VALIDAR ID REAL ---
+            if (!idExpediente || !data.tramites || !data.tramites[idExpediente]) {
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('error-screen').style.display = 'block';
                 return;
             }
 
-            const perfil = fullData.perfil;
-            const sueldo = perfil.sueldo || 0;
-            let cuota = 0;
-            let tramoNombre = "";
-
-            // --- CÁLCULO GATOLANDÉS ---
-            if (sueldo <= 25000) {
-                cuota = 0;
-                tramoNombre = "Exento (Mínimo Vital)";
-                document.getElementById('res-cuota').classList.add('exento');
-                document.getElementById('texto-resultado').innerText = "RESULTADO: EXENTO";
-            } else if (sueldo <= 60000) {
-                cuota = (sueldo - 25000) * 0.10;
-                tramoNombre = "10% (Tramo General)";
-            } else if (sueldo <= 120000) {
-                cuota = (35000 * 0.10) + ((sueldo - 60000) * 0.18);
-                tramoNombre = "18% (Tramo Profesional)";
-            } else {
-                cuota = (35000 * 0.10) + (60000 * 0.18) + ((sueldo - 120000) * 0.28);
-                tramoNombre = "28% (Grandes Rentas)";
+            // --- VALIDAR SI YA ESTÁ COMPLETADO ---
+            if (data.tramites[idExpediente].estado === "completado") {
+                mostrarPantallaExito(data.tramites[idExpediente].csv);
+                return;
             }
 
-            // Inyectar Datos en UI
-            document.getElementById('user-name').innerText = perfil.nombre + " " + (perfil.apellidos || "");
-            document.getElementById('res-dni').innerText = perfil.dni;
+            // Cálculos
+            const sueldo = data.perfil.sueldo || 0;
+            let tramo = "Exento";
+            if (sueldo > 25000 && sueldo <= 60000) {
+                cuotaGlobal = (sueldo - 25000) * 0.10;
+                tramo = "General (10%)";
+            } else if (sueldo > 60000) {
+                cuotaGlobal = (35000 * 0.10) + ((sueldo - 60000) * 0.18);
+                tramo = "Profesional (18%)";
+            }
+
+            // Render UI
+            document.getElementById('user-name').innerText = data.perfil.nombre + " " + (data.perfil.apellidos || "");
+            document.getElementById('res-dni').innerText = data.perfil.dni;
             document.getElementById('res-sueldo').innerText = sueldo.toLocaleString() + " RG";
-            document.getElementById('res-tramo').innerText = tramoNombre;
-            document.getElementById('res-cuota').innerText = cuota.toLocaleString(undefined, {minimumFractionDigits: 2}) + " RG";
-            document.getElementById('res-euro').innerText = (cuota * 0.5).toLocaleString(undefined, {minimumFractionDigits: 2}) + " €";
+            document.getElementById('res-tramo').innerText = tramo;
+            document.getElementById('res-cuota').innerText = cuotaGlobal.toLocaleString(undefined, {
+                minimumFractionDigits: 2
+            }) + " RG";
+            document.getElementById('exp-id-display').innerText = idExpediente;
 
             document.getElementById('loader').style.display = 'none';
             document.getElementById('main-content').style.display = 'block';
+        });
 
-            // Función de Presentación
-            window.presentarRenta = async () => {
-                if(confirm("Al confirmar, se generará un asiento electrónico irreversible en Hacienda. ¿Proceder?")) {
-                    try {
-                        await updateDoc(docRef, {
-                            [`tramites.renta_2026`]: {
-                                nombre: "Declaración de la Renta 2026",
-                                ministerio: "Agencia Tributaria Real",
-                                fecha: new Date().toLocaleDateString(),
-                                resultado: cuota.toFixed(2) + " RG",
-                                estado: "COMPLETADO"
-                            }
-                        });
-                        alert("Declaración registrada correctamente en la Sede Electrónica.");
-                        window.location.href = "../mi-carpeta.html";
-                    } catch (e) {
-                        alert("Error de conexión con el servidor fiscal.");
-                    }
+        window.presentarRenta = async () => {
+            const btn = document.getElementById('btn-presentar');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> REGISTRANDO...';
+
+            const csv = "GATO-" + Math.random().toString(36).toUpperCase().substring(2, 6) + "-" + Math.random().toString(36).toUpperCase().substring(2, 6);
+
+            try {
+                const userRef = doc(db, "usuarios", auth.currentUser.uid);
+                await updateDoc(userRef, {
+                    [`tramites.${idExpediente}.estado`]: "completado",
+                    [`tramites.${idExpediente}.csv`]: csv,
+                    [`tramites.${idExpediente}.resultado`]: cuotaGlobal.toFixed(2) + " RG",
+                    [`tramites.${idExpediente}.fecha_firma`]: new Date().toLocaleString()
+                });
+                mostrarPantallaExito(csv);
+            } catch (e) {
+                btn.disabled = false;
+                btn.innerText = "ERROR - REINTENTAR";
+            }
+        };
+
+        function mostrarPantallaExito(csv) {
+            document.getElementById('loader').style.display = 'none';
+            document.getElementById('main-content').style.display = 'none';
+            document.getElementById('success-screen').style.display = 'block';
+            document.getElementById('final-csv-text').innerText = csv;
+        }
+
+        window.descargarPDF = () => {
+            const elemento = document.getElementById('documento-hacienda');
+            const opt = {
+                margin: 10,
+                filename: `IRG_2026_${idExpediente}.pdf`,
+                html2canvas: {
+                    scale: 2
+                },
+                jsPDF: {
+                    unit: 'mm',
+                    format: 'a4',
+                    orientation: 'portrait'
                 }
             };
-        }
-    });
-</script>
+            html2pdf().set(opt).from(elemento).save();
+        };
+    </script>
 </body>
+
 </html>
