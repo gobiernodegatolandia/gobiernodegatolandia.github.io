@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sede Electrónica | Gobierno del Reino Democrático de Gatolandia</title>
     
-    <!-- Librerías de confianza gubernamental -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -39,7 +38,7 @@
             font-size: calc(16px + var(--fs-modifier));
         }
 
-        /* --- BARRA DE ESTADO GUBERNAMENTAL --- */
+        /* --- BARRA DE ESTADO  --- */
         .gov-banner {
             background: #fff;
             padding: 5px 8%;
@@ -102,7 +101,7 @@
         .hero h2 { font-size: 2.5rem; margin-bottom: 20px; font-weight: 800; }
         .hero p { max-width: 800px; margin: 0 auto; opacity: 0.9; font-size: 1.1rem; }
 
-        /* --- ÁREA DE TRÁMITES (GRID) --- */
+        /* --- ÁREA DE TRÁMITES --- */
         .main-container {
             max-width: 1200px;
             margin: -50px auto 60px;
@@ -152,7 +151,7 @@
             background: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center;
         }
 
-        /* --- MODAL DE IDENTIFICACIÓN (ESTILO CL@VE) --- */
+        /* --- MODAL DE IDENTIFICACIÓN --- */
         .modal {
             position: fixed; inset: 0; background: rgba(0,0,0,0.7);
             backdrop-filter: blur(5px); display: none;
@@ -190,7 +189,7 @@
         .input-group label { display: block; font-size: 0.8rem; font-weight: 700; margin-bottom: 5px; }
         .input-group input { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 4px; }
 
-        /* --- FOOTER SERIO --- */
+        /* --- FOOTER --- */
         footer {
             background: #1e293b;
             color: #94a3b8;
@@ -215,7 +214,6 @@
             text-align: center;
         }
 
-        /* RESPONSIVE */
         @media (max-width: 768px) {
             header { flex-direction: column; gap: 20px; text-align: center; }
             .logo-text h1 { border: none; padding: 0; }
@@ -226,7 +224,6 @@
 </head>
 <body>
 
-    <!-- Herramientas de Accesibilidad Móviles/Desktop -->
     <div class="accessibility-bar">
         <button class="acc-tool" onclick="toggleContrast()" title="Alto Contraste"><i class="fa-solid fa-circle-half-stroke"></i></button>
         <button class="acc-tool" onclick="adjustFont(2)" title="Aumentar letra"><i class="fa-solid fa-plus"></i></button>
@@ -289,10 +286,19 @@
                 <h3>Empleo y Seguridad Social</h3>
                 <p>Informe de vida laboral, prestaciones y alta en el sistema nacional de empleo.</p>
             </a>
+            <a href="exteriores/formulario20" class="service-card">
+                <i class="fas fa-passport"></i>
+                <h3>Formulario 2.0</h3>
+                <p>Accede y rellena el formulario 2.0 para países disponibles y entrar a Gatolandia desde un control fronterizo, aeropuerto, puerto o tren. <b>No requiere registro en la Administración Pública.</b></p>
+            </a>
+            <a href="verificador" class="service-card">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <h3>Verificador de CSV</h3>
+                <p>Verifica si un documento gubernamental es auténtico, seguro y si está en vigor con nuestro verificador de Códigos Seguros de Verificación. <b>No requiere registro en la Administración Pública</b></p>
+            </a>
         </div>
     </main>
 
-    <!-- MODAL DE LOGIN (REVISADO PARA SERIEDAD GUBERNAMENTAL) -->
     <div class="modal" id="loginModal">
         <div class="login-box">
             <div class="login-header">
@@ -315,7 +321,6 @@
                     <span style="position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: white; padding: 0 15px; font-size: 0.7rem; color: #94a3b8; font-weight: 800;">O MEDIANTE PASAPORTE DIGITAL</span>
                 </div>
 
-                <!-- Tu integración con Firebase -->
                 <div id="firebaseAuthContainer">
                     <div class="input-group">
                         <label>Identificador de Ciudadano (Email)</label>
@@ -372,7 +377,6 @@
     </div>
 
     <script type="module">
-        // Mantengo tu lógica de Firebase exacta
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
@@ -388,7 +392,6 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // UI Logic
         window.openLogin = () => document.getElementById('loginModal').style.display = 'flex';
         window.closeLogin = () => document.getElementById('loginModal').style.display = 'none';
         document.getElementById('triggerAuth').onclick = openLogin;
@@ -408,7 +411,6 @@
             }
         };
 
-        // Accessibility Logic
         window.toggleContrast = () => document.body.classList.toggle('high-contrast');
         window.adjustFont = (delta) => {
             const root = document.querySelector(':root');
