@@ -362,7 +362,7 @@
                     nombre: 'Declaración de la Renta',
                     icon: 'fa-coins',
                     cat: 'Hacienda',
-                    url: 'https://hacienda.gatolandia.gob/renta'
+                    url: 'hacienda/renta'
                 },
                 {
                     id: 'PAD',
@@ -467,7 +467,12 @@
 
                 if (info && info.url) {
                     this.showToast(`Redirigiendo a sede externa...`, 'info');
-                    setTimeout(() => window.open(info.url, '_blank'), 1500);
+
+                    // 1. Creamos la URL completa pegando el ID al final
+                    const urlConId = `${info.url}?id=${id}`;
+
+                    // 2. Abrimos esa nueva URL en lugar de la original
+                    setTimeout(() => window.open(urlConId, '_blank'), 1500);
                 } else {
                     this.showToast(`Trámite ${nombre} iniciado correctamente`, 'success');
                 }
