@@ -260,7 +260,7 @@
             // --- BLOQUEO GLOBAL: ¿Ya ha presentado la renta alguna vez? ---
             const todosLosTramites = Object.values(data.tramites || {});
             const yaPresentada = todosLosTramites.find(t =>
-                t.nombre === "Declaración de la Renta 2026" && t.estado === "completado"
+                t.nombre === "Declaración de la Renta" && t.estado === "completado"
             );
 
             if (yaPresentada) {
