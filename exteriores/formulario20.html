@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sede Electrónica | Ministerio de Interior | Reino de Gatolandia</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --gob-blue: #001f3d;
+            --gob-gold: #b8924e;
+            --gob-bg: #ffffff;
+            --border-color: #d1d5db;
+        }
+
+        body {
+            background-color: #f3f4f6;
+            color: #111827;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* --- CABECERA INSTITUCIONAL --- */
+        .top-bar {
+            background: var(--gob-blue);
+            height: 8px;
+            border-bottom: 4px solid var(--gob-gold);
+        }
+
+        .gov-header {
+            background: white;
+            padding: 20px 10%;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .gov-header h1 {
+            font-size: 1.1rem;
+            margin: 0;
+            color: var(--gob-blue);
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+            line-height: 1.1;
+        }
+
+        .gov-header span {
+            font-size: 0.75rem;
+            color: #6b7280;
+            font-weight: 400;
+        }
+
+        /* --- CONTENEDOR PRINCIPAL --- */
+        .main-content {
+            max-width: 1000px;
+            margin: 40px auto;
+            background: white;
+            padding: 50px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .breadcrumb {
+            font-size: 0.7rem;
+            color: #6b7280;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            border-bottom: 2px solid var(--gob-blue);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        /* --- FORMULARIO TÉCNICO --- */
+        .instruction-box {
+            background: #f9fafb;
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            font-size: 0.85rem;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .viajero-fieldset {
+            border: 1px solid var(--border-color);
+            padding: 30px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .fieldset-label {
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: white;
+            padding: 0 10px;
+            font-weight: 800;
+            font-size: 0.8rem;
+            color: var(--gob-blue);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 15px;
+        }
+
+        .col-6 {
+            grid-column: span 6;
+        }
+
+        .col-4 {
+            grid-column: span 4;
+        }
+
+        .col-12 {
+            grid-column: span 12;
+        }
+
+        label {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: #374151;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            background: #ffffff;
+        }
+
+        .warning-text {
+            color: #991b1b;
+            font-size: 0.75rem;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        /* --- BOTONES --- */
+        .btn-gov {
+            padding: 12px 24px;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            border: none;
+            transition: 0.2s;
+        }
+
+        .btn-secondary {
+            background: #e5e7eb;
+            color: #374151;
+            margin-bottom: 20px;
+        }
+
+        .btn-primary {
+            background: var(--gob-blue);
+            color: white;
+            width: 100%;
+            font-size: 1rem;
+            margin-top: 20px;
+        }
+
+        .btn-primary:hover {
+            background: #003366;
+        }
+
+        /* --- RESULTADOS --- */
+        #result-area {
+            display: none;
+        }
+
+        .certificate-header {
+            border: 4px double var(--gob-blue);
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        #qr-container {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-bar"></div>
+    <header class="gov-header">
+        <div style="border-right: 2px solid var(--gob-gold); padding-right: 20px;">
+            <img src="https://static.wikia.nocookie.net/gatolandia/images/a/a2/Escudo.png/revision/latest?cb=20251004110744&path-prefix=es" alt="Escudo" height="60">
+        </div>
+        <div>
+            <h1>Gobierno de Gatolandia</h1>
+            <span>Ministerio de Asuntos Exteriores</span>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <div id="form-container">
+            <h2 class="section-title">Procedimiento de Declaración de Entrada Familiar</h2>
+
+            <div class="instruction-box">
+                <strong>AVISO LEGAL:</strong> La presente declaración se realiza al amparo del Artículo 14.2 de la Ley de Fronteras del Reino. La falsedad en los datos suministrados dará lugar a responsabilidad penal y la inmediata expulsión del territorio nacional.
+            </div>
+
+            <form id="procedimiento-f20">
+                <div id="contenedor-viajeros">
+                    <div class="viajero-fieldset">
+                        <div class="fieldset-label">DATOS DEL DECLARANTE PRINCIPAL (SUJETO 01)</div>
+                        <div class="form-grid">
+                            <div class="col-6">
+                                <label>Apellidos y Nombre (según documento oficial)</label>
+                                <input type="text" class="f-nombre" required>
+                            </div>
+                            <div class="col-6">
+                                <label>Número de Identidad (DNI / PASAPORTE / NIE)</label>
+                                <input type="text" class="f-doc" required>
+                            </div>
+                            <div class="col-4">
+                                <label>Nacionalidad de Origen</label>
+                                <select class="f-pais" required>
+                                    <option value="Alemania">Alemania / Deutschland</option>
+                                    <option value="Australia">Australia / Australia</option>
+                                    <option value="Austria">Austria / Österreich</option>
+                                    <option value="Bélgica">Bélgica / België - Belgique - Belgien</option>
+                                    <option value="Canadá">Canadá / Canada</option>
+                                    <option value="Dinamarca">Dinamarca / Danmark</option>
+                                    <option value="Eslovaquia">Eslovaquia / Slovensko</option>
+                                    <option value="Eslovenia">Eslovenia / Slovenija</option>
+                                    <option value="España" selected>España / España</option>
+                                    <option value="Estonia">Estonia / Eesti</option>
+                                    <option value="Estados Unidos">Estados Unidos / United States</option>
+                                    <option value="Finlandia">Finlandia / Suomi</option>
+                                    <option value="Francia">Francia / France</option>
+                                    <option value="Grecia">Grecia / Ελλάδα (Elláda)</option>
+                                    <option value="Hungría">Hungría / Magyarország</option>
+                                    <option value="Irlanda">Irlanda / Éire</option>
+                                    <option value="Islandia">Islandia / Ísland</option>
+                                    <option value="Israel">Israel / ישראל (Yisrael)</option>
+                                    <option value="Italia">Italia / Italia</option>
+                                    <option value="Japón">Japón / 日本 (Nihon/Nippon)</option>
+                                    <option value="Letonia">Letonia / Latvija</option>
+                                    <option value="Lituania">Lituania / Lietuva</option>
+                                    <option value="Luxemburgo">Luxemburgo / Lëtzebuerg - Luxembourg - Luxemburg</option>
+                                    <option value="Noruega">Noruega / Norge - Noreg</option>
+                                    <option value="Nueva Zelanda">Nueva Zelanda / New Zealand - Aotearoa</option>
+                                    <option value="Países Bajos">Países Bajos / Nederland</option>
+                                    <option value="Polonia">Polonia / Polska</option>
+                                    <option value="Portugal">Portugal / Portugal</option>
+                                    <option value="Reino Unido">Reino Unido / United Kingdom</option>
+                                    <option value="República Checa">República Checa / Česká republika</option>
+                                    <option value="Suecia">Suecia / Sverige</option>
+                                    <option value="Suiza">Suiza / Schweiz - Suisse - Svizzera - Svizra</option>
+                                </select>
+                            </div>
+                            <div class="col-4">
+                                <label>Motivo de Entrada</label>
+                                <select class="f-motivo">
+                                    <option value="TUR">Turismo / Recreativo</option>
+                                    <option value="NEG">Negocios / Profesional</option>
+                                    <option value="TRA">Tránsito Internacional</option>
+                                    <option value="DIP">Cuerpo Diplomático</option>
+                                </select>
+                            </div>
+                            <div class="col-4">
+                                <label>Tiempo de Estancia (Horas)</label>
+                                <input type="number" class="f-horas" value="24" required>
+                            </div>
+
+                            <div class="col-12">
+                                <hr style="border:0; border-top:1px solid #eee; margin:10px 0;">
+                            </div>
+
+                            <div class="col-4">
+                                <label>Divisas (+10.000€)</label>
+                                <select class="f-divisas">
+                                    <option value="N">No</option>
+                                    <option value="S">Sí</option>
+                                </select>
+                            </div>
+                            <div class="col-4">
+                                <label>Armas / Munición</label>
+                                <select class="f-armas">
+                                    <option value="N">No</option>
+                                    <option value="S">Sí</option>
+                                </select>
+                            </div>
+                            <div class="col-4">
+                                <label>Riesgo Sanitario</label>
+                                <select class="f-salud">
+                                    <option value="N">No</option>
+                                    <option value="S">Sí</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label>Declaración Adicional de Bienes</label>
+                                <textarea class="f-obs" rows="2" placeholder="Describa mercancías sujetas a impuestos o regulaciones especiales..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" class="btn-gov btn-secondary" id="add-sujeto">+ Incorporar Acompañante a la Unidad Familiar</button>
+
+                <div style="margin-top: 30px;">
+                    <label style="display:flex; align-items:flex-start; gap:10px; cursor:pointer;">
+                        <input type="checkbox" style="width:auto;" required>
+                        <span style="font-size: 0.75rem;">Declaro bajo mi responsabilidad que los datos expuestos son ciertos y acepto la monitorización de entrada según el protocolo PEO del Reino.</span>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-gov btn-primary">REGISTRAR DECLARACIÓN Y GENERAR SALVOCONDUCTO</button>
+            </form>
+        </div>
+
+        <div id="result-area">
+            <div class="certificate-header">
+                <h3 id="status-title" style="margin:0; font-size: 1.4rem;"></h3>
+                <p id="status-desc" style="font-size: 0.8rem; margin-top:5px;"></p>
+            </div>
+            <div style="text-align: center;">
+                <p style="font-size: 0.85rem; color: #4b5563; margin-bottom: 20px;">
+                    Su solicitud ha sido procesada por los servicios de inteligencia y aduanas.
+                    Descargue el documento oficial para presentarlo en los puntos de control.
+                </p>
+                <button id="download-pdf" class="btn-gov btn-primary" style="background: var(--gob-gold); width:auto;">
+                    OBTENER CERTIFICADO OFICIAL (PDF)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="qr-container"></div>
+
+    <script type="module">
+        import {
+            initializeApp
+        } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+        import {
+            getFirestore,
+            collection,
+            addDoc
+        } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCUBDdTMyQTwQo4FzKpDZDpOAKGPVcki4I",
+            authDomain: "sedegatogob.firebaseapp.com",
+            projectId: "sedegatogob",
+            storageBucket: "sedegatogob.firebasestorage.app",
+            messagingSenderId: "764639776502",
+            appId: "1:764639776502:web:99f6e1a045f5d4810666d7"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const cont = document.getElementById('contenedor-viajeros');
+        let sCount = 1;
+
+        document.getElementById('add-sujeto').onclick = () => {
+            sCount++;
+            const clone = document.querySelector('.viajero-fieldset').cloneNode(true);
+            clone.querySelector('.fieldset-label').innerText = `DATOS DEL ACOMPAÑANTE (SUJETO 0${sCount})`;
+            clone.querySelectorAll('input, textarea').forEach(i => i.value = "");
+            cont.appendChild(clone);
+        };
+
+        document.getElementById('procedimiento-f20').onsubmit = async (e) => {
+            e.preventDefault();
+
+            let finalStatus = "AUTORIZADO";
+            let subStatus = "PROCEDIMIENTO F2.0 - VIAJE SEGURO";
+
+            const fieldsets = document.querySelectorAll('.viajero-fieldset');
+            const sujetos = [];
+            let alertaGlobal = false;
+
+            fieldsets.forEach(f => {
+                const data = {
+                    nombre: f.querySelector('.f-nombre').value,
+                    doc: f.querySelector('.f-doc').value,
+                    pais: f.querySelector('.f-pais').value,
+                    csv: "CSV-GAT-" + Math.random().toString(36).substr(2, 12).toUpperCase()
+                };
+                if (f.querySelector('.f-divisas').value === 'S' || f.querySelector('.f-armas').value === 'S') alertaGlobal = true;
+                sujetos.push(data);
+            });
+
+            if (alertaGlobal) {
+                finalStatus = "REVISIÓN MANUAL";
+                subStatus = "SISTEMA F1.0 - CONTROL DE SEGURIDAD REQUERIDO";
+            }
+
+            await addDoc(collection(db, "registros_gubernamentales"), {
+                fecha_registro: new Date().toISOString(),
+                nivel_seguridad: finalStatus,
+                unidad_familiar: sujetos,
+                entorno: "PRODUCCIÓN_SEDE"
+            });
+
+            document.getElementById('form-container').style.display = 'none';
+            const res = document.getElementById('result-area');
+            const title = document.getElementById('status-title');
+            res.style.display = 'block';
+            title.innerText = finalStatus;
+            document.getElementById('status-desc').innerText = subStatus;
+
+            document.getElementById('download-pdf').onclick = () => generarCertificado(sujetos, finalStatus);
+        };
+
+        async function generarCertificado(sujetos, status) {
+            const {
+                jsPDF
+            } = window.jspdf;
+            const doc = new jsPDF();
+            const qrBox = document.getElementById('qr-container');
+
+            doc.setFont("helvetica", "bold");
+            doc.text("CERTIFICADO TÉCNICO DE ENTRADA AL REINO", 105, 20, {
+                align: 'center'
+            });
+            doc.setFontSize(8);
+            doc.text("MINISTERIO DE INTERIOR - DIRECCIÓN GENERAL DE FRONTERAS", 105, 26, {
+                align: 'center'
+            });
+
+            let y = 45;
+            for (const s of sujetos) {
+                doc.setFontSize(10);
+                doc.text(`TITULAR: ${s.nombre}`, 20, y);
+                doc.setFont("helvetica", "normal");
+                doc.text(`IDENTIFICACIÓN: ${s.doc} | ORIGEN: ${s.pais}`, 20, y + 6);
+                doc.text(`CÓDIGO SEGURO (CSV): ${s.csv}`, 20, y + 12);
+                doc.setFont("helvetica", "bold");
+                doc.text(`ESTADO: ${status}`, 20, y + 18);
+
+                qrBox.innerHTML = "";
+                new QRCode(qrBox, {
+                    text: s.csv,
+                    width: 100,
+                    height: 100
+                });
+                await new Promise(r => setTimeout(r, 200));
+                doc.addImage(qrBox.querySelector('canvas').toDataURL(), 'PNG', 160, y - 5, 30, 30);
+
+                doc.setDrawColor(200, 200, 200);
+                doc.line(20, y + 25, 190, y + 25);
+                y += 40;
+            }
+
+            doc.setFontSize(7);
+            doc.text("Este documento es una copia electrónica del original custodiado por el Ministerio de Interior de Gatolandia.", 105, 285, {
+                align: 'center'
+            });
+            doc.save(`GAT_F20_CERT_${Date.now()}.pdf`);
+        }
+    </script>
+</body>
+
+</html>
