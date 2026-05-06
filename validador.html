@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validador de Documentos | Sede Electrónica</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gob-blue: #001f3d;
+            --gob-gold: #b8924e;
+            --gob-bg: #f8fafc;
+            --success: #16a34a;
+            --danger: #ef4444;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--gob-bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .validador-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            border-top: 5px solid var(--gob-gold);
+        }
+
+        .logo {
+            color: var(--gob-blue);
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.2rem;
+            color: var(--gob-blue);
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            text-align: center;
+            font-family: monospace;
+            box-sizing: border-box;
+            text-transform: uppercase;
+        }
+
+        input:focus {
+            border-color: var(--gob-gold);
+            outline: none;
+        }
+
+        .btn-validar {
+            background: var(--gob-blue);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.3s;
+        }
+
+        .btn-validar:hover {
+            background: var(--gob-gold);
+        }
+
+        #resultado {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 12px;
+            display: none;
+            text-align: left;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .doc-valido {
+            background: #dcfce7;
+            border: 1px solid #16a34a;
+            color: #166534;
+        }
+
+        .doc-invalido {
+            background: #fee2e2;
+            border: 1px solid #ef4444;
+            color: #991b1b;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="validador-card">
+        <div class="logo"><i class="fa-solid fa-file-shield"></i></div>
+        <h1>Verificación de Integridad</h1>
+        <p>Introduzca el Código Seguro de Verificación (CSV) impreso en el documento.</p>
+
+        <div class="input-group">
+            <input type="text" id="csv-input" placeholder="GATO-XXXX-XXXX" maxlength="14">
+        </div>
+        <button class="btn-validar" onclick="validarCSV()">VERIFICAR DOCUMENTO</button>
+
+        <div id="resultado"></div>
+    </div>
+
+    <script type="module">
+        import {
+            initializeApp
+        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import {
+            getFirestore,
+            collection,
+            getDocs
+        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCUBDdTMyQTwQo4FzKpDZDpOAKGPVcki4I",
+            authDomain: "sedegatogob.firebaseapp.com",
+            projectId: "sedegatogob",
+            storageBucket: "sedegatogob.firebasestorage.app",
+            messagingSenderId: "764639776502",
+            appId: "1:764639776502:web:99f6e1a045f5d4810666d7"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        window.validarCSV = async () => {
+            const input = document.getElementById('csv-input').value.trim().toUpperCase();
+            const resDiv = document.getElementById('resultado');
+
+            if (!input) return;
+
+            resDiv.style.display = "block";
+            resDiv.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Consultando registros...';
+            resDiv.className = "";
+
+            try {
+                // Buscamos en TODOS los usuarios para encontrar el CSV
+                const querySnapshot = await getDocs(collection(db, "usuarios"));
+                let encontrado = null;
+                let datosTitular = null;
+
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const tramites = Object.values(data.tramites || {});
+                    const tramiteOk = tramites.find(t => t.csv === input);
+
+                    if (tramiteOk) {
+                        encontrado = tramiteOk;
+                        datosTitular = data.perfil;
+                    }
+                });
+
+                if (encontrado) {
+                    resDiv.className = "doc-valido";
+                    resDiv.innerHTML = `
+                    <div style="font-weight:800; margin-bottom:10px;"><i class="fa-solid fa-check-circle"></i> DOCUMENTO AUTÉNTICO</div>
+                    <div style="font-size:0.85rem; line-height:1.6;">
+                        <strong>Trámite:</strong> ${encontrado.nombre}<br>
+                        <strong>Titular:</strong> ${datosTitular.nombre} ${datosTitular.apellidos || ""}<br>
+                        <strong>DNI:</strong> ${datosTitular.dni}<br>
+                        <strong>Fecha Firma:</strong> ${encontrado.fecha_firma || encontrado.fecha}<br>
+                        <strong>Resultado:</strong> ${encontrado.resultado}
+                    </div>
+                `;
+                } else {
+                    resDiv.className = "doc-invalido";
+                    resDiv.innerHTML = `<i class="fa-solid fa-times-circle"></i> El código CSV introducido no figura en la base de datos oficial.`;
+                }
+            } catch (e) {
+                resDiv.innerHTML = "Error de conexión con la Sede Electrónica.";
+            }
+        };
+    </script>
+</body>
+
+</html>
