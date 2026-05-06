@@ -256,6 +256,29 @@
             const docSnap = await getDoc(docRef);
             const data = docSnap.data();
 
+
+            // --- BLOQUEO GLOBAL: ¿Ya ha presentado la renta alguna vez? ---
+            const todosLosTramites = Object.values(data.tramites || {});
+            const yaPresentada = todosLosTramites.find(t =>
+                t.nombre === "Declaración de la Renta 2026" && t.estado === "completado"
+            );
+
+            if (yaPresentada) {
+                // Si ya la presentó antes (con cualquier ID), forzamos la pantalla de éxito con los datos antiguos
+                mostrarPantallaExito(yaPresentada.csv);
+
+                // Opcional: Actualizar el ID de la URL si queremos que el PDF sea el correcto
+                document.getElementById('exp-id-display').innerText = "YA PRESENTADO";
+                return;
+            }
+
+            // --- Si no ha sido presentada nunca, seguimos con las validaciones de ID que ya teníamos ---
+            if (!idExpediente || !data.tramites[idExpediente]) {
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('error-screen').style.display = 'block';
+                return;
+            }
+
             // --- BLOQUEO DE SEGURIDAD: VALIDAR ID REAL ---
             if (!idExpediente || !data.tramites || !data.tramites[idExpediente]) {
                 document.getElementById('loader').style.display = 'none';
