@@ -229,7 +229,8 @@
             getFirestore,
             doc,
             getDoc,
-            updateDoc
+            updateDoc,
+            deleteField
         } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
@@ -264,6 +265,14 @@
             );
 
             if (yaPresentada) {
+                if (idExpediente && data.tramites[idExpediente].estado !== "completado") {
+                    const userRef = doc(db, "usuarios", auth.currentUser.uid);
+                    
+                    // Borra el trámite duplicado de la base de datos
+                    await updateDoc(userRef, {
+                        [`tramites.${idExpediente}`]: deleteField()
+                    });
+                }
                 // Si ya la presentó antes (con cualquier ID), forzamos la pantalla de éxito con los datos antiguos
                 mostrarPantallaExito(yaPresentada.csv);
 
