@@ -147,6 +147,8 @@
         } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import {
             getFirestore,
+            doc,
+            getDoc,
             collection,
             getDocs
         } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
@@ -170,14 +172,15 @@
             if (!input) return;
 
             resDiv.style.display = "block";
-            resDiv.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Consultando registros...';
+            resDiv.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Consultando registros del Reino...';
             resDiv.className = "";
 
             try {
-                // Buscamos en TODOS los usuarios para encontrar el CSV
-                const querySnapshot = await getDocs(collection(db, "usuarios"));
                 let encontrado = null;
                 let datosTitular = null;
+
+                // --- 1. BUSCAR EN LA COLECCIÓN DE USUARIOS (Lógica Principal) ---
+                const querySnapshot = await getDocs(collection(db, "usuarios"));
 
                 querySnapshot.forEach((doc) => {
                     const data = doc.data();
@@ -186,27 +189,47 @@
 
                     if (tramiteOk) {
                         encontrado = tramiteOk;
-                        datosTitular = data.perfil;
+                        datosTitular = {
+                            nombre: `${data.perfil.nombre} ${data.perfil.apellidos || ""}`,
+                            documento: data.perfil.dni || data.perfil.pasaporte
+                        };
                     }
                 });
 
+                // --- 2. SI NO SE ENCONTRÓ, BUSCAR EN REGISTROS DE FRONTERAS (Excepción) ---
+                if (!encontrado) {
+                    const docRefFronteras = doc(db, "registros_fronteras", input);
+                    const docSnapFronteras = await getDoc(docRefFronteras);
+
+                    if (docSnapFronteras.exists()) {
+                        const dataF = docSnapFronteras.data();
+                        encontrado = dataF;
+                        datosTitular = {
+                            nombre: dataF.titular,
+                            documento: dataF.documento
+                        };
+                    }
+                }
+
+                // --- 3. MOSTRAR RESULTADO ---
                 if (encontrado) {
                     resDiv.className = "doc-valido";
                     resDiv.innerHTML = `
-                    <div style="font-weight:800; margin-bottom:10px;"><i class="fa-solid fa-check-circle"></i> DOCUMENTO AUTÉNTICO</div>
-                    <div style="font-size:0.85rem; line-height:1.6;">
-                        <strong>Trámite:</strong> ${encontrado.nombre}<br>
-                        <strong>Titular:</strong> ${datosTitular.nombre} ${datosTitular.apellidos || ""}<br>
-                        <strong>DNI:</strong> ${datosTitular.dni}<br>
-                        <strong>Fecha Firma:</strong> ${encontrado.fecha_firma || encontrado.fecha}<br>
-                        <strong>Resultado:</strong> ${encontrado.resultado}
-                    </div>
-                `;
+                <div style="font-weight:800; margin-bottom:10px;"><i class="fa-solid fa-check-circle"></i> DOCUMENTO AUTÉNTICO</div>
+                <div style="font-size:0.85rem; line-height:1.6; text-align:left;">
+                    <strong>Trámite:</strong> ${encontrado.nombre}<br>
+                    <strong>Titular:</strong> ${datosTitular.nombre}<br>
+                    <strong>ID:</strong> ${datosTitular.documento}<br>
+                    <strong>Fecha:</strong> ${encontrado.fecha_firma || encontrado.fecha}<br>
+                    <strong>Resultado:</strong> <span style="font-weight:700; color:#16a34a;">${encontrado.resultado}</span>
+                </div>
+            `;
                 } else {
                     resDiv.className = "doc-invalido";
-                    resDiv.innerHTML = `<i class="fa-solid fa-times-circle"></i> El código CSV introducido no figura en la base de datos oficial.`;
+                    resDiv.innerHTML = `<i class="fa-solid fa-times-circle"></i> El CSV no figura en la Base de Datos Central.`;
                 }
             } catch (e) {
+                console.error(e);
                 resDiv.innerHTML = "Error de conexión con la Sede Electrónica.";
             }
         };
