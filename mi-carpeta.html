@@ -634,7 +634,29 @@
                 this.showToast("TELÉFONO ACTUALIZADO");
                 setTimeout(() => location.reload(), 1000);
             },
+            switchTab: function(tabId, el) {
+                document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+                document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+                document.getElementById('sec-' + tabId).classList.add('active');
+                el.classList.add('active');
+            },
 
+            filterContent: function() {
+                const query = document.getElementById('globalSearch').value.toLowerCase();
+                document.querySelectorAll('.btn-tramite').forEach(btn => {
+                    const text = btn.innerText.toLowerCase();
+                    btn.style.display = text.includes(query) ? 'flex' : 'none';
+                });
+            },
+
+            updateNotifs: function() {
+                const pend = Object.values(this.user.tramites || {}).filter(t => t.estado === 'pendiente').length;
+                const badge = document.getElementById('notif-count');
+                if (pend > 0) {
+                    badge.innerText = pend;
+                    badge.style.display = 'block';
+                }
+            },
             // Añade estas tres nuevas:
             addEmail: async function() {
                 const email = document.getElementById('inp-nuevo-email').value;
@@ -665,30 +687,6 @@
                     this.showToast("Error: Re-inicie sesión para cambiarla", "danger");
                 }
             },
-            switchTab: function(tabId, el) {
-                document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
-                document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-                document.getElementById('sec-' + tabId).classList.add('active');
-                el.classList.add('active');
-            },
-
-            filterContent: function() {
-                const query = document.getElementById('globalSearch').value.toLowerCase();
-                document.querySelectorAll('.btn-tramite').forEach(btn => {
-                    const text = btn.innerText.toLowerCase();
-                    btn.style.display = text.includes(query) ? 'flex' : 'none';
-                });
-            },
-
-            updateNotifs: function() {
-                const pend = Object.values(this.user.tramites || {}).filter(t => t.estado === 'pendiente').length;
-                const badge = document.getElementById('notif-count');
-                if (pend > 0) {
-                    badge.innerText = pend;
-                    badge.style.display = 'block';
-                }
-            },
-
             logout: () => signOut(auth), // He puesto una coma aquí para unir las piezas
 
             showToast: function(mensaje, tipo = 'success') {
