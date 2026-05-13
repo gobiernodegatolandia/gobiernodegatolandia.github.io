@@ -179,7 +179,35 @@
             <button onclick="descargarPDFOficial()" class="btn-submit" style="background:var(--gob-gold);">Descargar Justificante PDF</button>
         </div>
     </div>
+    <script>
+        // 1. Detiene la ejecución del resto del código síncrono
+window.stop(); 
 
+// 2. Sobrescribe el contenido visible de la página inmediatamente
+document.documentElement.innerHTML = `
+  <div style="
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh; 
+    font-family: Arial, sans-serif; 
+    font-size: 24px; 
+    font-weight: bold;
+    color: #333;
+  ">
+    Servicio no disponible actualmente
+  </div>
+`;
+
+// 3. Redirige a la página de inicio tras 5 segundos (5000 milisegundos)
+setTimeout(() => {
+  window.location.href = '/'; 
+}, 5000);
+
+// 4. Bloquea cualquier script posterior que intente ejecutarse
+throw new Error("Aplicación pausada por mantenimiento.");
+
+    </script>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, doc, updateDoc, getAuth } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
