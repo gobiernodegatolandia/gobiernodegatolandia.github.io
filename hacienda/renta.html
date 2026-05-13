@@ -267,7 +267,7 @@
             if (yaPresentada) {
                 if (idExpediente && data.tramites[idExpediente].estado !== "completado") {
                     const userRef = doc(db, "usuarios", auth.currentUser.uid);
-                    
+
                     // Borra el trámite duplicado de la base de datos
                     await updateDoc(userRef, {
                         [`tramites.${idExpediente}`]: deleteField()
@@ -356,12 +356,83 @@
         }
 
         window.descargarPDF = () => {
-            const elemento = document.getElementById('documento-hacienda');
+            // 1. Recuperamos los datos actuales de la pantalla
+            const nombre = document.getElementById('user-name').innerText;
+            const dni = document.getElementById('res-dni').innerText;
+            const exp = document.getElementById('exp-id-display').innerText;
+            const cuota = document.getElementById('res-cuota').innerText;
+            const csv = document.getElementById('final-csv-text').innerText;
+            const fecha = new Date().toLocaleString();
+
+            // 2. Creamos el contenedor del certificado (no se verá en la web)
+            const certificado = document.createElement('div');
+            certificado.style.padding = '40px';
+            certificado.style.fontFamily = "'Plus Jakarta Sans', sans-serif";
+            certificado.style.color = '#001f3d';
+
+            // 3. Diseño del PDF (HTML Estructural)
+            certificado.innerHTML = `
+        <div style="border-bottom: 4px solid #b8924e; padding-bottom: 20px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <p style="font-size: 0.7rem; font-weight: 800; letter-spacing: 2px; margin: 0;">REINO DE GATOLANDIA</p>
+                <h1 style="font-size: 1.5rem; margin: 5px 0;">Justificante de Presentación: I.R.G. 2026</h1>
+            </div>
+            <div style="text-align: right;">
+                <p style="font-size: 0.8rem; color: #64748b;">Código Seguro de Verificación (CSV):</p>
+                <strong style="font-family: monospace; font-size: 1rem;">${csv}</strong>
+            </div>
+        </div>
+
+        <div style="margin-bottom: 30px;">
+            <h2 style="font-size: 1rem; text-transform: uppercase; border-left: 4px solid #001f3d; padding-left: 10px;">Datos del Contribuyente</h2>
+            <table style="width: 100%; margin-top: 10px; border-collapse: collapse;">
+                <tr>
+                    <td style="padding: 10px; border: 1px solid #e2e8f0; background: #f8fafc; font-weight: 600; width: 30%;">Nombre y Apellidos</td>
+                    <td style="padding: 10px; border: 1px solid #e2e8f0;">${nombre}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border: 1px solid #e2e8f0; background: #f8fafc; font-weight: 600;">Identificación (NIF)</td>
+                    <td style="padding: 10px; border: 1px solid #e2e8f0;">${dni}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div style="margin-bottom: 30px;">
+            <h2 style="font-size: 1rem; text-transform: uppercase; border-left: 4px solid #001f3d; padding-left: 10px;">Resumen de la Autoliquidación</h2>
+            <table style="width: 100%; margin-top: 10px; border-collapse: collapse;">
+                <tr>
+                    <td style="padding: 15px; border: 1px solid #e2e8f0; font-weight: 600;">Número de Expediente</td>
+                    <td style="padding: 15px; border: 1px solid #e2e8f0; text-align: right;">${exp}</td>
+                </tr>
+                <tr style="background: #f1f5f9;">
+                    <td style="padding: 15px; border: 1px solid #e2e8f0; font-size: 1.2rem; font-weight: 800;">RESULTADO FINAL</td>
+                    <td style="padding: 15px; border: 1px solid #e2e8f0; text-align: right; font-size: 1.2rem; font-weight: 800; color: #dc2626;">${cuota}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div style="margin-top: 50px; padding: 20px; border: 1px solid #cbd5e1; font-size: 0.8rem; color: #64748b; line-height: 1.5;">
+            <p><strong>DILIGENCIA:</strong> Documento firmado electrónicamente mediante el sistema de Sede Electrónica de Gatolandia en fecha <strong>${fecha}</strong>. 
+            La autenticidad de este documento puede ser comprobada en la SedeGato mediante el CSV indicado en la cabecera.</p>
+        </div>
+
+        <div style="margin-top: 20px; text-align: center; opacity: 0.3;">
+            <i class="fa-solid fa-shield-cat" style="font-size: 3rem;"></i>
+            <p style="font-size: 0.6rem;">Agencia Tributaria del Reino de Gatolandia</p>
+        </div>
+    `;
+
+            // 4. Configuración y Generación del PDF
             const opt = {
-                margin: 10,
-                filename: `IRG_2026_${idExpediente}.pdf`,
+                margin: 15,
+                filename: `Certificado_Renta_2026_${exp}.pdf`,
+                image: {
+                    type: 'jpeg',
+                    quality: 0.98
+                },
                 html2canvas: {
-                    scale: 2
+                    scale: 3,
+                    useCORS: true
                 },
                 jsPDF: {
                     unit: 'mm',
@@ -369,7 +440,8 @@
                     orientation: 'portrait'
                 }
             };
-            html2pdf().set(opt).from(elemento).save();
+
+            html2pdf().set(opt).from(certificado).save();
         };
     </script>
 </body>
