@@ -423,13 +423,40 @@
 
         <!-- SECCIÓN: PERFIL -->
         <div id="sec-perfil" class="page-section">
-            <h2 style="margin-bottom: 25px;">Configuración de Datos</h2>
-            <div class="card">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
-                    <div><label>Nombre</label><input type="text" id="inp-nombre" style="width:100%; padding:10px; border-radius:8px; border:1px solid #ddd;"></div>
-                    <div><label>Apellidos</label><input type="text" id="inp-apellidos" style="width:100%; padding:10px; border-radius:8px; border:1px solid #ddd;"></div>
+            <h2 style="margin-bottom: 25px;">Configuración de Datos y Seguridad</h2>
+
+            <div class="grid-3">
+                <div class="card">
+                    <h3 style="font-size: 0.9rem; margin-bottom: 15px; color: var(--gob-gold);">DATOS IDENTIFICATIVOS</h3>
+                    <div style="margin-bottom: 12px; opacity: 0.7;">
+                        <label style="display:block; font-size:0.7rem; font-weight:800;">NOMBRE Y APELLIDOS</label>
+                        <input type="text" id="inp-full-name" readonly style="width:100%; padding:10px; border-radius:8px; border:1px solid #ddd; background:#f8fafc; cursor:not-allowed;">
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <label style="display:block; font-size:0.7rem; font-weight:800;">TELÉFONO MÓVIL</label>
+                        <input type="tel" id="inp-telefono" placeholder="+34 000 000 000" style="width:100%; padding:10px; border-radius:8px; border:1px solid #ddd;">
+                    </div>
+                    <button onclick="SedeGato.updateUser()" class="btn-tramite" style="width:100%; justify-content:center; background: var(--gob-blue); color: white;">ACTUALIZAR TELÉFONO</button>
+                    <p style="font-size: 0.6rem; margin-top: 10px; color: #64748b;">* Los datos de identidad están protegidos. Acuda a una OAC para modificarlos.</p>
                 </div>
-                <button onclick="SedeGato.updateUser()" class="card" style="background: var(--gob-blue); color: white; border: none; padding: 15px 30px; cursor: pointer; width: auto;">GUARDAR CAMBIOS OFICIALES</button>
+
+                <div class="card">
+                    <h3 style="font-size: 0.9rem; margin-bottom: 15px; color: var(--gob-gold);">EMAILS DE CONTACTO</h3>
+                    <div id="lista-emails" style="margin-bottom: 15px; font-size: 0.85rem;"></div>
+                    <div style="display:flex; gap:5px;">
+                        <input type="email" id="inp-nuevo-email" placeholder="Añadir email..." style="flex-grow:1; padding:8px; border-radius:8px; border:1px solid #ddd;">
+                        <button onclick="SedeGato.addEmail()" style="padding:10px; background:var(--success); color:white; border:none; border-radius:8px; cursor:pointer;"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 style="font-size: 0.9rem; margin-bottom: 15px; color: var(--gob-gold);">SEGURIDAD</h3>
+                    <div style="margin-bottom: 15px;">
+                        <label style="display:block; font-size:0.7rem; font-weight:800;">NUEVA CONTRASEÑA</label>
+                        <input type="password" id="inp-new-password" style="width:100%; padding:10px; border-radius:8px; border:1px solid #ddd;">
+                    </div>
+                    <button onclick="SedeGato.changePassword()" class="btn-tramite" style="width:100%; justify-content:center; border: 1px solid var(--danger); color: var(--danger);">CAMBIAR CONTRASEÑA</button>
+                </div>
             </div>
         </div>
     </main>
@@ -441,12 +468,15 @@
         import {
             getAuth,
             onAuthStateChanged,
+            updatePassword,
             signOut
         } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
         import {
             getFirestore,
             doc,
             getDoc,
+            arrayUnion,
+            arrayRemove,
             updateDoc
         } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
@@ -596,15 +626,45 @@
                 location.reload();
             },
 
+            // Sustituye la que tienes por esta:
             updateUser: async function() {
                 await updateDoc(doc(db, "usuarios", this.uid), {
-                    "perfil.nombre": document.getElementById('inp-nombre').value,
-                    "perfil.apellidos": document.getElementById('inp-apellidos').value
+                    "perfil.telefono": document.getElementById('inp-telefono').value
                 });
-                this.showToast("DATOS ACTUALIZADOS");
+                this.showToast("TELÉFONO ACTUALIZADO");
+                setTimeout(() => location.reload(), 1000);
+            },
+
+            // Añade estas tres nuevas:
+            addEmail: async function() {
+                const email = document.getElementById('inp-nuevo-email').value;
+                if (!email.includes('@')) return this.showToast("Email no válido", "danger");
+                await updateDoc(doc(db, "usuarios", this.uid), {
+                    "perfil.emails_secundarios": arrayUnion(email)
+                });
                 location.reload();
             },
 
+            removeEmail: async function(email) {
+                if (confirm(`¿Eliminar ${email}?`)) {
+                    await updateDoc(doc(db, "usuarios", this.uid), {
+                        "perfil.emails_secundarios": arrayRemove(email)
+                    });
+                    location.reload();
+                }
+            },
+
+            changePassword: async function() {
+                const newPass = document.getElementById('inp-new-password').value;
+                if (newPass.length < 6) return this.showToast("Mínimo 6 caracteres", "danger");
+                try {
+                    await updatePassword(auth.currentUser, newPass);
+                    this.showToast("Contraseña actualizada");
+                    document.getElementById('inp-new-password').value = '';
+                } catch (error) {
+                    this.showToast("Error: Re-inicie sesión para cambiarla", "danger");
+                }
+            },
             switchTab: function(tabId, el) {
                 document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
                 document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
