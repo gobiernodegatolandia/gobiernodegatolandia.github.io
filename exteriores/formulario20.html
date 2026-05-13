@@ -1,36 +1,40 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario 2.0 - Sede Electrónica · Gobierno de Gatolandia</title>
+    <title>Control de Fronteras | F2.0 | Reino de Gatolandia</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         :root {
             --gob-blue: #001f3d;
             --gob-gold: #b8924e;
-            --gob-border: #d1d5db;
+            --gob-red: #991b1b;
+            --border: #d1d5db;
         }
 
         body {
-            background-color: #f3f4f6;
-            color: #333;
-            font-family: 'Open Sans', sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             margin: 0;
-            line-height: 1.6;
+            padding-bottom: 50px;
         }
 
+        /* --- UI GUBERNAMENTAL --- */
         .gov-header {
             background: #fff;
-            border-bottom: 4px solid var(--gob-gold);
+            border-bottom: 5px solid var(--gob-gold);
             padding: 20px 10%;
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
 
         .container {
@@ -38,181 +42,268 @@
             margin: 40px auto;
             background: white;
             padding: 40px;
-            border: 1px solid #e5e7eb;
+            border: 1px solid var(--border);
+            border-radius: 4px;
         }
 
-        .form-section {
+        h2 {
+            color: var(--gob-blue);
+            border-bottom: 2px solid var(--gob-blue);
+            padding-bottom: 10px;
+            text-transform: uppercase;
+            font-size: 1.2rem;
+        }
+
+        .section-box {
             margin-bottom: 30px;
             padding: 20px;
-            border: 1px solid var(--gob-border);
+            border: 1px solid #edf2f7;
+            background: #fdfdfd;
         }
 
         .section-title {
-            font-weight: 700;
-            color: var(--gob-blue);
+            font-weight: 800;
+            font-size: 0.85rem;
+            color: #64748b;
             text-transform: uppercase;
-            border-bottom: 2px solid var(--gob-blue);
             margin-bottom: 20px;
-            padding-bottom: 5px;
-            font-size: 0.9rem;
+            display: block;
         }
 
-        .grid {
+        .form-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
         }
 
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
         label {
-            display: block;
             font-size: 0.75rem;
             font-weight: 700;
-            margin-bottom: 5px;
-            color: #4b5563;
+            color: var(--gob-blue);
         }
 
-        input, select, textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid var(--gob-border);
+        input,
+        select,
+        textarea {
+            padding: 12px;
+            border: 1px solid var(--border);
             font-size: 0.9rem;
-            box-sizing: border-box;
+            border-radius: 2px;
         }
 
-        .minor-row {
-            background: #f9fafb;
-            padding: 15px;
-            margin-bottom: 10px;
-            border: 1px solid #eee;
-            display: grid;
-            grid-template-columns: 1fr 1fr 80px;
-            gap: 10px;
+        input:focus {
+            outline: 2px solid var(--gob-gold);
+            border-color: transparent;
+        }
+
+        /* --- PREGUNTAS ESTRICTAS --- */
+        .strict-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 0.85rem;
+        }
+
+        .strict-question span {
+            padding-right: 20px;
+            line-height: 1.4;
+        }
+
+        .strict-question select {
+            width: 80px;
+            font-weight: 700;
+        }
+
+        /* --- BOTONES --- */
+        .btn-add {
+            background: none;
+            border: 1px dashed var(--gob-blue);
+            color: var(--gob-blue);
+            padding: 10px;
+            cursor: pointer;
+            font-weight: 700;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .btn-add:hover {
+            background: #f0f4f8;
         }
 
         .btn-submit {
             background: var(--gob-blue);
             color: white;
-            padding: 18px;
-            width: 100%;
             border: none;
-            font-weight: 700;
+            padding: 20px;
+            width: 100%;
+            font-weight: 800;
             text-transform: uppercase;
             cursor: pointer;
+            letter-spacing: 1px;
+            margin-top: 30px;
         }
 
-        #success-view { display: none; text-align: center; }
+        .minor-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr 40px;
+            gap: 10px;
+            margin-bottom: 10px;
+            background: #fff;
+            padding: 10px;
+            border: 1px solid #e2e8f0;
+        }
+
+        #success-view {
+            display: none;
+            text-align: center;
+        }
     </style>
 </head>
+
 <body>
 
     <header class="gov-header">
         <div style="display:flex; align-items:center; gap:15px;">
-            <i class="fa-solid fa-building-columns fa-2x" style="color:var(--gob-blue)"></i>
+            <i class="fa-solid fa-passport fa-3x" style="color:var(--gob-blue)"></i>
             <div>
-                <h1 style="margin:0; font-size:1.1rem; text-transform:uppercase;">Gobierno de Gatolandia</h1>
-                <p style="margin:0; font-size:0.8rem; color:var(--gob-gold);">Declaración Electrónica de Entrada I-94G</p>
+                <h1 style="margin:0; font-size:1.4rem; letter-spacing:1px;">REINO DE GATOLANDIA</h1>
+                <p style="margin:0; font-size:0.75rem; font-weight:700; color:var(--gob-gold);">MINISTERIO DE ASUNTOS EXTERIORES | FRONTERAS</p>
             </div>
+        </div>
+        <div style="text-align:right; border-left: 2px solid var(--gob-gold); padding-left: 15px;">
+            <span style="font-weight:800; font-size:0.9rem;">FORMULARIO F2.0</span><br>
+            <span style="font-size:0.6rem; opacity:0.7;">Formulario de acceso a Gatolandia</span>
         </div>
     </header>
 
     <div class="container">
-        <div id="form-content">
-            <div style="margin-bottom:30px;">
-                <h2 style="margin:0; color:var(--gob-blue);">Formulario de Control de Fronteras</h2>
-                <p style="font-size:0.85rem; color:#666;">Este registro es obligatorio para extranjeros y residentes que ingresen al territorio nacional.</p>
-            </div>
+        <div id="form-ui">
+            <h2>Declaración de Entrada y Control de Aduanas</h2>
+            <p style="font-size:0.8rem; color:#64748b; margin-bottom:30px;">
+                Esta declaración debe ser completada por todo visitante no residente. La información será validada por agentes del Ministerio de Asuntos Exteriores o bien la Agencia Federal de Seguridad en el punto de entrada. Si no desea completarlo por vías telemáticas, siempre podrá rellenarlo presencialmente en el punto de entrada. <b>Tiempo de espera medio: 25 min</b>.
+            </p>
 
             <form id="visa-form">
-                <div class="form-section">
-                    <div class="section-title">1. Información del Titular</div>
-                    <div class="grid">
-                        <div><label>Nombre(s)</label><input type="text" id="p-nombre" required></div>
-                        <div><label>Apellido(s)</label><input type="text" id="p-apellido" required></div>
-                        <div><label>Nº Pasaporte / DNI</label><input type="text" id="p-doc" required></div>
-                        <div><label>Nacionalidad</label><input type="text" id="p-pais" required></div>
+                <div class="section-box">
+                    <span class="section-title">1. Datos de Identificación del Viajero</span>
+                    <div class="form-grid">
+                        <div class="field"><label>NOMBRE(S)</label><input type="text" id="p-nombre" required></div>
+                        <div class="field"><label>APELLIDOS</label><input type="text" id="p-apellido" required></div>
+                        <div class="field"><label>Nº PASAPORTE / DNI</label><input type="text" id="p-doc" required></div>
+                        <div class="field"><label>PAÍS DE EXPEDICIÓN</label><input type="text" id="p-pais" required></div>
+                        <div class="field"><label>FECHA DE NACIMIENTO</label><input type="date" id="p-nac" required></div>
+                        <div class="field"><label>GÉNERO</label><select id="p-sexo">
+                                <option>MASCULINO</option>
+                                <option>FEMENINO</option>
+                                <option>OTRO</option>
+                            </select></div>
                     </div>
                 </div>
 
-                <div class="form-section">
-                    <div class="section-title">2. Acompañantes Menores (Solo < 18 años)</div>
-                    <div id="minors-list"></div>
-                    <button type="button" onclick="addMinor()" style="margin-top:10px; cursor:pointer; font-size:0.8rem;">+ Añadir Menor</button>
+                <div class="section-box">
+                    <span class="section-title">2. Acompañantes Menores (Solo < 18 años)</span>
+                            <div id="minors-list"></div>
+                            <button type="button" class="btn-add" onclick="window.addMinor()"><i class="fa-solid fa-child"></i> AÑADIR MENOR A CARGO</button>
                 </div>
 
-                <div class="form-section">
-                    <div class="section-title">3. Cuestionario de Seguridad Nacional</div>
-                    <div style="font-size:0.8rem;">
-                        <div style="display:flex; justify-content:space-between; margin-bottom:10px; border-bottom:1px solid #f3f4f6; padding-bottom:5px;">
-                            <span>¿Ha sido condenado por algún delito grave en el extranjero?</span>
-                            <select id="q-crimen" style="width:70px;"><option>NO</option><option>SÍ</option></select>
-                        </div>
-                        <div style="display:flex; justify-content:space-between; margin-bottom:10px; border-bottom:1px solid #f3f4f6; padding-bottom:5px;">
-                            <span>¿Porta artículos vegetales, animales o productos cárnicos?</span>
-                            <select id="q-bio" style="width:70px;"><option>NO</option><option>SÍ</option></select>
-                        </div>
-                        <div style="display:flex; justify-content:space-between;">
-                            <span>¿Su estancia prevista supera los 90 días naturales?</span>
-                            <select id="q-estancia" style="width:70px;"><option>NO</option><option>SÍ</option></select>
+                <div class="section-box">
+                    <span class="section-title">3. Detalles del Arribo</span>
+                    <div class="form-grid">
+                        <div class="field"><label>COMPAÑÍA Y Nº DE VUELO</label><input type="text" id="v-vuelo" required placeholder="Ej: GatoAir GA44"></div>
+                        <div class="field"><label>CIUDAD DE EMBARQUE</label><input type="text" id="v-origen" required></div>
+                        <div class="field" style="grid-column: span 2;">
+                            <label>DIRECCIÓN COMPLETA DE ESTANCIA (HOTEL/CALLE)</label>
+                            <input type="text" id="v-dir" required>
                         </div>
                     </div>
                 </div>
 
-                <div style="background:#fff4e5; padding:15px; font-size:0.75rem; border:1px solid #ffd599; margin-bottom:20px;">
-                    <strong>DECLARACIÓN:</strong> Certifico bajo pena de perjurio que la información es correcta. Los datos se guardarán en el Registro Central de Extranjería para su cotejo por las fuerzas de seguridad.
+                <div class="section-box" style="border-left: 5px solid var(--gob-red);">
+                    <span class="section-title" style="color:var(--gob-red)">4. Cuestionario de Seguridad y Salud</span>
+
+                    <div class="strict-question">
+                        <span>¿Padece alguna enfermedad contagiosa de importancia para la salud pública?</span>
+                        <select id="q1">
+                            <option>NO</option>
+                            <option>SÍ</option>
+                        </select>
+                    </div>
+                    <div class="strict-question">
+                        <span>¿Ha sido arrestado o condenado por algún delito en cualquier país?</span>
+                        <select id="q2">
+                            <option>NO</option>
+                            <option>SÍ</option>
+                        </select>
+                    </div>
+                    <div class="strict-question">
+                        <span>¿Ha participado en actividades de espionaje, sabotaje o terrorismo?</span>
+                        <select id="q3">
+                            <option>NO</option>
+                            <option>SÍ</option>
+                        </select>
+                    </div>
+                    <div class="strict-question">
+                        <span>¿Transporta plantas, carnes, animales o productos biológicos?</span>
+                        <select id="q4">
+                            <option>NO</option>
+                            <option>SÍ</option>
+                        </select>
+                    </div>
+                    <div class="strict-question">
+                        <span>¿Transporta moneda o instrumentos monetarios por valor superior a 10.000 RG?</span>
+                        <select id="q5">
+                            <option>NO</option>
+                            <option>SÍ</option>
+                        </select>
+                    </div>
+                    <div class="strict-question">
+                        <span>¿Tiene intención de buscar empleo no autorizado en el Reino?</span>
+                        <select id="q6">
+                            <option>NO</option>
+                            <option>SÍ</option>
+                        </select>
+                    </div>
                 </div>
 
-                <button type="submit" class="btn-submit">Registrar Entrada y Generar CSV</button>
+                <button type="submit" class="btn-submit">FIRMAR Y TRANSMITIR A ADUANAS</button>
             </form>
         </div>
 
         <div id="success-view">
-            <i class="fa-solid fa-circle-check fa-4x" style="color:#059669; margin-bottom:20px;"></i>
-            <h2 style="color:var(--gob-blue); margin:0;">REGISTRO OFICIAL COMPLETADO</h2>
-            <p style="color:#666;">El documento ha sido firmado digitalmente por el Ministerio de Interior.</p>
-            
-            <div style="background:#f8fafc; border:2px dashed var(--gob-blue); padding:20px; margin:30px 0;">
-                <p style="font-size:0.7rem; font-weight:700; margin:0; text-transform:uppercase;">Código Seguro de Verificación (CSV)</p>
-                <p id="final-csv" style="font-family:monospace; font-size:1.6rem; font-weight:800; margin:10px 0;"></p>
-                <div id="qrcode" style="display:flex; justify-content:center; margin-top:10px;"></div>
+            <i class="fa-solid fa-circle-check fa-5x" style="color:#10b981; margin-bottom:20px;"></i>
+            <h2 style="border:none;">ADMISIÓN REGISTRADA</h2>
+            <p>Sus datos han sido guardados en la Base de Datos Central de Fronteras.</p>
+
+            <div style="background:#f1f5f9; border:2px dashed var(--gob-blue); padding:30px; margin:30px 0;">
+                <span style="font-size:0.7rem; font-weight:800; color:var(--gob-blue);">CÓDIGO SEGURO DE VERIFICACIÓN (CSV)</span>
+                <p id="csv-code" style="font-size:2rem; font-weight:800; font-family:monospace; margin:10px 0; letter-spacing:2px;"></p>
+                <div id="qrcode" style="display:flex; justify-content:center; margin-top:15px;"></div>
             </div>
 
-            <button onclick="descargarPDFOficial()" class="btn-submit" style="background:var(--gob-gold);">Descargar Justificante PDF</button>
+            <button onclick="window.downloadPDF()" class="btn-submit" style="background:var(--gob-gold); border-radius:8px;">
+                <i class="fa-solid fa-file-pdf"></i> DESCARGAR JUSTIFICANTE OFICIAL
+            </button>
         </div>
     </div>
-    <script>
-        // 1. Detiene la ejecución del resto del código síncrono
-window.stop(); 
 
-// 2. Sobrescribe el contenido visible de la página inmediatamente
-document.documentElement.innerHTML = `
-  <div style="
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    height: 100vh; 
-    font-family: Arial, sans-serif; 
-    font-size: 24px; 
-    font-weight: bold;
-    color: #333;
-  ">
-    Servicio no disponible actualmente
-  </div>
-`;
-
-// 3. Redirige a la página de inicio tras 5 segundos (5000 milisegundos)
-setTimeout(() => {
-  window.location.href = '/'; 
-}, 5000);
-
-// 4. Bloquea cualquier script posterior que intente ejecutarse
-throw new Error("Aplicación pausada por mantenimiento.");
-
-    </script>
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, doc, updateDoc, getAuth } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-        
-        // Usamos tu configuración
+        import {
+            initializeApp
+        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import {
+            getFirestore,
+            doc,
+            setDoc
+        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
         const firebaseConfig = {
             apiKey: "AIzaSyCUBDdTMyQTwQo4FzKpDZDpOAKGPVcki4I",
             authDomain: "sedegatogob.firebaseapp.com",
@@ -224,106 +315,112 @@ throw new Error("Aplicación pausada por mantenimiento.");
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+        let currentRecord = null;
 
-        let localData = null;
-
+        // Gestión de menores
         window.addMinor = () => {
-            const div = document.createElement('div');
-            div.className = 'minor-row';
-            div.innerHTML = `<input type="text" placeholder="Nombre completo" class="m-name" required>
-                             <input type="text" placeholder="Pasaporte" class="m-doc" required>
-                             <button type="button" onclick="this.parentElement.remove()" style="color:red; border:none; background:none; cursor:pointer;">X</button>`;
-            document.getElementById('minors-list').appendChild(div);
+            const row = document.createElement('div');
+            row.className = 'minor-card';
+            row.innerHTML = `
+                <input type="text" placeholder="Nombre Menor" class="m-n" required>
+                <input type="text" placeholder="Pasaporte" class="m-p" required>
+                <button type="button" onclick="this.parentElement.remove()" style="color:red; border:none; background:none; cursor:pointer;">X</button>
+            `;
+            document.getElementById('minors-list').appendChild(row);
         };
 
+        // Enviar Formulario
         document.getElementById('visa-form').onsubmit = async (e) => {
             e.preventDefault();
-            const csv = `GATO-${Math.random().toString(36).substring(2,7).toUpperCase()}-${Math.random().toString(36).substring(2,7).toUpperCase()}`;
-            const idTramite = "I94G_" + Date.now();
+            const csv = "GATO-" + Math.random().toString(36).substring(2, 7).toUpperCase() + "-" + Math.random().toString(36).substring(2, 7).toUpperCase();
 
             const menores = [];
-            document.querySelectorAll('.minor-row').forEach(r => {
-                menores.push({ nombre: r.querySelector('.m-name').value, doc: r.querySelector('.m-doc').value });
+            document.querySelectorAll('.minor-card').forEach(m => {
+                menores.push({
+                    nombre: m.querySelector('.m-n').value,
+                    doc: m.querySelector('.m-p').value
+                });
             });
 
-            localData = {
-                id: idTramite,
-                nombre: "Declaración de Entrada I-94G",
+            // Creamos el objeto de datos
+            currentRecord = {
                 csv: csv,
-                fecha_firma: new Date().toLocaleString(),
+                fecha_registro: new Date().toLocaleString(),
+                titular: document.getElementById('p-nombre').value + " " + document.getElementById('p-apellido').value,
+                documento: document.getElementById('p-doc').value,
+                pais: document.getElementById('p-pais').value,
+                viaje: {
+                    vuelo: document.getElementById('v-vuelo').value,
+                    direccion: document.getElementById('v-dir').value
+                },
+                menores: menores,
+                seguridad: {
+                    salud: document.getElementById('q1').value,
+                    criminal: document.getElementById('q2').value,
+                    terrorismo: document.getElementById('q3').value,
+                    bioseguridad: document.getElementById('q4').value,
+                    moneda: document.getElementById('q5').value,
+                    intencion: document.getElementById('q6').value
+                },
                 resultado: "AUTORIZADO",
-                detalles: {
-                    titular_full: document.getElementById('p-nombre').value + " " + document.getElementById('p-apellido').value,
-                    documento: document.getElementById('p-doc').value,
-                    pais: document.getElementById('p-pais').value,
-                    menores_cargo: menores,
-                    respuestas_seguridad: {
-                        antecedentes: document.getElementById('q-crimen').value,
-                        bioseguridad: document.getElementById('q-bio').value,
-                        larga_estancia: document.getElementById('q-estancia').value
-                    }
-                }
+                nombre: "Declaración de Entrada F2.0" // Para que el verificador sepa qué trámite es
             };
 
             try {
-                // IMPORTANTE: Para que tu verificador lo encuentre, lo guardamos en la carpeta del usuario actual
-                // Si tienes un sistema de login, usa el UID del usuario. Si no, se puede guardar en una colección global.
-                // Aquí simulamos el guardado en la estructura que busca tu script de policía:
-                const userUID = "CIUDADANO_GATO"; // Aquí iría el auth.currentUser.uid en una app real
-                const userRef = doc(db, "usuarios", userUID);
+                // SINCRONIZACIÓN FIREBASE: Guardamos en una colección aparte con el CSV como ID
+                // Esto facilita que el policía encuentre los datos al instante
+                await setDoc(doc(db, "registros_fronteras", csv), currentRecord);
 
-                await updateDoc(userRef, {
-                    [`tramites.${idTramite}`]: localData
-                });
-
-                document.getElementById('form-content').style.display = 'none';
+                // UI Cambios
+                document.getElementById('form-ui').style.display = 'none';
                 document.getElementById('success-view').style.display = 'block';
-                document.getElementById('final-csv').innerText = csv;
-                new QRCode(document.getElementById("qrcode"), { text: csv, width: 120, height: 120 });
+                document.getElementById('csv-code').innerText = csv;
+                new QRCode(document.getElementById("qrcode"), {
+                    text: csv,
+                    width: 140,
+                    height: 140
+                });
 
             } catch (err) {
                 console.error(err);
-                alert("Error al conectar con la base de datos de Interior.");
+                alert("ERROR CRÍTICO: No se pudo conectar con el servidor de Aduanas.");
             }
         };
 
-        window.descargarPDFOficial = () => {
-            const { jsPDF } = window.jspdf;
+        window.downloadPDF = () => {
+            const {
+                jsPDF
+            } = window.jspdf;
             const doc = new jsPDF();
-            
-            // Marco oficial
-            doc.setDrawColor(0);
-            doc.rect(10, 10, 190, 277);
-            
+
+            doc.setFillColor(0, 31, 61);
+            doc.rect(0, 0, 210, 40, 'F');
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(18);
+            doc.text("OFFICIAL ADMITTANCE RECORD - REINO DE GATOLANDIA", 105, 20, {
+                align: 'center'
+            });
             doc.setFontSize(10);
-            doc.text("GOBIERNO DE GATOLANDIA", 105, 20, {align:'center'});
-            doc.text("MINISTERIO DE INTERIOR - CONTROL DE FRONTERAS", 105, 25, {align:'center'});
-            
+            doc.text("FORMULARIO F2.0 (BORDER & CUSTOMS ENFORCEMENT)", 105, 30, {
+                align: 'center'
+            });
+
+            doc.setTextColor(0);
             doc.setFont("helvetica", "bold");
-            doc.setFontSize(14);
-            doc.text("JUSTIFICANTE DE ADMISIÓN I-94G", 20, 45);
-            
-            doc.setFontSize(10);
+            doc.text("DETALLES DEL VIAJERO", 20, 55);
             doc.setFont("helvetica", "normal");
-            doc.text(`TITULAR: ${localData.detalles.titular_full}`, 20, 60);
-            doc.text(`DOCUMENTO: ${localData.detalles.documento}`, 20, 67);
-            doc.text(`CSV DE VERIFICACIÓN: ${localData.csv}`, 20, 74);
-            doc.text(`FECHA REGISTRO: ${localData.fecha_firma}`, 20, 81);
+            doc.text(`Nombre: ${currentRecord.titular}`, 20, 65);
+            doc.text(`Documento: ${currentRecord.documento} (${currentRecord.pais})`, 20, 72);
+            doc.text(`CSV: ${currentRecord.csv}`, 20, 79);
 
-            // Detalles menores
-            if(localData.detalles.menores_cargo.length > 0) {
-                doc.text("MENORES ACOMPAÑANTES:", 20, 95);
-                localData.detalles.menores_cargo.forEach((m, i) => {
-                    doc.text(`- ${m.nombre} (ID: ${m.doc})`, 25, 102 + (i*7));
-                });
-            }
+            doc.text("ESTADO DE ADMISIÓN: AUTORIZADO", 20, 95);
 
-            // QR en PDF
             const qrCanvas = document.querySelector("#qrcode canvas");
-            doc.addImage(qrCanvas.toDataURL(), 'PNG', 150, 40, 35, 35);
+            doc.addImage(qrCanvas.toDataURL(), 'PNG', 150, 50, 40, 40);
 
-            doc.save(`I94G_GATOLANDIA_${localData.csv}.pdf`);
+            doc.save(`F20_GATOLANDIA_${currentRecord.csv}.pdf`);
         };
     </script>
 </body>
+
 </html>
