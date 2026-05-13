@@ -531,24 +531,46 @@
                 });
             },
 
-            render: function() {
-                const {
-                    perfil,
-                    tramites = {}
-                } = this.user;
+render: function() {
+                const { perfil } = this.user;
 
-                // Sidebar e Identidad
+                // 1. Actualizar Identidad visual (Sidebar)
                 document.getElementById('nav-dni').innerText = perfil.dni;
                 document.getElementById('nav-nombre').innerText = `${perfil.nombre} ${perfil.apellidos || ''}`;
-                document.getElementById('inp-nombre').value = perfil.nombre;
-                document.getElementById('inp-apellidos').value = perfil.apellidos || '';
 
-                document.getElementById('identidad-resumen').innerHTML = `
-                    <p style="font-size:1.2rem; font-weight:800;">${perfil.nombre}</p>
-                    <p style="opacity:0.6;">DNI: ${perfil.dni}</p>
-                `;
+                // 2. Actualizar Formulario de Perfil (La parte que daba error)
+                // Usamos los nuevos IDs: 'inp-full-name' e 'inp-telefono'
+                if(document.getElementById('inp-full-name')) {
+                    document.getElementById('inp-full-name').value = `${perfil.nombre} ${perfil.apellidos || ''}`;
+                }
+                if(document.getElementById('inp-telefono')) {
+                    document.getElementById('inp-telefono').value = perfil.telefono || '';
+                }
 
-                // Render Catálogos
+                // 3. Renderizar Emails Secundarios
+                const emailContainer = document.getElementById('lista-emails');
+                if(emailContainer) {
+                    emailContainer.innerHTML = `<div style="padding:8px; background:#f1f5f9; border-radius:5px; margin-bottom:5px;"><strong>Principal:</strong> ${auth.currentUser.email}</div>`;
+                    
+                    (perfil.emails_secundarios || []).forEach(mail => {
+                        emailContainer.innerHTML += `
+                            <div style="display:flex; justify-content:space-between; align-items:center; padding:5px 0; border-bottom:1px solid #eee;">
+                                <span>${mail}</span>
+                                <i class="fa-solid fa-trash" onclick="SedeGato.removeEmail('${mail}')" style="color:var(--danger); cursor:pointer; font-size:0.8rem;"></i>
+                            </div>`;
+                    });
+                }
+
+                // 4. Resumen de Inicio
+                const identidadResumen = document.getElementById('identidad-resumen');
+                if(identidadResumen) {
+                    identidadResumen.innerHTML = `
+                        <p style="font-size:1.2rem; font-weight:800;">${perfil.nombre}</p>
+                        <p style="opacity:0.6;">DNI: ${perfil.dni}</p>
+                    `;
+                }
+
+                // 5. Resto de componentes
                 this.renderCatalogo();
                 this.renderExpedientes();
                 this.updateNotifs();
