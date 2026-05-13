@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sede Electrónica | Gobierno del Reino Democrático de Gatolandia</title>
-    
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <style>
         :root {
-            --gob-primary: #002d57; /* Azul Institucional */
-            --gob-accent: #b8924e;  /* Oro Heráldico */
+            --gob-primary: #002d57;
+            /* Azul Institucional */
+            --gob-accent: #b8924e;
+            /* Oro Heráldico */
             --gob-error: #b91c1c;
             --gob-bg: #f1f5f9;
             --text-dark: #1e293b;
@@ -26,14 +30,28 @@
             --gob-bg: #000000;
             --text-dark: #ffffff;
         }
-        .high-contrast body { background: #000; color: #fff; }
-        .high-contrast .card, .high-contrast .panel { border: 2px solid #ffff00; background: #000; }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-main); }
-        
-        body { 
-            background-color: var(--gob-bg); 
-            color: var(--text-dark); 
+        .high-contrast body {
+            background: #000;
+            color: #fff;
+        }
+
+        .high-contrast .card,
+        .high-contrast .panel {
+            border: 2px solid #ffff00;
+            background: #000;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-main);
+        }
+
+        body {
+            background-color: var(--gob-bg);
+            color: var(--text-dark);
             line-height: 1.6;
             font-size: calc(16px + var(--fs-modifier));
         }
@@ -61,16 +79,34 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
-        .logo-area { display: flex; align-items: center; gap: 20px; }
-        .logo-area img { height: 60px; filter: drop-shadow(0 0 5px rgba(255,255,255,0.2)); }
-        .logo-text h1 { font-size: 1.2rem; font-weight: 800; letter-spacing: 1px; border-left: 2px solid var(--gob-accent); padding-left: 15px; }
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo-area img {
+            height: 60px;
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.2));
+        }
+
+        .logo-text h1 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            border-left: 2px solid var(--gob-accent);
+            padding-left: 15px;
+        }
 
         /* --- ACCESO RÁPIDO (Móvil Adaptativo) --- */
-        .auth-nav { display: flex; gap: 10px; }
-        
+        .auth-nav {
+            display: flex;
+            gap: 10px;
+        }
+
         .btn-access {
             background: var(--gob-accent);
             color: var(--gob-primary);
@@ -88,7 +124,9 @@
             gap: 8px;
         }
 
-        .btn-access:hover { background: #fff; }
+        .btn-access:hover {
+            background: #fff;
+        }
 
         /* --- HERO SECTION --- */
         .hero {
@@ -98,8 +136,18 @@
             text-align: center;
         }
 
-        .hero h2 { font-size: 2.5rem; margin-bottom: 20px; font-weight: 800; }
-        .hero p { max-width: 800px; margin: 0 auto; opacity: 0.9; font-size: 1.1rem; }
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .hero p {
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
 
         /* --- ÁREA DE TRÁMITES --- */
         .main-container {
@@ -118,17 +166,33 @@
             background: white;
             padding: 30px;
             border-radius: 8px;
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
             border-top: 4px solid var(--gob-accent);
             text-decoration: none;
             color: inherit;
             transition: 0.3s ease;
         }
 
-        .service-card:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
-        .service-card i { font-size: 2rem; color: var(--gob-primary); margin-bottom: 20px; }
-        .service-card h3 { margin-bottom: 10px; color: var(--gob-primary); }
-        .service-card p { font-size: 0.9rem; color: #64748b; }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-card i {
+            font-size: 2rem;
+            color: var(--gob-primary);
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            margin-bottom: 10px;
+            color: var(--gob-primary);
+        }
+
+        .service-card p {
+            font-size: 0.9rem;
+            color: #64748b;
+        }
 
         /* --- PANEL DE ACCESIBILIDAD --- */
         .accessibility-bar {
@@ -137,7 +201,7 @@
             top: 50%;
             transform: translateY(-50%);
             background: white;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 30px;
             display: flex;
             flex-direction: column;
@@ -147,15 +211,28 @@
         }
 
         .acc-tool {
-            width: 40px; height: 40px; border-radius: 50%; border: 1px solid #eee;
-            background: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid #eee;
+            background: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         /* --- MODAL DE IDENTIFICACIÓN --- */
         .modal {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(5px); display: none;
-            align-items: center; justify-content: center; z-index: 3000; padding: 20px;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+            padding: 20px;
         }
 
         .login-box {
@@ -167,10 +244,28 @@
             animation: slideUp 0.3s ease-out;
         }
 
-        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
 
-        .login-header { background: var(--gob-primary); color: white; padding: 25px; text-align: center; }
-        .login-body { padding: 40px; }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .login-header {
+            background: var(--gob-primary);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .login-body {
+            padding: 40px;
+        }
 
         .auth-option {
             border: 1px solid #cbd5e1;
@@ -183,11 +278,29 @@
             cursor: pointer;
             transition: 0.2s;
         }
-        .auth-option:hover { border-color: var(--gob-accent); background: #f8fafc; }
 
-        .input-group { margin-bottom: 15px; }
-        .input-group label { display: block; font-size: 0.8rem; font-weight: 700; margin-bottom: 5px; }
-        .input-group input { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 4px; }
+        .auth-option:hover {
+            border-color: var(--gob-accent);
+            background: #f8fafc;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+        }
 
         /* --- FOOTER --- */
         footer {
@@ -215,13 +328,32 @@
         }
 
         @media (max-width: 768px) {
-            header { flex-direction: column; gap: 20px; text-align: center; }
-            .logo-text h1 { border: none; padding: 0; }
-            .accessibility-bar { bottom: 20px; top: auto; right: 50%; transform: translateX(50%); flex-direction: row; }
-            .hero h2 { font-size: 1.8rem; }
+            header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .logo-text h1 {
+                border: none;
+                padding: 0;
+            }
+
+            .accessibility-bar {
+                bottom: 20px;
+                top: auto;
+                right: 50%;
+                transform: translateX(50%);
+                flex-direction: row;
+            }
+
+            .hero h2 {
+                font-size: 1.8rem;
+            }
         }
     </style>
 </head>
+
 <body>
 
     <div class="accessibility-bar">
@@ -305,9 +437,8 @@
                 <h3>Identificación Ciudadana</h3>
                 <p style="font-size: 0.8rem; opacity: 0.8; margin-top: 5px;">Sede Segura - Conexión Cifrada AES-256</p>
             </div>
-            
+
             <div class="login-body">
-                <!-- Métodos de acceso estatales -->
                 <div class="auth-option">
                     <i class="fa-solid fa-certificate" style="color: #0ea5e9;"></i>
                     <div>
@@ -330,7 +461,10 @@
                         <label>Contraseña de Acceso</label>
                         <input type="password" id="password" placeholder="••••••••">
                     </div>
-                    <button class="btn-access" id="doLogin" style="width: 100%; justify-content: center; margin-top: 10px;">
+                    <div style="margin: 15px 0; display: flex; justify-content: center;">
+                        <div class="cf-turnstile" data-sitekey="0x4AAAAAADOi_WTxFsMfPn9Q" data-callback="onCaptchaSuccess" data-expired-callback="onCaptchaExpired" data-theme="light"></div>
+                    </div>
+                    <button class="btn-access" id="doLogin" disabled style="width: 100%; justify-content: center; margin-top: 10px; opacity: 0.5; cursor: not-allowed;">
                         Verificar Credenciales
                     </button>
                 </div>
@@ -339,7 +473,7 @@
                     <i class="fa-solid fa-triangle-exclamation"></i> Error de autenticación: El sistema no reconoce las credenciales proporcionadas.
                 </p>
             </div>
-            
+
             <div style="background: #f8fafc; padding: 15px; text-align: center;">
                 <button onclick="closeLogin()" style="background: none; border: none; font-size: 0.8rem; color: #64748b; cursor: pointer; text-decoration: underline;">Cancelar y volver al portal</button>
             </div>
@@ -377,8 +511,13 @@
     </div>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import {
+            initializeApp
+        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import {
+            getAuth,
+            signInWithEmailAndPassword
+        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCUBDdTMyQTwQo4FzKpDZDpOAKGPVcki4I",
@@ -400,7 +539,7 @@
             const m = document.getElementById('email').value;
             const p = document.getElementById('password').value;
             const errorMsg = document.getElementById('loginError');
-            
+
             errorMsg.style.display = 'none';
 
             try {
@@ -419,5 +558,24 @@
             root.style.setProperty('--fs-modifier', (current + delta) + "px");
         };
     </script>
+    <script>
+        window.onCaptchaSuccess = function(token) {
+            const btnLogin = document.getElementById('doLogin');
+            btnLogin.disabled = false;
+            btnLogin.style.opacity = "1";
+            btnLogin.style.cursor = "pointer";
+            btnLogin.style.backgroundColor = "#001f3d"; // Color institucional
+            console.log("Verificación completada. Acceso permitido.");
+        };
+
+        window.onCaptchaExpired = function() {
+            const btnLogin = document.getElementById('doLogin');
+            btnLogin.disabled = true;
+            btnLogin.style.opacity = "0.5";
+            btnLogin.style.cursor = "not-allowed";
+            alert("La sesión de verificación ha caducado. Por favor, repite el captcha.");
+        };
+    </script>
 </body>
+
 </html>
