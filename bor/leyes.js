@@ -2042,9 +2042,7 @@ La presente Ley entrará en vigor inmediatamente de su publicación en el BOR.`,
                 titulo: 'Ley Orgánica de Justicia',
                 meta: 'BOR nº 008 · 6 de marzo de 2023 · Asamblea Nacional',
                 estado: 'Vigente',
-                texto: `LEY ORGÁNICA 8/2023, DE 6 DE marzo, DE JUSTICIA DEL REINO DEMOCRÁTICO DE GATOLANDIA (LOJ)
-
-PREÁMBULO
+                texto: `PREÁMBULO
 El Poder Judicial del Reino Democrático de Gatolandia constituye uno de los pilares esenciales del Estado de Derecho y garantiza la supremacía de la Constitución, la protección de los derechos fundamentales, la resolución imparcial de los conflictos y la preservación de la democracia y la separación de poderes.
 
 La presente Ley Orgánica regula de manera integral la estructura, funcionamiento, competencias, órganos, procedimientos, garantías y responsabilidades del sistema judicial gatolandés, asegurando su independencia, imparcialidad y sometimiento exclusivo a la ley.
@@ -3201,7 +3199,6 @@ La presente Ley entrará en vigor inmediatamente de su publicación en el Bolet�
                 meta: 'Bor nº 009 · 8 de abril de 2026 · Asamblea Nacional',
                 estado: 'Vigente',
                 texto: `LEY ORGÁNICA 10/2026, DE 8 DE ABRIL, DE ORGANIZACIÓN TERRITORIAL DEL REINO DEMOCRÁTICO DE GATOLANDIA (LOTG)
-Versión oficial, completa y adaptada al modelo territorial gatolandés
 
 PREÁMBULO
 El Reino Democrático de Gatolandia, en ejercicio de su soberanía, establece mediante esta Ley la estructura territorial del Estado, los niveles de gobierno, las competencias de cada entidad territorial y los mecanismos de coordinación entre ellas.
@@ -3320,7 +3317,6 @@ Los Distritos podrán dividirse en Barrios.
 Estas divisiones se regulan mediante ordenanza municipal.
 
 TÍTULO III – COMPETENCIAS DEL ESTADO
-(Versión ampliada y detallada, como pediste)
 
 El Estado tiene competencias exclusivas en:
 
