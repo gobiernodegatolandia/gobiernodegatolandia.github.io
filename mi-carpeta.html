@@ -228,6 +228,114 @@
                 transform: translateX(0);
             }
         }
+
+        /* --- RESPONSIVE DESIGN --- */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+                /* Apila el sidebar y el contenido */
+                overflow-y: auto;
+            }
+
+            aside {
+                width: 100%;
+                height: auto;
+                padding: 15px;
+                border-right: none;
+                border-bottom: 4px solid var(--gob-gold);
+                flex-direction: row;
+                /* Layout horizontal para el logo y user */
+                align-items: center;
+                justify-content: space-between;
+                position: sticky;
+                top: 0;
+                z-index: 50;
+            }
+
+            aside div[style*="text-align: center"] {
+                margin-bottom: 0 !important;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            aside h1 {
+                display: none;
+                /* Ocultar texto largo del logo en móvil */
+            }
+
+            #sidebar-nav {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: var(--gob-blue);
+                display: flex;
+                justify-content: space-around;
+                padding: 10px;
+                border-top: 2px solid var(--gob-gold);
+                margin: 0;
+                z-index: 100;
+            }
+
+            .nav-item {
+                flex-direction: column;
+                font-size: 0.6rem;
+                gap: 5px;
+                padding: 8px;
+                border-radius: 8px;
+            }
+
+            .nav-item i {
+                font-size: 1.2rem;
+            }
+
+            #user-pill {
+                display: none;
+                /* Ocultamos el panel de usuario inferior en móvil */
+            }
+
+            main {
+                padding: 20px;
+                padding-bottom: 80px;
+                /* Espacio para la barra de navegación inferior */
+            }
+
+            .search-box {
+                width: 100%;
+                /* El buscador ocupa todo el ancho */
+            }
+
+            .grid-3 {
+                grid-template-columns: 1fr;
+                /* Una sola columna en móviles */
+            }
+
+            .header-bar {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+
+            #notif-bell {
+                align-self: flex-end;
+                position: absolute;
+                top: 25px;
+                right: 25px;
+            }
+
+            #btn-logout-mobile {
+                display: block !important;
+                /* Lo hacemos visible solo en móvil */
+            }
+
+            aside {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
     </style>
 </head>
 
@@ -243,7 +351,9 @@
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmc--YeQPZVE_Rs3xrp3DhwyCJe9lVXL0LqA&s" width="60" style="filter: brightness(1.2);">
             <h1 style="font-size: 0.8rem; margin-top: 10px; letter-spacing: 2px; color: var(--gob-gold);">CARPETA CIUDADANA</h1>
         </div>
-
+        <button id="btn-logout-mobile" onclick="SedeGato.logout()" style="display: none; background: none; border: none; color: #ef4444; font-size: 1.2rem; cursor: pointer;">
+            <i class="fa-solid fa-right-from-bracket"></i>
+        </button>
         <nav id="sidebar-nav">
             <div class="nav-item active" onclick="SedeGato.switchTab('inicio', this)"><i class="fa-solid fa-house"></i> Inicio</div>
             <div class="nav-item" onclick="SedeGato.switchTab('tramites', this)"><i class="fa-solid fa-list-check"></i> Trámites Disponibles</div>
