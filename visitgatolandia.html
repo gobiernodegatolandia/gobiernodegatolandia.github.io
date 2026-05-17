@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visit Gatolandia | Portal Oficial de Turismo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Playfair+Display:ital,wght@0,600;0,800;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #0a192f;
+            --accent: #d4af37; /* Oro Premium */
+            --accent-hover: #f3e5ab;
+            --text-dark: #1e293b;
+            --text-light: #f8fafc;
+            --bg-main: #faf9f6; /* Marfil de lujo */
+            --bg-card: #ffffff;
+            --font-display: 'Playfair Display', serif;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+            --zoom: 1;
+        }
+
+        /* Variantes de Alto Contraste para Accesibilidad */
+        body.high-contrast {
+            --primary: #000000;
+            --accent: #ffff00;
+            --accent-hover: #ffffff;
+            --text-dark: #ffffff;
+            --text-light: #000000;
+            --bg-main: #000000;
+            --bg-card: #121212;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-main);
+            color: var(--text-dark);
+            line-height: 1.7;
+            zoom: var(--zoom);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Enlace invisible de accesibilidad para lectores de pantalla */
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 0;
+            background: var(--accent);
+            color: black;
+            padding: 10px;
+            z-index: 100000;
+            font-weight: bold;
+        }
+        .skip-link:focus { top: 0; }
+
+        /* Navbar Superior */
+        .navbar {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: white;
+            text-decoration: none;
+        }
+        .logo span { color: var(--accent); }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        /* Panel de Accesibilidad */
+        .acc-panel {
+            display: flex;
+            gap: 8px;
+        }
+
+        .acc-icon-btn {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+        .acc-icon-btn:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        /* Hero Header Experiencial */
+        .hero {
+            position: relative;
+            height: 75vh;
+            background: linear-gradient(rgba(10,25,47,0.3), rgba(10,25,47,0.7)), 
+                        url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 20px;
+        }
+
+        .hero h2 {
+            font-family: var(--font-display);
+            font-size: 4.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+            animation: fadeInDown 1s ease;
+        }
+
+        /* Lema Oficial con Lettering Solicitado */
+        .motto-box {
+            font-size: 1.8rem;
+            font-weight: 300;
+            margin-bottom: 40px;
+        }
+
+        .lettering {
+            font-family: 'Alex Brush', cursive;
+            font-size: 4.2rem;
+            color: var(--accent);
+            margin-left: 15px;
+            display: inline-block;
+            transform: rotate(-4deg);
+        }
+
+        .hero-btn {
+            background: var(--accent);
+            color: var(--primary);
+            padding: 16px 36px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            box-shadow: 0 10px 30px rgba(212,175,55,0.4);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        .hero-btn:hover {
+            transform: translateY(-3px);
+            background-color: var(--accent-hover);
+        }
+
+        /* Contenedor de Secciones */
+        .section-container {
+            max-width: 1300px;
+            margin: 80px auto;
+            padding: 0 40px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h3 {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        body.high-contrast .section-header h3 { color: white; }
+
+        .section-header p {
+            color: #64748b;
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Grid de Destinos Exclusivos */
+        .grid-destinations {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 40px;
+        }
+
+        @media (max-width: 550px) {
+            .grid-destinations { grid-template-columns: 1fr; }
+            .hero h2 { font-size: 2.8rem; }
+            .hero .lettering { font-size: 3rem; }
+        }
+
+        .dest-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.03);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+        .dest-card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 25px 50px rgba(0,0,0,0.08);
+        }
+        body.high-contrast .dest-card { border: 2px solid white; }
+
+        .dest-img {
+            height: 280px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .dest-badge {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(10, 25, 47, 0.85);
+            color: var(--accent);
+            padding: 6px 14px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            backdrop-filter: blur(4px);
+        }
+
+        .dest-content {
+            padding: 35px;
+            flex-grow: 1;
+        }
+
+        .dest-content h4 {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+            color: var(--primary);
+        }
+        body.high-contrast .dest-content h4 { color: var(--accent); }
+
+        .dest-content p {
+            color: #475569;
+            font-size: 1.05rem;
+            margin-bottom: 20px;
+        }
+        body.high-contrast .dest-content p { color: white; }
+
+        /* Lista de características destacadas de las ciudades */
+        .feat-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tag {
+            background: rgba(10, 25, 47, 0.05);
+            color: var(--primary);
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        body.high-contrast .tag {
+            background: #222;
+            color: white;
+            border: 1px solid white;
+        }
+
+        /* Sección del Widget de Google Translate */
+        .translator-container {
+            background: var(--bg-card);
+            border: 1px solid rgba(0,0,0,0.06);
+            border-radius: 16px;
+            padding: 30px 40px;
+            margin-top: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+        }
+        body.high-contrast .translator-container { border: 2px solid white; }
+
+        .translator-info h4 {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        body.high-contrast .translator-info h4 { color: white; }
+
+        .translator-info p {
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+
+        /* Ajustes específicos para el iframe nativo del widget de traducción */
+        #google_translate_element {
+            min-width: 160px;
+        }
+
+        .goog-te-gadget-simple {
+            border: 1px solid #cbd5e1 !important;
+            background-color: white !important;
+            padding: 8px 12px !important;
+            border-radius: 8px !important;
+            font-family: var(--font-sans) !important;
+            cursor: pointer;
+        }
+
+        footer {
+            background: #071120;
+            color: rgba(255,255,255,0.6);
+            padding: 40px 20px;
+            text-align: center;
+            font-size: 0.95rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            margin-top: 100px;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+    <nav class="navbar" role="navigation" aria-label="Navegación Principal">
+        <a href="#" class="logo">VISIT <span>GATOLANDIA</span></a>
+        
+        <div class="nav-controls">
+            <div class="acc-panel">
+                <button class="acc-icon-btn" onclick="toggleContrast()" title="Modo de Alto Contraste" aria-label="Cambiar modo de contraste">🌓</button>
+                <button class="acc-icon-btn" onclick="modifyZoom(0.1)" title="Aumentar tamaño del sitio" aria-label="Aumentar texto">A+</button>
+                <button class="acc-icon-btn" onclick="modifyZoom(-0.1)" title="Reducir tamaño del sitio" aria-label="Reducir texto">A-</button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h2>Un Destino Majestuoso</h2>
+        <div class="motto-box">
+            <span>Gatolandia te da lo mejor.</span>
+            <span class="lettering">#vívela</span>
+        </div>
+        <a href="#main-content" class="hero-btn">Explorar Destinos</a>
+    </header>
+
+    <main id="main-content">
+        
+        <section class="section-container" aria-labelledby="section-title">
+            <div class="section-header">
+                <h3 id="section-title">Ciudades Extraordinarias</h3>
+                <p>Descubre un territorio fascinante donde la ingeniería de vanguardia se abraza con el legado histórico y paisajes de ensueño.</p>
+            </div>
+
+            <div class="grid-destinations">
+                
+                <article class="dest-card">
+                    <div class="dest-img" style="background-image: url('https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=700&q=80');">
+                        <span class="dest-badge">142k Habitantes</span>
+                    </div>
+                    <div class="dest-content">
+                        <h4>Miaumiau (Capital)</h4>
+                        <p>La gran e imponente metrópolis de Gatolandia. Debido a la optimización del espacio, toda la capital se eleva en espectaculares rascacielos. Aquí encontrarás el mayor aeropuerto del país, una imponente basílica histórica, una gigantesca estación central de trenes y un imponente complejo hospitalario distribuido en tres edificios colosales. No te pierdas la espectacular Plaza de la Libertad, inspirada con devoción en el clásico estilo arquitectónico de Madrid, todo rodeado por un eficiente sistema de doble circunvalación vial.</p>
+                        <div class="feat-tags">
+                            <span class="tag">Rascacielos</span>
+                            <span class="tag">Plaza de la Libertad</span>
+                            <span class="tag">Gran Aeropuerto</span>
+                            <span class="tag">Complejo Hospitalario</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="dest-card">
+                    <div class="dest-img" style="background-image: url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=700&q=80');">
+                        <span class="dest-badge">98k Habitantes</span>
+                    </div>
+                    <div class="dest-content">
+                        <h4>El Cerezal</h4>
+                        <p>La segunda gran ciudad de la nación destaca por un impactante contraste arquitectónico sin igual. Su arteria principal es una avenida de proporciones monumentales: a un lado se despliega una hilera imponente de rascacielos futuristas de cristal, mientras que al otro lado se levantan majestuosos edificios inspirados en el clásico y refinado estilo parisino. Cuenta con su propio aeropuerto internacional de gran envergadura.</p>
+                        <div class="feat-tags">
+                            <span class="tag">Avenida Monumental</span>
+                            <span class="tag">Estilo París</span>
+                            <span class="tag">Aeropuerto Internacional</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="dest-card">
+                    <div class="dest-img" style="background-image: url('https://images.unsplash.com/photo-1533554923361-ec12f7e77a11?auto=format&fit=crop&w=700&q=80');">
+                        <span class="dest-badge">Encanto Colonial</span>
+                    </div>
+                    <div class="dest-content">
+                        <h4>San Antonio</h4>
+                        <p>Paz, cultura e historia se funden en San Antonio. Esta pintoresca e idílica ciudad se estructura rodeando por completo la ribera de un magnífico lago natural. El paisaje urbano es un tesoro arquitectónico intacto, compuesto íntegramente por elegantes edificios coloniales españoles, patios empedrados y fachadas de un valor histórico incalculable.</p>
+                        <div class="feat-tags">
+                            <span class="tag">Lago Central</span>
+                            <span class="tag">Arquitectura Colonial</span>
+                            <span class="tag">Paseo Histórico</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="dest-card">
+                    <div class="dest-img" style="background-image: url('https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=700&q=80');">
+                        <span class="dest-badge">A 70 km de la Capital</span>
+                    </div>
+                    <div class="dest-content">
+                        <h4>Montañagatuna</h4>
+                        <p>Un absoluto paraíso marítimo situado en la orilla costera. Lo que hace verdaderamente mágica a Montañagatuna es su geografía: a tan solo 3 kilómetros del mar, el relieve se eleva abruptamente dando paso a unas espectaculares cordilleras montañosas cubiertas de cerezos en flor por todas partes. El destino ideal para disfrutar de la brisa marina y el senderismo de montaña en un mismo día.</p>
+                        <div class="feat-tags">
+                            <span class="tag">Paraíso Marítimo</span>
+                            <span class="tag">Montañas de Cerezos</span>
+                            <span class="tag">Naturaleza Híbrida</span>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+
+            <div class="translator-container">
+                <div class="translator-info">
+                    <h4>Traducción Automática Global</h4>
+                    <p>Traduce de forma instantánea este portal al inglés, francés, alemán o cualquier otro idioma del mundo.</p>
+                </div>
+                <div id="google_translate_element"></div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Ministerio de Comercio Exterior y Turismo • Reino de Gatolandia. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // Cambiar entre modo normal y modo de alto contraste
+        function toggleContrast() {
+            document.body.classList.toggle('high-contrast');
+        }
+
+        // Modificar el zoom general de la página manteniendo el diseño elástico
+        function modifyZoom(step) {
+            const root = document.documentElement;
+            const currentZoom = parseFloat(getComputedStyle(root).getPropertyValue('--zoom')) || 1;
+            let newZoom = currentZoom + step;
+            if (newZoom >= 0.8 && newZoom <= 1.4) {
+                root.style.setProperty('--zoom', newZoom);
+            }
+        }
+
+        // Función de inicialización requerida por la API de Google Translate
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'es', // Idioma original de la web
+                includedLanguages: 'en,fr,de,it,pt,ja,zh-CN,ru,ar', // Idiomas sugeridos prioritarios
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async defer></script>
+</body>
+</html>
