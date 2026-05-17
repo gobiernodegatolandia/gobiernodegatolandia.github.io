@@ -3,28 +3,134 @@
 // =========================================================================
 // Este script regula la instalación de cookies y tecnologías de rastreo,
 // garantizando la soberanía del usuario y la carga condicional de scripts externos.
+// INCLUYE: Alternativa legal de Captcha Matemático en caso de rechazo y Callbacks.
 // =========================================================================
 
 (function () {
     // Clave de almacenamiento para recordar la decisión del usuario
     const COOKIE_STORAGE_KEY = 'gatolandia_digital_privacy_consent';
 
-    // Función que inicializa los servicios protegidos por el consentimiento (Ej: Cloudflare Turnstile)
+    // Variable global para almacenar el resultado del captcha en modo privacidad
+    let captchaRespuestaCorrecta = 0;
+
+    // Función para cargar Cloudflare Turnstile dinámicamente solo con consentimiento expreso
     function activarServiciosRastreo() {
         console.log("[LOIDG] Consentimiento otorgado. Activando scripts de rastreo y seguridad...");
         
-        // -----------------------------------------------------------------
-        // INSERTE AQUÍ SUS SCRIPTS QUE COMPROMETAN LA PRIVACIDAD / RASTREO
-        // -----------------------------------------------------------------
-        
-        // Ejemplo de integración con Cloudflare Turnstile de forma legal:
+        // Definir los callbacks globales que espera Turnstile antes de cargar el script
+        window.onCaptchaSuccess = function(token) {
+            const btnLogin = document.getElementById('doLogin');
+            if (btnLogin) {
+                btnLogin.disabled = false;
+                btnLogin.removeAttribute('style'); 
+                btnLogin.className = "btn-access";
+            }
+            console.log("Verificación completada. Acceso permitido.");
+        };
+
+        window.onCaptchaExpired = function() {
+            const btnLogin = document.getElementById('doLogin');
+            if (btnLogin) {
+                btnLogin.disabled = true;
+                btnLogin.style.opacity = "0.5";
+                btnLogin.style.cursor = "not-allowed";
+            }
+            alert("La sesión de verificación ha caducado. Por favor, repite el captcha.");
+        };
+
+        // Configurar los parámetros directamente en el elemento contenedor del index.html
+        const contenedor = document.getElementById('cf-turnstile');
+        if (contenedor) {
+            contenedor.setAttribute('data-sitekey', '0x4AAAAAADOi_WTxFsMfPn9Q');
+            contenedor.setAttribute('data-callback', 'onCaptchaSuccess');
+            contenedor.setAttribute('data-expired-callback', 'onCaptchaExpired');
+            contenedor.setAttribute('data-theme', 'light');
+        }
+
+        // Inyectar el script de Cloudflare de manera legal en el documento
         const scriptTurnstile = document.createElement('script');
         scriptTurnstile.src = "https://challenges.cloudflare.com/turnstile/v0/api.js";
         scriptTurnstile.async = true;
         scriptTurnstile.defer = true;
         document.head.appendChild(scriptTurnstile);
-        
-        // Fin de la zona de inserción de scripts protegidos
+    }
+
+    // Función alternativa para desplegar el Captcha Matemático Local si el ciudadano rechaza
+    function desplegarCaptchaMatematicoAlternativo() {
+        console.log("[LOIDG] Modo de Privacidad Activo. Generando validación matemática alternativa.");
+
+        const contenedor = document.getElementById('cf-turnstile');
+        if (!contenedor) {
+            console.warn("[LOIDG] No se encontró el contenedor de Turnstile para inyectar el captcha alternativo.");
+            return;
+        }
+
+        // Limpiar el contenedor por si acaso quedara algo residual
+        contenedor.innerHTML = '';
+
+        // Generar la operación matemática aleatoria
+        const numeroA = Math.floor(Math.random() * 10) + 1;
+        const numeroB = Math.floor(Math.random() * 10) + 1;
+        captchaRespuestaCorrecta = numeroA + numeroB;
+
+        // Crear la interfaz del captcha matemático adaptada a los estilos oficiales
+        const cajaCaptcha = document.createElement('div');
+        Object.assign(cajaCaptcha.style, {
+            border: '2px solid #b91c1c', // --gob-error
+            padding: '15px',
+            borderRadius: '4px',
+            backgroundColor: '#ffffff',
+            maxWidth: '300px',
+            margin: '10px auto',
+            fontFamily: "'Plus Jakarta Sans', sans-serif",
+            textAlign: 'left'
+        });
+
+        const etiquetaInfo = document.createElement('label');
+        etiquetaInfo.innerHTML = `<strong>Verificación de Seguridad (Sin Rastreo)</strong><br>Resuelva para habilitar el acceso:<br><span style="font-size: 1.1rem; font-weight: 800; color: #002d57;">${numeroA} + ${numeroB} = ?</span>`;
+        Object.assign(etiquetaInfo.style, {
+            display: 'block',
+            fontSize: '0.8rem',
+            color: '#1e293b',
+            marginBottom: '8px'
+        });
+
+        const campoEntrada = document.createElement('input');
+        campoEntrada.type = 'number';
+        campoEntrada.placeholder = 'Resultado';
+        Object.assign(campoEntrada.style, {
+            width: '100%',
+            padding: '8px',
+            border: '1px solid #cbd5e1',
+            borderRadius: '4px',
+            fontSize: '0.9rem',
+            boxSizing: 'border-box'
+        });
+
+        // Validar en tiempo real la respuesta matemática introducida por el usuario
+        campoEntrada.addEventListener('input', function() {
+            const btnLogin = document.getElementById('doLogin');
+            if (parseInt(campoEntrada.value, 10) === captchaRespuestaCorrecta) {
+                cajaCaptcha.style.borderColor = '#b8924e'; // --gob-accent
+                if (btnLogin) {
+                    btnLogin.disabled = false;
+                    btnLogin.removeAttribute('style');
+                    btnLogin.className = "btn-access";
+                }
+            } else {
+                cajaCaptcha.style.borderColor = '#b91c1c'; // --gob-error
+                if (btnLogin) {
+                    btnLogin.disabled = true;
+                    btnLogin.style.opacity = "0.5";
+                    btnLogin.style.cursor = "not-allowed";
+                }
+            }
+        });
+
+        // Ensamblar los elementos dentro del div de la Sede
+        cajaCaptcha.appendChild(etiquetaInfo);
+        cajaCaptcha.appendChild(campoEntrada);
+        contenedor.appendChild(cajaCaptcha);
     }
 
     // Función para crear e inyectar el contenedor del banner en la interfaz de usuario
@@ -34,8 +140,10 @@
         if (consentimientoPrevio !== null) {
             if (consentimientoPrevio === 'aceptado') {
                 activarServiciosRastreo();
+            } else if (consentimientoPrevio === 'rechazado') {
+                desplegarCaptchaMatematicoAlternativo();
             }
-            return; // Si ya ha respondido, no se muestra el banner
+            return; // Si ya ha respondido, no se muestra el banner de nuevo
         }
 
         // Crear contenedor principal del banner ocupando casi toda la pantalla
@@ -156,11 +264,11 @@
             activarServiciosRastreo();
         });
 
-        // Lógica de eventos: Persistencia del rechazo sin bloqueos ni penalizaciones tarifarias
+        // Lógica de eventos: Persistencia del rechazo sin bloqueos ilegales
         botonRechazar.addEventListener('click', function () {
             localStorage.setItem(COOKIE_STORAGE_KEY, 'rechazado');
             overlay.remove();
-            console.log("[LOIDG] El usuario ha rechazado las cookies. Navegación en modo seguro.");
+            desplegarCaptchaMatematicoAlternativo();
         });
 
         // Ensamblado de la estructura del árbol de nodos (DOM)

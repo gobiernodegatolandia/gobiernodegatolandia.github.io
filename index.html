@@ -8,7 +8,6 @@
     <script src="cookies.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <style>
         :root {
             --gob-primary: #002d57;
@@ -453,7 +452,7 @@
                         <input type="password" id="password" placeholder="••••••••">
                     </div>
                     <div style="margin: 15px 0; display: flex; justify-content: center;">
-                        <div class="cf-turnstile" data-sitekey="0x4AAAAAADOi_WTxFsMfPn9Q" data-callback="onCaptchaSuccess" data-expired-callback="onCaptchaExpired" data-theme="light"></div>
+                        <div id="cf-turnstile" class="cf-turnstile"></div>
                     </div>
                     <button class="btn-access" id="doLogin" disabled style="width: 100%; justify-content: center; margin-top: 10px; opacity: 0.5; cursor: not-allowed;">
                         Verificar Credenciales
