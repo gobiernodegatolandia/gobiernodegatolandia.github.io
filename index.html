@@ -551,6 +551,7 @@
         window.onCaptchaSuccess = function(token) {
             const btnLogin = document.getElementById('doLogin');
             btnLogin.disabled = false;
+            btnLogin.removeAttribute('style'); 
             btnLogin.className = ("btn-access");
             console.log("Verificación completada. Acceso permitido.");
         };
