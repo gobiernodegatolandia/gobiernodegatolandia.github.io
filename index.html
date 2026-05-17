@@ -233,6 +233,9 @@
             border-radius: 8px;
             overflow: hidden;
             animation: slideUp 0.3s ease-out;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
         }
 
         @keyframes slideUp {
@@ -256,6 +259,8 @@
 
         .login-body {
             padding: 40px;
+            overflow-y: auto;
+            max-height: calc(90vh - 140px);
         }
 
         .auth-option {
