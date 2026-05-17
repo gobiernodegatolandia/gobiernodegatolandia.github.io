@@ -87,7 +87,7 @@
         });
 
         const etiquetaInfo = document.createElement('label');
-        etiquetaInfo.innerHTML = `<strong>Verificación de Seguridad (Sin Rastreo)</strong><br>Resuelva para habilitar el acceso:<br><span style="font-size: 1.1rem; font-weight: 800; color: #002d57;">${numeroA} + ${numeroB} = ?</span>`;
+        etiquetaInfo.innerHTML = `<strong>Verificación de Seguridad</strong><br>Como ha deshabilitado el uso de cookies, se ha desactivado la verificación automática. Resuelva para habilitar el acceso:<br><span style="font-size: 1.1rem; font-weight: 800; color: #002d57;">${numeroA} + ${numeroB} = ?</span>`;
         Object.assign(etiquetaInfo.style, {
             display: 'block',
             fontSize: '0.8rem',
@@ -183,7 +183,7 @@
 
         // Título del aviso legal
         const titulo = document.createElement('h2');
-        titulo.innerText = 'CONTROL DE INDEPENDENCIA DIGITAL';
+        titulo.innerText = 'SUS PREFERERENCIAS DE PRIVACIDAD';
         Object.assign(titulo.style, {
             fontSize: '1.6rem',
             fontWeight: '800',
