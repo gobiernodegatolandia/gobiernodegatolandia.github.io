@@ -13,9 +13,7 @@
     <style>
         :root {
             --gob-primary: #002d57;
-            /* Azul Institucional */
             --gob-accent: #b8924e;
-            /* Oro Heráldico */
             --gob-error: #b91c1c;
             --gob-bg: #f1f5f9;
             --text-dark: #1e293b;
@@ -23,7 +21,6 @@
             --fs-modifier: 0px;
         }
 
-        /* --- ACCESIBILIDAD --- */
         .high-contrast {
             --gob-primary: #000000;
             --gob-accent: #ffff00;
@@ -56,7 +53,6 @@
             font-size: calc(16px + var(--fs-modifier));
         }
 
-        /* --- BARRA DE ESTADO  --- */
         .gov-banner {
             background: #fff;
             padding: 5px 8%;
@@ -68,7 +64,6 @@
             color: #444;
         }
 
-        /* --- HEADER --- */
         header {
             background: var(--gob-primary);
             color: white;
@@ -101,7 +96,6 @@
             padding-left: 15px;
         }
 
-        /* --- ACCESO RÁPIDO (Móvil Adaptativo) --- */
         .auth-nav {
             display: flex;
             gap: 10px;
@@ -128,7 +122,6 @@
             background: #fff;
         }
 
-        /* --- HERO SECTION --- */
         .hero {
             background: linear-gradient(135deg, #002d57 0%, #004d8c 100%);
             color: white;
@@ -149,7 +142,6 @@
             font-size: 1.1rem;
         }
 
-        /* --- ÁREA DE TRÁMITES --- */
         .main-container {
             max-width: 1200px;
             margin: -50px auto 60px;
@@ -194,7 +186,6 @@
             color: #64748b;
         }
 
-        /* --- PANEL DE ACCESIBILIDAD --- */
         .accessibility-bar {
             position: fixed;
             right: 20px;
@@ -222,7 +213,6 @@
             justify-content: center;
         }
 
-        /* --- MODAL DE IDENTIFICACIÓN --- */
         .modal {
             position: fixed;
             inset: 0;
@@ -302,7 +292,6 @@
             border-radius: 4px;
         }
 
-        /* --- FOOTER --- */
         footer {
             background: #1e293b;
             color: #94a3b8;
@@ -562,10 +551,8 @@
         window.onCaptchaSuccess = function(token) {
             const btnLogin = document.getElementById('doLogin');
             btnLogin.disabled = false;
-            btnLogin.style.opacity = "1";
-            btnLogin.style.cursor = "pointer";
-            btnLogin.style.backgroundColor = "#001f3d";
-            btnLogin.style.color = "#ffffff";
+            btnLogin.disabled = false;
+            btnLogin.classList.add("btn-access");
             console.log("Verificación completada. Acceso permitido.");
         };
 
