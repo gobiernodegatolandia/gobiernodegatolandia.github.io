@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Source+Sans+3:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-<style>
+
+    <style>
         :root {
             --inifp-dark: #001529;
             --inifp-accent: #d4af37;
@@ -15,89 +17,152 @@
             --success: #2e7d32;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: 'Source Sans 3', sans-serif; 
-            background-color: #eef2f5; 
-            color: #1a1a1a; 
-            display: none; /* Seguridad */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        header { 
-            background: var(--inifp-dark); 
-            color: white; 
-            padding: 15px 5%; 
-            display: flex; 
-            justify-content: space-between; 
+        /* El cuerpo está visible para que el funcionario pueda operar en GitHub Pages */
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            background-color: #eef2f5;
+            color: #1a1a1a;
+        }
+
+        header {
+            background: var(--inifp-dark);
+            color: white;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
             border-bottom: 3px solid var(--inifp-accent);
         }
 
-        .container { max-width: 900px; margin: 40px auto; padding: 20px; }
-        .office-card { 
-            background: white; 
-            padding: 40px; 
-            border-radius: 4px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .office-card {
+            background: white;
+            padding: 40px;
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             border-top: 5px solid var(--inifp-dark);
         }
-        
-        .header-form { border-bottom: 1px solid #ddd; margin-bottom: 30px; padding-bottom: 20px; }
-        .header-form h2 { font-size: 1.5rem; color: var(--inifp-dark); text-transform: uppercase; }
 
-        .section-label { 
-            grid-column: span 2; 
-            background: #f8f9fa; 
-            padding: 8px 15px; 
-            font-weight: 800; 
-            font-size: 0.7rem; 
-            color: #666; 
+        .header-form {
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+        }
+
+        .header-form h2 {
+            font-size: 1.5rem;
+            color: var(--inifp-dark);
+            text-transform: uppercase;
+        }
+
+        .section-label {
+            grid-column: span 2;
+            background: #f8f9fa;
+            padding: 8px 15px;
+            font-weight: 800;
+            font-size: 0.7rem;
+            color: #666;
             border-left: 3px solid var(--inifp-accent);
             margin: 10px 0;
         }
 
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .full { grid-column: span 2; }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
 
-        .field { margin-bottom: 15px; }
-        label { display: block; font-size: 0.7rem; font-weight: 700; color: #555; text-transform: uppercase; margin-bottom: 5px; }
-        
-        input, select { 
-            width: 100%; 
-            padding: 12px; 
-            border: 1px solid #ccc; 
+        .full {
+            grid-column: span 2;
+        }
+
+        .field {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #555;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
             background: #fafafa;
             font-family: 'Roboto Mono', monospace;
             font-size: 0.9rem;
             border-radius: 4px;
         }
-        input:focus, select:focus { border-color: var(--inifp-accent); outline: none; background: white; }
 
-        .btn-register { 
-            background: var(--inifp-dark); 
-            color: white; 
-            padding: 18px; 
-            border: none; 
-            width: 100%; 
-            font-weight: 800; 
-            cursor: pointer; 
+        input:focus,
+        select:focus {
+            border-color: var(--inifp-accent);
+            outline: none;
+            background: white;
+        }
+
+        .btn-register {
+            background: var(--inifp-dark);
+            color: white;
+            padding: 18px;
+            border: none;
+            width: 100%;
+            font-weight: 800;
+            cursor: pointer;
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-top: 20px;
         }
-        .btn-register:hover { background: #002b52; }
 
-        #status-msg { 
-            margin-top: 25px; 
-            padding: 15px; 
-            font-weight: 700; 
-            text-align: center; 
-            display: none; 
+        .btn-register:hover {
+            background: #002b52;
         }
-        .msg-ok { background: #e8f5e9; color: var(--success); border: 1px solid var(--success); }
-        .msg-err { background: #ffebee; color: var(--danger); border: 1px solid var(--danger); }
+
+        .btn-register:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+        }
+
+        #status-msg {
+            margin-top: 25px;
+            padding: 15px;
+            font-weight: 700;
+            text-align: center;
+            display: none;
+            border-radius: 4px;
+        }
+
+        .msg-ok {
+            background: #e8f5e9;
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .msg-err {
+            background: #ffebee;
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
     </style>
 </head>
+
 <body>
 
     <header>
@@ -105,7 +170,7 @@
             <i class="fa-solid fa-building-columns" style="color: var(--inifp-accent); font-size: 1.5rem;"></i>
             <h1 style="font-size: 1.1rem; letter-spacing: 2px;">INIFP <span style="font-weight: 300; color: #aaa;">| ALTA CIUDADANA</span></h1>
         </div>
-        <div id="func-name" style="font-size: 0.7rem; font-family: 'Roboto Mono';">AUTENTICANDO...</div>
+        <div id="func-name" style="font-size: 0.7rem; font-family: 'Roboto Mono';">CONECTADO A PASARELA CLOUDFLARE</div>
     </header>
 
     <div class="container">
@@ -115,161 +180,142 @@
                 <p style="font-size: 0.8rem; color: #777;">Registro de credenciales y datos biográficos oficiales.</p>
             </div>
 
-            <div class="grid">
-                <div class="section-label">CREDENCIALES DE ACCESO AL SISTEMA</div>
-                
-                <div class="field">
-                    <label>Correo Electrónico Oficial</label>
-                    <input type="email" id="reg-email" placeholder="ejemplo@gatolandia.gob" required>
-                </div>
-                <div class="field">
-                    <label>Contraseña Provisional</label>
-                    <input type="text" id="reg-password" placeholder="Min. 6 caracteres" required>
-                </div>
+            <form id="formAlta" onsubmit="return false;">
+                <div class="grid">
+                    <div class="section-label">CREDENCIALES DE ACCESO AL SISTEMA</div>
 
-                <div class="section-label">DATOS DE IDENTIDAD PERSONAL</div>
+                    <div class="field">
+                        <label>Correo Electrónico Oficial</label>
+                        <input type="email" id="reg-email" placeholder="ejemplo@gatolandia.gob" required>
+                    </div>
+                    <div class="field">
+                        <label>Contraseña Provisional</label>
+                        <input type="password" id="reg-password" placeholder="Min. 8 caracteres" required>
+                    </div>
 
-                <div class="field">
-                    <label>Nombre(s)</label>
-                    <input type="text" id="nombre" required>
-                </div>
-                <div class="field">
-                    <label>Apellidos</label>
-                    <input type="text" id="apellidos" required>
-                </div>
-                <div class="field">
-                    <label>DNI / NIE / CIF</label>
-                    <input type="text" id="dni" required>
-                </div>
-                <div class="field">
-                    <label>Tipo de Sujeto</label>
-                    <select id="tipo">
-                        <option value="ciudadano">Ciudadano</option>
-                        <option value="empresa">Empresa / Persona Jurídica</option>
-                        <option value="inifp">Funcionario INIFP</option>
-                    </select>
-                </div>
+                    <div class="section-label">DATOS DE IDENTIDAD PERSONAL</div>
 
-                <div class="section-label">VÍNCULO LABORAL Y RESIDENCIA</div>
-
-                <div class="field">
-                    <label>Empresa Empleadora</label>
-                    <select id="empresa-select">
-                        <option value="Sin empleo / Autónomo">Sin empleo / Autónomo</option>
+                    <div class="field">
+                        <label>Nombre(s)</label>
+                        <input type="text" id="nombre" required>
+                    </div>
+                    <div class="field">
+                        <label>Apellidos</label>
+                        <input type="text" id="apellidos" required>
+                    </div>
+                    <div class="field">
+                        <label>DNI / NIE / CIF</label>
+                        <input type="text" id="dni" required>
+                    </div>
+                    <div class="field">
+                        <label>Tipo de Sujeto</label>
+                        <select id="tipo">
+                            <option value="ciudadano">Ciudadano</option>
+                            <option value="empresa">Empresa / Persona Jurídica</option>
+                            <option value="inifp">Funcionario INIFP</option>
                         </select>
-                </div>
-                <div class="field">
-                    <label>Cargo / Puesto de Trabajo</label>
-                    <input type="text" id="puesto" placeholder="Ej: Analista de Sistemas">
+                    </div>
+
+                    <div class="section-label">VÍNCULO LABORAL Y RESIDENCIA</div>
+
+                    <div class="field">
+                        <label>Empresa Empleadora</label>
+                        <input type="text" id="empresa-input" list="empresa-select" placeholder="Escribe o selecciona">
+                        <datalist id="empresa-select">
+                            <option value="Sin empleo / Autónomo">Sin empleo / Autónomo</option>
+                        </datalist>
+                    </div>
+                    <div class="field">
+                        <label>Cargo / Puesto de Trabajo</label>
+                        <input type="text" id="puesto" placeholder="Ej: Analista de Sistemas">
+                    </div>
+
+                    <div class="field full">
+                        <label>Dirección Postal Registrada</label>
+                        <input type="text" id="direccion" required>
+                    </div>
                 </div>
 
-                <div class="field full">
-                    <label>Dirección Postal Registrada</label>
-                    <input type="text" id="direccion" required>
-                </div>
-            </div>
-
-            <button class="btn-register" id="btnProcesar">
-                <i class="fa-solid fa-stamp"></i> Registrar y Emitir Pasaporte
-            </button>
+                <button class="btn-register" id="btnProcesar">
+                    <i class="fa-solid fa-stamp"></i> Registrar y Emitir Pasaporte
+                </button>
+            </form>
 
             <div id="status-msg"></div>
         </div>
     </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc, getDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyCUBDdTMyQTwQo4FzKpDZDpOAKGPVcki4I",
-            authDomain: "sedegatogob.firebaseapp.com",
-            projectId: "sedegatogob",
-            storageBucket: "sedegatogob.firebasestorage.app",
-            messagingSenderId: "764639776502",
-            appId: "1:764639776502:web:99f6e1a045f5d4810666d7"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-
-        // Instancia secundaria para no desloguear al funcionario
-        const secondaryApp = initializeApp(firebaseConfig, "Secondary");
-        const secondaryAuth = getAuth(secondaryApp);
-
-        // --- 1. VERIFICAR RANGO Y CARGAR EMPRESAS ---
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                const docSnap = await getDoc(doc(db, "usuarios", user.uid));
-                if (docSnap.exists() && docSnap.data().perfil.tipo === "inifp") {
-                    document.body.style.display = 'block';
-                    document.getElementById('func-name').innerText = "FUNCIONARIO: " + user.email;
-                    cargarEmpresas();
-                } else {
-                    window.location.href = "../mi-carpeta.html";
-                }
-            } else {
-                window.location.href = "../index.html";
-            }
-        });
-
-        // --- 2. BUSCAR EMPRESAS EN LA BASE DE DATOS ---
-        async function cargarEmpresas() {
-            const q = query(collection(db, "usuarios"), where("perfil.tipo", "==", "empresa"));
-            const querySnapshot = await getDocs(q);
-            const select = document.getElementById('empresa-select');
-            
-            querySnapshot.forEach((doc) => {
-                const data = doc.data();
-                const option = document.createElement('option');
-                option.value = data.perfil.nombre;
-                option.textContent = data.perfil.nombre;
-                select.appendChild(option);
-            });
-        }
-
-        // --- 3. PROCESAR ALTA ---
+    <script>
         document.getElementById('btnProcesar').onclick = async () => {
-            const email = document.getElementById('reg-email').value;
-            const pass = document.getElementById('reg-password').value;
+            const btn = document.getElementById('btnProcesar');
             const status = document.getElementById('status-msg');
 
-            if(!email || !pass) return alert("Email y Password son obligatorios");
+            // URL Oficial de tu Cloudflare Worker (Guardado)
+            const WORKER_URL = "https://pasaportedigital.gatogob-contacto.workers.dev";
+
+            // Recolección de datos desde el formulario HTML
+            const email = document.getElementById('reg-email').value;
+            const password = document.getElementById('reg-password').value;
+            const nombre = document.getElementById('nombre').value;
+            const apellidos = document.getElementById('apellidos').value;
+            const dni = document.getElementById('dni').value;
+            const tipo = document.getElementById('tipo').value;
+            const trabajo = document.getElementById('puesto').value;
+            const empresa = document.getElementById('empresa-input').value || "Sin empleo / Autónomo";
+            const direccion = document.getElementById('direccion').value;
+
+            // Validación del lado del cliente
+            if (!email || !password || !nombre || !dni || !direccion) {
+                alert("Por favor, rellene todos los campos obligatorios antes de continuar.");
+                return;
+            }
+
+            // Deshabilitar el botón y mostrar mensaje de estado intermedio
+            btn.disabled = true;
+            status.style.display = "block";
+            status.className = "msg-ok";
+            status.innerText = "Transmitiendo cifrado a la pasarela central de Cloudflare...";
 
             try {
-                // Crear en Auth
-                const userCred = await createUserWithEmailAndPassword(secondaryAuth, email, pass);
-                const uid = userCred.user.uid;
-
-                // Crear en Firestore
-                await setDoc(doc(db, "usuarios", uid), {
-                    perfil: {
-                        nombre: document.getElementById('nombre').value,
-                        apellidos: document.getElementById('apellidos').value,
-                        dni: document.getElementById('dni').value,
-                        tipo: document.getElementById('tipo').value,
-                        trabajo: document.getElementById('puesto').value,
-                        empresa: document.getElementById('empresa-select').value,
-                        direccion: document.getElementById('direccion').value
+                // Petición HTTP POST nativa segura hacia tu Worker
+                const respuesta = await fetch(WORKER_URL, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
                     },
-                    tramites: {}
+                    body: JSON.stringify({
+                        email,
+                        password,
+                        nombre,
+                        apellidos,
+                        dni,
+                        tipo,
+                        trabajo,
+                        empresa,
+                        direccion
+                    })
                 });
 
-                await signOut(secondaryAuth);
-                
-                status.innerText = "ALTA EXITOSA: " + email;
-                status.className = "msg-ok";
-                status.style.display = "block";
-                document.querySelectorAll('input').forEach(i => i.value = "");
+                const resultado = await respuesta.json();
+
+                if (resultado.success) {
+                    status.className = "msg-ok";
+                    status.innerText = "ÉXITO: " + resultado.message;
+                    document.getElementById('formAlta').reset(); // Resetea todos los campos limpiamente
+                } else {
+                    status.className = "msg-err";
+                    status.innerText = "ERROR EN EL REGISTRO: " + resultado.error;
+                }
 
             } catch (error) {
-                status.innerText = "ERROR: " + error.message;
                 status.className = "msg-err";
-                status.style.display = "block";
+                status.innerText = "FALLO DE RED: No se pudo establecer conexión con el servidor externo.";
+            } finally {
+                // Rehabilitar el botón para futuras operaciones
+                btn.disabled = false;
             }
         };
     </script>
 </body>
+
 </html>
