@@ -3,248 +3,342 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIAE - Sistema de Gestión de Identidades | INIFP</title>
+    <title>SIAE - Control Operativo | INIFP</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Source+Sans+3:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --inifp-dark: #001529;
-            --inifp-accent: #d4af37;
-            --glass-bg: rgba(255, 255, 255, 0.45);
-            --glass-border: rgba(255, 255, 255, 0.25);
-            --input-bg: rgba(255, 255, 255, 0.6);
-            --text-main: #0f172a;
-            --danger: #ef4444;
-            --success: #10b981;
-            --info: #0ea5e9;
+            --neo-dark: #09090b;
+            --neo-white: #ffffff;
+            --border-heavy: #18181b;
+            --accent-brand: #2563eb;
+            --accent-glow: rgba(37, 99, 235, 0.15);
+            --bg-muted: #f4f4f5;
+            --text-muted: #71717a;
+            --danger: #dc2626;
+            --success: #16a34a;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
-        /* Oculto por defecto para control de acceso del Funcionario. 
-           Degradado fluido moderno de fondo inspirado en portales gubernamentales premium */
         body { 
-            font-family: 'Source Sans 3', sans-serif; 
-            background: linear-gradient(135deg, #e0e7ff 0%, #f1f5f9 50%, #e2e8f0 100%);
-            background-attachment: fixed;
-            color: var(--text-main); 
-            display: none; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-color: #fafafa;
+            color: var(--neo-dark);
+            display: none; /* Control de acceso inicial por JS */
             min-height: 100vh;
         }
 
+        /* BARRA SUPERIOR OPERATIVA MINI */
         header { 
-            background: rgba(0, 21, 41, 0.8); 
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            color: white; 
-            padding: 15px 5%; 
-            display: flex; 
-            justify-content: space-between; 
+            background: var(--neo-white);
+            border-bottom: 2px solid var(--border-heavy);
+            padding: 14px 40px;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
         }
 
-        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
-        
-        /* CONTENEDOR GLASSMORPHISM PRINCIPAL */
-        .office-card { 
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px) saturate(160%);
-            -webkit-backdrop-filter: blur(20px) saturate(160%);
-            border: 1px solid var(--glass-border);
-            padding: 45px; 
-            border-radius: 16px; 
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
-        }
-        
-        .header-form { 
-            border-bottom: 1px solid rgba(15, 23, 42, 0.08); 
-            margin-bottom: 35px; 
-            padding-bottom: 20px; 
-        }
-        .header-form h2 { font-size: 1.7rem; color: var(--inifp-dark); font-weight: 800; text-transform: uppercase; letter-spacing: -0.5px; }
-        .header-form p { font-size: 0.95rem; color: #475569; margin-top: 5px; }
-
-        /* Etiquetas de sección tipo cristal esmerilado oscuro */
-        .section-label { 
-            grid-column: span 2; 
-            background: rgba(15, 23, 42, 0.04);
-            backdrop-filter: blur(5px);
-            padding: 10px 18px; 
-            font-weight: 800; 
-            font-size: 0.75rem; 
-            color: #334155; 
-            border-left: 4px solid var(--inifp-dark);
-            margin: 15px 0 5px 0;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+        .brand {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: -0.5px;
             display: flex;
             align-items: center;
-            gap: 8px;
-            border-radius: 0 6px 6px 0;
+            gap: 10px;
         }
 
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-        .full { grid-column: span 2; }
+        .brand span {
+            color: var(--text-muted);
+            font-weight: 400;
+        }
 
-        .field { margin-bottom: 5px; }
-        label { display: block; font-size: 0.75rem; font-weight: 700; color: #1e293b; text-transform: uppercase; margin-bottom: 6px; letter-spacing: 0.3px; }
-        
-        /* Inputs estilizados con Glassmorphic sutil */
-        input, select, textarea { 
-            width: 100%; 
-            padding: 12px 14px; 
-            border: 1px solid var(--glass-border); 
-            background: var(--input-bg);
-            font-family: 'Roboto Mono', monospace;
-            font-size: 0.9rem;
+        #func-name {
+            font-size: 0.75rem;
+            font-weight: 700;
+            background: var(--neo-dark);
+            color: var(--neo-white);
+            padding: 6px 12px;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        /* DISEÑO DE CONTENEDOR ASIMÉTRICO */
+        .workspace {
+            max-width: 1100px;
+            margin: 60px auto;
+            padding: 0 25px;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 50px;
+        }
+
+        .sidebar-info h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -1px;
+            margin-bottom: 15px;
+        }
+
+        .sidebar-info p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* FORMULARIO ESTILO NEO-BRUTALISTA */
+        .form-panel {
+            background: var(--neo-white);
+            border: 2px solid var(--border-heavy);
+            box-shadow: 6px 6px 0px var(--border-heavy);
+            padding: 40px;
             border-radius: 8px;
-            transition: all 0.25s ease;
-            color: var(--text-main);
-            box-shadow: inset 0 1px 2px rgba(0,0,0,0.02);
-        }
-        input:focus, select:focus, textarea:focus { 
-            border-color: rgba(0, 21, 41, 0.4); 
-            outline: none; 
-            background: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 0 0 4px rgba(0,21,41,0.06);
         }
 
-        /* Bloques dinámicos condicionales transparentes */
-        .dynamic-section {
+        .grid-system {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .span-2 { grid-column: span 2; }
+
+        .group-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid var(--border-heavy);
+            padding-bottom: 6px;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            color: var(--neo-dark);
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--neo-dark);
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px 14px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 2px solid var(--border-heavy);
+            border-radius: 6px;
+            background: var(--neo-white);
+            color: var(--neo-dark);
+            transition: all 0.15s ease;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--accent-brand);
+            box-shadow: 0 0 0 4px var(--accent-glow);
+        }
+
+        /* SECCIONES DINÁMICAS CONTROLADAS */
+        .sub-layout {
             grid-column: span 2;
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
-            background: rgba(255, 255, 255, 0.25);
-            padding: 22px;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            border-radius: 12px;
-            margin-top: 5px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            background: var(--bg-muted);
+            padding: 20px;
+            border-radius: 6px;
+            border: 2px solid var(--border-heavy);
         }
 
-        /* Botón futurista con efecto de brillo */
-        .btn-register { 
-            background: linear-gradient(135deg, #001529 0%, #002c54 100%);
-            color: white; 
-            padding: 18px; 
-            border: none; 
-            width: 100%; 
-            font-weight: 800; 
+        /* MOTOR DE SUGERENCIAS EN TIEMPO REAL (AUTOCOMPLETE) */
+        .autocomplete-container {
+            position: relative;
+        }
+
+        .suggestions-box {
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0;
+            width: 100%;
+            background: var(--neo-white);
+            border: 2px solid var(--border-heavy);
+            border-radius: 6px;
+            box-shadow: 4px 4px 0px var(--border-heavy);
+            z-index: 999;
+            max-height: 200px;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .suggestion-item {
+            padding: 10px 14px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-bottom: 1px solid var(--bg-muted);
+            transition: background 0.1s ease;
+        }
+
+        .suggestion-item:last-child { border-bottom: none; }
+        .suggestion-item:hover {
+            background: var(--bg-muted);
+            color: var(--accent-brand);
+        }
+
+        /* BOTÓN DE ACCIÓN CRUCIAL */
+        .btn-action {
+            width: 100%;
+            background: var(--neo-dark);
+            color: var(--neo-white);
+            border: 2px solid var(--border-heavy);
+            padding: 16px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
             font-size: 1rem;
-            cursor: pointer; 
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 30px;
-            border-radius: 8px;
+            letter-spacing: 0.5px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 25px;
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 10px;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(0,21,41,0.15);
+            transition: all 0.2s ease;
         }
-        .btn-register:hover { 
-            transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(0,21,41,0.25);
-            background: linear-gradient(135deg, #002244 0%, #003d75 100%);
-        }
-        .btn-register:active { transform: translateY(0); }
-        .btn-register:disabled { background: #94a3b8; cursor: not-allowed; transform: none; box-shadow: none; }
 
-        /* Mensajes de notificación en formato burbuja de cristal */
-        #status-msg { 
-            margin-top: 25px; 
-            padding: 18px; 
-            font-weight: 700; 
-            text-align: center; 
-            display: none; 
-            border-radius: 8px;
-            font-size: 0.95rem;
-            backdrop-filter: blur(8px);
+        .btn-action:hover {
+            background: var(--accent-brand);
+            box-shadow: 4px 4px 0px var(--border-heavy);
+            transform: translate(-2px, -2px);
         }
-        .msg-ok { background: rgba(16, 185, 129, 0.12); color: #065f46; border: 1px solid rgba(16, 185, 129, 0.3); }
-        .msg-err { background: rgba(239, 68, 68, 0.12); color: #991b1b; border: 1px solid rgba(239, 68, 68, 0.3); }
-        .msg-loading { background: rgba(14, 165, 233, 0.12); color: #075985; border: 1px solid rgba(14, 165, 233, 0.3); }
+
+        .btn-action:active {
+            transform: translate(0, 0);
+            box-shadow: none;
+        }
+
+        .btn-action:disabled {
+            background: var(--text-muted);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* ALERTAS RADICALES DE NOTIFICACIÓN */
+        #status-msg {
+            margin-top: 20px;
+            padding: 14px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            border-radius: 6px;
+            border: 2px solid var(--border-heavy);
+            display: none;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        
+        .ok-box { background: #bbf7d0; color: #166534; }
+        .err-box { background: #fca5a5; color: #991b1b; }
+        .load-box { background: #bae6fd; color: #075985; }
     </style>
 </head>
 <body>
 
     <header>
-        <div style="display: flex; align-items: center; gap: 15px;">
-            <i class="fa-solid fa-building-columns" style="color: var(--inifp-accent); font-size: 1.6rem;"></i>
-            <h1 style="font-size: 1.2rem; letter-spacing: 1.5px; font-weight: 700;">SIAE <span style="font-weight: 300; color: #cbd5e1;">| SISTEMA DE IDENTIDADES</span></h1>
+        <div class="brand">
+            <i class="fa-solid fa-bolt"></i> SIAE <span>/ CONTROL CENTRAL</span>
         </div>
-        <div id="func-name" style="font-size: 0.75rem; font-family: 'Roboto Mono'; background: rgba(255,255,255,0.12); padding: 6px 12px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.15);">VERIFICANDO...</div>
+        <div id="func-name">VERIFICANDO CREDENCIALES OPERATIVAS...</div>
     </header>
 
-    <div class="container">
-        <div class="office-card">
-            <div class="header-form">
-                <h2>Emisión Regulatoria de Pasaporte Digital</h2>
-                <p>Módulo oficial de inscripción del Registro General de Ciudadanos y Entidades Jurídicas.</p>
-            </div>
+    <div class="workspace">
+        
+        <div class="sidebar-info">
+            <h2>Expedición de Identidades</h2>
+            <p>Módulo de registro encriptado para sujetos físicos y jurídicos homologados dentro de la demarcación nacional.</p>
+        </div>
 
-            <form id="formAlta" onsubmit="return false;">
-                <div class="grid">
+        <div class="form-panel">
+            <form id="formAlta" onsubmit="return false;" autocomplete="off">
+                <div class="grid-system">
                     
-                    <div class="section-label"><i class="fa-solid fa-key"></i> Credenciales de Acceso e Identificación Básica</div>
+                    <div class="group-label span-2">01 / Clasificación del Registro</div>
                     
-                    <div class="field">
-                        <label>Tipo de Sujeto Jurídico</label>
+                    <div class="input-wrapper">
+                        <label>Tipo de Perfil Legal</label>
                         <select id="tipo" onchange="alternarCamposSujeto()">
-                            <option value="ciudadano" selected>Ciudadano (Persona Física)</option>
-                            <option value="empresa">Empresa / Institución (Persona Jurídica)</option>
-                            <option value="inifp">Funcionario Público / Auditor INIFP</option>
+                            <option value="ciudadano" selected>Persona Física (Ciudadano)</option>
+                            <option value="empresa">Persona Jurídica (Empresa / Ente)</option>
+                            <option value="inifp">Funcionario Público / Auditor</option>
                         </select>
                     </div>
-                    <div class="field">
-                        <label>Documento de Identidad Oficial (DNI / NIE / CIF)</label>
-                        <input type="text" id="dni" placeholder="Ej: 12345678X o A1234567B" required>
+                    
+                    <div class="input-wrapper">
+                        <label>Documento de Identidad (DNI / CIF)</label>
+                        <input type="text" id="dni" required placeholder="Código identificador formal" autocomplete="one-time-code">
                     </div>
 
-                    <div class="field">
-                        <label>Correo Electrónico Institucional / Oficial</label>
-                        <input type="email" id="reg-email" placeholder="nombre@dominio.gob" required>
+                    <div class="input-wrapper">
+                        <label>Correo Electrónico Oficial</label>
+                        <input type="email" id="reg-email" required placeholder="correo@dominio.gob" autocomplete="off">
                     </div>
-                    <div class="field">
-                        <label>Contraseña Temporal de Activación</label>
-                        <input type="password" id="reg-password" placeholder="Mínimo 8 caracteres alfanuméricos" required>
+                    
+                    <div class="input-wrapper">
+                        <label>Contraseña Temporal</label>
+                        <input type="password" id="reg-password" required placeholder="Clave de inicialización" autocomplete="new-password">
                     </div>
 
-                    <div class="dynamic-section" id="sec-persona-fisica">
-                        <div class="section-label" style="grid-column: span 2; margin: 0; background: none; border: none; padding: 0;"><i class="fa-solid fa-user"></i> Datos Biográficos (Persona Física)</div>
-                        <div class="field">
-                            <label>Nombre(s) de pila</label>
-                            <input type="text" id="nombre">
+                    <div class="sub-layout" id="sec-persona-fisica">
+                        <div class="group-label span-2" style="margin:0; border:none; font-size:0.8rem;"><i class="fa-solid fa-user-tie"></i> Datos Biográficos</div>
+                        
+                        <div class="input-wrapper">
+                            <label>Nombre de pila</label>
+                            <input type="text" id="nombre" autocomplete="off">
                         </div>
-                        <div class="field">
+                        
+                        <div class="input-wrapper">
                             <label>Apellidos Completos</label>
-                            <input type="text" id="apellidos">
+                            <input type="text" id="apellidos" autocomplete="off">
                         </div>
-                        <div class="field">
-                            <label>Organización / Empresa Empleadora</label>
-                            <input type="text" id="empresa-input" placeholder="Ej: Sector Público o Nombre de Empresa">
+                        
+                        <div class="input-wrapper autocomplete-container">
+                            <label>Empresa Empleadora</label>
+                            <input type="text" id="empresa-input" placeholder="Ecribe para buscar en el censo..." oninput="filtrarEmpresas()" autocomplete="off">
+                            <div class="suggestions-box" id="box-sugerencias"></div>
                         </div>
-                        <div class="field">
-                            <label>Rango o Cargo de Trabajo Ocupado</label>
-                            <input type="text" id="puesto" placeholder="Ej: Director Administrativo">
+                        
+                        <div class="input-wrapper">
+                            <label>Cargo / Puesto Ocupado</label>
+                            <input type="text" id="puesto" placeholder="Cargo laboral en vigor" autocomplete="off">
                         </div>
                     </div>
 
-                    <div class="dynamic-section" id="sec-persona-juridica" style="display: none;">
-                        <div class="section-label" style="grid-column: span 2; margin: 0; background: none; border: none; padding: 0;"><i class="fa-solid fa-briefcase"></i> Registro de Actividad Económica e Institucional</div>
-                        <div class="field">
-                            <label>Razón Social / Denominación Legal</label>
-                            <input type="text" id="razon-social" placeholder="Ej: Industrias del Norte S.A.">
+                    <div class="sub-layout" id="sec-persona-juridica" style="display: none;">
+                        <div class="group-label span-2" style="margin:0; border:none; font-size:0.8rem;"><i class="fa-solid fa-industry"></i> Matriz Corporativa</div>
+                        
+                        <div class="input-wrapper">
+                            <label>Razón Social Denominativa</label>
+                            <input type="text" id="razon-social" placeholder="Nombre de registro de la corporación" autocomplete="off">
                         </div>
-                        <div class="field">
-                            <label>Sector de Actividad Estratégica</label>
+                        
+                        <div class="input-wrapper">
+                            <label>Sector de Infraestructura Estratégica</label>
                             <select id="sector-empresa">
                                 <option value="Tecnología e Infraestructura Digital">Tecnología e Infraestructura Digital</option>
                                 <option value="Logística, Transportes y Comunicaciones">Logística, Transportes y Comunicaciones</option>
@@ -253,22 +347,24 @@
                                 <option value="Comercio Global y Distribución">Comercio Global y Distribución</option>
                             </select>
                         </div>
-                        <div class="field" style="grid-column: span 2;">
-                            <label>Nombre Completo del Administrador Único o Apoderado</label>
-                            <input type="text" id="representante-legal" placeholder="Nombre de la persona física con poder de firma">
+                        
+                        <div class="input-wrapper span-2">
+                            <label>Apoderado / Representante Legal Titular</label>
+                            <input type="text" id="representante-legal" placeholder="Nombre completo del gestor de firma" autocomplete="off">
                         </div>
                     </div>
 
-                    <div class="section-label"><i class="fa-solid fa-map-location-dot"></i> Localización Físico-Postal Homologada</div>
+                    <div class="group-label span-2">02 / Localización y Radicación</div>
 
-                    <div class="field full">
-                        <label>Dirección Postal Registrada Oficial (Vía, Número, Portal, Ciudad)</label>
-                        <input type="text" id="direccion" placeholder="Ej: Av. de las Planicies Nº 14, Planta 4ª" required>
+                    <div class="input-wrapper span-2">
+                        <label>Dirección Postal Homologada</label>
+                        <input type="text" id="direccion" required placeholder="Vía, Número, Núcleo Urbano o Polígono" autocomplete="off">
                     </div>
+
                 </div>
 
-                <button class="btn-register" id="btnProcesar">
-                    <i class="fa-solid fa-stamp"></i> Registrar y Validar en Sede Central
+                <button class="btn-action" id="btnProcesar">
+                    <i class="fa-solid fa-fingerprint"></i> Validar Transmisión Segura
                 </button>
             </form>
 
@@ -280,7 +376,6 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-        // CONFIGURACIÓN OFICIAL CORREGIDA: La ApiKey vuelve de forma pública para alimentar al motor getAuth()
         const firebaseConfig = {
             apiKey: "AIzaSyCUBDdTMyQTwQo4FzKpDZDpOAKGPVcki4I", 
             authDomain: "sedegatogob.firebaseapp.com",
@@ -291,7 +386,62 @@
         const auth = getAuth(app);
         const WORKER_URL = "https://pasaportedigital.gatogob-contacto.workers.dev";
 
-        // --- LÓGICA DE INTERFAZ DINÁMICA ---
+        let temporizadorBusqueda;
+
+        // --- BUSCADOR REAL CONECTADO AL WORKER Y A FIRESTORE ---
+        window.filtrarEmpresas = function() {
+            clearTimeout(temporizadorBusqueda);
+            const input = document.getElementById('empresa-input');
+            const box = document.getElementById('box-sugerencias');
+            const query = input.value.trim();
+
+            if (!query) {
+                box.innerHTML = '';
+                box.style.display = 'none';
+                return;
+            }
+
+            // Esperamos 250ms de calma al teclear para proteger el Worker de spam
+            temporizadorBusqueda = setTimeout(async () => {
+                try {
+                    const res = await fetch(WORKER_URL, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ accion: "buscar_empresas", query: query })
+                    });
+                    
+                    const empresas = await res.json();
+                    box.innerHTML = '';
+
+                    if (empresas && empresas.length > 0) {
+                        empresas.forEach(empresa => {
+                            const div = document.createElement('div');
+                            div.className = 'suggestion-item';
+                            div.innerText = empresa;
+                            div.onclick = function() {
+                                input.value = empresa;
+                                box.style.display = 'none';
+                            };
+                            box.appendChild(div);
+                        });
+                        box.style.display = 'block';
+                    } else {
+                        box.style.display = 'none';
+                    }
+                } catch (err) {
+                    console.error("Error al conectar con el índice de empresas:", err);
+                }
+            }, 250);
+        };
+
+        // Cerrar el panel flotante de sugerencias si el usuario pulsa fuera
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.autocomplete-container')) {
+                document.getElementById('box-sugerencias').style.display = 'none';
+            }
+        });
+
+        // --- INTERFAZ DINÁMICA DE CAMPOS SEGÚN TIPO SUJETO ---
         window.alternarCamposSujeto = function() {
             const tipo = document.getElementById('tipo').value;
             const secPF = document.getElementById('sec-persona-fisica');
@@ -306,7 +456,7 @@
             }
         };
 
-        // --- VALIDACIÓN DE ACCESO DE PERSONAL AUTORIZADO (INIFP) ---
+        // --- VALIDACIÓN DE CREDENCIALES DEL OPERADOR ---
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 try {
@@ -319,20 +469,20 @@
                     const res = await verificar.json();
                     
                     if (res.autorizado) {
-                        document.body.style.display = 'block'; // Pasarela superada, se levanta la UI
-                        document.getElementById('func-name').innerText = "AUDITOR INIFP: " + user.email.toUpperCase();
+                        document.body.style.display = 'block'; // Pasarela superada con éxito.
+                        document.getElementById('func-name').innerText = "OPERADOR AUTORIZADO: " + user.email.toUpperCase();
                     } else {
-                        window.location.href = "../mi-carpeta.html"; // Intruso redirigido
+                        window.location.href = "../mi-carpeta.html";
                     }
                 } catch (e) {
                     window.location.href = "../index.html";
                 }
             } else {
-                window.location.href = "../index.html"; // Sin sesión iniciada
+                window.location.href = "../index.html";
             }
         });
 
-        // --- PROCESAMIENTO SEGURO DEL FORMULARIO ---
+        // --- PROCESAMIENTO Y ENVÍO DEL TRÁMITE ---
         document.getElementById('btnProcesar').onclick = async () => {
             const btn = document.getElementById('btnProcesar');
             const status = document.getElementById('status-msg');
@@ -354,7 +504,7 @@
                 const representante = document.getElementById('representante-legal').value.trim();
 
                 if (!razonSocial || !representante || !dni || !email || !password || !direccion) {
-                    alert("Por favor, complete todos los campos de la organización legal.");
+                    alert("Faltan campos mandatorios para la inscripción de Persona Jurídica.");
                     return;
                 }
                 nombreFinal = razonSocial;
@@ -366,23 +516,21 @@
                 const apellidosPF = document.getElementById('apellidos').value.trim();
                 
                 if (!nombrePF || !apellidosPF || !dni || !email || !password || !direccion) {
-                    alert("Por favor, complete todos los campos biográficos obligatorios.");
+                    alert("Faltan campos biográficos obligatorios para la inscripción de Persona Física.");
                     return;
                 }
                 nombreFinal = nombrePF;
                 apellidosFinal = apellidosPF;
-                empresaFinal = document.getElementById('empresa-input').value.trim() || "Sin empleo / Autónomo";
-                trabajoFinal = document.getElementById('puesto').value.trim() || "No consta";
+                empresaFinal = document.getElementById('empresa-input').value.trim() || "Trabajador Autónomo / Independiente";
+                trabajoFinal = document.getElementById('puesto').value.trim() || "No Declarado";
             }
 
-            // Cambiar UI a estado de procesamiento Glassmorphism
             btn.disabled = true;
             status.style.display = "block";
-            status.className = "msg-loading";
-            status.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Conectando con la pasarela central de Cloudflare...';
+            status.className = "load-box";
+            status.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> TRANSMITIENDO FLUJO CIFRADO A TRAVÉS DE LA PASARELA CLOUDFLARE...';
 
             try {
-                // Envío directo al Worker
                 const respuesta = await fetch(WORKER_URL, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -403,18 +551,18 @@
                 const resultado = await respuesta.json();
 
                 if (resultado.success) {
-                    status.className = "msg-ok";
-                    status.innerHTML = '<i class="fa-solid fa-circle-check"></i> <strong>ÉXITO:</strong> Identidad emitida y registrada correctamente.';
+                    status.className = "ok-box";
+                    status.innerHTML = '<i class="fa-solid fa-square-check"></i> OPERACIÓN CONCLUIDA: IDENTIDAD REGISTRADA EN EL ARCHIVO GENERAL DE IDENTIDADES.';
                     document.getElementById('formAlta').reset();
                     window.alternarCamposSujeto();
                 } else {
-                    status.className = "msg-err";
-                    status.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> <strong>DENEGADO:</strong> ' + resultado.error;
+                    status.className = "err-box";
+                    status.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> TRANSMISIÓN DENEGADA POR RECHAZO DEL BACKEND: ' + resultado.error;
                 }
 
             } catch (error) {
-                status.className = "msg-err";
-                status.innerHTML = '<i class="fa-solid fa-wifi"></i> <strong>ERROR DE RED:</strong> La pasarela segura no responde.';
+                status.className = "err-box";
+                status.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> FALLO CRÍTICO EN LA CONEXIÓN DE RED CON EL WORKER DE SEGURIDAD.';
             } finally {
                 btn.disabled = false;
             }
