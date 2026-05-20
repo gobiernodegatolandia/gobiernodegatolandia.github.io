@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Source+Sans+3:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-
+    
     <style>
         :root {
             --inifp-dark: #001529;
@@ -17,152 +16,93 @@
             --success: #2e7d32;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        /* SEGURIDAD RADICAL: La página nace completamente invisible */
+        body { 
+            font-family: 'Source Sans 3', sans-serif; 
+            background-color: #eef2f5; 
+            color: #1a1a1a; 
+            display: none; 
         }
 
-        /* El cuerpo está visible para que el funcionario pueda operar en GitHub Pages */
-        body {
-            font-family: 'Source Sans 3', sans-serif;
-            background-color: #eef2f5;
-            color: #1a1a1a;
-        }
-
-        header {
-            background: var(--inifp-dark);
-            color: white;
-            padding: 15px 5%;
-            display: flex;
-            justify-content: space-between;
+        header { 
+            background: var(--inifp-dark); 
+            color: white; 
+            padding: 15px 5%; 
+            display: flex; 
+            justify-content: space-between; 
             align-items: center;
             border-bottom: 3px solid var(--inifp-accent);
         }
 
-        .container {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 20px;
-        }
-
-        .office-card {
-            background: white;
-            padding: 40px;
-            border-radius: 4px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        .container { max-width: 900px; margin: 40px auto; padding: 20px; }
+        .office-card { 
+            background: white; 
+            padding: 40px; 
+            border-radius: 4px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
             border-top: 5px solid var(--inifp-dark);
         }
+        
+        .header-form { border-bottom: 1px solid #ddd; margin-bottom: 30px; padding-bottom: 20px; }
+        .header-form h2 { font-size: 1.5rem; color: var(--inifp-dark); text-transform: uppercase; }
 
-        .header-form {
-            border-bottom: 1px solid #ddd;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-        }
-
-        .header-form h2 {
-            font-size: 1.5rem;
-            color: var(--inifp-dark);
-            text-transform: uppercase;
-        }
-
-        .section-label {
-            grid-column: span 2;
-            background: #f8f9fa;
-            padding: 8px 15px;
-            font-weight: 800;
-            font-size: 0.7rem;
-            color: #666;
+        .section-label { 
+            grid-column: span 2; 
+            background: #f8f9fa; 
+            padding: 8px 15px; 
+            font-weight: 800; 
+            font-size: 0.7rem; 
+            color: #666; 
             border-left: 3px solid var(--inifp-accent);
             margin: 10px 0;
         }
 
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .full { grid-column: span 2; }
 
-        .full {
-            grid-column: span 2;
-        }
-
-        .field {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            font-size: 0.7rem;
-            font-weight: 700;
-            color: #555;
-            text-transform: uppercase;
-            margin-bottom: 5px;
-        }
-
-        input,
-        select {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
+        .field { margin-bottom: 15px; }
+        label { display: block; font-size: 0.7rem; font-weight: 700; color: #555; text-transform: uppercase; margin-bottom: 5px; }
+        
+        input, select { 
+            width: 100%; 
+            padding: 12px; 
+            border: 1px solid #ccc; 
             background: #fafafa;
             font-family: 'Roboto Mono', monospace;
             font-size: 0.9rem;
             border-radius: 4px;
         }
+        input:focus, select:focus { border-color: var(--inifp-accent); outline: none; background: white; }
 
-        input:focus,
-        select:focus {
-            border-color: var(--inifp-accent);
-            outline: none;
-            background: white;
-        }
-
-        .btn-register {
-            background: var(--inifp-dark);
-            color: white;
-            padding: 18px;
-            border: none;
-            width: 100%;
-            font-weight: 800;
-            cursor: pointer;
+        .btn-register { 
+            background: var(--inifp-dark); 
+            color: white; 
+            padding: 18px; 
+            border: none; 
+            width: 100%; 
+            font-weight: 800; 
+            cursor: pointer; 
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-top: 20px;
         }
+        .btn-register:hover { background: #002b52; }
+        .btn-register:disabled { background: #cccccc; cursor: not-allowed; }
 
-        .btn-register:hover {
-            background: #002b52;
-        }
-
-        .btn-register:disabled {
-            background: #cccccc;
-            cursor: not-allowed;
-        }
-
-        #status-msg {
-            margin-top: 25px;
-            padding: 15px;
-            font-weight: 700;
-            text-align: center;
-            display: none;
+        #status-msg { 
+            margin-top: 25px; 
+            padding: 15px; 
+            font-weight: 700; 
+            text-align: center; 
+            display: none; 
             border-radius: 4px;
         }
-
-        .msg-ok {
-            background: #e8f5e9;
-            color: var(--success);
-            border: 1px solid var(--success);
-        }
-
-        .msg-err {
-            background: #ffebee;
-            color: var(--danger);
-            border: 1px solid var(--danger);
-        }
+        .msg-ok { background: #e8f5e9; color: var(--success); border: 1px solid var(--success); }
+        .msg-err { background: #ffebee; color: var(--danger); border: 1px solid var(--danger); }
     </style>
 </head>
-
 <body>
 
     <header>
@@ -170,7 +110,7 @@
             <i class="fa-solid fa-building-columns" style="color: var(--inifp-accent); font-size: 1.5rem;"></i>
             <h1 style="font-size: 1.1rem; letter-spacing: 2px;">INIFP <span style="font-weight: 300; color: #aaa;">| ALTA CIUDADANA</span></h1>
         </div>
-        <div id="func-name" style="font-size: 0.7rem; font-family: 'Roboto Mono';">CONECTADO A PASARELA CLOUDFLARE</div>
+        <div id="func-name" style="font-size: 0.7rem; font-family: 'Roboto Mono';">VERIFICANDO CREDENCIALES...</div>
     </header>
 
     <div class="container">
@@ -183,7 +123,7 @@
             <form id="formAlta" onsubmit="return false;">
                 <div class="grid">
                     <div class="section-label">CREDENCIALES DE ACCESO AL SISTEMA</div>
-
+                    
                     <div class="field">
                         <label>Correo Electrónico Oficial</label>
                         <input type="email" id="reg-email" placeholder="ejemplo@gatolandia.gob" required>
@@ -245,15 +185,53 @@
         </div>
     </div>
 
-    <script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // Configuración pública básica de lectura en el cliente
+        const firebaseConfig = {
+            apiKey: "AIzaSyCUBDdTMyQTwQo4FzKpDZDpOAKGPVcki4I",
+            authDomain: "sedegatogob.firebaseapp.com",
+            projectId: "sedegatogob",
+            storageBucket: "sedegatogob.firebasestorage.app",
+            messagingSenderId: "764639776502",
+            appId: "1:764639776502:web:99f6e1a045f5d4810666d7"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // --- COMPROBACIÓN RIGUROSA DE RANGO AL CARGAR LA PÁGINA ---
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                try {
+                    const docSnap = await getDoc(doc(db, "usuarios", user.uid));
+                    // Si el documento existe Y su tipo es estrictamente 'inifp'
+                    if (docSnap.exists() && docSnap.data().perfil.tipo === "inifp") {
+                        document.body.style.display = 'block'; // Hacemos visible la página
+                        document.getElementById('func-name').innerText = "FUNCIONARIO: " + user.email;
+                    } else {
+                        // Si está logueado pero es un ciudadano común, expulsado a su carpeta
+                        window.location.href = "../mi-carpeta.html";
+                    }
+                } catch (error) {
+                    window.location.href = "../index.html";
+                }
+            } else {
+                // Si ni siquiera ha iniciado sesión, al login directo
+                window.location.href = "../index.html";
+            }
+        });
+
+        // --- ENVÍO DE DATOS AL WORKER ---
         document.getElementById('btnProcesar').onclick = async () => {
             const btn = document.getElementById('btnProcesar');
             const status = document.getElementById('status-msg');
-
-            // URL Oficial de tu Cloudflare Worker (Guardado)
             const WORKER_URL = "https://pasaportedigital.gatogob-contacto.workers.dev";
 
-            // Recolección de datos desde el formulario HTML
             const email = document.getElementById('reg-email').value;
             const password = document.getElementById('reg-password').value;
             const nombre = document.getElementById('nombre').value;
@@ -264,35 +242,22 @@
             const empresa = document.getElementById('empresa-input').value || "Sin empleo / Autónomo";
             const direccion = document.getElementById('direccion').value;
 
-            // Validación del lado del cliente
-            if (!email || !password || !nombre || !dni || !direccion) {
-                alert("Por favor, rellene todos los campos obligatorios antes de continuar.");
+            if(!email || !password || !nombre || !dni || !direccion) {
+                alert("Por favor, rellene todos los campos obligatorios.");
                 return;
             }
 
-            // Deshabilitar el botón y mostrar mensaje de estado intermedio
             btn.disabled = true;
             status.style.display = "block";
             status.className = "msg-ok";
-            status.innerText = "Transmitiendo cifrado a la pasarela central de Cloudflare...";
+            status.innerText = "Emitiendo credenciales a través de la pasarela segura de Cloudflare...";
 
             try {
-                // Petición HTTP POST nativa segura hacia tu Worker
                 const respuesta = await fetch(WORKER_URL, {
                     method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
+                    headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        email,
-                        password,
-                        nombre,
-                        apellidos,
-                        dni,
-                        tipo,
-                        trabajo,
-                        empresa,
-                        direccion
+                        email, password, nombre, apellidos, dni, tipo, trabajo, empresa, direccion
                     })
                 });
 
@@ -301,21 +266,19 @@
                 if (resultado.success) {
                     status.className = "msg-ok";
                     status.innerText = "ÉXITO: " + resultado.message;
-                    document.getElementById('formAlta').reset(); // Resetea todos los campos limpiamente
+                    document.getElementById('formAlta').reset();
                 } else {
                     status.className = "msg-err";
-                    status.innerText = "ERROR EN EL REGISTRO: " + resultado.error;
+                    status.innerText = "ERROR DEL BACKEND: " + resultado.error;
                 }
 
             } catch (error) {
                 status.className = "msg-err";
-                status.innerText = "FALLO DE RED: No se pudo establecer conexión con el servidor externo.";
+                status.innerText = "FALLO DE RED: No se pudo contactar con el Worker de seguridad.";
             } finally {
-                // Rehabilitar el botón para futuras operaciones
                 btn.disabled = false;
             }
         };
     </script>
 </body>
-
 </html>
