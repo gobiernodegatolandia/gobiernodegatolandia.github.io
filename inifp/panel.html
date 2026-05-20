@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,214 +7,172 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Source+Sans+3:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-
+    
     <style>
         :root {
             --inifp-dark: #001529;
-            --inifp-dark-hover: #002544;
             --inifp-accent: #d4af37;
-            --bg-main: #f4f7f9;
-            --border-color: #ccd4dc;
-            --danger: #c62828;
-            --success: #2e7d32;
-            --info: #0288d1;
+            --glass-bg: rgba(255, 255, 255, 0.45);
+            --glass-border: rgba(255, 255, 255, 0.25);
+            --input-bg: rgba(255, 255, 255, 0.6);
+            --text-main: #0f172a;
+            --danger: #ef4444;
+            --success: #10b981;
+            --info: #0ea5e9;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        /* Oculto por defecto para control de acceso del Funcionario. 
+           Degradado fluido moderno de fondo inspirado en portales gubernamentales premium */
+        body { 
+            font-family: 'Source Sans 3', sans-serif; 
+            background: linear-gradient(135deg, #e0e7ff 0%, #f1f5f9 50%, #e2e8f0 100%);
+            background-attachment: fixed;
+            color: var(--text-main); 
+            display: none; 
+            min-height: 100vh;
         }
 
-        /* Oculto por defecto para control de acceso del Funcionario */
-        body {
-            font-family: 'Source Sans 3', sans-serif;
-            background-color: var(--bg-main);
-            color: #1a1a1a;
-            display: none;
-            line-height: 1.5;
-        }
-
-        header {
-            background: var(--inifp-dark);
-            color: white;
-            padding: 18px 5%;
-            display: flex;
-            justify-content: space-between;
+        header { 
+            background: rgba(0, 21, 41, 0.8); 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            color: white; 
+            padding: 15px 5%; 
+            display: flex; 
+            justify-content: space-between; 
             align-items: center;
-            border-bottom: 4px solid var(--inifp-accent);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
-        .container {
-            max-width: 1000px;
-            margin: 40px auto;
-            padding: 0 20px;
+        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+        
+        /* CONTENEDOR GLASSMORPHISM PRINCIPAL */
+        .office-card { 
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px) saturate(160%);
+            -webkit-backdrop-filter: blur(20px) saturate(160%);
+            border: 1px solid var(--glass-border);
+            padding: 45px; 
+            border-radius: 16px; 
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
         }
-
-        .office-card {
-            background: white;
-            padding: 45px;
-            border-radius: 4px;
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.06);
-            border-top: 6px solid var(--inifp-dark);
+        
+        .header-form { 
+            border-bottom: 1px solid rgba(15, 23, 42, 0.08); 
+            margin-bottom: 35px; 
+            padding-bottom: 20px; 
         }
+        .header-form h2 { font-size: 1.7rem; color: var(--inifp-dark); font-weight: 800; text-transform: uppercase; letter-spacing: -0.5px; }
+        .header-form p { font-size: 0.95rem; color: #475569; margin-top: 5px; }
 
-        .header-form {
-            border-bottom: 2px solid #edf1f5;
-            margin-bottom: 35px;
-            padding-bottom: 20px;
-        }
-
-        .header-form h2 {
-            font-size: 1.7rem;
-            color: var(--inifp-dark);
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: -0.5px;
-        }
-
-        .header-form p {
-            font-size: 0.9rem;
-            color: #5a6a85;
-            margin-top: 5px;
-        }
-
-        .section-label {
-            grid-column: span 2;
-            background: #f8fafc;
-            padding: 10px 18px;
-            font-weight: 800;
-            font-size: 0.75rem;
-            color: #475569;
-            border-left: 4px solid var(--inifp-accent);
+        /* Etiquetas de sección tipo cristal esmerilado oscuro */
+        .section-label { 
+            grid-column: span 2; 
+            background: rgba(15, 23, 42, 0.04);
+            backdrop-filter: blur(5px);
+            padding: 10px 18px; 
+            font-weight: 800; 
+            font-size: 0.75rem; 
+            color: #334155; 
+            border-left: 4px solid var(--inifp-dark);
             margin: 15px 0 5px 0;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             display: flex;
             align-items: center;
             gap: 8px;
+            border-radius: 0 6px 6px 0;
         }
 
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 22px;
-        }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .full { grid-column: span 2; }
 
-        .full {
-            grid-column: span 2;
-        }
-
-        .field {
-            margin-bottom: 5px;
-        }
-
-        label {
-            display: block;
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: #334155;
-            text-transform: uppercase;
-            margin-bottom: 6px;
-            letter-spacing: 0.3px;
-        }
-
-        input,
-        select,
-        textarea {
-            width: 100%;
-            padding: 12px 14px;
-            border: 1px solid var(--border-color);
-            background: #fcfdfe;
+        .field { margin-bottom: 5px; }
+        label { display: block; font-size: 0.75rem; font-weight: 700; color: #1e293b; text-transform: uppercase; margin-bottom: 6px; letter-spacing: 0.3px; }
+        
+        /* Inputs estilizados con Glassmorphic sutil */
+        input, select, textarea { 
+            width: 100%; 
+            padding: 12px 14px; 
+            border: 1px solid var(--glass-border); 
+            background: var(--input-bg);
             font-family: 'Roboto Mono', monospace;
             font-size: 0.9rem;
-            border-radius: 4px;
-            transition: all 0.2s ease;
-            color: #1e293b;
+            border-radius: 8px;
+            transition: all 0.25s ease;
+            color: var(--text-main);
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.02);
+        }
+        input:focus, select:focus, textarea:focus { 
+            border-color: rgba(0, 21, 41, 0.4); 
+            outline: none; 
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 0 0 4px rgba(0,21,41,0.06);
         }
 
-        input:focus,
-        select:focus,
-        textarea:focus {
-            border-color: var(--inifp-dark);
-            outline: none;
-            background: white;
-            box-shadow: 0 0 0 3px rgba(0, 21, 41, 0.08);
-        }
-
-        /* Bloques dinámicos condicionales */
+        /* Bloques dinámicos condicionales transparentes */
         .dynamic-section {
             grid-column: span 2;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 22px;
-            background: #fafbfc;
-            padding: 20px;
-            border: 1px dashed var(--border-color);
-            border-radius: 4px;
+            gap: 24px;
+            background: rgba(255, 255, 255, 0.25);
+            padding: 22px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 12px;
             margin-top: 5px;
         }
 
-        .btn-register {
-            background: var(--inifp-dark);
-            color: white;
-            padding: 18px;
-            border: none;
-            width: 100%;
-            font-weight: 800;
+        /* Botón futurista con efecto de brillo */
+        .btn-register { 
+            background: linear-gradient(135deg, #001529 0%, #002c54 100%);
+            color: white; 
+            padding: 18px; 
+            border: none; 
+            width: 100%; 
+            font-weight: 800; 
             font-size: 1rem;
-            cursor: pointer;
+            cursor: pointer; 
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-top: 30px;
-            border-radius: 4px;
+            border-radius: 8px;
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 10px;
-            transition: background 0.2s ease;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0,21,41,0.15);
         }
-
-        .btn-register:hover {
-            background: var(--inifp-dark-hover);
+        .btn-register:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(0,21,41,0.25);
+            background: linear-gradient(135deg, #002244 0%, #003d75 100%);
         }
+        .btn-register:active { transform: translateY(0); }
+        .btn-register:disabled { background: #94a3b8; cursor: not-allowed; transform: none; box-shadow: none; }
 
-        .btn-register:disabled {
-            background: #94a3b8;
-            cursor: not-allowed;
-        }
-
-        #status-msg {
-            margin-top: 25px;
-            padding: 18px;
-            font-weight: 700;
-            text-align: center;
-            display: none;
-            border-radius: 4px;
+        /* Mensajes de notificación en formato burbuja de cristal */
+        #status-msg { 
+            margin-top: 25px; 
+            padding: 18px; 
+            font-weight: 700; 
+            text-align: center; 
+            display: none; 
+            border-radius: 8px;
             font-size: 0.95rem;
+            backdrop-filter: blur(8px);
         }
-
-        .msg-ok {
-            background: #f0fdf4;
-            color: var(--success);
-            border: 1px solid #bbf7d0;
-        }
-
-        .msg-err {
-            background: #fef2f2;
-            color: var(--danger);
-            border: 1px solid #fca5a5;
-        }
-
-        .msg-loading {
-            background: #f0f9ff;
-            color: var(--info);
-            border: 1px solid #bae6fd;
-        }
+        .msg-ok { background: rgba(16, 185, 129, 0.12); color: #065f46; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .msg-err { background: rgba(239, 68, 68, 0.12); color: #991b1b; border: 1px solid rgba(239, 68, 68, 0.3); }
+        .msg-loading { background: rgba(14, 165, 233, 0.12); color: #075985; border: 1px solid rgba(14, 165, 233, 0.3); }
     </style>
 </head>
-
 <body>
 
     <header>
@@ -223,7 +180,7 @@
             <i class="fa-solid fa-building-columns" style="color: var(--inifp-accent); font-size: 1.6rem;"></i>
             <h1 style="font-size: 1.2rem; letter-spacing: 1.5px; font-weight: 700;">SIAE <span style="font-weight: 300; color: #cbd5e1;">| SISTEMA DE IDENTIDADES</span></h1>
         </div>
-        <div id="func-name" style="font-size: 0.75rem; font-family: 'Roboto Mono'; background: rgba(255,255,255,0.08); padding: 6px 12px; border-radius: 3px;">VERIFICANDO...</div>
+        <div id="func-name" style="font-size: 0.75rem; font-family: 'Roboto Mono'; background: rgba(255,255,255,0.12); padding: 6px 12px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.15);">VERIFICANDO...</div>
     </header>
 
     <div class="container">
@@ -235,9 +192,9 @@
 
             <form id="formAlta" onsubmit="return false;">
                 <div class="grid">
-
+                    
                     <div class="section-label"><i class="fa-solid fa-key"></i> Credenciales de Acceso e Identificación Básica</div>
-
+                    
                     <div class="field">
                         <label>Tipo de Sujeto Jurídico</label>
                         <select id="tipo" onchange="alternarCamposSujeto()">
@@ -264,11 +221,11 @@
                         <div class="section-label" style="grid-column: span 2; margin: 0; background: none; border: none; padding: 0;"><i class="fa-solid fa-user"></i> Datos Biográficos (Persona Física)</div>
                         <div class="field">
                             <label>Nombre(s) de pila</label>
-                            <input type="text" id="nombre" class="req-pf">
+                            <input type="text" id="nombre">
                         </div>
                         <div class="field">
                             <label>Apellidos Completos</label>
-                            <input type="text" id="apellidos" class="req-pf">
+                            <input type="text" id="apellidos">
                         </div>
                         <div class="field">
                             <label>Organización / Empresa Empleadora</label>
@@ -284,7 +241,7 @@
                         <div class="section-label" style="grid-column: span 2; margin: 0; background: none; border: none; padding: 0;"><i class="fa-solid fa-briefcase"></i> Registro de Actividad Económica e Institucional</div>
                         <div class="field">
                             <label>Razón Social / Denominación Legal</label>
-                            <input type="text" id="razon-social" class="req-pj" placeholder="Ej: Industrias del Norte S.A.">
+                            <input type="text" id="razon-social" placeholder="Ej: Industrias del Norte S.A.">
                         </div>
                         <div class="field">
                             <label>Sector de Actividad Estratégica</label>
@@ -298,7 +255,7 @@
                         </div>
                         <div class="field" style="grid-column: span 2;">
                             <label>Nombre Completo del Administrador Único o Apoderado</label>
-                            <input type="text" id="representante-legal" class="req-pj" placeholder="Nombre de la persona física con poder de firma">
+                            <input type="text" id="representante-legal" placeholder="Nombre de la persona física con poder de firma">
                         </div>
                     </div>
 
@@ -320,16 +277,12 @@
     </div>
 
     <script type="module">
-        import {
-            initializeApp
-        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import {
-            getAuth,
-            onAuthStateChanged
-        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-        // Configuración básica requerida por la API de Auth en el navegador
+        // CONFIGURACIÓN OFICIAL CORREGIDA: La ApiKey vuelve de forma pública para alimentar al motor getAuth()
         const firebaseConfig = {
+            apiKey: "AIzaSyCUBDdTMyQTwQo4FzKpDZDpOAKGPVcki4I", 
             authDomain: "sedegatogob.firebaseapp.com",
             projectId: "sedegatogob"
         };
@@ -359,28 +312,23 @@
                 try {
                     const verificar = await fetch(WORKER_URL, {
                         method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify({
-                            accion: "verificar_rango",
-                            uid: user.uid
-                        })
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ accion: "verificar_rango", uid: user.uid })
                     });
-
+                    
                     const res = await verificar.json();
-
+                    
                     if (res.autorizado) {
-                        document.body.style.display = 'block'; // Acceso concedido
+                        document.body.style.display = 'block'; // Pasarela superada, se levanta la UI
                         document.getElementById('func-name').innerText = "AUDITOR INIFP: " + user.email.toUpperCase();
                     } else {
-                        window.location.href = "../mi-carpeta.html"; // Redirección por rango insuficiente
+                        window.location.href = "../mi-carpeta.html"; // Intruso redirigido
                     }
                 } catch (e) {
                     window.location.href = "../index.html";
                 }
             } else {
-                window.location.href = "../index.html"; // Redirección por falta de credenciales
+                window.location.href = "../index.html"; // Sin sesión iniciada
             }
         });
 
@@ -389,27 +337,24 @@
             const btn = document.getElementById('btnProcesar');
             const status = document.getElementById('status-msg');
 
-            // Datos comunes
             const tipo = document.getElementById('tipo').value;
             const dni = document.getElementById('dni').value.trim();
             const email = document.getElementById('reg-email').value.trim();
             const password = document.getElementById('reg-password').value;
             const direccion = document.getElementById('direccion').value.trim();
 
-            // Variables de empaquetado final
             let nombreFinal = "";
             let apellidosFinal = "";
             let empresaFinal = "";
             let trabajoFinal = "";
 
-            // Validación estricta según tipo de perfil corporativo/ciudadano
             if (tipo === "empresa") {
                 const razonSocial = document.getElementById('razon-social').value.trim();
                 const sector = document.getElementById('sector-empresa').value;
                 const representante = document.getElementById('representante-legal').value.trim();
 
                 if (!razonSocial || !representante || !dni || !email || !password || !direccion) {
-                    alert("Error formal: Rellene todos los campos del perfil de Persona Jurídica.");
+                    alert("Por favor, complete todos los campos de la organización legal.");
                     return;
                 }
                 nombreFinal = razonSocial;
@@ -419,9 +364,9 @@
             } else {
                 const nombrePF = document.getElementById('nombre').value.trim();
                 const apellidosPF = document.getElementById('apellidos').value.trim();
-
+                
                 if (!nombrePF || !apellidosPF || !dni || !email || !password || !direccion) {
-                    alert("Error formal: Rellene todos los campos del perfil de Persona Física.");
+                    alert("Por favor, complete todos los campos biográficos obligatorios.");
                     return;
                 }
                 nombreFinal = nombrePF;
@@ -430,19 +375,17 @@
                 trabajoFinal = document.getElementById('puesto').value.trim() || "No consta";
             }
 
-            // Cambiar UI a estado de procesamiento gubernamental
+            // Cambiar UI a estado de procesamiento Glassmorphism
             btn.disabled = true;
             status.style.display = "block";
             status.className = "msg-loading";
-            status.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Transmitiendo paquete cifrado a la pasarela central de Cloudflare...';
+            status.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Conectando con la pasarela central de Cloudflare...';
 
             try {
-                // Petición POST estructurada directa a tu Worker oculto
+                // Envío directo al Worker
                 const respuesta = await fetch(WORKER_URL, {
                     method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
+                    headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         accion: "alta_ciudadano",
                         email: email,
@@ -461,22 +404,21 @@
 
                 if (resultado.success) {
                     status.className = "msg-ok";
-                    status.innerHTML = '<i class="fa-solid fa-circle-check"></i> <strong>ÉXITO INSTITUCIONAL:</strong> Credenciales validadas. Identidad emitida correctamente.';
+                    status.innerHTML = '<i class="fa-solid fa-circle-check"></i> <strong>ÉXITO:</strong> Identidad emitida y registrada correctamente.';
                     document.getElementById('formAlta').reset();
-                    window.alternarCamposSujeto(); // Reajusta la UI visual por defecto
+                    window.alternarCamposSujeto();
                 } else {
                     status.className = "msg-err";
-                    status.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> <strong>RECHAZADO POR EL BACKEND:</strong> ' + resultado.error;
+                    status.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> <strong>DENEGADO:</strong> ' + resultado.error;
                 }
 
             } catch (error) {
                 status.className = "msg-err";
-                status.innerHTML = '<i class="fa-solid fa-wifi"></i> <strong>FALLO EN LA INFRAESTRUCTURA DE RED:</strong> No se pudo validar la firma del Worker.';
+                status.innerHTML = '<i class="fa-solid fa-wifi"></i> <strong>ERROR DE RED:</strong> La pasarela segura no responde.';
             } finally {
                 btn.disabled = false;
             }
         };
     </script>
 </body>
-
 </html>
