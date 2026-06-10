@@ -1,0 +1,2254 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asociación de Aeropuertos Gatolandeses (AAG) | Tu Viaje Empieza Aquí</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #020617;
+            --primary-light: #0f172a;
+            --accent: #f59e0b;
+            --accent-glow: rgba(245, 158, 11, 0.4);
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+            --bg-glass: rgba(15, 23, 42, 0.65);
+            --border-glass: rgba(255, 255, 255, 0.08);
+
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--primary);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- CABECERA TURÍSTICA --- */
+        header {
+            background: rgba(2, 6, 23, 0.85);
+            backdrop-filter: blur(12px);
+            padding: 1.2rem 2rem;
+            border-bottom: 1px solid var(--border-glass);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(to right, #fff, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand span {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .gob-badge {
+            background: rgba(245, 158, 11, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent);
+            border: 1px solid rgba(245, 158, 11, 0.25);
+        }
+
+        /* --- HERO: MARKETING INMERSIVO --- */
+        .hero {
+            background: linear-gradient(180px, rgba(2, 6, 23, 0.2) 0%, var(--primary) 100%), url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80') center/cover;
+            padding: 8rem 2rem 4rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        .hero-tag {
+            background: var(--accent);
+            color: var(--primary);
+            font-weight: 700;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h2 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1.5px;
+            line-height: 1.05;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.35rem;
+            color: #cbd5e1;
+            margin-bottom: 3rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        /* --- EXPOSITOR PRINCIPAL DE DESTINOS / AEROPUERTOS --- */
+        .destinations-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            font-weight: 700;
+        }
+
+        .airport-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .airport-card {
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .airport-img-wrapper {
+            height: 200px;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .airport-card:nth-child(1) .airport-img-wrapper {
+            background-image: url('https://images.unsplash.com/photo-1546482502-04417980567f?auto=format&fit=crop&w=600&q=80');
+        }
+
+        /* Ciudad */
+        .airport-card:nth-child(2) .airport-img-wrapper {
+            background-image: url('https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=600&q=80');
+        }
+
+        /* Bosque */
+        .airport-card:nth-child(3) .airport-img-wrapper {
+            background-image: url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=80');
+        }
+
+        /* Tecnología */
+        .airport-card:nth-child(4) .airport-img-wrapper {
+            background-image: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=600&q=80');
+        }
+
+        /* Llanura */
+
+        .airport-img-wrapper::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(0deg, rgba(15, 23, 42, 1) 0%, rgba(15, 23, 42, 0) 100%);
+        }
+
+        .iata-tag {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(2, 6, 23, 0.8);
+            backdrop-filter: blur(4px);
+            color: var(--accent);
+            font-weight: 700;
+            padding: 0.3rem 0.7rem;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            z-index: 2;
+        }
+
+        .airport-info {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .airport-info h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.2rem;
+        }
+
+        .airport-info .slogan {
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.5px;
+        }
+
+        .airport-info p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 1.2rem;
+        }
+
+        /* Atractivos turísticos destacados */
+        .highlights {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: auto;
+        }
+
+        .highlight-tag {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            color: #cbd5e1;
+        }
+
+        /* Estados activos para interacción */
+        .airport-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .airport-card.active {
+            border-color: var(--accent);
+            box-shadow: 0 0 20px var(--accent-glow);
+            background: rgba(30, 41, 59, 0.8);
+        }
+
+        .airport-card.active::before {
+            content: '📍 CONSULTANDO EN PANEL';
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--accent);
+            color: var(--primary);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            z-index: 2;
+        }
+
+        /* --- PANEL DE VUELOS (INTERFAZ DE AEROPUERTO PREMIUM) --- */
+        .board-wrapper {
+            max-width: 1400px;
+            margin: 0 auto 6rem auto;
+            padding: 0 2rem;
+        }
+
+        .board-card {
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: 24px;
+            padding: 2.5rem;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .board-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-glass);
+            padding-bottom: 2rem;
+        }
+
+        .board-title-group h4 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .board-title-group p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-top: 0.25rem;
+        }
+
+        .controls-group {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .flow-selector {
+            display: flex;
+            background: rgba(2, 6, 23, 0.7);
+            padding: 0.35rem;
+            border-radius: 10px;
+            border: 1px solid var(--border-glass);
+        }
+
+        .flow-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 600;
+            padding: 0.6rem 1.4rem;
+            cursor: pointer;
+            border-radius: 7px;
+            transition: all 0.3s;
+        }
+
+        .flow-btn.active {
+            background: var(--primary-light);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .search-bar {
+            position: relative;
+            min-width: 300px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            background: rgba(2, 6, 23, 0.7);
+            border: 1px solid var(--border-glass);
+            padding: 0.75rem 1.2rem;
+            border-radius: 10px;
+            color: #fff;
+            font-family: inherit;
+            outline: none;
+            font-size: 0.95rem;
+            transition: border-color 0.3s;
+        }
+
+        .search-bar input:focus {
+            border-color: var(--accent);
+        }
+
+        /* TABLA INTEGRADA */
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 1.2rem 1rem;
+            border-bottom: 2px solid var(--border-glass);
+            text-align: left;
+        }
+
+        td {
+            padding: 1.2rem 1rem;
+            border-bottom: 1px solid var(--border-glass);
+            font-size: 1rem;
+        }
+
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.01);
+        }
+
+        .time {
+            font-weight: 600;
+            color: #f1f5f9;
+        }
+
+        .flight {
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .airline {
+            color: #fff;
+        }
+
+        .destination {
+            font-weight: 500;
+            color: #f8fafc;
+        }
+
+        /* BADGES METROPOLITANOS DE ESTADO */
+        .badge-status {
+            display: inline-block;
+            padding: 0.3rem 0.7rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-status.en-hora {
+            background: rgba(16, 185, 129, 0.12);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+        }
+
+        .badge-status.facturando {
+            background: rgba(245, 158, 11, 0.12);
+            color: var(--warning);
+            border: 1px solid rgba(245, 158, 11, 0.25);
+        }
+
+        .badge-status.embarcando {
+            background: rgba(245, 158, 11, 0.25);
+            color: #fbbf24;
+            border: 1px solid var(--accent);
+            animation: pulse-glow 1s infinite alternate;
+        }
+
+        .badge-status.ultimo-aviso {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+
+        .badge-status.finalizado {
+            background: rgba(148, 163, 184, 0.08);
+            color: var(--text-muted);
+            border: 1px solid rgba(148, 163, 184, 0.15);
+        }
+
+        @keyframes pulse-glow {
+            from {
+                opacity: 1;
+            }
+
+            to {
+                opacity: 0.6;
+            }
+        }
+
+        .empty-state {
+            padding: 4rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* --- PIE DE PÁGINA CORPORATIVO --- */
+        footer {
+            background: #020617;
+            color: #475569;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border-glass);
+            font-size: 0.9rem;
+        }
+
+        footer p a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="brand">
+                <h1>AAG S.A.U.</h1>
+                <span>Asociación de Aeropuertos Gatolandeses</span>
+            </div>
+            <div class="gob-badge">
+                Portal Oficial de Turismo e Infraestructuras
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-tag">Reino Democrático de Gatolandia</span>
+            <h2>Tu Próxima Gran Aventura Empieza en el Aire</h2>
+            <p>Descubre un país de contrastes mágicos, distritos de vanguardia y naturaleza virgen. Elige tu puerta de entrada ideal y consulta las conexiones globales programadas para hoy.</p>
+        </div>
+    </section>
+
+    <section class="destinations-section">
+        <h3 class="section-title">Elige tu Puerta de Entrada al Reino</h3>
+
+        <div class="airport-grid">
+            <div class="airport-card active" id="card-PMM" onclick="activarAeropuerto('PMM')">
+                <div class="airport-img-wrapper">
+                    <span class="iata-tag">PMM</span>
+                </div>
+                <div class="airport-info">
+                    <div>
+                        <h3>Miaumiau</h3>
+                        <div class="slogan">La Puerta Dorada de la Nación</div>
+                        <p>El núcleo urbano y financiero definitivo. Rascacielos vanguardistas, vida nocturna, gastronomía de alta gama y grandes centros comerciales.</p>
+                    </div>
+                    <div class="highlights">
+                        <span class="highlight-tag">🌆 Distrito Central</span>
+                        <span class="highlight-tag">🍣 Gastronomía</span>
+                        <span class="highlight-tag">🎭 Ocio</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="airport-card" id="card-TSX" onclick="activarAeropuerto('TSX')">
+                <div class="airport-img-wrapper">
+                    <span class="iata-tag">TSX</span>
+                </div>
+                <div class="airport-info">
+                    <div>
+                        <h3>El Bosque</h3>
+                        <div class="slogan">Naturaleza e Historia Viva</div>
+                        <p>Tu acceso directo a los majestuosos Territorios del Sur. Bosques ancestrales, parques nacionales protegidos, senderismo de montaña y monumentos históricos.</p>
+                    </div>
+                    <div class="highlights">
+                        <span class="highlight-tag">🌲 Parques Naturales</span>
+                        <span class="highlight-tag">🏰 Monumentos</span>
+                        <span class="highlight-tag">🥾 Trekking</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="airport-card" id="card-GFM" onclick="activarAeropuerto('GFM')">
+                <div class="airport-img-wrapper">
+                    <span class="iata-tag">GFM</span>
+                </div>
+                <div class="airport-info">
+                    <div>
+                        <h3>Ciudad de Ibai</h3>
+                        <div class="slogan">El Hub de Innovación y Negocios</div>
+                        <p>El corazón tecnológico y empresarial de Ibailandia. Distritos financieros hiperconectados, ferias mundiales, startups y arquitectura moderna disruptiva.</p>
+                    </div>
+                    <div class="highlights">
+                        <span class="highlight-tag">💼 Business Center</span>
+                        <span class="highlight-tag">🌐 Tech Hub</span>
+                        <span class="highlight-tag">🏎️ Eventos</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="airport-card" id="card-PEX" onclick="activarAeropuerto('PEX')">
+                <div class="airport-img-wrapper">
+                    <span class="iata-tag">PEX</span>
+                </div>
+                <div class="airport-info">
+                    <div>
+                        <h3>Planicies</h3>
+                        <div class="slogan">Ecoturismo y Tradición Rural</div>
+                        <p>Ubicado en los fértiles campos orientales de El Cerezal. Famoso por sus viñedos, turismo agrario, tranquilidad absoluta y cielos despejados.</p>
+                    </div>
+                    <div class="highlights">
+                        <span class="highlight-tag">🌸 El Cerezal</span>
+                        <span class="highlight-tag">🍷 Enoturismo</span>
+                        <span class="highlight-tag">🧘 Relax</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="board-wrapper">
+        <div class="board-card">
+            <div class="board-header">
+                <div class="board-title-group">
+                    <h4 id="lblNombreAeropuerto">Panel Integrado - Aeropuerto Internacional Miaumiau-Puerta de Gatolandia</h4>
+                    <p id="lblSubtituloAeropuerto">Mostrando las operaciones en vivo sincronizadas con la frecuencia aérea del Reino.</p>
+                </div>
+
+                <div class="controls-group">
+                    <div class="flow-selector">
+                        <button class="flow-btn active" id="flujoSalida" onclick="establecerFlujo('salida')">🛫 Salidas</button>
+                        <button class="flow-btn" id="flujoLlegada" onclick="establecerFlujo('llegada')">🛬 Llegadas</button>
+                    </div>
+                    <div class="search-bar">
+                        <input type="text" id="filtroTexto" oninput="actualizarPanelVuelos()" placeholder="Escribe destino, aerolínea o código de vuelo...">
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Hora</th>
+                            <th>Vuelo</th>
+                            <th>Aerolínea</th>
+                            <th id="columnaDinamica">Destino</th>
+                            <th>Terminal</th>
+                            <th>Puerta</th>
+                            <th>Estado Actual</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaVuelosBody">
+                    </tbody>
+                </table>
+                <div id="sinResultados" class="empty-state" style="display: none;">
+                    No se registran operaciones programadas que coincidan con los criterios de búsqueda.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Asociación de Aeropuertos Gatolandeses (AAG S.A.U.) | Entidad dependiente de la Dirección General de Aviación Civil.</p>
+        <p style="margin-top: 0.5rem; font-size: 0.8rem;">Planifica tu itinerario de forma segura. Volver al <a href="https://gobiernodegatolandia.github.io">Portal de Gobierno de Gatolandia</a>.</p>
+    </footer>
+
+    <script>
+        // --- BASE DE DATOS DE CONEXIONES INTERNACIONALES ---
+        // --- BASE DE DATOS DE CONEXIONES INTERNACIONALES ---
+        const CONEXIONES_AEREAS = [
+            // ========================================================
+            // PMM - MIAUMIAU (PUERTA DORADA - HUB PRINCIPAL)
+            // ========================================================
+            {
+                id: "GA-995",
+                apto: "PMM",
+                compania: "GatoAir",
+                origen: "Miaumiau (PMM)",
+                destino: "Buenos Aires (EZE)",
+                hora: "00:05",
+                tipo: "salida",
+                term: "Única",
+                puerta: "B18"
+            },
+            {
+                id: "RML-001",
+                apto: "PMM",
+                compania: "Royal Meow Lines",
+                origen: "Reykjavík (KEF)",
+                destino: "Miaumiau (PMM)",
+                hora: "00:15",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "A03"
+            },
+            {
+                id: "LA-2411",
+                apto: "PMM",
+                compania: "LATAM",
+                origen: "Santiago de Chile (SCL)",
+                destino: "Miaumiau (PMM)",
+                hora: "01:20",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "B14"
+            },
+            {
+                id: "QR-143",
+                apto: "PMM",
+                compania: "Qatar Airways",
+                origen: "Miaumiau (PMM)",
+                destino: "Doha Hamad (DOH)",
+                hora: "01:45",
+                tipo: "salida",
+                term: "Única",
+                puerta: "B10"
+            },
+            {
+                id: "ET-502",
+                apto: "PMM",
+                compania: "Ethiopian Airlines",
+                origen: "Adís Abeba (ADD)",
+                destino: "Miaumiau (PMM)",
+                hora: "04:30",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "A12"
+            },
+            {
+                id: "TK-1821",
+                apto: "PMM",
+                compania: "Turkish Airlines",
+                origen: "Estambul (IST)",
+                destino: "Miaumiau (PMM)",
+                hora: "05:15",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "B02"
+            },
+            {
+                id: "GA-010",
+                apto: "PMM",
+                compania: "GatoAir",
+                origen: "Miaumiau (PMM)",
+                destino: "Sídney Kingsford (SYD)",
+                hora: "05:45",
+                tipo: "salida",
+                term: "Única",
+                puerta: "B20"
+            },
+            {
+                id: "FR-4022",
+                apto: "PMM",
+                compania: "Ryanair",
+                origen: "Miaumiau (PMM)",
+                destino: "Oporto (OPO)",
+                hora: "06:00",
+                tipo: "salida",
+                term: "Única",
+                puerta: "C01"
+            },
+            {
+                id: "GA-101",
+                apto: "PMM",
+                compania: "GatoAir",
+                origen: "Miaumiau (PMM)",
+                destino: "Madrid-Barajas (MAD)",
+                hora: "06:15",
+                tipo: "salida",
+                term: "Única",
+                puerta: "A01"
+            },
+            {
+                id: "VLG-3882",
+                apto: "PMM",
+                compania: "Vueling",
+                origen: "Miaumiau (PMM)",
+                destino: "Barcelona-El Prat (BCN)",
+                hora: "06:20",
+                tipo: "salida",
+                term: "Única",
+                puerta: "C05"
+            },
+            {
+                id: "EZY-2101",
+                apto: "PMM",
+                compania: "EasyJet",
+                origen: "Miaumiau (PMM)",
+                destino: "París Orly (ORY)",
+                hora: "06:30",
+                tipo: "salida",
+                term: "Única",
+                puerta: "C09"
+            },
+            {
+                id: "IB-2420",
+                apto: "PMM",
+                compania: "Iberia",
+                origen: "Madrid-Barajas (MAD)",
+                destino: "Miaumiau (PMM)",
+                hora: "06:40",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "B03"
+            },
+            {
+                id: "TO-4530",
+                apto: "PMM",
+                compania: "Transavia",
+                origen: "Miaumiau (PMM)",
+                destino: "Nantes (NTE)",
+                hora: "06:45",
+                tipo: "salida",
+                term: "Única",
+                puerta: "C12"
+            },
+            {
+                id: "RML-090",
+                apto: "PMM",
+                compania: "Royal Meow Lines",
+                origen: "Miaumiau (PMM)",
+                destino: "Lisboa (LIS)",
+                hora: "07:00",
+                tipo: "salida",
+                term: "Única",
+                puerta: "A05"
+            },
+            {
+                id: "FR-1124",
+                apto: "PMM",
+                compania: "Ryanair",
+                origen: "Miaumiau (PMM)",
+                destino: "Palma de Mallorca (PMI)",
+                hora: "07:05",
+                tipo: "salida",
+                term: "Única",
+                puerta: "C02"
+            },
+            {
+                id: "LH-1830",
+                apto: "PMM",
+                compania: "Lufthansa",
+                origen: "Fráncfort (FRA)",
+                destino: "Miaumiau (PMM)",
+                hora: "07:10",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "A06"
+            },
+            {
+                id: "BA-426",
+                apto: "PMM",
+                compania: "British Airways",
+                origen: "Londres Heathrow (LHR)",
+                destino: "Miaumiau (PMM)",
+                hora: "07:20",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "B01"
+            },
+            {
+                id: "W4-3401",
+                apto: "PMM",
+                compania: "Wizz Air",
+                origen: "Miaumiau (PMM)",
+                destino: "Bucarest (OTP)",
+                hora: "07:30",
+                tipo: "salida",
+                term: "Única",
+                puerta: "C15"
+            },
+            {
+                id: "GA-202",
+                apto: "PMM",
+                compania: "GatoAir",
+                origen: "Londres Heathrow (LHR)",
+                destino: "Miaumiau (PMM)",
+                hora: "07:40",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "A02"
+            },
+            {
+                id: "HV-5021",
+                apto: "PMM",
+                compania: "Transavia",
+                origen: "Ámsterdam Schiphol (AMS)",
+                destino: "Miaumiau (PMM)",
+                hora: "07:45",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "C10"
+            },
+            {
+                id: "UX-1022",
+                apto: "PMM",
+                compania: "Air Europa",
+                origen: "Madrid-Barajas (MAD)",
+                destino: "Miaumiau (PMM)",
+                hora: "07:50",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "B05"
+            },
+            {
+                id: "VLG-1422",
+                apto: "PMM",
+                compania: "Vueling",
+                origen: "Bilbao (BIO)",
+                destino: "Miaumiau (PMM)",
+                hora: "07:55",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "C04"
+            },
+
+            // ========================================================
+            // OLA DE MAÑANA (08:00 - 11:59)
+            // ========================================================
+            {
+                id: "BA-421",
+                apto: "PMM",
+                compania: "British Airways",
+                origen: "Miaumiau (PMM)",
+                destino: "Londres Gatwick (LGW)",
+                hora: "08:10",
+                tipo: "salida",
+                term: "Única",
+                puerta: "B12"
+            },
+            {
+                id: "DL-201",
+                apto: "PMM",
+                compania: "Delta Air Lines",
+                origen: "Nueva York (JFK)",
+                destino: "Miaumiau (PMM)",
+                hora: "08:15",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "B22"
+            },
+            {
+                id: "AF-1122",
+                apto: "PMM",
+                compania: "Air France",
+                origen: "París Charles de Gaulle (CDG)",
+                destino: "Miaumiau (PMM)",
+                hora: "08:25",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "A06"
+            },
+            {
+                id: "LS-1241",
+                apto: "PMM",
+                compania: "Jet2",
+                origen: "Manchester (MAN)",
+                destino: "Miaumiau (PMM)",
+                hora: "08:35",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "C11"
+            },
+            {
+                id: "UX-3021",
+                apto: "PMM",
+                compania: "Air Europa",
+                origen: "Miaumiau (PMM)",
+                destino: "Málaga-Costa del Sol (AGP)",
+                hora: "08:40",
+                tipo: "salida",
+                term: "Única",
+                puerta: "B06"
+            },
+            {
+                id: "AZ-420",
+                apto: "PMM",
+                compania: "ITA Airways",
+                origen: "Roma Fiumicino (FCO)",
+                destino: "Miaumiau (PMM)",
+                hora: "08:45",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "A04"
+            },
+            {
+                id: "FR-9932",
+                apto: "PMM",
+                compania: "Ryanair",
+                origen: "Miaumiau (PMM)",
+                destino: "Roma Ciampino (CIA)",
+                hora: "08:55",
+                tipo: "salida",
+                term: "Única",
+                puerta: "C03"
+            },
+            {
+                id: "AM-550",
+                apto: "PMM",
+                compania: "Air Meow",
+                origen: "Roma Fiumicino (FCO)",
+                destino: "Miaumiau (PMM)",
+                hora: "09:05",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "A08"
+            },
+            {
+                id: "GA-441",
+                apto: "PMM",
+                compania: "GatoAir",
+                origen: "Miaumiau (PMM)",
+                destino: "Barcelona-El Prat (BCN)",
+                hora: "09:15",
+                tipo: "salida",
+                term: "Única",
+                puerta: "B02"
+            },
+            {
+                id: "UA-962",
+                apto: "PMM",
+                compania: "United Airlines",
+                origen: "Chicago O'Hare (ORD)",
+                destino: "Miaumiau (PMM)",
+                hora: "09:20",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "B24"
+            },
+            {
+                id: "EZY-6433",
+                apto: "PMM",
+                compania: "EasyJet",
+                origen: "Miaumiau (PMM)",
+                destino: "Milán Malpensa (MXP)",
+                hora: "09:30",
+                tipo: "salida",
+                term: "Única",
+                puerta: "C07"
+            },
+            {
+                id: "IB-3151",
+                apto: "PMM",
+                compania: "Iberia",
+                origen: "Miaumiau (PMM)",
+                destino: "Sevilla (SVQ)",
+                hora: "09:40",
+                tipo: "salida",
+                term: "Única",
+                puerta: "B04"
+            },
+            {
+                id: "AY-1520",
+                apto: "PMM",
+                compania: "Finnair",
+                origen: "Helsinki (HEL)",
+                destino: "Miaumiau (PMM)",
+                hora: "09:50",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "A10"
+            },
+            {
+                id: "FR-8821",
+                apto: "PMM",
+                compania: "Ryanair",
+                origen: "Milán Bérgamo (BGY)",
+                destino: "Miaumiau (PMM)",
+                hora: "10:00",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "C08"
+            },
+            {
+                id: "V6-2911",
+                apto: "PMM",
+                compania: "Volotea",
+                origen: "Miaumiau (PMM)",
+                destino: "Asturias (OVD)",
+                hora: "10:10",
+                tipo: "salida",
+                term: "Única",
+                puerta: "C14"
+            },
+            {
+                id: "LH-1902",
+                apto: "PMM",
+                compania: "Lufthansa",
+                origen: "Miaumiau (PMM)",
+                destino: "Múnich (MUC)",
+                hora: "10:20",
+                tipo: "salida",
+                term: "Única",
+                puerta: "A07"
+            },
+            {
+                id: "GA-710",
+                apto: "PMM",
+                compania: "GatoAir",
+                origen: "Miaumiau (PMM)",
+                destino: "Zúrich (ZRH)",
+                hora: "10:30",
+                tipo: "salida",
+                term: "Única",
+                puerta: "A03"
+            },
+            {
+                id: "RML-110",
+                apto: "PMM",
+                compania: "Royal Meow Lines",
+                origen: "Miaumiau (PMM)",
+                destino: "París Charles de Gaulle (CDG)",
+                hora: "10:45",
+                tipo: "salida",
+                term: "Única",
+                puerta: "A04"
+            },
+            {
+                id: "EZY-8120",
+                apto: "PMM",
+                compania: "EasyJet",
+                origen: "Londres Luton (LTN)",
+                destino: "Miaumiau (PMM)",
+                hora: "10:55",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "C06"
+            },
+            {
+                id: "FR-5561",
+                apto: "PMM",
+                compania: "Ryanair",
+                origen: "Miaumiau (PMM)",
+                destino: "Berlín Brandenburg (BER)",
+                hora: "11:05",
+                tipo: "salida",
+                term: "Única",
+                puerta: "C02"
+            },
+            {
+                id: "KL-1202",
+                apto: "PMM",
+                compania: "KLM",
+                origen: "Ámsterdam Schiphol (AMS)",
+                destino: "Miaumiau (PMM)",
+                hora: "11:15",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "B06"
+            },
+            {
+                id: "VLG-2401",
+                apto: "PMM",
+                compania: "Vueling",
+                origen: "Miaumiau (PMM)",
+                destino: "Alicante (ALC)",
+                hora: "11:25",
+                tipo: "salida",
+                term: "Única",
+                puerta: "C04"
+            },
+            {
+                id: "LX-402",
+                apto: "PMM",
+                compania: "Swiss International",
+                origen: "Miaumiau (PMM)",
+                destino: "Zúrich (ZRH)",
+                hora: "11:40",
+                tipo: "salida",
+                term: "Única",
+                puerta: "A09"
+            },
+            {
+                id: "W4-2900",
+                apto: "PMM",
+                compania: "Wizz Air",
+                origen: "Budapest (BUD)",
+                destino: "Miaumiau (PMM)",
+                hora: "11:50",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "C16"
+            },
+
+            // ========================================================
+            // MEDIODÍA Y HORA PUNTA DE INTERCONTINENTALES (12:00 - 15:59)
+            // ========================================================
+            {
+                id: "GA-880",
+                apto: "PMM",
+                compania: "GatoAir",
+                origen: "Miaumiau (PMM)",
+                destino: "Nueva York (JFK)",
+                hora: "12:05",
+                tipo: "salida",
+                term: "Única",
+                puerta: "B15"
+            },
+            {
+                id: "DL-202",
+                apto: "PMM",
+                compania: "Delta Air Lines",
+                origen: "Miaumiau (PMM)",
+                destino: "Atlanta (ATL)",
+                hora: "12:15",
+                tipo: "salida",
+                term: "Única",
+                puerta: "B22"
+            },
+            {
+                id: "UA-963",
+                apto: "PMM",
+                compania: "United Airlines",
+                origen: "Miaumiau (PMM)",
+                destino: "Washington Dulles (IAD)",
+                hora: "12:25",
+                tipo: "salida",
+                term: "Única",
+                puerta: "B24"
+            },
+            {
+                id: "AA-903",
+                apto: "PMM",
+                compania: "American Airlines",
+                origen: "Miami International (MIA)",
+                destino: "Miaumiau (PMM)",
+                hora: "12:35",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "B16"
+            },
+            {
+                id: "VLG-2210",
+                apto: "PMM",
+                compania: "Vueling",
+                origen: "París Charles de Gaulle (CDG)",
+                destino: "Miaumiau (PMM)",
+                hora: "12:45",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "C01"
+            },
+            {
+                id: "FR-2410",
+                apto: "PMM",
+                compania: "Ryanair",
+                origen: "Miaumiau (PMM)",
+                destino: "Bruselas Charleroi (CRL)",
+                hora: "12:55",
+                tipo: "salida",
+                term: "Única",
+                puerta: "C03"
+            },
+            {
+                id: "AZ-412",
+                apto: "PMM",
+                compania: "ITA Airways",
+                origen: "Miaumiau (PMM)",
+                destino: "Milán Linate (LIN)",
+                hora: "13:05",
+                tipo: "salida",
+                term: "Única",
+                puerta: "A03"
+            },
+            {
+                id: "TP-1992",
+                apto: "PMM",
+                compania: "TAP Portugal",
+                origen: "Lisboa (LIS)",
+                destino: "Miaumiau (PMM)",
+                hora: "13:15",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "B04"
+            },
+            {
+                id: "EZY-1840",
+                apto: "PMM",
+                compania: "EasyJet",
+                origen: "Ginebra (GVA)",
+                destino: "Miaumiau (PMM)",
+                hora: "13:25",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "C08"
+            },
+            {
+                id: "IB-3160",
+                apto: "PMM",
+                compania: "Iberia",
+                origen: "Madrid-Barajas (MAD)",
+                destino: "Miaumiau (PMM)",
+                hora: "13:35",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "B03"
+            },
+            {
+                id: "GA-305",
+                apto: "PMM",
+                compania: "GatoAir",
+                origen: "Miaumiau (PMM)",
+                destino: "Tokio Haneda (HND)",
+                hora: "13:50",
+                tipo: "salida",
+                term: "Única",
+                puerta: "B14"
+            },
+            {
+                id: "NH-212",
+                apto: "PMM",
+                compania: "ANA",
+                origen: "Tokio Narita (NRT)",
+                destino: "Miaumiau (PMM)",
+                hora: "14:05",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "B21"
+            },
+            {
+                id: "EW-9081",
+                apto: "PMM",
+                compania: "EuroWings",
+                origen: "Düsseldorf (DUS)",
+                destino: "Miaumiau (PMM)",
+                hora: "14:15",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "C06"
+            },
+            {
+                id: "RML-205",
+                apto: "PMM",
+                compania: "Royal Meow Lines",
+                origen: "Miaumiau (PMM)",
+                destino: "Viena (VIE)",
+                hora: "14:25",
+                tipo: "salida",
+                term: "Única",
+                puerta: "A05"
+            },
+            {
+                id: "TO-3321",
+                apto: "PMM",
+                compania: "Transavia",
+                origen: "Lyon (LYS)",
+                destino: "Miaumiau (PMM)",
+                hora: "14:35",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "C11"
+            },
+            {
+                id: "GA-522",
+                apto: "PMM",
+                compania: "GatoAir",
+                origen: "Miaumiau (PMM)",
+                destino: "Ámsterdam Schiphol (AMS)",
+                hora: "14:45",
+                tipo: "salida",
+                term: "Única",
+                puerta: "A01"
+            },
+            {
+                id: "EZY-4412",
+                apto: "PMM",
+                compania: "EasyJet",
+                origen: "Miaumiau (PMM)",
+                destino: "Copenhague (CPH)",
+                hora: "15:00",
+                tipo: "salida",
+                term: "Única",
+                puerta: "C07"
+            },
+            {
+                id: "FR-3881",
+                apto: "PMM",
+                compania: "Ryanair",
+                origen: "Dublín (DUB)",
+                destino: "Miaumiau (PMM)",
+                hora: "15:15",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "C02"
+            },
+            {
+                id: "LH-1842",
+                apto: "PMM",
+                compania: "Lufthansa",
+                origen: "Fráncfort (FRA)",
+                destino: "Miaumiau (PMM)",
+                hora: "15:25",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "A08"
+            },
+            {
+                id: "QR-142",
+                apto: "PMM",
+                compania: "Qatar Airways",
+                origen: "Doha Hamad (DOH)",
+                destino: "Miaumiau (PMM)",
+                hora: "15:35",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "B10"
+            },
+            {
+                id: "IB-3161",
+                apto: "PMM",
+                compania: "Iberia",
+                origen: "Miaumiau (PMM)",
+                destino: "Madrid-Barajas (MAD)",
+                hora: "15:45",
+                tipo: "salida",
+                term: "Única",
+                puerta: "B03"
+            },
+            {
+                id: "V6-1025",
+                apto: "PMM",
+                compania: "Volotea",
+                origen: "Venecia (VCE)",
+                destino: "Miaumiau (PMM)",
+                hora: "15:55",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "C13"
+            },
+
+            // ========================================================
+            // OLA DE LA TARDE (16:00 - 19:59)
+            // ========================================================
+            {
+                id: "GA-510",
+                apto: "PMM",
+                compania: "GatoAir",
+                origen: "Miaumiau (PMM)",
+                destino: "Fráncfort (FRA)",
+                hora: "16:05",
+                tipo: "salida",
+                term: "Única",
+                puerta: "A02"
+            },
+            {
+                id: "AF-1123",
+                apto: "PMM",
+                compania: "Air France",
+                origen: "Miaumiau (PMM)",
+                destino: "París Charles de Gaulle (CDG)",
+                hora: "16:15",
+                tipo: "salida",
+                term: "Única",
+                puerta: "A06"
+            },
+            {
+                id: "BA-423",
+                apto: "PMM",
+                compania: "British Airways",
+                origen: "Miaumiau (PMM)",
+                destino: "Londres Heathrow (LHR)",
+                hora: "16:25",
+                tipo: "salida",
+                term: "Única",
+                puerta: "B01"
+            },
+            {
+                id: "EK-241",
+                apto: "PMM",
+                compania: "Emirates",
+                origen: "Dubái International (DXB)",
+                destino: "Miaumiau (PMM)",
+                hora: "16:40",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "B08"
+            },
+            {
+                id: "VLG-3885",
+                apto: "PMM",
+                compania: "Vueling",
+                origen: "Miaumiau (PMM)",
+                destino: "Barcelona-El Prat (BCN)",
+                hora: "16:50",
+                tipo: "salida",
+                term: "Única",
+                puerta: "C04"
+            },
+            {
+                id: "LS-1422",
+                apto: "PMM",
+                compania: "Jet2",
+                origen: "Miaumiau (PMM)",
+                destino: "Leeds Bradford (LBA)",
+                hora: "17:00",
+                tipo: "salida",
+                term: "Única",
+                puerta: "C10"
+            },
+            {
+                id: "RML-772",
+                apto: "PMM",
+                compania: "Royal Meow Lines",
+                origen: "Miaumiau (PMM)",
+                destino: "Múnich (MUC)",
+                hora: "17:15",
+                tipo: "salida",
+                term: "Única",
+                puerta: "A05"
+            },
+            {
+                id: "FR-6012",
+                apto: "PMM",
+                compania: "Ryanair",
+                origen: "Malta (MLA)",
+                destino: "Miaumiau (PMM)",
+                hora: "17:25",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "C01"
+            },
+            {
+                id: "UX-1025",
+                apto: "PMM",
+                compania: "Air Europa",
+                origen: "Miaumiau (PMM)",
+                destino: "Madrid-Barajas (MAD)",
+                hora: "17:35",
+                tipo: "salida",
+                term: "Única",
+                puerta: "B05"
+            },
+            {
+                id: "AA-902",
+                apto: "PMM",
+                compania: "American Airlines",
+                origen: "Miami International (MIA)",
+                destino: "Miaumiau (PMM)",
+                hora: "17:45",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "B16"
+            },
+            {
+                id: "KL-1203",
+                apto: "PMM",
+                compania: "KLM",
+                origen: "Miaumiau (PMM)",
+                destino: "Ámsterdam Schiphol (AMS)",
+                hora: "17:55",
+                tipo: "salida",
+                term: "Única",
+                puerta: "B06"
+            },
+            {
+                id: "GA-602",
+                apto: "PMM",
+                compania: "GatoAir",
+                origen: "Miaumiau (PMM)",
+                destino: "Dublín (DUB)",
+                hora: "18:05",
+                tipo: "salida",
+                term: "Única",
+                puerta: "C03"
+            },
+            {
+                id: "W4-3110",
+                apto: "PMM",
+                compania: "Wizz Air",
+                origen: "Varsovia Chopin (WAW)",
+                destino: "Miaumiau (PMM)",
+                hora: "18:15",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "C15"
+            },
+            {
+                id: "LH-432",
+                apto: "PMM",
+                compania: "Lufthansa",
+                origen: "Fráncfort (FRA)",
+                destino: "Miaumiau (PMM)",
+                hora: "18:30",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "B12"
+            },
+            {
+                id: "EZY-6401",
+                apto: "PMM",
+                compania: "EasyJet",
+                origen: "Miaumiau (PMM)",
+                destino: "Belfast (BFS)",
+                hora: "18:40",
+                tipo: "salida",
+                term: "Única",
+                puerta: "C07"
+            },
+            {
+                id: "FR-5114",
+                apto: "PMM",
+                compania: "Ryanair",
+                origen: "Miaumiau (PMM)",
+                destino: "Londres Stansted (STN)",
+                hora: "18:50",
+                tipo: "salida",
+                term: "Única",
+                puerta: "C02"
+            },
+            {
+                id: "TP-1993",
+                apto: "PMM",
+                compania: "TAP Portugal",
+                origen: "Miaumiau (PMM)",
+                destino: "Lisboa (LIS)",
+                hora: "19:00",
+                tipo: "salida",
+                term: "Única",
+                puerta: "B04"
+            },
+            {
+                id: "AF-1420",
+                apto: "PMM",
+                compania: "Air France",
+                origen: "París Charles de Gaulle (CDG)",
+                destino: "Miaumiau (PMM)",
+                hora: "19:15",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "A06"
+            },
+            {
+                id: "GA-822",
+                apto: "PMM",
+                compania: "GatoAir",
+                origen: "Miaumiau (PMM)",
+                destino: "Milán Malpensa (MXP)",
+                hora: "19:25",
+                tipo: "salida",
+                term: "Única",
+                puerta: "A01"
+            },
+            {
+                id: "VLG-1490",
+                apto: "PMM",
+                compania: "Vueling",
+                origen: "Valencia (VLC)",
+                destino: "Miaumiau (PMM)",
+                hora: "19:35",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "C05"
+            },
+            {
+                id: "RML-015",
+                apto: "PMM",
+                compania: "Royal Meow Lines",
+                origen: "Miaumiau (PMM)",
+                destino: "Estambul (IST)",
+                hora: "19:45",
+                tipo: "salida",
+                term: "Única",
+                puerta: "A04"
+            },
+            {
+                id: "IB-884",
+                apto: "PMM",
+                compania: "Iberia",
+                origen: "Madrid-Barajas (MAD)",
+                destino: "Miaumiau (PMM)",
+                hora: "19:55",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "B01"
+            },
+
+            // ========================================================
+            // OLA NOCTURNA Y ÚLTIMAS OPERACIONES (20:00 - 23:59)
+            // ========================================================
+            {
+                id: "EK-242",
+                apto: "PMM",
+                compania: "Emirates",
+                origen: "Miaumiau (PMM)",
+                destino: "Dubái International (DXB)",
+                hora: "20:05",
+                tipo: "salida",
+                term: "Única",
+                puerta: "B08"
+            },
+            {
+                id: "GA-773",
+                apto: "PMM",
+                compania: "GatoAir",
+                origen: "Miaumiau (PMM)",
+                destino: "São Paulo (GRU)",
+                hora: "20:20",
+                tipo: "salida",
+                term: "Única",
+                puerta: "B13"
+            },
+            {
+                id: "FR-2104",
+                apto: "PMM",
+                compania: "Ryanair",
+                origen: "Marrakech (RAK)",
+                destino: "Miaumiau (PMM)",
+                hora: "20:35",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "C01"
+            },
+            {
+                id: "SQ-322",
+                apto: "PMM",
+                compania: "Singapore Airlines",
+                origen: "Miaumiau (PMM)",
+                destino: "Singapur Changi (SIN)",
+                hora: "20:45",
+                tipo: "salida",
+                term: "Única",
+                puerta: "B11"
+            },
+            {
+                id: "W4-6011",
+                apto: "PMM",
+                compania: "Wizz Air",
+                origen: "Budapest (BUD)",
+                destino: "Miaumiau (PMM)",
+                hora: "20:55",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "C16"
+            },
+            {
+                id: "GA-912",
+                apto: "PMM",
+                compania: "GatoAir",
+                origen: "Miaumiau (PMM)",
+                destino: "Atenas (ATH)",
+                hora: "21:10",
+                tipo: "salida",
+                term: "Única",
+                puerta: "A10"
+            },
+            {
+                id: "VLG-3886",
+                apto: "PMM",
+                compania: "Vueling",
+                origen: "Barcelona-El Prat (BCN)",
+                destino: "Miaumiau (PMM)",
+                hora: "21:20",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "C04"
+            },
+            {
+                id: "RML-890",
+                apto: "PMM",
+                compania: "Royal Meow Lines",
+                origen: "Bruselas (BRU)",
+                destino: "Miaumiau (PMM)",
+                hora: "21:35",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "A02"
+            },
+            {
+                id: "EZY-2841",
+                apto: "PMM",
+                compania: "EasyJet",
+                origen: "Miaumiau (PMM)",
+                destino: "Ginebra (GVA)",
+                hora: "21:45",
+                tipo: "salida",
+                term: "Única",
+                puerta: "C02"
+            },
+            {
+                id: "NH-213",
+                apto: "PMM",
+                compania: "ANA",
+                origen: "Miaumiau (PMM)",
+                destino: "Tokio Narita (NRT)",
+                hora: "22:00",
+                tipo: "salida",
+                term: "Única",
+                puerta: "B21"
+            },
+            {
+                id: "LH-1845",
+                apto: "PMM",
+                compania: "Lufthansa",
+                origen: "Miaumiau (PMM)",
+                destino: "Fráncfort (FRA)",
+                hora: "22:15",
+                tipo: "salida",
+                term: "Única",
+                puerta: "A07"
+            },
+            {
+                id: "FR-9943",
+                apto: "PMM",
+                compania: "Ryanair",
+                origen: "Tenerife Sur (TFS)",
+                destino: "Miaumiau (PMM)",
+                hora: "22:30",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "C03"
+            },
+            {
+                id: "AF-1421",
+                apto: "PMM",
+                compania: "Air France",
+                origen: "Miaumiau (PMM)",
+                destino: "París Charles de Gaulle (CDG)",
+                hora: "22:45",
+                tipo: "salida",
+                term: "Única",
+                puerta: "A06"
+            },
+            {
+                id: "SQ-321",
+                apto: "PMM",
+                compania: "Singapore Airlines",
+                origen: "Singapur Changi (SIN)",
+                destino: "Miaumiau (PMM)",
+                hora: "23:00",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "B11"
+            },
+            {
+                id: "IB-2421",
+                apto: "PMM",
+                compania: "Iberia",
+                origen: "Miaumiau (PMM)",
+                destino: "Madrid-Barajas (MAD)",
+                hora: "23:15",
+                tipo: "salida",
+                term: "Única",
+                puerta: "B01"
+            },
+            {
+                id: "RML-990",
+                apto: "PMM",
+                compania: "Royal Meow Lines",
+                origen: "Miaumiau (PMM)",
+                destino: "Ámsterdam Schiphol (AMS)",
+                hora: "23:30",
+                tipo: "salida",
+                term: "Única",
+                puerta: "A04"
+            },
+            {
+                id: "GA-996",
+                apto: "PMM",
+                compania: "GatoAir",
+                origen: "Los Ángeles (LAX)",
+                destino: "Miaumiau (PMM)",
+                hora: "23:45",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "B15"
+            },
+            {
+                id: "FR-1102",
+                apto: "PMM",
+                compania: "Ryanair",
+                origen: "Bolonia (BLQ)",
+                destino: "Miaumiau (PMM)",
+                hora: "23:55",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "C08"
+            },
+
+            // ========================================================
+            // TSX - EL BOSQUE (TERRITORIOS DEL SUR)
+            // ========================================================
+            {
+                id: "TSX-301",
+                apto: "TSX",
+                compania: "South Connect",
+                origen: "El Bosque (TSX)",
+                destino: "Lisboa (LIS)",
+                hora: "08:10",
+                tipo: "salida",
+                term: "Única",
+                puerta: "02"
+            },
+            {
+                id: "TSX-102",
+                apto: "TSX",
+                compania: "GatoAir",
+                origen: "Barcelona-El Prat (BCN)",
+                destino: "El Bosque (TSX)",
+                hora: "11:30",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "01"
+            },
+            {
+                id: "EZ-2241",
+                apto: "TSX",
+                compania: "EasyJet",
+                origen: "Milán Malpensa (MXP)",
+                destino: "El Bosque (TSX)",
+                hora: "13:15",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "03"
+            },
+            {
+                id: "TSX-440",
+                apto: "TSX",
+                compania: "EuroWings",
+                origen: "El Bosque (TSX)",
+                destino: "Berlín Brandenburg (BER)",
+                hora: "16:45",
+                tipo: "salida",
+                term: "Única",
+                puerta: "04"
+            },
+            {
+                id: "FR-8832",
+                apto: "TSX",
+                compania: "Ryanair",
+                origen: "El Bosque (TSX)",
+                destino: "Bruselas Charleroi (CRL)",
+                hora: "19:10",
+                tipo: "salida",
+                term: "Única",
+                puerta: "02"
+            },
+            {
+                id: "RML-330",
+                apto: "TSX",
+                compania: "Royal Meow Lines",
+                origen: "Múnich (MUC)",
+                destino: "El Bosque (TSX)",
+                hora: "20:45",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "03"
+            },
+
+            // ========================================================
+            // GFM - CIUDAD DE IBAI (TECH & BUSINESS HUB)
+            // ========================================================
+            {
+                id: "IB-882",
+                apto: "GFM",
+                compania: "Iberia",
+                origen: "Ciudad de Ibai (GFM)",
+                destino: "Madrid-Barajas (MAD)",
+                hora: "06:45",
+                tipo: "salida",
+                term: "Única",
+                puerta: "B21"
+            },
+            {
+                id: "GA-551",
+                apto: "GFM",
+                compania: "GatoAir",
+                origen: "Zúrich (ZRH)",
+                destino: "Ciudad de Ibai (GFM)",
+                hora: "10:15",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "B24"
+            },
+            {
+                id: "LX-1042",
+                apto: "GFM",
+                compania: "Swiss International",
+                origen: "Ciudad de Ibai (GFM)",
+                destino: "Ginebra (GVA)",
+                hora: "11:55",
+                tipo: "salida",
+                term: "Única",
+                puerta: "B25"
+            },
+            {
+                id: "GFM-303",
+                apto: "GFM",
+                compania: "BizAir",
+                origen: "Ciudad de Ibai (GFM)",
+                destino: "Bruselas (BRU)",
+                hora: "15:30",
+                tipo: "salida",
+                term: "Única",
+                puerta: "A01"
+            },
+            {
+                id: "KL-1603",
+                apto: "GFM",
+                compania: "KLM",
+                origen: "Ámsterdam Schiphol (AMS)",
+                destino: "Ciudad de Ibai (GFM)",
+                hora: "17:40",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "B20"
+            },
+            {
+                id: "GA-771",
+                apto: "GFM",
+                compania: "GatoAir",
+                origen: "Milán Malpensa (MXP)",
+                destino: "Ciudad de Ibai (GFM)",
+                hora: "19:20",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "B22"
+            },
+            {
+                id: "IB-884",
+                apto: "GFM",
+                compania: "Iberia",
+                origen: "Madrid-Barajas (MAD)",
+                destino: "Ciudad de Ibai (GFM)",
+                hora: "22:30",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "B23"
+            },
+
+            // ========================================================
+            // PEX - PLANICIES (ECOTURISMO & TRADICIÓN)
+            // ========================================================
+            {
+                id: "PEX-110",
+                apto: "PEX",
+                compania: "EcoJet",
+                origen: "Planicies (PEX)",
+                destino: "Viena (VIE)",
+                hora: "09:00",
+                tipo: "salida",
+                term: "Única",
+                puerta: "01"
+            },
+            {
+                id: "FR-4021",
+                apto: "PEX",
+                compania: "Ryanair",
+                origen: "Planicies (PEX)",
+                destino: "Palma de Mallorca (PMI)",
+                hora: "11:15",
+                tipo: "salida",
+                term: "Única",
+                puerta: "01"
+            },
+            {
+                id: "PEX-552",
+                apto: "PEX",
+                compania: "Air Meow",
+                origen: "Ginebra (GVA)",
+                destino: "Planicies (PEX)",
+                hora: "13:40",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "02"
+            },
+            {
+                id: "VLG-3110",
+                apto: "PEX",
+                compania: "Vueling",
+                origen: "Barcelona-El Prat (BCN)",
+                destino: "Planicies (PEX)",
+                hora: "15:20",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "02"
+            },
+            {
+                id: "PEX-800",
+                apto: "PEX",
+                compania: "GatoAir",
+                origen: "Planicies (PEX)",
+                destino: "París Orly (ORY)",
+                hora: "17:15",
+                tipo: "salida",
+                term: "Única",
+                puerta: "01"
+            },
+            {
+                id: "Eco-999",
+                apto: "PEX",
+                compania: "EcoJet",
+                origen: "Toulouse (TLS)",
+                destino: "Planicies (PEX)",
+                hora: "21:50",
+                tipo: "llegada",
+                term: "Única",
+                puerta: "02"
+            }
+        ];
+
+        // Mapeo de nombres oficiales para la inmersión institucional
+        const MAPA_NOMBRES = {
+            PMM: {
+                oficial: "Aeropuerto Internacional Miaumiau-Puerta de Gatolandia",
+                desc: "La gran terminal de acceso urbano del Reino."
+            },
+            TSX: {
+                oficial: "Aeropuerto Internacional Víctimas de la Guerra-Territorios del Sur",
+                desc: "El nexo directo con la naturaleza y la historia meridional."
+            },
+            GFM: {
+                oficial: "Aeropuerto Internacional Gates Funes Malaches-Ibailandia",
+                desc: "La infraestructura industrial, tecnológica y corporativa del norte."
+            },
+            PEX: {
+                oficial: "Aeropuerto Internacional Planicies-El Cerezal",
+                desc: "Nuestra terminal eco-sostenible integrada en los campos orientales."
+            }
+        };
+
+        let activeApto = "PMM";
+        let activeFlujo = "salida";
+
+        // --- SISTEMA CRONOLÓGICO DE ESTADOS EN VIVO ---
+        function evaluarEstadoActual(horaProgramada, tipoFlujo) {
+            const ahora = new Date();
+            const [horas, minutos] = horaProgramada.split(":").map(Number);
+
+            const objetivo = new Date();
+            objetivo.setHours(horas, minutos, 0, 0);
+
+            const diferenciaMinutos = (objetivo - ahora) / (1000 * 60);
+
+            if (tipoFlujo === "salida") {
+                if (diferenciaMinutos > 120) return {
+                    texto: "En hora",
+                    clase: "en-hora"
+                };
+                if (diferenciaMinutos <= 120 && diferenciaMinutos > 60) return {
+                    texto: "Facturando",
+                    clase: "facturando"
+                };
+                if (diferenciaMinutos <= 60 && diferenciaMinutos > 15) return {
+                    texto: "Embarcando",
+                    clase: "embarcando"
+                };
+                if (diferenciaMinutos <= 15 && diferenciaMinutos > 0) return {
+                    texto: "Último Aviso",
+                    clase: "ultimo-aviso"
+                };
+                return {
+                    texto: "Despegado",
+                    clase: "finalizado"
+                };
+            } else {
+                if (diferenciaMinutos > 60) return {
+                    texto: "En hora",
+                    clase: "en-hora"
+                };
+                if (diferenciaMinutos <= 60 && diferenciaMinutos > 20) return {
+                    texto: "En vuelo",
+                    clase: "info"
+                };
+                if (diferenciaMinutos <= 20 && diferenciaMinutos > 0) return {
+                    texto: "Aproximación",
+                    clase: "embarcando"
+                };
+                return {
+                    texto: "Aterrizado",
+                    clase: "finalizado"
+                };
+            }
+        }
+
+        // --- MANIPULACIÓN DE EVENTOS DE INTERFAZ ---
+        function activarAeropuerto(codigo) {
+            activeApto = codigo;
+
+            // Alternar clase CSS activa en las fichas visuales
+            document.querySelectorAll(".airport-card").forEach(card => card.classList.remove("active"));
+            document.getElementById(`card-${codigo}`).classList.add("active");
+
+            actualizarContenedoresTexto();
+            actualizarPanelVuelos();
+        }
+
+        function establecerFlujo(flujo) {
+            activeFlujo = flujo;
+
+            // Alternar clase CSS activa en los botones selectores
+            document.getElementById("flujoSalida").classList.toggle("active", flujo === "salida");
+            document.getElementById("flujoLlegada").classList.toggle("active", flujo === "llegada");
+
+            actualizarContenedoresTexto();
+            actualizarPanelVuelos();
+        }
+
+        function actualizarContenedoresTexto() {
+            const datosApto = MAPA_NOMBRES[activeApto];
+            const flujoTexto = activeFlujo === "salida" ? "Salidas" : "Llegadas";
+
+            document.getElementById("lblNombreAeropuerto").innerText = `Panel de ${flujoTexto} - ${datosApto.oficial}`;
+            document.getElementById("lblSubtituloAeropuerto").innerText = datosApto.desc;
+            document.getElementById("columnaDinamica").innerText = activeFlujo === "salida" ? "Destino" : "Origen";
+        }
+
+        // --- MOTOR DE FILTRADO Y RENDERIZADO ---
+        function actualizarPanelVuelos() {
+            const query = document.getElementById("filtroTexto").value.toLowerCase();
+            const tbody = document.getElementById("tablaVuelosBody");
+            const alertVacio = document.getElementById("sinResultados");
+
+            tbody.innerHTML = "";
+
+            // Aplicar filtros basados en la interfaz y la búsqueda
+            const filtrados = CONEXIONES_AEREAS.filter(vuelo => {
+                const coincideApto = vuelo.apto === activeApto;
+                const coincideFlujo = vuelo.tipo === activeFlujo;
+                const coincideBusqueda =
+                    vuelo.id.toLowerCase().includes(query) ||
+                    vuelo.origen.toLowerCase().includes(query) ||
+                    vuelo.destino.toLowerCase().includes(query) ||
+                    vuelo.compania.toLowerCase().includes(query);
+
+                return coincideApto && coincideFlujo && coincideBusqueda;
+            });
+
+            // Ordenar de forma cronológica ascendente
+            filtrados.sort((a, b) => a.hora.localeCompare(b.hora));
+
+            if (filtrados.length === 0) {
+                alertVacio.style.display = "block";
+                return;
+            }
+            alertVacio.style.display = "none";
+
+            // Renderizar las filas dinámicamente
+            filtrados.forEach(vuelo => {
+                const estado = evaluarEstadoActual(vuelo.hora, vuelo.tipo);
+                const ciudadRuta = vuelo.tipo === "salida" ? vuelo.destino : vuelo.origen;
+
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td class="time">${vuelo.hora}</td>
+                    <td class="flight">${vuelo.id}</td>
+                    <td class="airline">${vuelo.compania}</td>
+                    <td class="destination">${ciudadRuta}</td>
+                    <td>${vuelo.term}</td>
+                    <td><strong>${vuelo.puerta}</strong></td>
+                    <td><span class="badge-status ${estado.clase}">${estado.texto}</span></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Inicialización y refresco automático cada 30 segundos
+        window.onload = () => {
+            actualizarContenedoresTexto();
+            actualizarPanelVuelos();
+            setInterval(actualizarPanelVuelos, 30000);
+        };
+    </script>
+</body>
+
+</html>
