@@ -1,0 +1,1039 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>TGAV — Sistema Oficial de Gestión Ferroviaria</title>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <style>
+        :root {
+            --primary: #5a2d82;
+            --accent: #e5c04b;
+            --bg-light: #f1f5f9;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --white: #fff;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --error: #ef4444;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Urbanist', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            scroll-behavior: smooth;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        nav {
+            background: var(--white);
+            padding: 15px 5%;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-logo {
+            background: var(--primary);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-weight: 800;
+            font-size: 18px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #5a2d82 0, #2d1640 100%);
+            padding: 40px 20px 100px;
+            color: white;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            opacity: .9;
+            font-size: 16px;
+            margin: 0 auto;
+            max-width: 600px;
+        }
+
+        .search-container {
+            max-width: 1200px;
+            margin: -60px auto 30px;
+            padding: 0 15px;
+        }
+
+        .search-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.15);
+            border: 1px solid var(--border);
+        }
+
+        .trip-type {
+            display: flex;
+            gap: 15px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .trip-type label {
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .input-block {
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .input-block label {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .input-block select,
+        .input-block input {
+            border: 0;
+            background: transparent;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-main);
+            outline: 0;
+            width: 100%;
+            font-family: 'Urbanist', sans-serif;
+            padding: 4px 0;
+        }
+
+        .required-field {
+            border-bottom: 2px solid var(--error) !important;
+        }
+
+        .btn-search {
+            background: var(--primary);
+            color: white;
+            border: 0;
+            padding: 16px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 15px;
+            cursor: pointer;
+            transition: .2s;
+            font-family: 'Urbanist', sans-serif;
+            width: 100%;
+        }
+
+        .btn-search:hover {
+            filter: brightness(1.1);
+        }
+
+        .main-grid {
+            max-width: 1200px;
+            margin: 20px auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 0 15px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+        }
+
+        .price-header {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .price-big {
+            font-size: 42px;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -1px;
+        }
+
+        .fee-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            margin-bottom: 8px;
+            color: var(--text-muted);
+        }
+
+        .fee-item.bold {
+            color: var(--text-main);
+            font-weight: 700;
+            border-top: 1px solid var(--border);
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+
+        .fee-total {
+            border-top: 2px solid var(--primary);
+            margin-top: 12px;
+            padding-top: 12px;
+            font-weight: 800;
+            font-size: 18px;
+            color: var(--primary);
+        }
+
+        .showError-box {
+            background: #f0f9ff;
+            border: 1px solid #e0f2fe;
+            padding: 18px;
+            border-radius: 14px;
+            color: #0369a1;
+            font-size: 13px;
+            margin-top: 20px;
+            line-height: 1.5;
+        }
+
+        .showError-box strong {
+            color: #0c4a6e;
+            display: block;
+            margin-bottom: 4px;
+            font-size: 13px;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 25px;
+            margin-top: 15px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 8px;
+            bottom: 8px;
+            width: 2px;
+            background: var(--border);
+        }
+
+        .stop {
+            position: relative;
+            margin-bottom: 20px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .stop::after {
+            content: '';
+            position: absolute;
+            left: -24px;
+            top: 4px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--primary);
+            border: 2px solid white;
+            box-shadow: 0 0 0 2px var(--primary);
+        }
+
+        #ticketResult {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+            padding: 40px 15px;
+            background: #1e293b;
+        }
+
+        .download-notice {
+            background: var(--accent);
+            color: #000;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 800;
+            font-size: 13px;
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .ticket-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            background: #fff;
+            border-radius: 16px;
+            padding: 10px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .ticket-img {
+            width: 100%;
+            border-radius: 12px;
+            display: block;
+        }
+
+        .ticket-label {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--error);
+            color: white;
+            padding: 4px 10px;
+            font-weight: 800;
+            font-size: 11px;
+            border-radius: 4px;
+        }
+
+        .ticket-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+            margin-top: 12px;
+        }
+
+        .btn-download {
+            background: #0f172a;
+            color: white;
+            border: 0;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-wallet {
+            background: #000;
+            color: white;
+            border: 1px solid #333;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        #purchaseSection {
+            display: none;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        .passenger-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .passenger-card h4 {
+            margin: 0;
+            color: var(--primary);
+            font-size: 13px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .field label {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .field input {
+            padding: 12px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-family: 'Urbanist', sans-serif;
+            font-weight: 700;
+            color: var(--text-main);
+            outline: 0;
+        }
+
+        .field input:focus {
+            border-color: var(--primary);
+        }
+
+        .error-box {
+            background: #fee2e2;
+            border: 1px solid var(--error);
+            color: #991b1b;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 13px;
+            display: none;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(4px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-card {
+            background: white;
+            padding: 30px 20px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .modal-card h3 {
+            margin-top: 0;
+            color: var(--primary);
+            font-size: 20px;
+        }
+
+        .modal-card p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .modal-actions button {
+            flex: 1;
+            border-radius: 10px;
+            padding: 12px;
+            font-weight: 700;
+            border: 0;
+            cursor: pointer;
+        }
+
+        .btn-cancel {
+            background: #e2e8f0;
+            color: var(--text-main);
+        }
+
+        /* Escritorio / Tablets grandes (Punto de quiebre responsivo) */
+        @media(min-width: 768px) {
+            .search-card {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr) 0.8fr;
+                gap: 15px;
+            }
+
+            .trip-type {
+                grid-column: 1 / -1;
+            }
+
+            .input-block {
+                border-right: 1px solid var(--border);
+                border-bottom: 0;
+                padding-right: 10px;
+                padding-bottom: 0;
+            }
+
+            .input-block:nth-child(5) {
+                border-right: 0;
+            }
+
+            .btn-search {
+                grid-column: span 4;
+                margin-top: 10px;
+            }
+
+            .main-grid {
+                display: grid;
+                grid-template-columns: 1.6fr 1fr;
+                gap: 25px;
+            }
+
+            .price-header {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .btn-buy-trigger {
+                width: auto;
+                padding: 16px 35px;
+            }
+
+            .passenger-card {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .passenger-card h4 {
+                grid-column: span 2;
+            }
+
+            #ticketContainer {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+                width: 100%;
+                max-width: 1100px;
+            }
+
+            .ticket-wrapper {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="brand">
+            <div class="brand-logo">TGAV x ANTF</div>
+            <div style="font-weight:700; font-size: 14px;">Asociación Nacional <span style="color:var(--text-muted);font-weight:400">de Transporte</span></div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>¿A dónde vamos hoy?</h1>
+        <p>Esta calculadora ofrece los precios más recientes y son válidos por 15 minutos. Financiada por el <b>Gobierno de Gatolandia</b></p>
+    </section>
+
+    <div class="search-container">
+        <div class="search-card">
+            <div class="trip-type">
+                <label><input type="radio" name="ttype" value="one" checked> Solo Ida</label>
+                <label><input type="radio" name="ttype" value="round"> Ida y Vuelta (-10%)</label>
+            </div>
+            <div class="input-block">
+                <label>Origen</label>
+                <select id="origin"></select>
+            </div>
+            <div class="input-block">
+                <label>Destino</label>
+                <select id="destination"></select>
+            </div>
+            <div class="input-block">
+                <label>Fecha Ida *</label>
+                <input type="date" id="dateIda">
+            </div>
+            <div class="input-block" id="returnDateBlock" style="opacity:.3;pointer-events:none">
+                <label>Fecha Vuelta *</label>
+                <input type="date" id="dateVuelta">
+            </div>
+            <div class="input-block">
+                <label>Hora Salida *</label>
+                <input type="time" id="horaSalida" value="09:00">
+            </div>
+            <div class="input-block">
+                <label>Pax / Clase</label>
+                <div style="display:flex;gap:5px">
+                    <input type="number" id="pax" value="1" min="1" max="5" style="width:45px">
+                    <select id="tariff">
+                        <option value="eco">Eco</option>
+                        <option value="plus">TGAV+</option>
+                        <option value="oro">Oro</option>
+                    </select>
+                </div>
+            </div>
+            <button id="calc" class="btn-search">Calcular Trayecto</button>
+        </div>
+    </div>
+
+    <div style="max-width:1200px;margin:0 auto;padding:0 15px">
+        <div id="errorBox" class="error-box"></div>
+    </div>
+
+    <div class="main-grid">
+        <div class="card">
+            <div class="price-header">
+                <div>
+                    <span style="font-weight:800;color:var(--text-muted);font-size:11px">PRECIO FINAL ESTIMADO</span>
+                    <div class="price-big" id="totalPrice">0 Rg$</div>
+                </div>
+                <button id="buy" class="btn-search btn-buy-trigger" style="background:var(--success)">Continuar</button>
+            </div>
+            <div id="breakdown"></div>
+
+            <div class="showError-box">
+                <strong><i class="fa-solid fa-user-shield"></i> CONTROL DE SEGURIDAD:</strong>
+                Los pasajeros pasarán por el control de seguridad perimetral. Todas las pertenencias se dispondrán en bandejas de escaneo técnico bajo la normativa de la <b>Ley de Seguridad Nacional</b>.
+            </div>
+        </div>
+
+        <div class="card">
+            <h3 style="margin:0 0 15px 0"><i class="fa-solid fa-route"></i> Itinerario</h3>
+            <div id="routeBoxIda" class="timeline">Seleccione trayecto y fechas de viaje.</div>
+        </div>
+    </div>
+
+    <div id="purchaseSection">
+        <div class="card">
+            <h2 style="color:var(--primary);margin:0 0 20px 0; font-size: 20px;">Identificación de Pasajeros</h2>
+            <div id="travellersForm"></div>
+            <button id="confirmPurchase" class="btn-search">Emitir Billetes Oficiales</button>
+        </div>
+    </div>
+
+    <div id="confirmModal" class="modal-overlay">
+        <div class="modal-card">
+            <i class="fa-solid fa-circle-check" style="color:var(--success);font-size:40px;margin-bottom:15px"></i>
+            <h3>Confirmar Emisión</h3>
+            <p id="modalPriceText">Se procederá al registro del billete en la base central.</p>
+            <div class="modal-actions">
+                <button class="btn-cancel" id="cancelBtn">Cancelar</button>
+                <button class="btn-search" id="finalConfirmBtn" style="background:var(--success)">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="ticketResult">
+        <div class="download-notice">
+            <i class="fa-solid fa-circle-info"></i> Billetes emitidos con éxito. Puede descargarlos en formato digital abajo.
+        </div>
+        <div id="ticketContainer"></div>
+    </div>
+
+    <script>
+        const CONFIG = {
+            IVA: 0.18,
+            SUP_ORO: 50,
+            SUP_PLUS: 20,
+            CURRENCY: 'Rg$'
+        };
+
+        function showError(msg) {
+            const box = document.getElementById("errorBox");
+            box.innerText = msg;
+            box.style.display = "block";
+            window.scrollTo(0, box.offsetTop - 100);
+        }
+
+        function clearError() {
+            document.getElementById("errorBox").style.display = "none";
+        }
+
+        const STATIONS = ["Miaumiau Término", "Miaumiau Aeropuerto", "Montañagatuna", "Los Ángeles del Norte", "El Norte", "La Nevadina", "Ciudad Aletis", "El Cerezal", "Planicies", "Felinópolis", "Ciudad de Ibai-Ibailandia", "El Sur", "San Antonio", "El Bosque", "Montañanevada", "San Ibai", "El Gato", "El Collado", "Salinas", "El Cuerno", "Subgatuna"];
+        const graph = {};
+        STATIONS.forEach(s => graph[s] = []);
+
+        function addLine(name, arr, rate) {
+            for (let i = 0; i < arr.length - 1; i++) {
+                graph[arr[i]].push({
+                    to: arr[i + 1],
+                    line: name,
+                    rate: rate
+                });
+                graph[arr[i + 1]].push({
+                    to: arr[i],
+                    line: name,
+                    rate: rate
+                });
+            }
+        }
+
+        function addInter(a, b) {
+            graph[a].push({
+                to: b,
+                line: 'INTERCONEXIÓN',
+                rate: 60
+            });
+            graph[b].push({
+                to: a,
+                line: 'INTERCONEXIÓN',
+                rate: 60
+            });
+        }
+
+        addLine("LÍNEA CENTRAL", ["Miaumiau Término", "Montañagatuna", "Ciudad de Ibai-Ibailandia", "Felinópolis", "Planicies"], 80);
+        addLine("LÍNEA DEL NORTE", ["El Cuerno", "Los Ángeles del Norte", "El Norte", "La Nevadina", "El Cerezal", "Planicies"], 100);
+        addLine("LÍNEA DEL SURESTE", ["Planicies", "San Antonio", "El Collado", "El Sur", "El Bosque", "Montañanevada", "Salinas", "Los Ángeles del Norte"], 90);
+        addLine("LÍNEA DEL VALLE DE LOS GRANDES LAGOS", ["San Antonio", "El Collado", "El Gato", "San Ibai", "Salinas"], 80);
+        addLine("GATES EXPRESS", ["Miaumiau Término", "Miaumiau Aeropuerto"], 15);
+        addInter("Miaumiau Término", "El Gato");
+        addInter("Miaumiau Término", "San Ibai");
+        addInter("Ciudad de Ibai-Ibailandia", "Ciudad Aletis");
+        addInter("Miaumiau Término", "Los Ángeles del Norte");
+
+        const originSelect = document.getElementById('origin');
+        const destSelect = document.getElementById('destination');
+        const today = new Date().toISOString().split("T")[0];
+        document.getElementById("dateIda").setAttribute("min", today);
+        document.getElementById("dateVuelta").setAttribute("min", today);
+
+        STATIONS.forEach(s => {
+            originSelect.add(new Option(s, s));
+            destSelect.add(new Option(s, s));
+        });
+
+        document.getElementsByName('ttype').forEach(r => r.addEventListener('change', (e) => {
+            const isRound = e.target.value === 'round';
+            const block = document.getElementById('returnDateBlock');
+            block.style.opacity = isRound ? "1" : "0.3";
+            block.style.pointerEvents = isRound ? "all" : "none";
+        }));
+
+        function findPath(start, end) {
+            let q = [
+                    [start, []]
+                ],
+                visited = new Set([start]);
+            while (q.length) {
+                let [node, path] = q.shift();
+                for (let e of graph[node]) {
+                    if (!visited.has(e.to)) {
+                        let newPath = [...path, {
+                            from: node,
+                            to: e.to,
+                            line: e.line,
+                            rate: e.rate
+                        }];
+                        if (e.to === end) return newPath;
+                        visited.add(e.to);
+                        q.push([e.to, newPath]);
+                    }
+                }
+            }
+            return null;
+        }
+
+        let lastCalc = null;
+        document.getElementById('calc').addEventListener('click', () => {
+            clearError();
+            const o = originSelect.value,
+                d = destSelect.value;
+            const dateI = document.getElementById('dateIda').value;
+            const isRound = document.querySelector('input[name="ttype"]:checked').value === 'round';
+            const dateV = document.getElementById('dateVuelta').value;
+
+            if (!dateI) {
+                return showError("Por favor, seleccione una fecha de Ida.");
+            }
+            if (isRound && !dateV) {
+                return showError("Por favor, seleccione una fecha de Vuelta.");
+            }
+            if (isRound && new Date(dateV) <= new Date(dateI)) {
+                return showError("La fecha de vuelta debe ser posterior.");
+            }
+            if (o === d) return showError("Origen y destino no pueden ser iguales.");
+
+            const pathIda = findPath(o, d);
+            if (!pathIda) {
+                return showError("No existe conexión ferroviaria directa.");
+            }
+            const pathVuelta = isRound ? findPath(d, o) : null;
+            const pax = parseInt(document.getElementById('pax').value);
+            const tariff = document.getElementById('tariff').value;
+
+            let basePriceIda = pathIda.reduce((s, e) => s + e.rate, 0);
+            let basePriceVuelta = pathVuelta ? pathVuelta.reduce((s, e) => s + e.rate, 0) : 0;
+            let sup = tariff === 'oro' ? CONFIG.SUP_ORO : (tariff === 'plus' ? CONFIG.SUP_PLUS : 0);
+
+            let subtotalIda = (basePriceIda + sup) * pax;
+            let subtotalVuelta = isRound ? (basePriceVuelta + sup) * pax : 0;
+            let dtoVuelta = isRound ? (subtotalVuelta * 0.10) : 0;
+            let subtotalNeto = subtotalIda + (subtotalVuelta - dtoVuelta);
+            let iva = subtotalNeto * CONFIG.IVA;
+            let final = subtotalNeto + iva;
+
+            document.getElementById('totalPrice').innerText = final.toFixed(2) + " " + CONFIG.CURRENCY;
+            document.getElementById('breakdown').innerHTML = `
+        <div class="fee-item"><span>Ida (${pax} pax)</span><span>${(basePriceIda*pax).toFixed(2)} ${CONFIG.CURRENCY}</span></div>
+        ${isRound?`<div class="fee-item"><span>Vuelta (${pax} pax)</span><span>${(basePriceVuelta*pax).toFixed(2)} ${CONFIG.CURRENCY}</span></div>`:''}
+        <div class="fee-item"><span>Clase ${tariff.toUpperCase()}</span><span>${(sup*(isRound?pax*2:pax)).toFixed(2)} ${CONFIG.CURRENCY}</span></div>
+        <div class="fee-item bold"><span>Base Imponible</span><span>${subtotalNeto.toFixed(2)} ${CONFIG.CURRENCY}</span></div>
+        <div class="fee-item"><span>IVA (${CONFIG.IVA*100}%)</span><span>${iva.toFixed(2)} ${CONFIG.CURRENCY}</span></div>
+        <div class="fee-total"><span>TOTAL</span><span>${final.toFixed(2)} ${CONFIG.CURRENCY}</span></div>`;
+
+            document.getElementById('routeBoxIda').innerHTML = pathIda.map(e => `<div class="stop">${e.from}<small style="display:block; font-size:10px; opacity:0.6">${e.line}</small></div>`).join('') + `<div>${d}</div>`;
+            lastCalc = {
+                final,
+                pax,
+                o,
+                d,
+                tariff,
+                isRound,
+                dateIda: dateI,
+                dateVuelta: dateV,
+                hora: document.getElementById("horaSalida").value
+            };
+        });
+
+        document.getElementById('buy').addEventListener('click', () => {
+            if (!lastCalc) return showError("Realice una búsqueda primero.");
+            document.getElementById('purchaseSection').style.display = "block";
+            const form = document.getElementById('travellersForm');
+            form.innerHTML = "";
+            for (let i = 1; i <= lastCalc.pax; i++) {
+                form.innerHTML += `
+            <div class="passenger-card">
+                <h4>VIAJERO ${i}</h4>
+                <div class="field"><label>Nombre Completo</label><input type="text" class="p-name" placeholder="Ej: Juan Pérez"></div>
+                <div class="field"><label>Identificación (DNI/Pasaporte)</label><input type="text" class="p-dni" placeholder="00000000X"></div>
+            </div>`;
+            }
+            window.scrollTo(0, document.getElementById('purchaseSection').offsetTop - 40);
+        });
+
+        /* Función de exportación directa a PDF */
+        function downloadPDF(wrapperId, filename) {
+            const element = document.getElementById(wrapperId);
+            // Clonamos temporalmente omitiendo la barra de botones de acción
+            const opt = {
+                margin: 10,
+                filename: filename + '.pdf',
+                image: {
+                    type: 'jpeg',
+                    quality: 0.98
+                },
+                html2canvas: {
+                    scale: 2,
+                    useCORS: true
+                },
+                jsPDF: {
+                    unit: 'mm',
+                    format: 'a4',
+                    orientation: 'portrait'
+                }
+            };
+
+            // Captura únicamente la imagen del billete original generada por el canvas
+            const ticketImg = element.querySelector('.ticket-img');
+            html2pdf().set(opt).from(ticketImg).save();
+        }
+
+        /* Integración Real con tu Cloudflare Worker Backend API */
+        async function addToWallet(ticketData) {
+            // 1. CAMBIA ESTO por el enlace público real de tu Cloudflare Worker
+            const WORKER_URL = "https://tgav.gatogob-contacto.workers.dev/";
+
+            // Obtenemos los datos extendidos del cálculo actual para mandarlos a Google
+            if (!lastCalc) return;
+
+            // Preparamos los parámetros de búsqueda con los datos del billete generado
+            const queryParams = new URLSearchParams({
+                pasaporte: ticketData.id, // ID único del billete generado por tu HTML (Ej: TGAV-XXXXXX)
+                nombre: ticketData.passenger, // Nombre completo introducido en tu formulario
+                origen: ticketData.from, // Estación de Origen
+                destino: ticketData.to, // Estación de Destino
+                fecha: lastCalc.dateIda + "T" + lastCalc.hora + ":00Z", // Combinación de fecha y hora ISO
+                localizador: btoa(ticketData.id).substr(0, 6).toUpperCase() // Un código corto de localizador
+            }).toString();
+
+            // Cambiamos el texto del botón temporalmente para que el usuario sepa que está cargando
+            const botonOriginal = event.currentTarget;
+            const textoOriginal = botonOriginal.innerHTML;
+            botonOriginal.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Conectando con Google...`;
+            botonOriginal.disabled = true;
+
+            try {
+                // Hacemos la consulta en tiempo real a tu Cloudflare Worker
+                const response = await fetch(`${WORKER_URL}?${queryParams}`);
+                const data = await response.json();
+
+                if (data.url) {
+                    // ¡Magia! Redirigimos al ciudadano directamente a la pasarela de Google Wallet
+                    window.open(data.url, '_blank');
+                } else {
+                    alert("No se pudo obtener el enlace de Google Wallet.");
+                }
+            } catch (error) {
+                console.error("Error al emitir el billete criptográfico:", error);
+                alert("Error de conexión con el Servidor Central Ferroviario.");
+            } finally {
+                // Restauramos el botón a su estado original
+                botonOriginal.innerHTML = textoOriginal;
+                botonOriginal.disabled = false;
+            }
+        }
+
+        async function drawTicket(paxName, dni, start, end, date, typeLabel, index) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 1600;
+            canvas.height = 750;
+            const ctx = canvas.getContext('2d');
+            const id = "TGAV-" + Math.random().toString(36).substr(2, 9).toUpperCase();
+            const hash = btoa(id + paxName).substr(0, 12);
+
+            ctx.fillStyle = "#ffffff";
+            ctx.fillRect(0, 0, 1600, 750);
+            const tColor = lastCalc.tariff === 'oro' ? '#E5C04B' : (lastCalc.tariff === 'plus' ? '#5a2d82' : '#94a3b8');
+            ctx.fillStyle = tColor;
+            ctx.fillRect(0, 0, 60, 750);
+            ctx.fillStyle = "#2d1640";
+            ctx.fillRect(60, 0, 1540, 180);
+            ctx.fillStyle = "white";
+            ctx.font = "bold 50px Urbanist";
+            ctx.fillText("TGAV — RED FERROVIARIA", 120, 110);
+
+            ctx.fillStyle = "#64748b";
+            ctx.font = "700 28px Urbanist";
+            ctx.fillText("PASAJERO", 120, 260);
+            ctx.fillStyle = "#0f172a";
+            ctx.font = "bold 45px Urbanist";
+            ctx.fillText(paxName.toUpperCase() || "VIAJERO GENÉRICO", 120, 320);
+
+            ctx.fillStyle = "#64748b";
+            ctx.font = "700 28px Urbanist";
+            ctx.fillText("TRAYECTO", 120, 440);
+            ctx.fillStyle = "#5a2d82";
+            ctx.font = "bold 42px Urbanist";
+            ctx.fillText(`${start} ➔ ${end}`, 120, 500);
+
+            ctx.fillStyle = "#64748b";
+            ctx.font = "700 28px Urbanist";
+            ctx.fillText("FECHA Y HORA", 950, 440);
+            ctx.fillStyle = "#0f172a";
+            ctx.font = "bold 35px Urbanist";
+            ctx.fillText(`${date} — ${lastCalc.hora}`, 950, 500);
+
+            ctx.fillStyle = "#f8fafc";
+            ctx.fillRect(60, 630, 1540, 120);
+            ctx.fillStyle = "#64748b";
+            ctx.font = "bold 24px Urbanist";
+            ctx.fillText(`ID: ${id}  |  VERIF: ${hash}  |  CLASE: ${lastCalc.tariff.toUpperCase()} (${typeLabel})`, 120, 700);
+
+            return new Promise(resolve => {
+                const qr = new Image();
+                qr.crossOrigin = "anonymous";
+                qr.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${id}-${hash}`;
+                qr.onload = () => {
+                    ctx.drawImage(qr, 1250, 220, 250, 250);
+
+                    const wrapperId = `t-wrap-${typeLabel}-${index}`;
+                    const wrapper = document.createElement('div');
+                    wrapper.className = "ticket-wrapper";
+                    wrapper.id = wrapperId;
+
+                    const img = document.createElement('img');
+                    img.src = canvas.toDataURL();
+                    img.className = "ticket-img";
+                    wrapper.appendChild(img);
+
+                    const label = document.createElement('div');
+                    label.className = "ticket-label";
+                    label.innerText = typeLabel;
+                    wrapper.appendChild(label);
+
+                    // Panel de Acciones integradas debajo de cada billete individual
+                    const actions = document.createElement('div');
+                    actions.className = "ticket-actions";
+                    actions.innerHTML = `
+                <button class="btn-download" onclick="downloadPDF('${wrapperId}', '${id}_${typeLabel}')">
+                    <i class="fa-solid fa-file-pdf"></i> Descargar PDF
+                </button>
+                <button class="btn-wallet" onclick="addToWallet({id:'${id}', passenger:'${paxName}', from:'${start}', to:'${end}'})">
+                    <i class="fa-solid fa-wallet"></i> Añadir a Apple / Google Wallet
+                </button>
+            `;
+                    wrapper.appendChild(actions);
+                    resolve(wrapper);
+                };
+            });
+        }
+
+        const modal = document.getElementById("confirmModal");
+        document.getElementById('confirmPurchase').addEventListener('click', () => {
+            const names = document.querySelectorAll('.p-name'),
+                dnis = document.querySelectorAll('.p-dni');
+            for (let i = 0; i < names.length; i++) {
+                if (!names[i].value.trim() || !dnis[i].value.trim()) {
+                    return showError("Complete todos los campos del formulario.");
+                }
+            }
+            document.getElementById("modalPriceText").innerText = `Va a emitir los billetes oficiales por un importe total de ${lastCalc.final.toFixed(2)} Rg$. ¿Proceder?`;
+            modal.style.display = "flex";
+        });
+
+        document.getElementById("cancelBtn").addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+
+        document.getElementById("finalConfirmBtn").addEventListener("click", async () => {
+            modal.style.display = "none";
+            const names = document.querySelectorAll('.p-name'),
+                dnis = document.querySelectorAll('.p-dni');
+            clearError();
+            const container = document.getElementById('ticketContainer');
+            container.innerHTML = "<div style='color:white;text-align:center;grid-column:1/-1;'>Generando pasajes de alta fidelidad...</div>";
+            document.getElementById('ticketResult').style.display = "flex";
+
+            for (let i = 0; i < lastCalc.pax; i++) {
+                const tIda = await drawTicket(names[i].value, dnis[i].value, lastCalc.o, lastCalc.d, lastCalc.dateIda, "IDA", i);
+                if (container.innerHTML.includes("Generando")) container.innerHTML = "";
+                container.appendChild(tIda);
+
+                if (lastCalc.isRound) {
+                    const tVuelta = await drawTicket(names[i].value, dnis[i].value, lastCalc.d, lastCalc.o, lastCalc.dateVuelta, "VUELTA", i);
+                    container.appendChild(tVuelta);
+                }
+            }
+            document.getElementById('purchaseSection').style.display = "none";
+            window.scrollTo(0, document.getElementById('ticketResult').offsetTop);
+        });
+    </script>
+</body>
+
+</html>

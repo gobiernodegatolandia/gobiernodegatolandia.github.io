@@ -1,0 +1,614 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>TGAV — Red Ferroviaria de Gatolandia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #5a2d82;
+            --primary-dark: #2d1640;
+            --accent: #E5C04B;
+            --bg-light: #f8fafc;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --white: #ffffff;
+            --border: #e2e8f0;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Urbanist', sans-serif;
+            background-color: var(--white);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .brand-logo {
+            background: var(--primary);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 22px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .hero {
+            height: 85vh;
+            background: linear-gradient(rgba(45, 22, 64, 0.7), rgba(45, 22, 64, 0.7)), url('https://images.unsplash.com/photo-1474487548417-781cb71495f3?q=80&w=2000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: clamp(40px, 8vw, 85px);
+            font-weight: 800;
+            margin: 0;
+            line-height: 1.1;
+            letter-spacing: -2px;
+        }
+
+        .hero p {
+            font-size: clamp(18px, 2vw, 24px);
+            max-width: 800px;
+            margin: 25px 0 40px;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        .btn-cta {
+            background: var(--accent);
+            color: var(--primary-dark);
+            padding: 22px 45px;
+            border-radius: 50px;
+            font-weight: 800;
+            text-decoration: none;
+            font-size: 18px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .btn-cta:hover {
+            transform: scale(1.05) translateY(-5px);
+            background: #f2cc5c;
+        }
+
+        .features {
+            padding: 100px 8%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            background: var(--bg-light);
+        }
+
+        .feat-card {
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            border: 1px solid var(--border);
+            transition: 0.3s;
+        }
+
+        .feat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.05);
+        }
+
+        .feat-icon {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 25px;
+        }
+
+        .feat-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .feat-card p {
+            color: var(--text-muted);
+            font-size: 16px;
+        }
+
+        .info-section {
+            padding: 100px 8%;
+            display: flex;
+            align-items: center;
+            gap: 80px;
+        }
+
+        .info-img {
+            flex: 1;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-img img {
+            width: 100%;
+            display: block;
+        }
+
+        .info-text {
+            flex: 1;
+        }
+
+        .tag {
+            background: rgba(90, 45, 130, 0.1);
+            color: var(--primary);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-weight: 800;
+            font-size: 13px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .info-text h2 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 25px;
+            line-height: 1.2;
+        }
+
+        footer {
+            background: var(--primary-dark);
+            color: white;
+            padding: 80px 8% 40px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 60px;
+        }
+
+        .footer-col h4 {
+            font-size: 18px;
+            margin-bottom: 25px;
+            color: var(--accent);
+        }
+
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+            opacity: 0.7;
+            font-weight: 500;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 40px;
+            text-align: center;
+            font-size: 14px;
+            opacity: 0.5;
+        }
+
+        @media (max-width:900px) {
+            .info-section {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+        .mark-titulo {
+            background-color: white;
+            color: var(--primary);
+            padding: 0 2px;
+        }
+
+        .footer-col a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer-col a:hover {
+            color: var(--primary);
+        }
+
+        .widget {
+            padding: 40px 8%;
+            background: var(--bg-light);
+        }
+
+        .widget-news {
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .widget-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .widget-news-list li p {
+            margin: 0.25rem 0 0;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .tag-small {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.6rem;
+        }
+
+        .sustain-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+        }
+
+        .sustain-card {
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            padding: 20px 22px;
+            background: var(--bg-light);
+        }
+
+        .sustain-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .sustain-value {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin: 0.4rem 0 0.5rem;
+            color: var(--primary-dark);
+        }
+
+        .sustain-card p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .accessibility-widget {
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            z-index: 1100;
+            font-size: 14px;
+        }
+
+        .accessibility-toggle {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            border: none;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .accessibility-toggle:hover {
+            transform: translateY(-2px);
+            background: var(--primary-dark);
+        }
+
+        .accessibility-panel {
+            position: absolute;
+            bottom: 56px;
+            left: 0;
+            background: var(--white);
+            border-radius: 16px;
+            padding: 14px 16px;
+            box-shadow: 0 14px 35px rgba(0, 0, 0, 0.18);
+            border: 1px solid var(--border);
+            width: 220px;
+            display: none;
+        }
+
+        .accessibility-panel h4 {
+            margin: 0 0 0.6rem;
+            font-size: 0.9rem;
+            font-weight: 800;
+        }
+
+        .accessibility-panel button {
+            width: 100%;
+            margin-bottom: 0.4rem;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            background: var(--bg-light);
+            padding: 0.4rem 0.6rem;
+            cursor: pointer;
+            font-size: 0.85rem;
+            text-align: left;
+        }
+
+        .accessibility-panel button:last-child {
+            margin-bottom: 0;
+        }
+
+        .accessibility-widget.open .accessibility-panel {
+            display: block;
+        }
+
+        body.high-contrast {
+            background: #000;
+            color: #fff;
+        }
+
+        body.high-contrast nav,
+        body.high-contrast footer,
+        body.high-contrast .feat-card,
+        body.high-contrast .info-section,
+        body.high-contrast .widget,
+        body.high-contrast .sustain-card {
+            background: #000 !important;
+            color: #fff !important;
+            border-color: #fff !important;
+        }
+    </style>
+</head>
+
+<body>
+    <nav><a href="#" class="brand">
+            <div class="brand-logo">TGAV</div>
+            <div style="font-weight:800;font-size:20px;letter-spacing:-0.5px;">Gatolandia <span style="font-weight:400;color:var(--text-muted)">Ferrocarriles</span></div>
+        </a>
+        <div class="nav-links"><a href="billetes" style="color:var(--primary)">Portal de Billetaje</a><a href="https://sites.google.com/view/gatogob-tgav/accesibilidad">Accesibilidad</a><a href="https://sites.google.com/view/gatogob-tgav/emergencias">Emergencias</a><a href="javascript:void(0)" target="_self" onclick="openLegal()">Atención al Ciudadano</a></div>
+    </nav>
+    <header class="hero">
+        <div class="tag" style="background:var(--accent);color:var(--primary-dark);margin-bottom:30px;">La Línea Central abrirá a los pasajeros en marzo de 2026</div>
+        <h1>Conectando cada rincón del Reino</h1>
+        <p>La red de Alta Velocidad de Gatolandia redefine el transporte ferroviario con tecnología de vanguardia, puntualidad milimétrica y el máximo confort para todos los ciudadanos.</p>
+        <p style="color:var(--primary)"><mark class="mark-titulo">Redefiniendo lo que llamamos «tren» desde 2024.</mark></p><a href="https://sites.google.com/view/gatogob-tgav/calculadora" class="btn-cta">Comprar Billetes <i class="fa-solid fa-arrow-right" style="margin-left:10px;"></i></a>
+    </header>
+    <div class="accessibility-widget"><button class="accessibility-toggle"><i class="fa-solid fa-universal-access"></i></button>
+        <div class="accessibility-panel">
+            <h4>Accesibilidad</h4><button data-action="font-plus">Aumentar texto</button><button data-action="font-minus">Reducir texto</button><button data-action="high-contrast">Alto contraste</button><button data-action="reset">Restablecer</button>
+        </div>
+    </div>
+    <section class="features">
+        <div class="feat-card">
+            <div class="feat-icon"><i class="fa-solid fa-bolt"></i></div>
+            <h3>Velocidad Extrema</h3>
+            <p>Nuestros trenes TGAV alcanzan los 350 km/h, conectando Miaumiau Término con el Sur en tiempo récord.</p>
+        </div>
+        <div class="feat-card">
+            <div class="feat-icon"><i class="fa-solid fa-leaf"></i></div>
+            <h3>Compromiso Verde</h3>
+            <p>Operamos con energía 100% renovable, protegiendo los bosques y paisajes naturales de Gatolandia.</p>
+        </div>
+        <div class="feat-card">
+            <div class="feat-icon"><i class="fa-solid fa-paw"></i></div>
+            <h3>Pet Friendly</h3>
+            <p>Espacios diseñados específicamente para el confort de sus compañeros de vida que tanto importan y asistencia gratuita garantizada.</p>
+        </div>
+    </section>
+    <section class="info-section">
+        <div class="info-img"><img src="https://plus.unsplash.com/premium_photo-1661953343833-c691a9509d83?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3" alt="Tren moderno"></div>
+        <div class="info-text">
+            <div class="tag">Excelencia TGAV</div>
+            <h2>Un viaje diseñado para el futuro</h2>
+            <p>Desde la Clase Económica hasta la exclusiva Clase Oro, cada asiento en TGAV ofrece conexión Wi-Fi de alta velocidad, restauración a bordo y sistemas de entretenimiento de última generación.</p>
+            <p style="margin-top:20px;font-weight:700;color:var(--primary);">Descubre una nueva forma de cruzar las fronteras de nuestro reino con la seguridad que solo el Ministerio de Transportes puede ofrecer.</p>
+        </div>
+    </section>
+    <section class="widget widget-news">
+        <h3 class="widget-title"><i class="fa-solid fa-newspaper"></i> Últimas noticias TGAV</h3>
+        <ul class="widget-news-list">
+            <li><span class="tag tag-small">NUEVA APERTURA</span>
+                <p>La Línea Central se abrirá a todos los pasajeros en todo su recorrido Miaumiau-Planicies en marzo de 2026.</p>
+            </li>
+            <li><span class="tag tag-small">Mejora de la calidad de vida</span>
+                <p>Finalizada la urbanización y humanización del Gates Express por la Clínica Independencia Gatolandesa</p>
+            </li>
+            <li><span class="tag tag-small">Comercial</span>
+                <p>Nueva tarifa del Carnet Joven o de Estudiante Internacional con descuentos de hasta el 40%.</p>
+            </li>
+        </ul>
+    </section>
+    <section class="widget widget-sustain">
+        <h3 class="widget-title"><i class="fa-solid fa-leaf"></i> Compromiso verde TGAV</h3>
+        <div class="sustain-grid">
+            <div class="sustain-card"><span class="sustain-label">Energía renovable</span>
+                <div class="sustain-value">100%</div>
+                <p>De la energía utilizada en la red TGAV procede de fuentes renovables.</p>
+            </div>
+            <div class="sustain-card"><span class="sustain-label">CO₂ evitado</span>
+                <div class="sustain-value">1,2 M t</div>
+                <p>Emisiones evitadas frente al uso del vehículo privado desde 2024.</p>
+            </div>
+            <div class="sustain-card"><span class="sustain-label">Bosques protegidos</span>
+                <div class="sustain-value">+350</div>
+                <p>Áreas naturales preservadas gracias a los corredores ferroviarios.</p>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="brand" style="color:white;margin-bottom:25px;">
+                    <div class="brand-logo" style="background:white;color:var(--primary-dark);">ANTF</div>
+                    <div style="font-weight:800;font-size:20px;">Gatolandia</div>
+                </div>
+                <p style="opacity:0.6;font-size:14px;">Operadora oficial de la red ferroviaria nacional. Bajo la supervisión del Ministerio de Transportes de Gatolandia. <br>ANTF incluye TGAV y TGIR.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Viajar</h4>
+                <ul>
+                    <li>Buscador de Billetes</li>
+                    <li>Nuestras Líneas</li>
+                    <li>Clases y Servicios</li>
+                    <li>Grupos y Empresas</li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Institucional</h4>
+                <ul>
+                    <li>Portal de Transparencia</li>
+                    <li>Sostenibilidad</li>
+                    <li>Prensa</li>
+                    <li>Empleo</li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="https://sites.google.com/view/gatogob-tgav/legal/equipaje">Política de equipaje</a></li>
+                    <li><a href="https://sites.google.com/view/gatogob-tgav/legal/condiciones">Condiciones del transporte</a></li>
+                    <li><a href="https://sites.google.com/view/gatogob-tgav/legal/cambio-cancelaciones">Política de cambios y cancelaciones</a></li>
+                    <li><a href="https://sites.google.com/view/gatogob-tgav/legal/retrasos-y-compensaciones">Política de retrasos y compensaciones</a></li>
+                    <li><a href="https://sites.google.com/view/gatogob-tgav/legal/animales">Política de mascotas y animales</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contacto</h4>
+                <ul>
+                    <li>Centro de Ayuda</li>
+                    <li>Objetos Perdidos</li>
+                    <li><i class="fa-brands fa-twitter"></i> @TGAV_Oficial</li>
+                    <li><i class="fa-brands fa-instagram"></i> @GatolandiaTren</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom"> &copy; 2026 Tren Gatolandés de Alta Velocidad | Asociación Nacional de Transporte Ferroviario S.A. Todos los derechos reservados. </div>
+    </footer>
+    <script>
+        (function() {
+            const widget = document.querySelector('.accessibility-widget');
+            const toggle = widget?.querySelector('.accessibility-toggle');
+            const panel = widget?.querySelector('.accessibility-panel');
+            let baseFontSize = 100;
+            toggle?.addEventListener('click', () => {
+                widget.classList.toggle('open');
+            });
+            panel?.addEventListener('click', (e) => {
+                if (e.target.tagName !== 'BUTTON') return;
+                const action = e.target.getAttribute('data-action');
+                if (action === 'font-plus') {
+                    baseFontSize = Math.min(baseFontSize + 5, 140);
+                    document.documentElement.style.fontSize = baseFontSize + '%';
+                }
+                if (action === 'font-minus') {
+                    baseFontSize = Math.max(baseFontSize - 5, 80);
+                    document.documentElement.style.fontSize = baseFontSize + '%';
+                }
+                if (action === 'high-contrast') {
+                    document.body.classList.toggle('high-contrast');
+                }
+                if (action === 'reset') {
+                    baseFontSize = 100;
+                    document.documentElement.style.fontSize = '100%';
+                    document.body.classList.remove('high-contrast');
+                }
+            });
+        })();
+        // Funciones para el Modal Legal
+        function openLegal() {
+            document.getElementById('legalModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Evita el scroll al estar abierto
+        }
+
+        function closeLegal() {
+            document.getElementById('legalModal').style.display = 'none';
+            document.body.style.overflow = 'auto'; // Devuelve el scroll
+        }
+
+        // Cerrar si hacen clic fuera del cuadro
+        window.addEventListener('click', (e) => {
+            const modal = document.getElementById('legalModal');
+            if (e.target === modal) closeLegal();
+        });
+    </script>
+    <div id="legalModal" class="modal-overlay-legal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15, 23, 42, 0.85); backdrop-filter:blur(5px); z-index:2000; justify-content:center; align-items:center;">
+        <div style="background:white; padding:40px; border-radius:30px; max-width:600px; width:90%; box-shadow:0 25px 50px -12px rgba(0,0,0,0.5); border:1px solid var(--border); position:relative;">
+            <button onclick="closeLegal()" style="position:absolute; top:20px; right:20px; border:none; background:none; font-size:24px; cursor:pointer; color:var(--text-muted);">&times;</button>
+
+            <h3 style="color:var(--primary); font-weight:800; margin-top:0; border-bottom:3px solid var(--accent); padding-bottom:10px;">CONTACTA CON ANTF / INFORMACIÓN LEGAL</h3>
+            <p style="font-size:12px; color:var(--text-muted); font-weight:700; text-transform:uppercase; letter-spacing:1px;">Según la Ley Gatolandesa de Protección de Datos y Servicios Web 12/2026</p>
+
+            <div style="margin-top:20px; font-size:15px; line-height:1.6; color:var(--text-main);">
+                <p><strong>• Nombre del propietario del sitio web:</strong> ANTF</p>
+                <p><strong>• Nombre legal:</strong> Asociación Nacional de Transporte Ferroviario y Tren Gatolandés de Alta Velocidad S.A.</p>
+                <p><strong>• Responsable directo:</strong> Gobierno del Reino Democrático de Gatolandia</p>
+                <p><strong>• Dominio Web:</strong> <span style="color:var(--primary); font-weight:700;">tgav.gob.go</span></p>
+                <p><strong>• Teléfono:</strong> +35 63 205 63 63</p>
+                <p><strong>• Correo electrónico:</strong> tgav@tgav.gob.go</p>
+                <p><strong>• Protección de datos:</strong> datos@tgav.gob.go</p>
+                <p><strong>• Dirección de Atención al Consumidor:</strong> Edificio El Cubo, Avenida de la Constitución nº6, 01001 Miaumiau ILV</p>
+            </div>
+
+            <button onclick="closeLegal()" style="width:100%; background:var(--primary); color:white; border:none; padding:15px; border-radius:15px; font-weight:800; margin-top:30px; cursor:pointer; transition:0.3s;">Cerrar información</button>
+        </div>
+    </div>
+</body>
+
+</html>
