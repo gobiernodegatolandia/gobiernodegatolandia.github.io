@@ -866,35 +866,33 @@
 
         /* Integración Real con tu Cloudflare Worker Backend API */
         async function addToWallet(ticketData) {
-            // 1. CAMBIA ESTO por el enlace público real de tu Cloudflare Worker
             const WORKER_URL = "https://tgav.gatogob-contacto.workers.dev/";
-
-            // Obtenemos los datos extendidos del cálculo actual para mandarlos a Google
             if (!lastCalc) return;
 
-            // Preparamos los parámetros de búsqueda con los datos del billete generado
+            // Construcción de la URL con todos los campos extendidos requeridos por la API de Google Wallet
             const queryParams = new URLSearchParams({
-                pasaporte: ticketData.id, // ID único del billete generado por tu HTML (Ej: TGAV-XXXXXX)
-                nombre: ticketData.passenger, // Nombre completo introducido en tu formulario
-                origen: ticketData.from, // Estación de Origen
-                destino: ticketData.to, // Estación de Destino
-                fecha: lastCalc.dateIda + "T" + lastCalc.hora + ":00Z", // Combinación de fecha y hora ISO
-                localizador: btoa(ticketData.id).substr(0, 6).toUpperCase() // Un código corto de localizador
+                pasaporte: ticketData.id,
+                nombre: ticketData.passenger,
+                origen: ticketData.from,
+                destino: ticketData.to,
+                fecha: lastCalc.dateIda + "T" + lastCalc.hora + ":00Z",
+                localizador: ticketData.localizador,
+                coche: ticketData.coche,
+                asiento: ticketData.asiento,
+                via: ticketData.via,
+                clase: lastCalc.tariff.toUpperCase(),
+                tipo_trayecto: ticketData.tipoTrayecto
             }).toString();
 
-            // Cambiamos el texto del botón temporalmente para que el usuario sepa que está cargando
             const botonOriginal = event.currentTarget;
             const textoOriginal = botonOriginal.innerHTML;
             botonOriginal.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Conectando con Google...`;
             botonOriginal.disabled = true;
 
             try {
-                // Hacemos la consulta en tiempo real a tu Cloudflare Worker
                 const response = await fetch(`${WORKER_URL}?${queryParams}`);
                 const data = await response.json();
-
                 if (data.url) {
-                    // ¡Magia! Redirigimos al ciudadano directamente a la pasarela de Google Wallet
                     window.open(data.url, '_blank');
                 } else {
                     alert("No se pudo obtener el enlace de Google Wallet.");
@@ -903,64 +901,129 @@
                 console.error("Error al emitir el billete criptográfico:", error);
                 alert("Error de conexión con el Servidor Central Ferroviario.");
             } finally {
-                // Restauramos el botón a su estado original
                 botonOriginal.innerHTML = textoOriginal;
                 botonOriginal.disabled = false;
             }
         }
 
-        async function drawTicket(paxName, dni, start, end, date, typeLabel, index) {
+        async function drawTicket(paxName, dni, start, end, date, typeLabel, index, plazaAsignada = {
+            coche: "02",
+            asiento: "14B"
+        }) {
             const canvas = document.createElement('canvas');
             canvas.width = 1600;
             canvas.height = 750;
             const ctx = canvas.getContext('2d');
             const id = "TGAV-" + Math.random().toString(36).substr(2, 9).toUpperCase();
+            const localizadorCorto = btoa(id).substr(0, 6).toUpperCase();
             const hash = btoa(id + paxName).substr(0, 12);
 
+            // Asegurar que exista una vía asignada en lastCalc por si acaso
+            const viaAsignada = (lastCalc && lastCalc.via) ? lastCalc.via : "Vía 3";
+
+            // Fondo Blanco del billete
             ctx.fillStyle = "#ffffff";
             ctx.fillRect(0, 0, 1600, 750);
+
+            // 1. BANDA LATERAL INFORMATIVA
             const tColor = lastCalc.tariff === 'oro' ? '#E5C04B' : (lastCalc.tariff === 'plus' ? '#5a2d82' : '#94a3b8');
             ctx.fillStyle = tColor;
             ctx.fillRect(0, 0, 60, 750);
+
+            // 2. CABECERA INSTITUCIONAL OSCURA
             ctx.fillStyle = "#2d1640";
-            ctx.fillRect(60, 0, 1540, 180);
+            ctx.fillRect(60, 0, 1540, 160);
             ctx.fillStyle = "white";
-            ctx.font = "bold 50px Urbanist";
-            ctx.fillText("TGAV — RED FERROVIARIA", 120, 110);
-
-            ctx.fillStyle = "#64748b";
-            ctx.font = "700 28px Urbanist";
-            ctx.fillText("PASAJERO", 120, 260);
-            ctx.fillStyle = "#0f172a";
             ctx.font = "bold 45px Urbanist";
-            ctx.fillText(paxName.toUpperCase() || "VIAJERO GENÉRICO", 120, 320);
+            ctx.fillText("TGAV — RED FERROVIARIA NACIONAL", 120, 95);
 
-            ctx.fillStyle = "#64748b";
-            ctx.font = "700 28px Urbanist";
-            ctx.fillText("TRAYECTO", 120, 440);
-            ctx.fillStyle = "#5a2d82";
-            ctx.font = "bold 42px Urbanist";
-            ctx.fillText(`${start} ➔ ${end}`, 120, 500);
-
-            ctx.fillStyle = "#64748b";
-            ctx.font = "700 28px Urbanist";
-            ctx.fillText("FECHA Y HORA", 950, 440);
-            ctx.fillStyle = "#0f172a";
-            ctx.font = "bold 35px Urbanist";
-            ctx.fillText(`${date} — ${lastCalc.hora}`, 950, 500);
-
+            // 3. BLOQUE LATERAL DERECHO
             ctx.fillStyle = "#f8fafc";
-            ctx.fillRect(60, 630, 1540, 120);
+            ctx.fillRect(1200, 160, 400, 470);
+            ctx.strokeStyle = "#e2e8f0";
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(1200, 160);
+            ctx.lineTo(1200, 630);
+            ctx.stroke();
+
+            // --- FILA 1: DATOS DEL PASAJERO ---
             ctx.fillStyle = "#64748b";
-            ctx.font = "bold 24px Urbanist";
-            ctx.fillText(`ID: ${id}  |  VERIF: ${hash}  |  CLASE: ${lastCalc.tariff.toUpperCase()} (${typeLabel})`, 120, 700);
+            ctx.font = "700 24px Urbanist";
+            ctx.fillText("PASAJERO / PASSPORT", 120, 230);
+            ctx.fillStyle = "#0f172a";
+            ctx.font = "bold 38px Urbanist";
+            ctx.fillText(`${paxName.toUpperCase()} (${dni.toUpperCase()})`, 120, 280);
+
+            // --- FILA 2: ITINERARIO COMERCIAL ---
+            ctx.fillStyle = "#64748b";
+            ctx.font = "700 24px Urbanist";
+            ctx.fillText("TRAYECTO", 120, 370);
+            ctx.fillStyle = "#5a2d82";
+            ctx.font = "bold 38px Urbanist";
+            ctx.fillText(`${start} ➔ ${end}`, 120, 420);
+
+            // --- FILA 3: LOGÍSTICA OPERATIVA ---
+            ctx.fillStyle = "#64748b";
+            ctx.font = "700 24px Urbanist";
+            ctx.fillText("COCHE", 120, 520);
+            ctx.fillStyle = "#0f172a";
+            ctx.font = "bold 34px Urbanist";
+            ctx.fillText(plazaAsignada.coche, 120, 570);
+
+            ctx.fillStyle = "#64748b";
+            ctx.font = "700 24px Urbanist";
+            ctx.fillText("ASIENTO / PLAZA", 340, 520);
+            ctx.fillStyle = "#0f172a";
+            ctx.font = "bold 34px Urbanist";
+            ctx.fillText(plazaAsignada.asiento, 340, 570);
+
+            ctx.fillStyle = "#64748b";
+            ctx.font = "700 24px Urbanist";
+            ctx.fillText("VÍA / PLATFORM", 750, 520);
+            ctx.fillStyle = "#0f172a";
+            ctx.font = "bold 34px Urbanist";
+            ctx.fillText(viaAsignada, 750, 570); // USAMOS LA VARIABLE LOCAL CORREGIDA
+
+            // --- COLUMNA CENTRAL DERECHA ---
+            ctx.fillStyle = "#64748b";
+            ctx.font = "700 24px Urbanist";
+            ctx.fillText("FECHA DE VIAJE", 880, 230);
+            ctx.fillStyle = "#0f172a";
+            ctx.font = "bold 34px Urbanist";
+            ctx.fillText(date, 880, 280);
+
+            ctx.fillStyle = "#64748b";
+            ctx.font = "700 24px Urbanist";
+            ctx.fillText("HORA SALIDA", 880, 370);
+            ctx.fillStyle = "#0f172a";
+            ctx.font = "bold 34px Urbanist";
+            ctx.fillText(lastCalc.hora, 880, 420);
+
+            // --- PIE DE PÁGINA ---
+            ctx.fillStyle = "#f1f5f9";
+            ctx.fillRect(60, 630, 1540, 120);
+            ctx.fillStyle = "#475569";
+            ctx.font = "700 18px Urbanist";
+            ctx.fillText(`ID: ${id}   |   LOCALIZADOR: ${localizadorCorto}   |   VERIF: ${hash}   |   TARIFA: ${lastCalc.tariff.toUpperCase()} (${typeLabel})`, 120, 675);
+            ctx.fillStyle = "#94a3b8";
+            ctx.font = "600 15px Urbanist";
+            ctx.fillText("Sujeto a los controles del perimetral técnico según la Ley de Seguridad Nacional. No transferible.", 120, 710);
 
             return new Promise(resolve => {
                 const qr = new Image();
                 qr.crossOrigin = "anonymous";
-                qr.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${id}-${hash}`;
+                qr.src = `https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=${id}-${hash}`;
                 qr.onload = () => {
-                    ctx.drawImage(qr, 1250, 220, 250, 250);
+                    ctx.drawImage(qr, 1280, 220, 240, 240);
+                    ctx.fillStyle = "#0f172a";
+                    ctx.font = "bold 26px Urbanist";
+                    ctx.textAlign = "center";
+                    ctx.fillText(localizadorCorto, 1400, 510);
+                    ctx.fillStyle = "#64748b";
+                    ctx.font = "700 18px Urbanist";
+                    ctx.fillText("ESCANEADO OFICIAL", 1400, 540);
+                    ctx.textAlign = "start";
 
                     const wrapperId = `t-wrap-${typeLabel}-${index}`;
                     const wrapper = document.createElement('div');
@@ -968,7 +1031,7 @@
                     wrapper.id = wrapperId;
 
                     const img = document.createElement('img');
-                    img.src = canvas.toDataURL();
+                    img.src = canvas.toToDataURL ? canvas.toDataURL() : canvas.toDataURL();
                     img.className = "ticket-img";
                     wrapper.appendChild(img);
 
@@ -977,14 +1040,13 @@
                     label.innerText = typeLabel;
                     wrapper.appendChild(label);
 
-                    // Panel de Acciones integradas debajo de cada billete individual
                     const actions = document.createElement('div');
                     actions.className = "ticket-actions";
                     actions.innerHTML = `
                 <button class="btn-download" onclick="downloadPDF('${wrapperId}', '${id}_${typeLabel}')">
                     <i class="fa-solid fa-file-pdf"></i> Descargar PDF
                 </button>
-                <button class="btn-wallet" onclick="addToWallet({id:'${id}', passenger:'${paxName}', from:'${start}', to:'${end}'})">
+                <button class="btn-wallet" onclick="addToWallet({id:'${id}', passenger:'${paxName}', from:'${start}', to:'${end}', coche:'${plazaAsignada.coche}', asiento:'${plazaAsignada.asiento}', via:'${viaAsignada}', localizador:'${localizadorCorto}', tipoTrayecto:'${typeLabel}'})">
                     <i class="fa-solid fa-wallet"></i> Añadir a Apple / Google Wallet
                 </button>
             `;
@@ -1020,13 +1082,26 @@
             container.innerHTML = "<div style='color:white;text-align:center;grid-column:1/-1;'>Generando pasajes de alta fidelidad...</div>";
             document.getElementById('ticketResult').style.display = "flex";
 
+            // Añadir vía por defecto si no existe
+            if (!lastCalc.via) lastCalc.via = "Vía " + (Math.floor(Math.random() * 4) + 1);
+
             for (let i = 0; i < lastCalc.pax; i++) {
-                const tIda = await drawTicket(names[i].value, dnis[i].value, lastCalc.o, lastCalc.d, lastCalc.dateIda, "IDA", i);
+                // Generamos una plaza única por pasajero
+                const plazaIda = {
+                    coche: "0" + (Math.floor(Math.random() * 3) + 1),
+                    asiento: (Math.floor(Math.random() * 20) + 1) + ["A", "B", "C", "D"][Math.floor(Math.random() * 4)]
+                };
+
+                const tIda = await drawTicket(names[i].value, dnis[i].value, lastCalc.o, lastCalc.d, lastCalc.dateIda, "IDA", i, plazaIda);
                 if (container.innerHTML.includes("Generando")) container.innerHTML = "";
                 container.appendChild(tIda);
 
                 if (lastCalc.isRound) {
-                    const tVuelta = await drawTicket(names[i].value, dnis[i].value, lastCalc.d, lastCalc.o, lastCalc.dateVuelta, "VUELTA", i);
+                    const plazaVuelta = {
+                        coche: "0" + (Math.floor(Math.random() * 3) + 1),
+                        asiento: (Math.floor(Math.random() * 20) + 1) + ["A", "B", "C", "D"][Math.floor(Math.random() * 4)]
+                    };
+                    const tVuelta = await drawTicket(names[i].value, dnis[i].value, lastCalc.d, lastCalc.o, lastCalc.dateVuelta, "VUELTA", i, plazaVuelta);
                     container.appendChild(tVuelta);
                 }
             }
