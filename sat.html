@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Alerta Temprana (SAT)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --gob-primary: #002d57;
+            --gob-accent: #b8924e;
+            --gob-error: #ef4444;
+            --gob-bg: #030712; /* Fondo oscuro ultra moderno */
+            --text-dark: #f1f5f9; /* Texto claro para legibilidad */
+            --font-main: 'Plus Jakarta Sans', sans-serif;
+            --fs-modifier: 0px;
+            
+            /* Glassmorphism Premium sobre Fondo Oscuro */
+            --glass-surface: rgba(15, 23, 42, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --card-bg: rgba(255, 255, 255, 0.02);
+        }
+
+        .high-contrast {
+            --gob-bg: #000000;
+            --text-dark: #ffffff;
+            --gob-accent: #ffff00;
+            --glass-surface: #000000;
+            --glass-border: #ffff00;
+            --card-bg: #000000;
+        }
+
+        .high-contrast .glass-panel,
+        .high-contrast .service-card,
+        .high-contrast .directory-box,
+        .high-contrast .tab-content-panel {
+            border: 2px solid #ffff00 !important;
+            background: #000 !important;
+            color: #fff !important;
+        }
+        
+        .high-contrast .text-muted {
+            color: #fff !important;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-main);
+        }
+
+        body {
+            background-color: var(--gob-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+            font-size: calc(16px + var(--fs-modifier));
+            /* Suave degradado de profundidad */
+            background-image: radial-gradient(at 50% 0%, rgba(0, 45, 87, 0.35) 0px, transparent 70%);
+            background-attachment: fixed;
+        }
+
+        .gov-banner {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 8px 8%;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: #94a3b8;
+            justify-content: space-between;
+        }
+
+        header {
+            background: rgba(3, 7, 18, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            color: white;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo-text h1 {
+            font-size: 1.1rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            border-left: 2px solid var(--gob-accent);
+            padding-left: 15px;
+            color: #fff;
+        }
+
+        .auth-nav {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+        
+        .nav-links-gov {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-links-gov a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        
+        .nav-links-gov a:hover {
+            color: white;
+        }
+
+        .btn-access {
+            background: var(--gob-accent);
+            color: #030712;
+            padding: 12px 25px;
+            border-radius: 4px;
+            font-weight: 800;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-access:hover {
+            background: #fff;
+            color: #030712;
+        }
+
+        /* --- NUEVO HERO DE ALTO IMPACTO VISUAL --- */
+        .hero-sat {
+            padding: 80px 4% 120px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-sat .massive-number {
+            font-size: clamp(6rem, 22vw, 16rem); /* Ocupa casi todo el ancho dinámicamente */
+            font-weight: 900;
+            line-height: 0.85;
+            letter-spacing: -4px;
+            background: linear-gradient(180deg, #ffffff 30%, rgba(255, 255, 255, 0.15) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 4px 20px rgba(0,0,0,0.5));
+        }
+
+        .hero-sat h2 {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 15px;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-sat p {
+            max-width: 700px;
+            color: #94a3b8;
+            font-size: 1.1rem;
+            font-weight: 400;
+        }
+
+        /* --- DISPOSICIÓN DE CONTENIDOS Y GLASSMORPHISM --- */
+        .main-container {
+            max-width: 1200px;
+            margin: -60px auto 60px;
+            padding: 0 20px;
+        }
+
+        /* Paneles con Efecto Cristal Modernizado */
+        .glass-panel {
+            background: var(--glass-surface);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7);
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+        
+        .panel-heading {
+            color: #ffffff;
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 12px;
+        }
+
+        .panel-heading::before {
+            content: '';
+            width: 4px;
+            height: 1.25rem;
+            background: var(--gob-accent);
+            border-radius: 2px;
+            display: inline-block;
+        }
+        
+        .text-muted {
+            color: #94a3b8;
+        }
+
+        /* Bloques Secundarios Interiores */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .service-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            transition: 0.3s ease;
+        }
+
+        .service-card:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .service-card h3 {
+            margin-bottom: 10px;
+            color: #ffffff;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .service-card p {
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+
+        /* Centralitas Alternativas */
+        .call-directory {
+            display: grid;
+            grid-template-columns: 1fr;
+            margin-bottom: 30px;
+        }
+        
+        .directory-box {
+            background: rgba(239, 68, 68, 0.03);
+            border-radius: 8px;
+            padding: 25px;
+            border: 1px dashed rgba(239, 68, 68, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .directory-box .num {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--gob-error);
+            font-mono: monospace;
+        }
+
+        /* Timeline Procedimental */
+        .protocol-flow {
+            margin-top: 25px;
+            position: relative;
+            padding-left: 25px;
+            border-left: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .flow-node {
+            position: relative;
+            margin-bottom: 30px;
+        }
+        
+        .flow-node:last-child {
+            margin-bottom: 0;
+        }
+        
+        .flow-marker {
+            position: absolute;
+            left: -32px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #475569;
+            border: 2px solid var(--gob-bg);
+            transition: 0.3s;
+        }
+        
+        .flow-node.active .flow-marker {
+            background: var(--gob-accent);
+            box-shadow: 0 0 15px var(--gob-accent);
+        }
+        
+        .flow-node h4 {
+            font-size: 1.05rem;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+        
+        /* Simulador Interactivo */
+        .simulator-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .btn-sim {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 10px 18px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #f1f5f9;
+        }
+        
+        .btn-sim:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn-sim.active {
+            background: var(--gob-accent);
+            color: #030712;
+            border-color: var(--gob-accent);
+        }
+        
+        .interactive-output {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 6px;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            border-left: 4px solid var(--gob-accent);
+            color: #cbd5e1;
+        }
+
+        /* Pestañas de Gestión Administrativa */
+        .tabs-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .tab-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .tab-btn {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 14px 18px;
+            text-align: left;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #94a3b8;
+            transition: 0.2s;
+        }
+        
+        .tab-btn:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+        }
+        
+        .tab-btn.active {
+            background: rgba(255, 255, 255, 0.08);
+            color: #white;
+            border-color: rgba(255, 255, 255, 0.2);
+            border-left: 3px solid var(--gob-accent);
+        }
+        
+        .tab-content-panel {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 6px;
+        }
+        
+        .tab-content-panel h4 {
+            color: #ffffff;
+            margin-bottom: 15px;
+        }
+        
+        .tab-content-panel ul {
+            padding-left: 20px;
+        }
+        
+        .tab-content-panel ul li {
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: #cbd5e1;
+        }
+
+        /* Cajas de Requisitos Técnicos */
+        .req-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .req-box {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+        
+        .req-box h4 {
+            color: #ffffff;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .indicator-banner {
+            background: rgba(59, 130, 246, 0.05);
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            padding: 15px;
+            border-radius: 6px;
+            color: #93c5fd;
+            font-size: 0.85rem;
+        }
+
+        /* Accesibilidad Floating Bar */
+        .accessibility-bar {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            border-radius: 30px;
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            gap: 15px;
+            z-index: 2000;
+        }
+
+        .acc-tool {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .acc-tool:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Ventanas Modales */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+            padding: 20px;
+        }
+
+        .login-box {
+            background: #0f172a;
+            border: 1px solid var(--glass-border);
+            width: 100%;
+            max-width: 500px;
+            border-radius: 8px;
+            overflow: hidden;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        .login-header {
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .login-body {
+            padding: 40px;
+        }
+
+        /* Footer Estilizado */
+        footer {
+            background: #090d16;
+            color: #64748b;
+            padding: 60px 8% 40px;
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 40px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-grid h4 {
+            color: white;
+            margin-bottom: 15px;
+        }
+        
+        .footer-grid ul {
+            list-style: none;
+        }
+        
+        .footer-grid ul li {
+            margin-bottom: 8px;
+        }
+
+        .legal-notice {
+            background: #05070c;
+            padding: 20px 8%;
+            font-size: 0.75rem;
+            color: #475569;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.02);
+        }
+
+        @media (max-width: 768px) {
+            .req-grid, .tabs-container {
+                grid-template-columns: 1fr;
+            }
+            header {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .accessibility-bar {
+                bottom: 20px;
+                top: auto;
+                right: 50%;
+                transform: translateX(50%);
+                flex-direction: row;
+            }
+            .nav-links-gov {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Franja Institucional Obligatoria -->
+    <div class="gov-banner">
+        <div>Una página web oficial del Gobierno de Gatolandia (.gob.go)</div>
+    </div>
+
+    <!-- Navegación de la Sede -->
+    <header>
+        <div class="logo-area">
+            <div style="font-size: 1.8rem;">🛡️</div>
+            <div class="logo-text">
+                <h1>Sistema de Alerta Temprana</h1>
+            </div>
+        </div>
+        <div class="auth-nav">
+            <nav class="nav-links-gov">
+                <a href="#que-es">El Servicio</a>
+                <a href="#protocolos">Protocolo</a>
+                <a href="#tramitacion">Gestiones 123</a>
+                <a href="#normas">Obligaciones 2030</a>
+            </nav>
+            <button class="btn-access" onclick="toggleGovModal(true)">
+                👤 Acceder a Sede Online
+            </button>
+        </div>
+    </header>
+
+    <!-- BLOQUE TOTALMENTE REDISEÑADO: Impacto visual masivo del número regulado -->
+    <section class="hero-sat">
+        <div class="massive-number">123</div>
+        <h2>El nuevo número que salva vidas</h2>
+        <p>Central automatizada de monitorización telemática ante incendios domésticos del Reino de Gatolandia.</p>
+    </section>
+
+    <!-- Contenedores con Información del SAT -->
+    <div class="main-container">
+
+        <!-- Enrutamiento Crítico 112 (Punto 13) -->
+        <div class="call-directory">
+            <div class="directory-box">
+                <div>
+                    <span style="color: white; font-weight: 700; font-size: 1.1rem; display: block; margin-bottom: 4px;">¿EMERGENCIA?</span>
+                    <p class="text-muted" style="font-size: 0.85rem; max-width: 750px;">El 123 gestiona de forma automatizada los sensores inteligentes. Para solicitudes manuales de auxilio de bomberos, ambulancias o policía civil, el número sigue siendo el 112.</p>
+                </div>
+                <div class="num">112</div>
+            </div>
+        </div>
+
+        <!-- Módulo 1: Marco Conceptual (Puntos 1 y 3) -->
+        <div id="que-es" class="glass-panel">
+            <div class="panel-heading">¿Qué es el Sistema de Alerta Temprana?</div>
+            <p style="margin-bottom: 30px; color: #cbd5e1;">El SAT es el servicio nacional encargado de recibir, verificar y gestionar las alertas enviadas de manera desatendida por los detectores de incendios inteligentes instalados en las viviendas residenciales de Gatolandia.</p>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Recepción Inmediata</h3>
+                    <p>Detecta el enlace IP en el mismo instante en que el sensor doméstico registra trazas latentes de humo o fuego.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Protección en Vulnerabilidad</h3>
+                    <p>Actúa de oficio si el habitante está dormido, inconsciente, fuera de casa o incapacitado para llamar al 112.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Gestión Cruzada</h3>
+                    <p>Verifica mediante llamada cruzada la naturaleza del evento y moviliza con criterio a las fuerzas de seguridad.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Módulo 2: Protocolo de Respuesta Interactiva (Puntos 4, 5, 6 y 14) -->
+        <div id="protocolos" class="glass-panel">
+            <div class="panel-heading">Protocolo de Respuesta Escalonada</div>
+            <p style="color: #cbd5e1;">Secuencia procedimental forzosa que activa el nodo del SAT en el instante en que un dispositivo doméstico interactúa con la central:</p>
+
+            <div class="protocol-flow">
+                <div class="flow-node active" id="f-node-1">
+                    <div class="flow-marker"></div>
+                    <h4>Paso 1: Transmisión Telemática Activa</h4>
+                    <p class="text-muted" style="font-size: 0.85rem;">El dispositivo detecta combustión e inicia enlace telemático automático con el SAT.</p>
+                </div>
+                <div class="flow-node" id="f-node-2">
+                    <div class="flow-marker"></div>
+                    <h4>Paso 2: Triangulación de Control Telefónico</h4>
+                    <p class="text-muted" style="font-size: 0.85rem;">La centralita telefónica ejecuta de inmediato tres intentos de llamada telefónica al titular.</p>
+                </div>
+                <div class="flow-node" id="f-node-3">
+                    <div class="flow-marker"></div>
+                    <h4>Paso 3: Evaluación y Despliegue de Oficio</h4>
+                    <div id="sim-output" class="interactive-output">
+                        Seleccione un escenario de simulación ciudadana para proyectar las directrices automáticas del operador.
+                    </div>
+                </div>
+            </div>
+
+            <div class="simulator-actions">
+                <button class="btn-sim" onclick="runSimulation('ok', this)">Usuario Responde (Falsa Alarma)</button>
+                <button class="btn-sim" onclick="runSimulation('fire', this)">Usuario Responde (Riesgo Real)</button>
+                <button class="btn-sim" onclick="runSimulation('no', this)">Usuario NO Responde</button>
+            </div>
+        </div>
+
+        <!-- Módulo 3: Oficina de Gestiones No-Online (Puntos 7, 8 y 9) -->
+        <div id="tramitacion" class="glass-panel">
+            <div class="panel-heading">Trámites Administrativos y Seguridad Ciudadana</div>
+            <p style="color: #cbd5e1;">Conforme al marco regulatorio de protección de infraestructuras, <strong>no se autoriza la existencia de portales web, cuentas online ni aplicaciones de usuario</strong>. Toda gestión se realiza mediante validación de voz en la línea <strong>123</strong>.</p>
+
+            <div class="tabs-container">
+                <div class="tab-menu">
+                    <button class="tab-btn active" onclick="switchTab('perm-actions', this)">Gestiones Habilitadas en el 123</button>
+                    <button class="tab-btn" style="border: 1px dashed var(--gob-error); color: var(--gob-error);" onclick="toggleGovModal(true)">Panel Web Electrónico (Inexistente)</button>
+                </div>
+                <div class="tab-content-panel" id="tab-viewport">
+                    <h4>Operaciones permitidas mediante verificación telefónica:</h4>
+                    <ul style="margin-top: 10px;">
+                        <li>Confirmar el estado de alertas previas o reportar falsas alarmas persistentes.</li>
+                        <li>Actualizar el número de teléfono titular o designar contactos de salvaguarda secundarios.</li>
+                        <li>Consultar historiales de alertas, plazos normativos o solicitar asistencia técnica oficial.</li>
+                        <li>Registrar segundas propiedades o solicitar protocolos específicos para personas mayores o con discapacidad.</li>
+                        <li>Notificar periodos vacacionales o ausencias prolongadas del domicilio.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Módulo 4: Marco Técnico y Fechas Límite (Puntos 10, 11 y 12) -->
+        <div id="normas" class="glass-panel">
+            <div class="panel-heading">Obligación Legal e Instalación de Dispositivos</div>
+            <p style="color: #cbd5e1; margin-bottom: 25px;">Directrices de obligado cumplimiento para la adaptación del parque residencial de Gatolandia antes del <strong>1 de enero de 2030</strong>.</p>
+            
+            <div class="req-grid">
+                <div>
+                    <h3 style="color:#ffffff; font-size:1.1rem; margin-bottom:15px;">Requisitos Obligatorios</h3>
+                    <div class="req-box">
+                        <h4>📍 Distribución Estanca</h4>
+                        <p class="text-muted" style="font-size: 0.85rem;">Instalación de una unidad por cada estancia habitable del hogar: salón, dormitorios, cocina y pasillos.</p>
+                    </div>
+                    <div class="req-box">
+                        <h4>🔋 Suministro Ininterrumpido</h4>
+                        <p class="text-muted" style="font-size: 0.85rem;">Los equipos deben operar con plenas garantías autónomas ante caídas o cortes de la red eléctrica.</p>
+                    </div>
+                    <div class="req-box">
+                        <h4>🌐 Conectividad Inteligente</h4>
+                        <p class="text-muted" style="font-size: 0.85rem;">Módulos de enlace inalámbrico (WiFi, Zigbee o Thread) homologados para interactuar con la central del SAT.</p>
+                    </div>
+                </div>
+                <div>
+                    <h3 style="color:#ffffff; font-size:1.1rem; margin-bottom:15px;">Recomendaciones Técnicas Avanzadas</h3>
+                    <div class="req-box" style="border-left: 3px solid var(--gob-accent);">
+                        <p class="text-muted" style="font-size: 0.88rem;">Para mitigar riesgos complejos (como deflagraciones por celdas de litio), se aconseja adquirir hardware que certifique:</p>
+                        <ul style="margin-top: 10px; padding-left: 15px; font-size: 0.85rem; color:#cbd5e1;">
+                            <li style="margin-bottom:6px;">Baterías internas integradas de larga duración (mínimo 10 años).</li>
+                            <li style="margin-bottom:6px;">Pulsadores mecánicos de autodiagnóstico o test manual de alarma.</li>
+                            <li style="margin-bottom:6px;">Sistemas automáticos de aviso por baja batería o pérdida de cobertura de red.</li>
+                            <li style="margin-bottom:6px;">Certificación oficial europea contra incendios estructurales de alta intensidad.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="indicator-banner" style="margin-top: 20px; background: rgba(239, 68, 68, 0.02); border-color: rgba(239, 68, 68, 0.1); color: #fca5a5;">
+                        <strong>⚠️ Desvío de Llamadas al 123:</strong> Si un ciudadano marca directamente el 123 para alertar manualmente de un fuego, el sistema comprobará los sensores de la vivienda. Si no hay dispositivos activos en fase de alarma, <strong>será transferido automáticamente al 112</strong>.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Módulo 5: Casos de Uso (Punto 15) -->
+        <div class="glass-panel">
+            <div class="panel-heading">Escenarios Críticos de Salvamento Certificados</div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Fuegos Nocturnos</h3>
+                    <p>Fuegos lentos provocados por cortocircuitos en salones mientras los convivientes duermen.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Mayores o Dependientes</h3>
+                    <p>Casos de desorientación o incapacidades súbitas de personas de avanzada edad que residen solas.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Combustión de Litio</h3>
+                    <p>Deflagraciones de alta velocidad en patinetes o baterías de litio estando el hogar deshabitado.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Alojamientos Turísticos</h3>
+                    <p>Garantía de protección automatizada para inquilinos extranjeros que desconocen el entorno local.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Barra de Accesibilidad Integrada -->
+    <div class="accessibility-bar">
+        <button class="acc-tool" onclick="toggleContrast()" title="Alto Contraste">◐</button>
+        <button class="acc-tool" onclick="changeFontSize(2)" title="Aumentar Texto">A+</button>
+        <button class="acc-tool" onclick="changeFontSize(-2)" title="Reducir Texto">A-</button>
+    </div>
+
+    <!-- Tu Modal Oficial Cableado con Cláusula de Seguridad (Punto 9) -->
+    <div class="modal" id="govLoginModal">
+        <div class="login-box">
+            <div class="login-header">
+                <h3 style="font-weight: 700; font-size: 1.1rem;">SISTEMA CENTRAL DE PROTECCIÓN RESIDENCIAL</h3>
+            </div>
+            <div class="login-body">
+                <div style="text-align: center; margin-bottom: 15px; color: var(--gob-error); font-size: 2.5rem;">⚠️</div>
+                <h4 style="color: white; text-align: center; margin-bottom: 15px; font-weight: 700;">ACCESO ELECTRÓNICO DENEGADO</h4>
+                
+                <p style="font-size: 0.9rem; text-align: center; margin-bottom: 20px; color: #94a3b8;">
+                    Por directiva de ciberseguridad nacional y con el fin de evitar suplantaciones de identidad, accesos fraudulentos o manipulación remota de fichas de salvamento, <strong>el SAT no implementa paneles web ni bases de datos en línea abiertos</strong>.
+                </p>
+                
+                <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.05); padding: 15px; border-radius: 4px; font-size: 0.85rem; color: #cbd5e1; margin-bottom: 20px;">
+                    <strong>Vía de Tramitación Legal:</strong><br>
+                    Cualquier consulta, actualización de contactos de emergencia o alta de segundas viviendas debe realizarse exclusivamente por teléfono llamando al <strong>123</strong>.
+                </div>
+
+                <button class="btn-access" style="width: 100%; justify-content: center;" onclick="toggleGovModal(false)">Entendido, Cerrar Ventana</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pie de Página Institucional -->
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <h4>Contacto de Oficio</h4>
+                <ul>
+                    <li>📞 Central de Trámites SAT: 123</li>
+                    <li>🚨 Emergencias Ciudadanas: 112</li>
+                    <li>Dirección General de Seguridad Civil</li>
+                </ul>
+            </div>
+            <div>
+                <h4>Marco Jurídico</h4>
+                <ul>
+                    <li>Ley de Seguridad Ciudadana de Gatolandia</li>
+                    <li>Plan de Adecuación Residencial IoT 2030</li>
+                    <li>Estatuto de Protección contra Incendios</li>
+                </ul>
+            </div>
+            <div>
+                <h4>Aviso Tecnológico</h4>
+                <p style="font-size:0.8rem; opacity:0.7;">Este organismo no dispone de aplicaciones en tiendas móviles ni delegaciones digitales externas.</p>
+            </div>
+        </div>
+        <div style="text-align: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px; font-size: 0.8rem;">
+            <p style="color: white; font-weight: 600; margin-bottom: 5px;">"El SAT protege tu vivienda incluso cuando tú no puedes hacerlo."</p>
+            <p>© 2026 Ministerio de Interior, Seguridad Civil y Telecomunicaciones • Gobierno de Gatolandia.</p>
+        </div>
+    </footer>
+
+    <!-- Cláusula de Cierre -->
+    <div class="legal-notice">
+        Aviso Legal Extendido: Las llamadas al 123 están sujetas a validación estricta de identidad. En cumplimiento de la normativa gubernamental, no se almacenan datos residenciales en entornos Cloud o de red pública.
+    </div>
+
+    <!-- Script de Control e Interactividad -->
+    <script>
+        function toggleGovModal(show) {
+            document.getElementById('govLoginModal').style.display = show ? 'flex' : 'none';
+        }
+
+        // Lógica interactiva del simulador de incidencias
+        function runSimulation(type, btnElement) {
+            const buttons = document.querySelectorAll('.btn-sim');
+            buttons.forEach(b => b.classList.remove('active'));
+            btnElement.classList.add('active');
+
+            document.getElementById('f-node-2').classList.add('active');
+            document.getElementById('f-node-3').classList.add('active');
+
+            const output = document.getElementById('sim-output');
+
+            if (type === 'ok') {
+                output.innerHTML = "<strong>Resolución Operativa: Falsa Alarma.</strong> El usuario contesta cualquiera de las tres llamadas y confirma que es un falso positivo (ej: descuido al cocinar). <strong>El SAT cancela el protocolo inmediatamente de forma centralizada.</strong>";
+            } else if (type === 'fire') {
+                output.innerHTML = "<strong>Resolución Operativa: Incendio Verificado.</strong> El usuario responde y confirma la existencia de peligro o, si está fuera de casa, se le pide comprobar cámaras. Al verificarse el riesgo, <strong>se moviliza de urgencia el Cuerpo de Bomberos.</strong>";
+            } else if (type === 'no') {
+                output.innerHTML = "<strong>Resolución Operativa: Ausencia de Respuesta.</strong> Tras agotar las tres llamadas reglamentarias sin éxito, el SAT asume incapacidad o riesgo crítico e inicia la respuesta escalonada: <strong>Despliegue inmediato de la Policía Municipal para verificación rápida.</strong> Si confirman fuego o humo, escalan de oficio a Bomberos.";
+            }
+        }
+
+        // Script de Herramientas de Accesibilidad de tu código
+        let currentSizeModifier = 0;
+        function changeFontSize(amount) {
+            currentSizeModifier += amount;
+            if (currentSizeModifier > 6) currentSizeModifier = 6;
+            if (currentSizeModifier < -4) currentSizeModifier = -4;
+            document.documentElement.style.setProperty('--fs-modifier', currentSizeModifier + 'px');
+        }
+
+        function toggleContrast() {
+            document.documentElement.classList.toggle('high-contrast');
+        }
+    </script>
+</body>
+</html>
