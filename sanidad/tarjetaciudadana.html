@@ -128,9 +128,21 @@
                 </div>
             </div>
             
-            <button onclick="window.print()" class="bg-[#1e293b] hover:bg-slate-800 text-white text-sm font-semibold py-2 px-5 rounded-lg shadow-md transition-colors flex items-center gap-2">
-                🖨️ Imprimir Resguardo Oficial
-            </button>
+            <div class="flex flex-col sm:flex-row gap-4 mt-2">
+    <button onclick="window.print()" class="bg-[#1e293b] hover:bg-slate-800 text-white text-sm font-semibold py-2.5 px-5 rounded-lg shadow-md transition-colors flex items-center gap-2">
+        🖨️ Imprimir Resguardo
+    </button>
+
+    <button onclick="anadirAGoogleWallet()" class="bg-black hover:bg-neutral-900 text-white text-sm font-medium py-2.5 px-5 rounded-md shadow-md transition-colors flex items-center justify-center gap-3 border border-neutral-700 min-w-[210px]">
+        <svg class="h-5 w-auto" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M28.3333 11.6667H11.6667C10.75 11.6667 10 12.4167 10 13.3333V26.6667C10 27.5833 10.75 28.3333 11.6667 28.3333H28.3333C29.25 28.3333 30 27.5833 30 26.6667V13.3333C30 12.4167 29.25 11.6667 28.3333 11.6667Z" fill="#34A853"/>
+            <path d="M28.3333 15H11.6667C10.75 15 10 15.75 10 16.6667V26.6667C10 27.5833 10.75 28.3333 11.6667 28.3333H28.3333C29.25 28.3333 30 27.5833 30 26.6667V16.6667C30 15.75 29.25 15 28.3333 15Z" fill="#EA4335"/>
+            <path d="M28.3333 18.3333H11.6667C10.75 18.3333 10 19.0833 10 20V26.6667C10 27.5833 10.75 28.3333 11.6667 28.3333H28.3333C29.25 28.3333 30 27.5833 30 26.6667V20C30 19.0833 29.25 18.3333 28.3333 18.3333Z" fill="#4285F4"/>
+            <path d="M28.3333 21.6667H11.6667C10.75 21.6667 10 22.4167 10 23.3333V26.6667C10 27.5833 10.75 28.3333 11.6667 28.3333H28.3333C29.25 28.3333 30 27.5833 30 26.6667V23.3333C30 22.4167 29.25 21.6667 28.3333 21.6667Z" fill="#FBBC05"/>
+        </svg>
+        <span>Añadir a Google Wallet</span>
+    </button>
+</div>
         </div>
 
     </main>
@@ -145,7 +157,7 @@
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
         import { getFirestore, doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
         import { deleteField } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-        
+
         // Configuración de tu Firebase
         const firebaseConfig = {            
             apiKey: "AIzaSyCUBDdTMyQTwQo4FzKpDZDpOAKGPVcki4I",            
@@ -407,6 +419,98 @@ onAuthStateChanged(auth, async (user) => {
             document.getElementById('status-title').classList.add('text-red-600');
             document.getElementById('status-message').textContent = message;
         }
+    function anadirAGoogleWallet() {
+    // 1. Datos dinámicos del ciudadano de Gatolandia
+    const nombreCiudadano = document.getElementById('card-nombre').textContent;
+    const dniCiudadano = document.getElementById('card-dni').textContent;
+    const hospitalAsignado = document.getElementById('card-hospital').textContent;
+    const csvVerificacion = document.getElementById('csv-code').textContent;
+    const expId = document.getElementById('card-id-tramite').textContent;
+
+    // 2. Parámetros de tu cuenta de desarrollador de Google Pay/Wallet
+    const ISSUER_ID = "TU_ISSUER_ID_AQUÍ"; // Reemplaza con tu ID de Google Pay Console
+    const CLASS_ID = "TarjetaSanitariaGatolandia"; // El ID de la clase que creaste en la consola
+    const OBJECT_ID = `${ISSUER_ID}.${expId.replace('-', '_')}`; // ID único para este pase individual
+
+    // 3. Estructura del objeto del pase (GenericObject de Google Wallet API)
+    const passObject = {
+        "iss": `${ISSUER_ID}@developer.gserviceaccount.com`,
+        "aud": "google",
+        "typ": "savetowallet",
+        "origins": [],
+        "payload": {
+            "genericObjects": [
+                {
+                    "id": OBJECT_ID,
+                    "classId": `${ISSUER_ID}.${CLASS_ID}`,
+                    "genericType": "GENERIC_HEALTH_PASS",
+                    "hexBackgroundColor": "#0c4a6e", // Azul de tu tarjeta
+                    "logo": {
+                        "sourceUri": {
+                            "uri": "https://sedegatogob.firebaseapp.com/logo.png" // URL de tu logo corporativo
+                        }
+                    },
+                    "cardTitle": {
+                        "defaultValue": {
+                            "language": "es",
+                            "value": "REINO DE GATOLANDIA"
+                        }
+                    },
+                    "header": {
+                        "defaultValue": {
+                            "language": "es",
+                            "value": "Servicio Gatolandés de Salud"
+                        }
+                    },
+                    "textModulesData": [
+                        {
+                            "header": "CIUDADANO",
+                            "body": nombreCiudadano,
+                            "id": "name"
+                        },
+                        {
+                            "header": "DNI / IDENTIFICACIÓN",
+                            "body": dniCiudadano,
+                            "id": "dni"
+                        },
+                        {
+                            "header": "CENTRO ASIGNADO",
+                            "body": hospitalAsignado,
+                            "id": "hospital"
+                        },
+                        {
+                            "header": "CSV DE VERIFICACIÓN",
+                            "body": csvVerificacion,
+                            "id": "csv"
+                        }
+                    ],
+                    "barcode": {
+                        "type": "QR_CODE",
+                        "value": `https://sedegatogob.firebaseapp.com/verificar?csv=${csvVerificacion}`,
+                        "alternateText": csvVerificacion
+                    }
+                }
+            ]
+        }
+    };
+
+    // NOTA: Para producción, este objeto 'passObject' debe ser enviado a un backend en Node.js/Firebase Functions
+    // para ser firmado con tu clave privada (.json) usando una librería como 'google-auth-library' o 'jsonwebtoken'.
+    
+    // Si estás usando el entorno de pruebas (Demo Mode) de Google sin JWT firmado obligatoriamente,
+    // puedes codificar el objeto directamente en Base64 URL (solo para cuentas en modo borrador):
+    
+    const jsonString = JSON.stringify(passObject);
+    const base64Json = btoa(unescape(encodeURIComponent(jsonString)))
+        .replace(/\+/g, '-')
+        .replace(/\//g, '_')
+        .replace(/=+$/, '');
+
+    const walletUrl = `https://pay.google.com/gp/v/save/${base64Json}`;
+
+    // Abrimos la pasarela oficial de Google Wallet
+    window.open(walletUrl, "_blank");
+}
     </script>
 </body>
 </html>
