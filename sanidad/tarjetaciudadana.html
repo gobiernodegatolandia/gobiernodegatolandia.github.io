@@ -161,82 +161,91 @@
         const db = getFirestore(app);
 
         // Lógica de validación al iniciar
-        onAuthStateChanged(auth, async (user) => {
-            if (!user) {
-                showError("⚠️ Autenticación Requerida", "Debes haber iniciado sesión en tu Carpeta Ciudadana para realizar este trámite.");
-                return;
-            }
+        // Lógica de validación al iniciar (FUNCIÓN COMPLETA)
+onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+        showError("⚠️ Autenticación Requerida", "Debes haber iniciado sesión en tu Carpeta Ciudadana para realizar este trámite.");
+        return;
+    }
 
-            // Actualizar interfaz con el usuario logueado
-            document.getElementById('user-session-info').textContent = user.email;
+    // Actualizar interfaz con el correo del usuario logueado
+    document.getElementById('user-session-info').textContent = user.email;
 
-            // 1. Obtener ID del trámite desde los parámetros de la URL (?id=EXP-xxx)
-            const urlParams = new URLSearchParams(window.location.search);
-            const expId = urlParams.get('id');
+    // 1. Obtener ID del trámite desde los parámetros de la URL (?id=EXP-xxx)
+    const urlParams = new URLSearchParams(window.location.search);
+    let expId = urlParams.get('id');
 
-            if (!expId || !expId.startsWith('EXP-')) {
-                showError("❌ Expediente Inválido", "El código de expediente suministrado no es válido o está incompleto.");
-                return;
-            }
+    if (!expId) {
+        showError("❌ Expediente Inválido", "No se ha proporcionado ningún código de expediente en la URL (?id=EXP-xxx).");
+        return;
+    }
 
-            try {
-                // 2. Comprobamos si el usuario tiene este expediente asignado en su Firestore
-                const tramiteDocRef = doc(db, "usuarios", user.uid, "tramites", expId);
-                const tramiteSnap = await getDoc(tramiteDocRef);
+    // Limpiamos espacios en blanco por si acaso
+    expId = expId.trim();
 
-                // Obtener datos del perfil general para la tarjeta
-                const userDocRef = doc(db, "usuarios", user.uid);
-                const userSnap = await getDoc(userDocRef);
+    // Logs en consola de desarrollador (F12) para QA de Gatolandia
+    console.log("[Gatolandia QA] UID del Usuario Autenticado:", user.uid);
+    console.log("[Gatolandia QA] Buscando ID de documento exacto en Firestore:", expId);
 
-                if (!userSnap.exists()) {
-                    showError("⚙️ Error de Registro", "No se han encontrado datos del perfil ciudadano en el sistema.");
-                    return;
-                }
+    try {
+        // 2. Comprobamos si el usuario tiene este expediente asignado en su subcolección
+        const tramiteDocRef = doc(db, "usuarios", user.uid, "tramites", expId);
+        const tramiteSnap = await getDoc(tramiteDocRef);
 
-                const userData = userSnap.data();
+        // Obtener datos del perfil general del ciudadano
+        const userDocRef = doc(db, "usuarios", user.uid);
+        const userSnap = await getDoc(userDocRef);
 
-                // Validación estricta del expediente
-                if (!tramiteSnap.exists()) {
-                    // El EXP no existe en su cuenta
-                    showError("⛔ Acceso Denegado", "Este expediente no corresponde a tu usuario o no ha sido iniciado correctamente.");
-                    return;
-                }
+        if (!userSnap.exists()) {
+            showError("⚙️ Error de Registro", "No se han encontrado datos del perfil ciudadano en el sistema de Gatolandia.");
+            return;
+        }
 
-                let tramiteData = tramiteSnap.data();
+        const userData = userSnap.data();
 
-                // 3. Si el trámite existe pero no está completado, lo completamos y asignamos CSV
-                if (tramiteData.estado !== "completado") {
-                    const csvGenerado = generarCSVGatolandia();
-                    const fechaHoy = obtenerFechaGatolandia();
+        // VALIDACIÓN ESTRICTA DEL EXPEDIENTE
+        if (!tramiteSnap.exists()) {
+            console.error(`[Gatolandia Error] El documento '${expId}' no existe en la ruta usuarios/${user.uid}/tramites/`);
+            showError("⛔ Acceso Denegado", `El expediente '${expId}' no existe en tu registro de trámites.`);
+            return;
+        }
 
-                    await updateDoc(tramiteDocRef, {
-                        estado: "completado",
-                        csv: csvGenerado,
-                        fecha: fechaHoy.fecha,
-                        fecha_firma: `${fechaHoy.fecha}, ${fechaHoy.hora}`,
-                        nombre: "Tarjeta Sanitaria",
-                        resultado: "EMITIDO"
-                    });
+        let tramiteData = tramiteSnap.data();
 
-                    // Recargamos datos del trámite localmente
-                    tramiteData = {
-                        estado: "completado",
-                        csv: csvGenerado,
-                        fecha: fechaHoy.fecha,
-                        fecha_firma: `${fechaHoy.fecha}, ${fechaHoy.hora}`,
-                        nombre: "Tarjeta Sanitaria",
-                        resultado: "EMITIDO"
-                    };
-                }
+        // 3. Si el trámite existe pero no está completado, lo completamos y asignamos CSV
+        if (tramiteData.estado !== "completado") {
+            const csvGenerado = generarCSVGatolandia();
+            const fechaHoy = obtenerFechaGatolandia();
 
-                // 4. Todo OK -> Pintamos y mostramos la tarjeta
-                cargarDatosEnPantalla(userData, tramiteData, expId);
+            await updateDoc(tramiteDocRef, {
+                estado: "completado",
+                csv: csvGenerado,
+                fecha: fechaHoy.fecha,
+                fecha_firma: `${fechaHoy.fecha}, ${fechaHoy.hora}`,
+                nombre: "Tarjeta Sanitaria",
+                resultado: "EMITIDO"
+            });
 
-            } catch (error) {
-                console.error(error);
-                showError("⚠️ Error de Conexión", "No se pudo sincronizar con la base de datos de Gatolandia.");
-            }
-        });
+            // Actualizamos la variable local para pintar los datos nuevos
+            tramiteData = {
+                ...tramiteData,
+                estado: "completado",
+                csv: csvGenerado,
+                fecha: fechaHoy.fecha,
+                fecha_firma: `${fechaHoy.fecha}, ${fechaHoy.hora}`,
+                nombre: "Tarjeta Sanitaria",
+                resultado: "EMITIDO"
+            };
+        }
+
+        // 4. Todo OK -> Pintamos y mostramos la tarjeta en la pantalla
+        cargarDatosEnPantalla(userData, tramiteData, expId);
+
+    } catch (error) {
+        console.error("[Gatolandia Firebase Error]:", error);
+        showError("⚠️ Error de Conexión", "No se pudo sincronizar con la base de datos de Gatolandia.");
+    }
+});
 
         // RESOLUCIÓN DE HOSPITAL SEGÚN TUS EXCEPCIONES Y DUCADOS
         function calcularHospitalReferencia(direccion) {
