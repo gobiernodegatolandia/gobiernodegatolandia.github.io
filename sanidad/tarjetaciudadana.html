@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sede Electrónica - Tarjeta Sanitaria Gatolandesa</title>
+    <!-- Tailwind para un diseño administrativo limpio -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilos específicos de la tarjeta sanitaria física */
+        .card-container {
+            perspective: 1000px;
+        }
+        .card-inner {
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+        .card-inner.flipped {
+            transform: rotateY(180deg);
+        }
+        .card-face {
+            backface-visibility: hidden;
+        }
+        .card-back {
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 font-sans min-h-screen flex flex-col justify-between">
+
+    <!-- CABECERA DE LA SEDE GOBIERNO -->
+    <header class="bg-[#1e293b] text-white py-4 px-6 shadow-md">
+        <div class="max-w-5xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <span class="text-xl font-extrabold tracking-wider text-amber-400">SEDE GATO GOB</span>
+                <span class="text-xs bg-slate-700 px-2.5 py-1 rounded-full text-slate-300">Trámites Públicos</span>
+            </div>
+            <div id="user-session-info" class="text-sm opacity-90">Cargando usuario...</div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl w-full mx-auto p-6 flex-grow flex flex-col justify-center items-center">
+        
+        <!-- PANTALLA DE CARGA / ERROR -->
+        <div id="status-screen" class="bg-white p-8 rounded-xl shadow-md text-center max-w-md w-full">
+            <div id="status-icon" class="text-4xl mb-4">⏳</div>
+            <h2 id="status-title" class="text-xl font-bold mb-2">Verificando Expediente</h2>
+            <p id="status-message" class="text-slate-500 text-sm">Comprobando credenciales en el Registro General de Gatolandia...</p>
+        </div>
+
+        <!-- CONTENIDO DEL TRÁMITE (Oculto al inicio) -->
+        <div id="tramite-content" class="hidden w-full max-w-3xl flex flex-col items-center">
+            <div class="text-center mb-6">
+                <h1 class="text-2xl font-black text-slate-800">EXPEDIENTE DE EMISIÓN SANITARIA</h1>
+                <p class="text-sm text-slate-500" id="exp-label">ID de Expediente: EXP-...</p>
+            </div>
+
+            <!-- DETALLES DEL EXPEDIENTE ADMINISTRATIVO -->
+            <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 w-full mb-8 flex flex-col md:flex-row justify-between gap-4 text-sm">
+                <div>
+                    <span class="block text-xs uppercase tracking-wider text-slate-400 font-bold">Estado</span>
+                    <span class="text-emerald-600 font-bold flex items-center gap-1">
+                        <span class="h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse"></span> COMPLETADO
+                    </span>
+                </div>
+                <div>
+                    <span class="block text-xs uppercase tracking-wider text-slate-400 font-bold">CSV de Verificación</span>
+                    <span class="font-mono bg-slate-100 px-2 py-0.5 rounded text-slate-700 font-semibold" id="csv-code">---</span>
+                </div>
+                <div>
+                    <span class="block text-xs uppercase tracking-wider text-slate-400 font-bold">Fecha de Firma</span>
+                    <span class="text-slate-600" id="fecha-firma">---</span>
+                </div>
+            </div>
+
+            <p class="text-xs text-slate-400 mb-2 italic">🔄 Haz clic sobre la tarjeta para ver el reverso</p>
+
+            <!-- CONTENEDOR 3D DE LA TARJETA -->
+            <div class="card-container w-[450px] h-[270px] mb-8">
+                <div id="tarjeta-sanitaria" class="card-inner w-full h-full relative" onclick="this.classList.toggle('flipped')">
+                    
+                    <!-- ANVERSO (CARA FRONTAL) -->
+                    <div class="card-face absolute w-full h-full bg-gradient-to-tr from-sky-800 to-indigo-900 rounded-2xl p-6 text-white flex flex-col justify-between shadow-xl border border-sky-700">
+                        <div class="flex justify-between items-center border-b border-sky-600/50 pb-2">
+                            <div>
+                                <h3 class="font-black tracking-wider text-sm">REINO DE GATOLANDIA</h3>
+                                <p class="text-[9px] opacity-70 tracking-widest uppercase">Servicio Gatolandés de Salud</p>
+                            </div>
+                            <span class="text-xs font-bold text-amber-400">TSG</span>
+                        </div>
+                        
+                        <div class="flex items-start gap-4">
+                            <!-- Chip simulado -->
+                            <div class="w-11 h-8 bg-gradient-to-br from-yellow-300 via-amber-400 to-yellow-600 rounded-md shadow-inner"></div>
+                        </div>
+
+                        <!-- Datos de Firestore -->
+                        <div class="text-xs space-y-0.5 font-light">
+                            <div class="text-base font-bold tracking-wide uppercase" id="card-nombre">Cargando...</div>
+                            <div><strong class="opacity-70">DNI:</strong> <span id="card-dni">---</span></div>
+                            <div class="truncate"><strong class="opacity-70">Dirección:</strong> <span id="card-direccion">---</span></div>
+                            <div class="text-cyan-200 mt-1"><strong class="opacity-70 text-white">Centro Asignado:</strong> <span class="font-semibold" id="card-hospital">---</span></div>
+                        </div>
+                    </div>
+
+                    <!-- REVERSO (CARA TRASERA) -->
+                    <div class="card-face card-back absolute w-full h-full bg-slate-800 rounded-2xl p-6 text-white flex flex-col justify-between shadow-xl border border-slate-700">
+                        <!-- Banda magnética -->
+                        <div class="absolute top-4 left-0 w-full h-10 bg-black"></div>
+                        
+                        <div class="mt-12 space-y-3 text-[10px] opacity-80 leading-relaxed text-slate-300">
+                            <p>Esta tarjeta es un documento público y oficial propiedad del Reino de Gatolandia. Su uso está reservado estrictamente para la asistencia sanitaria en los centros del SNSG.</p>
+                            <p>La posesión ilícita o duplicado de este documento sin la debida autorización administrativa será sancionada conforme al Código Penal Gatolandés.</p>
+                        </div>
+
+                        <div class="border-t border-slate-700 pt-2 flex justify-between items-end text-[9px]">
+                            <div>
+                                <p class="font-bold text-slate-400">SOPORTE AL CIUDADANO</p>
+                                <p>Teléfono de Urgencias: <strong class="text-red-400">091</strong></p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-slate-500 font-mono" id="card-id-tramite">EXP-...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            
+            <button onclick="window.print()" class="bg-[#1e293b] hover:bg-slate-800 text-white text-sm font-semibold py-2 px-5 rounded-lg shadow-md transition-colors flex items-center gap-2">
+                🖨️ Imprimir Resguardo Oficial
+            </button>
+        </div>
+
+    </main>
+
+    <footer class="bg-slate-200 text-slate-500 text-[10px] text-center py-4 border-t border-slate-300">
+        <p>Sede Electrónica Oficial del Gobierno de Gatolandia © 2026. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- SDK DE FIREBASE (Versiones modulares web) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // Configuración de tu Firebase
+        const firebaseConfig = {            
+            apiKey: "AIzaSyCUBDdTMyQTwQo4FzKpDZDpOAKGPVcki4I",            
+            authDomain: "sedegatogob.firebaseapp.com",            
+            projectId: "sedegatogob",            
+            storageBucket: "sedegatogob.firebasestorage.app",            
+            messagingSenderId: "764639776502",            
+            appId: "1:764639776502:web:99f6e1a045f5d4810666d7"        
+        };
+
+        // Inicializamos app y servicios
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Lógica de validación al iniciar
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) {
+                showError("⚠️ Autenticación Requerida", "Debes haber iniciado sesión en tu Carpeta Ciudadana para realizar este trámite.");
+                return;
+            }
+
+            // Actualizar interfaz con el usuario logueado
+            document.getElementById('user-session-info').textContent = user.email;
+
+            // 1. Obtener ID del trámite desde los parámetros de la URL (?id=EXP-xxx)
+            const urlParams = new URLSearchParams(window.location.search);
+            const expId = urlParams.get('id');
+
+            if (!expId || !expId.startsWith('EXP-')) {
+                showError("❌ Expediente Inválido", "El código de expediente suministrado no es válido o está incompleto.");
+                return;
+            }
+
+            try {
+                // 2. Comprobamos si el usuario tiene este expediente asignado en su Firestore
+                const tramiteDocRef = doc(db, "usuarios", user.uid, "tramites", expId);
+                const tramiteSnap = await getDoc(tramiteDocRef);
+
+                // Obtener datos del perfil general para la tarjeta
+                const userDocRef = doc(db, "usuarios", user.uid);
+                const userSnap = await getDoc(userDocRef);
+
+                if (!userSnap.exists()) {
+                    showError("⚙️ Error de Registro", "No se han encontrado datos del perfil ciudadano en el sistema.");
+                    return;
+                }
+
+                const userData = userSnap.data();
+
+                // Validación estricta del expediente
+                if (!tramiteSnap.exists()) {
+                    // El EXP no existe en su cuenta
+                    showError("⛔ Acceso Denegado", "Este expediente no corresponde a tu usuario o no ha sido iniciado correctamente.");
+                    return;
+                }
+
+                let tramiteData = tramiteSnap.data();
+
+                // 3. Si el trámite existe pero no está completado, lo completamos y asignamos CSV
+                if (tramiteData.estado !== "completado") {
+                    const csvGenerado = generarCSVGatolandia();
+                    const fechaHoy = obtenerFechaGatolandia();
+
+                    await updateDoc(tramiteDocRef, {
+                        estado: "completado",
+                        csv: csvGenerado,
+                        fecha: fechaHoy.fecha,
+                        fecha_firma: `${fechaHoy.fecha}, ${fechaHoy.hora}`,
+                        nombre: "Tarjeta Sanitaria",
+                        resultado: "EMITIDO"
+                    });
+
+                    // Recargamos datos del trámite localmente
+                    tramiteData = {
+                        estado: "completado",
+                        csv: csvGenerado,
+                        fecha: fechaHoy.fecha,
+                        fecha_firma: `${fechaHoy.fecha}, ${fechaHoy.hora}`,
+                        nombre: "Tarjeta Sanitaria",
+                        resultado: "EMITIDO"
+                    };
+                }
+
+                // 4. Todo OK -> Pintamos y mostramos la tarjeta
+                cargarDatosEnPantalla(userData, tramiteData, expId);
+
+            } catch (error) {
+                console.error(error);
+                showError("⚠️ Error de Conexión", "No se pudo sincronizar con la base de datos de Gatolandia.");
+            }
+        });
+
+        // RESOLUCIÓN DE HOSPITAL SEGÚN TUS EXCEPCIONES Y DUCADOS
+        function calcularHospitalReferencia(direccion) {
+            if (!direccion) return "Hospital General de Miaumiau";
+            
+            const dirUpper = direccion.toUpperCase();
+
+            // 1. Excepción Ibailandia
+            if (dirUpper.includes("IBAILANDIA")) {
+                if (dirUpper.includes("CIUDAD DE IBAI")) {
+                    return "Hospital Metropolitano de Ciudad de Ibai";
+                } else if (dirUpper.includes("FELINÓPOLIS") || dirUpper.includes("FELINOPOLIS")) {
+                    return "Hospital Urbano de Felinópolis";
+                }
+                return "Hospital Metropolitano de Ibailandia"; // fallback
+            }
+
+            // 2. Excepción Ilvcat
+            if (dirUpper.includes("ILVCAT")) {
+                return "Hospital Metropolitano de Miaumiau";
+            }
+
+            // 3. Excepción Territorios del Sur
+            if (dirUpper.includes("TERRITORIOS DEL SUR")) {
+                const subJurisdicciones = [
+                    { key: "EL BOSQUE", name: "Hospital Metropolitano de El Bosque" },
+                    { key: "EL SUR", name: "Hospital Metropolitano de El Sur" },
+                    { key: "SUBGATUNA", name: "Hospital Metropolitano de Subgatuna" },
+                    { key: "MONTEAGUDO", name: "Hospital Metropolitano de Monteagudo" },
+                    { key: "VALDEAGUAS", name: "Hospital Metropolitano de Valdeaguas" }
+                ];
+                for (let juris of subJurisdicciones) {
+                    if (dirUpper.includes(juris.key)) {
+                        return juris.name;
+                    }
+                }
+                return "Hospital Metropolitano del Sur"; // fallback
+            }
+
+            // 4. Diccionario de Ciudades/Ducados Estándar
+            const ducadosMap = {
+                "MIAUMIAU": "Hospital Metropolitano de Miaumiau",
+                "MONTAÑAGATUNA": "Hospital Metropolitano de Montañagatuna",
+                "MONTANAGATUNA": "Hospital Metropolitano de Montañagatuna",
+                "EL GATO": "Hospital Metropolitano de El Gato",
+                "SAN IBAI": "Hospital Metropolitano de San Ibai",
+                "LOS ÁNGELES": "Hospital Metropolitano de Los Ángeles",
+                "LOS ANGELES": "Hospital Metropolitano de Los Ángeles",
+                "EL NORTE": "Hospital Metropolitano de El Norte",
+                "LA NEVADINA": "Hospital Metropolitano de La Nevadina",
+                "EL CEREZAL": "Hospital Metropolitano de El Cerezal",
+                "PLANICIES": "Hospital Metropolitano de Planicies",
+                "SAN ANTONIO": "Hospital Metropolitano de San Antonio",
+                "MONTAÑANEVADA": "Hospital Metropolitano de Montañanevada",
+                "MONTANANEVADA": "Hospital Metropolitano de Montañanevada",
+                "SALINAS": "Hospital Metropolitano de Salinas"
+            };
+
+            for (let [palabra, hospital] of Object.entries(ducadosMap)) {
+                if (dirUpper.includes(palabra)) {
+                    return hospital;
+                }
+            }
+
+            // Fallback por si la dirección no incluye ninguna conocida
+            return "Hospital Metropolitano de Miaumiau";
+        }
+
+        // GENERAR CSV EN EL FORMATO SOLICITADO
+        function generarCSVGatolandia() {
+            const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let bloque1 = '';
+            let bloque2 = '';
+            for (let i = 0; i < 4; i++) {
+                bloque1 += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+                bloque2 += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+            }
+            return `GATO-${bloque1}-${bloque2}G`;
+        }
+
+        // FECHA ACTUAL EN FORMATO DE GATOLANDIA (D/M/AAAA)
+        function obtenerFechaGatolandia() {
+            const hoy = new Date();
+            const fecha = `${hoy.getDate()}/${hoy.getMonth() + 1}/${hoy.getFullYear()}`;
+            const hora = hoy.toTimeString().split(' ')[0];
+            return { fecha, hora };
+        }
+
+        // RENDERIZAR DATOS EN LA TARJETA
+        function cargarDatosEnPantalla(userData, tramiteData, expId) {
+            document.getElementById('status-screen').classList.add('hidden');
+            document.getElementById('tramite-content').classList.remove('hidden');
+
+            const perfil = userData.perfil || {};
+            const hospital = calcularHospitalReferencia(perfil.direccion);
+
+            // Rellenar cabeceras
+            document.getElementById('exp-label').textContent = `ID de Expediente: ${expId}`;
+            document.getElementById('csv-code').textContent = tramiteData.csv;
+            document.getElementById('fecha-firma').textContent = tramiteData.fecha_firma;
+
+            // Rellenar Tarjeta
+            document.getElementById('card-nombre').textContent = `${perfil.nombre || 'Sin Nombre'} ${perfil.apellidos || ''}`;
+            document.getElementById('card-dni').textContent = perfil.dni || '---';
+            document.getElementById('card-direccion').textContent = perfil.direccion || 'Miaumiau';
+            document.getElementById('card-hospital').textContent = hospital;
+            document.getElementById('card-id-tramite').textContent = expId;
+        }
+
+        // MOSTRAR PANTALLA DE ERROR EN CASO DE FALLO DE REGLAS
+        function showError(title, message) {
+            document.getElementById('status-icon').textContent = "⛔";
+            document.getElementById('status-title').textContent = title;
+            document.getElementById('status-title').classList.add('text-red-600');
+            document.getElementById('status-message').textContent = message;
+        }
+    </script>
+</body>
+</html>
