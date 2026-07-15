@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,22 +12,27 @@
         .card-container {
             perspective: 1000px;
         }
+
         .card-inner {
             transition: transform 0.6s;
             transform-style: preserve-3d;
             cursor: pointer;
         }
+
         .card-inner.flipped {
             transform: rotateY(180deg);
         }
+
         .card-face {
             backface-visibility: hidden;
         }
+
         .card-back {
             transform: rotateY(180deg);
         }
     </style>
 </head>
+
 <body class="bg-slate-100 text-slate-800 font-sans min-h-screen flex flex-col justify-between">
 
     <!-- CABECERA DE LA SEDE GOBIERNO -->
@@ -41,7 +47,7 @@
     </header>
 
     <main class="max-w-5xl w-full mx-auto p-6 flex-grow flex flex-col justify-center items-center">
-        
+
         <!-- PANTALLA DE CARGA / ERROR -->
         <div id="status-screen" class="bg-white p-8 rounded-xl shadow-md text-center max-w-md w-full">
             <div id="status-icon" class="text-4xl mb-4">⏳</div>
@@ -79,7 +85,7 @@
             <!-- CONTENEDOR 3D DE LA TARJETA -->
             <div class="card-container w-[450px] h-[270px] mb-8">
                 <div id="tarjeta-sanitaria" class="card-inner w-full h-full relative" onclick="this.classList.toggle('flipped')">
-                    
+
                     <!-- ANVERSO (CARA FRONTAL) -->
                     <div class="card-face absolute w-full h-full bg-gradient-to-tr from-sky-800 to-indigo-900 rounded-2xl p-6 text-white flex flex-col justify-between shadow-xl border border-sky-700">
                         <div class="flex justify-between items-center border-b border-sky-600/50 pb-2">
@@ -89,7 +95,7 @@
                             </div>
                             <span class="text-xs font-bold text-amber-400">TSG</span>
                         </div>
-                        
+
                         <div class="flex items-start gap-4">
                             <!-- Chip simulado -->
                             <div class="w-11 h-8 bg-gradient-to-br from-yellow-300 via-amber-400 to-yellow-600 rounded-md shadow-inner"></div>
@@ -108,7 +114,7 @@
                     <div class="card-face card-back absolute w-full h-full bg-slate-800 rounded-2xl p-6 text-white flex flex-col justify-between shadow-xl border border-slate-700">
                         <!-- Banda magnética -->
                         <div class="absolute top-4 left-0 w-full h-10 bg-black"></div>
-                        
+
                         <div class="mt-12 space-y-3 text-[10px] opacity-80 leading-relaxed text-slate-300">
                             <p>Esta tarjeta es un documento público y oficial propiedad del Reino de Gatolandia. Su uso está reservado estrictamente para la asistencia sanitaria en los centros del SNSG.</p>
                             <p>La posesión ilícita o duplicado de este documento sin la debida autorización administrativa será sancionada conforme al Código Penal Gatolandés.</p>
@@ -127,22 +133,22 @@
 
                 </div>
             </div>
-            
-            <div class="flex flex-col sm:flex-row gap-4 mt-2">
-    <button onclick="window.print()" class="bg-[#1e293b] hover:bg-slate-800 text-white text-sm font-semibold py-2.5 px-5 rounded-lg shadow-md transition-colors flex items-center gap-2">
-        🖨️ Imprimir Resguardo
-    </button>
 
-    <button onclick="anadirAGoogleWallet()" class="bg-black hover:bg-neutral-900 text-white text-sm font-medium py-2.5 px-5 rounded-md shadow-md transition-colors flex items-center justify-center gap-3 border border-neutral-700 min-w-[210px]">
-        <svg class="h-5 w-auto" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M28.3333 11.6667H11.6667C10.75 11.6667 10 12.4167 10 13.3333V26.6667C10 27.5833 10.75 28.3333 11.6667 28.3333H28.3333C29.25 28.3333 30 27.5833 30 26.6667V13.3333C30 12.4167 29.25 11.6667 28.3333 11.6667Z" fill="#34A853"/>
-            <path d="M28.3333 15H11.6667C10.75 15 10 15.75 10 16.6667V26.6667C10 27.5833 10.75 28.3333 11.6667 28.3333H28.3333C29.25 28.3333 30 27.5833 30 26.6667V16.6667C30 15.75 29.25 15 28.3333 15Z" fill="#EA4335"/>
-            <path d="M28.3333 18.3333H11.6667C10.75 18.3333 10 19.0833 10 20V26.6667C10 27.5833 10.75 28.3333 11.6667 28.3333H28.3333C29.25 28.3333 30 27.5833 30 26.6667V20C30 19.0833 29.25 18.3333 28.3333 18.3333Z" fill="#4285F4"/>
-            <path d="M28.3333 21.6667H11.6667C10.75 21.6667 10 22.4167 10 23.3333V26.6667C10 27.5833 10.75 28.3333 11.6667 28.3333H28.3333C29.25 28.3333 30 27.5833 30 26.6667V23.3333C30 22.4167 29.25 21.6667 28.3333 21.6667Z" fill="#FBBC05"/>
-        </svg>
-        <span>Añadir a Google Wallet</span>
-    </button>
-</div>
+            <div class="flex flex-col sm:flex-row gap-4 mt-2">
+                <button onclick="window.print()" class="bg-[#1e293b] hover:bg-slate-800 text-white text-sm font-semibold py-2.5 px-5 rounded-lg shadow-md transition-colors flex items-center gap-2">
+                    🖨️ Imprimir Resguardo
+                </button>
+
+                <button id="btn-wallet" class="bg-black hover:bg-neutral-900 text-white text-sm font-medium py-2.5 px-5 rounded-md shadow-md transition-colors flex items-center justify-center gap-3 border border-neutral-700 min-w-[210px]">
+                    <svg class="h-5 w-auto" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M28.3333 11.6667H11.6667C10.75 11.6667 10 12.4167 10 13.3333V26.6667C10 27.5833 10.75 28.3333 11.6667 28.3333H28.3333C29.25 28.3333 30 27.5833 30 26.6667V13.3333C30 12.4167 29.25 11.6667 28.3333 11.6667Z" fill="#34A853" />
+                        <path d="M28.3333 15H11.6667C10.75 15 10 15.75 10 16.6667V26.6667C10 27.5833 10.75 28.3333 11.6667 28.3333H28.3333C29.25 28.3333 30 27.5833 30 26.6667V16.6667C30 15.75 29.25 15 28.3333 15Z" fill="#EA4335" />
+                        <path d="M28.3333 18.3333H11.6667C10.75 18.3333 10 19.0833 10 20V26.6667C10 27.5833 10.75 28.3333 11.6667 28.3333H28.3333C29.25 28.3333 30 27.5833 30 26.6667V20C30 19.0833 29.25 18.3333 28.3333 18.3333Z" fill="#4285F4" />
+                        <path d="M28.3333 21.6667H11.6667C10.75 21.6667 10 22.4167 10 23.3333V26.6667C10 27.5833 10.75 28.3333 11.6667 28.3333H28.3333C29.25 28.3333 30 27.5833 30 26.6667V23.3333C30 22.4167 29.25 21.6667 28.3333 21.6667Z" fill="#FBBC05" />
+                    </svg>
+                    <span>Añadir a Google Wallet</span>
+                </button>
+            </div>
         </div>
 
     </main>
@@ -153,19 +159,32 @@
 
     <!-- SDK DE FIREBASE (Versiones modulares web) -->
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-        import { deleteField } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import {
+            initializeApp
+        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import {
+            getAuth,
+            onAuthStateChanged
+        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import {
+            getFirestore,
+            doc,
+            getDoc,
+            setDoc,
+            updateDoc
+        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import {
+            deleteField
+        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         // Configuración de tu Firebase
-        const firebaseConfig = {            
-            apiKey: "AIzaSyCUBDdTMyQTwQo4FzKpDZDpOAKGPVcki4I",            
-            authDomain: "sedegatogob.firebaseapp.com",            
-            projectId: "sedegatogob",            
-            storageBucket: "sedegatogob.firebasestorage.app",            
-            messagingSenderId: "764639776502",            
-            appId: "1:764639776502:web:99f6e1a045f5d4810666d7"        
+        const firebaseConfig = {
+            apiKey: "AIzaSyCUBDdTMyQTwQo4FzKpDZDpOAKGPVcki4I",
+            authDomain: "sedegatogob.firebaseapp.com",
+            projectId: "sedegatogob",
+            storageBucket: "sedegatogob.firebasestorage.app",
+            messagingSenderId: "764639776502",
+            appId: "1:764639776502:web:99f6e1a045f5d4810666d7"
         };
 
         // Inicializamos app y servicios
@@ -175,139 +194,139 @@
 
         // Lógica de validación al iniciar
         // Lógica de validación al iniciar (FUNCIÓN COMPLETA)
-// Lógica de validación al iniciar (CORREGIDA PARA TU ESTRUCTURA DE MAPA)
-// Lógica de validación al iniciar con control de duplicados y limpieza
-onAuthStateChanged(auth, async (user) => {
-    if (!user) {
-        showError("⚠️ Autenticación Requerida", "Debes haber iniciado sesión en tu Carpeta Ciudadana para realizar este trámite.");
-        return;
-    }
+        // Lógica de validación al iniciar (CORREGIDA PARA TU ESTRUCTURA DE MAPA)
+        // Lógica de validación al iniciar con control de duplicados y limpieza
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) {
+                showError("⚠️ Autenticación Requerida", "Debes haber iniciado sesión en tu Carpeta Ciudadana para realizar este trámite.");
+                return;
+            }
 
-    // Actualizar interfaz con el correo del usuario logueado
-    document.getElementById('user-session-info').textContent = user.email;
+            // Actualizar interfaz con el correo del usuario logueado
+            document.getElementById('user-session-info').textContent = user.email;
 
-    // 1. Obtener ID del trámite desde los parámetros de la URL (?id=EXP-xxx)
-    const urlParams = new URLSearchParams(window.location.search);
-    let expId = urlParams.get('id');
+            // 1. Obtener ID del trámite desde los parámetros de la URL (?id=EXP-xxx)
+            const urlParams = new URLSearchParams(window.location.search);
+            let expId = urlParams.get('id');
 
-    if (!expId) {
-        showError("❌ Expediente Inválido", "No se ha proporcionado ningún código de expediente en la URL (?id=EXP-xxx).");
-        return;
-    }
+            if (!expId) {
+                showError("❌ Expediente Inválido", "No se ha proporcionado ningún código de expediente en la URL (?id=EXP-xxx).");
+                return;
+            }
 
-    expId = expId.trim();
+            expId = expId.trim();
 
-    console.log("[Gatolandia QA] UID del Usuario Autenticado:", user.uid);
-    console.log("[Gatolandia QA] Buscando el expediente solicitado:", expId);
+            console.log("[Gatolandia QA] UID del Usuario Autenticado:", user.uid);
+            console.log("[Gatolandia QA] Buscando el expediente solicitado:", expId);
 
-    try {
-        // 2. Leemos el documento del usuario
-        const userDocRef = doc(db, "usuarios", user.uid);
-        const userSnap = await getDoc(userDocRef);
+            try {
+                // 2. Leemos el documento del usuario
+                const userDocRef = doc(db, "usuarios", user.uid);
+                const userSnap = await getDoc(userDocRef);
 
-        if (!userSnap.exists()) {
-            showError("⚙️ Error de Registro", "No se han encontrado datos del ciudadano en el sistema de Gatolandia.");
-            return;
-        }
-
-        const userData = userSnap.data();
-        const todosLosTramites = userData.tramites || {};
-
-        // --- CONTROL DE DUPLICADOS ---
-        // Nombres prohibidos normalizados para comparar sin tildes ni mayúsculas
-        const nombresDuplicadosProhibidos = [
-            "tarjeta sanitaria",
-            "visualizacion online de la tarjeta sanitaria",
-            "visualización online de la tarjeta sanitaria"
-        ].map(n => n.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase());
-
-        let expedienteOriginalId = null;
-
-        // Buscamos si existe ya un trámite con ese nombre
-        for (const [id, info] of Object.entries(todosLosTramites)) {
-            if (id === expId) continue; // Saltamos el actual para no compararlo consigo mismo
-
-            if (info && info.nombre) {
-                const nombreNormalizado = info.nombre.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-                
-                if (nombresDuplicadosProhibidos.includes(nombreNormalizado)) {
-                    expedienteOriginalId = id;
-                    break; // Hemos encontrado el original más antiguo, paramos la búsqueda
+                if (!userSnap.exists()) {
+                    showError("⚙️ Error de Registro", "No se han encontrado datos del ciudadano en el sistema de Gatolandia.");
+                    return;
                 }
+
+                const userData = userSnap.data();
+                const todosLosTramites = userData.tramites || {};
+
+                // --- CONTROL DE DUPLICADOS ---
+                // Nombres prohibidos normalizados para comparar sin tildes ni mayúsculas
+                const nombresDuplicadosProhibidos = [
+                    "tarjeta sanitaria",
+                    "visualizacion online de la tarjeta sanitaria",
+                    "visualización online de la tarjeta sanitaria"
+                ].map(n => n.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase());
+
+                let expedienteOriginalId = null;
+
+                // Buscamos si existe ya un trámite con ese nombre
+                for (const [id, info] of Object.entries(todosLosTramites)) {
+                    if (id === expId) continue; // Saltamos el actual para no compararlo consigo mismo
+
+                    if (info && info.nombre) {
+                        const nombreNormalizado = info.nombre.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
+                        if (nombresDuplicadosProhibidos.includes(nombreNormalizado)) {
+                            expedienteOriginalId = id;
+                            break; // Hemos encontrado el original más antiguo, paramos la búsqueda
+                        }
+                    }
+                }
+
+                // Si existe un trámite previo idéntico...
+                if (expedienteOriginalId) {
+                    console.log(`[Gatolandia QA] Duplicado detectado. Redirigiendo al original: ${expedienteOriginalId}`);
+
+                    // A) Si el trámite que traíamos en la URL (?id=EXP-nuevo) ya se había guardado en Firestore, lo borramos
+                    if (todosLosTramites[expId]) {
+
+
+                        const campoAEliminar = {};
+                        campoAEliminar[`tramites.${expId}`] = deleteField();
+
+                        await updateDoc(userDocRef, campoAEliminar);
+                        console.log(`[Gatolandia QA] Trámite duplicado temporal '${expId}' eliminado de la base de datos.`);
+                    }
+
+                    // B) Redirigimos al usuario al trámite original existente
+                    window.location.search = `?id=${expedienteOriginalId}`;
+                    return; // Detenemos la ejecución de este script
+                }
+                // ------------------------------
+
+                // 3. VALIDACIÓN ESTRICTA: Comprobamos si el EXP actual existe dentro del mapa 'tramites'
+                if (!todosLosTramites[expId]) {
+                    console.error(`[Gatolandia Error] El expediente '${expId}' no existe dentro del objeto tramites del usuario.`);
+                    showError("⛔ Acceso Denegado", `El expediente '${expId}' no existe en tu registro de trámites.`);
+                    return;
+                }
+
+                // Si existe, extraemos los datos de ese trámite en concreto
+                let tramiteData = todosLosTramites[expId];
+
+                // 4. Si el trámite existe pero no está completado, lo actualizamos en Firestore
+                if (tramiteData.estado !== "completado") {
+                    const csvGenerado = generarCSVGatolandia();
+                    const fechaHoy = obtenerFechaGatolandia();
+
+                    const camposActualizados = {};
+                    camposActualizados[`tramites.${expId}.estado`] = "completado";
+                    camposActualizados[`tramites.${expId}.csv`] = csvGenerado;
+                    camposActualizados[`tramites.${expId}.fecha`] = fechaHoy.fecha;
+                    camposActualizados[`tramites.${expId}.fecha_firma`] = `${fechaHoy.fecha}, ${fechaHoy.hora}`;
+                    camposActualizados[`tramites.${expId}.nombre`] = "Tarjeta Sanitaria";
+                    camposActualizados[`tramites.${expId}.resultado`] = "EMITIDO";
+
+                    await updateDoc(userDocRef, camposActualizados);
+
+                    // Actualizamos nuestra copia local para pintarla en la tarjeta
+                    tramiteData = {
+                        ...tramiteData,
+                        estado: "completado",
+                        csv: csvGenerado,
+                        fecha: fechaHoy.fecha,
+                        fecha_firma: `${fechaHoy.fecha}, ${fechaHoy.hora}`,
+                        nombre: "Tarjeta Sanitaria",
+                        resultado: "EMITIDO"
+                    };
+                }
+
+                // 5. Todo OK -> Pintamos la tarjeta sanitaria en la pantalla
+                cargarDatosEnPantalla(userData, tramiteData, expId);
+
+            } catch (error) {
+                console.error("[Gatolandia Firebase Error]:", error);
+                showError("⚠️ Error de Conexión", "No se pudo sincronizar con la base de datos de Gatolandia.");
             }
-        }
-
-        // Si existe un trámite previo idéntico...
-        if (expedienteOriginalId) {
-            console.log(`[Gatolandia QA] Duplicado detectado. Redirigiendo al original: ${expedienteOriginalId}`);
-
-            // A) Si el trámite que traíamos en la URL (?id=EXP-nuevo) ya se había guardado en Firestore, lo borramos
-            if (todosLosTramites[expId]) {
-                
-                
-                const campoAEliminar = {};
-                campoAEliminar[`tramites.${expId}`] = deleteField();
-                
-                await updateDoc(userDocRef, campoAEliminar);
-                console.log(`[Gatolandia QA] Trámite duplicado temporal '${expId}' eliminado de la base de datos.`);
-            }
-
-            // B) Redirigimos al usuario al trámite original existente
-            window.location.search = `?id=${expedienteOriginalId}`;
-            return; // Detenemos la ejecución de este script
-        }
-        // ------------------------------
-
-        // 3. VALIDACIÓN ESTRICTA: Comprobamos si el EXP actual existe dentro del mapa 'tramites'
-        if (!todosLosTramites[expId]) {
-            console.error(`[Gatolandia Error] El expediente '${expId}' no existe dentro del objeto tramites del usuario.`);
-            showError("⛔ Acceso Denegado", `El expediente '${expId}' no existe en tu registro de trámites.`);
-            return;
-        }
-
-        // Si existe, extraemos los datos de ese trámite en concreto
-        let tramiteData = todosLosTramites[expId];
-
-        // 4. Si el trámite existe pero no está completado, lo actualizamos en Firestore
-        if (tramiteData.estado !== "completado") {
-            const csvGenerado = generarCSVGatolandia();
-            const fechaHoy = obtenerFechaGatolandia();
-
-            const camposActualizados = {};
-            camposActualizados[`tramites.${expId}.estado`] = "completado";
-            camposActualizados[`tramites.${expId}.csv`] = csvGenerado;
-            camposActualizados[`tramites.${expId}.fecha`] = fechaHoy.fecha;
-            camposActualizados[`tramites.${expId}.fecha_firma`] = `${fechaHoy.fecha}, ${fechaHoy.hora}`;
-            camposActualizados[`tramites.${expId}.nombre`] = "Tarjeta Sanitaria";
-            camposActualizados[`tramites.${expId}.resultado`] = "EMITIDO";
-
-            await updateDoc(userDocRef, camposActualizados);
-
-            // Actualizamos nuestra copia local para pintarla en la tarjeta
-            tramiteData = {
-                ...tramiteData,
-                estado: "completado",
-                csv: csvGenerado,
-                fecha: fechaHoy.fecha,
-                fecha_firma: `${fechaHoy.fecha}, ${fechaHoy.hora}`,
-                nombre: "Tarjeta Sanitaria",
-                resultado: "EMITIDO"
-            };
-        }
-
-        // 5. Todo OK -> Pintamos la tarjeta sanitaria en la pantalla
-        cargarDatosEnPantalla(userData, tramiteData, expId);
-
-    } catch (error) {
-        console.error("[Gatolandia Firebase Error]:", error);
-        showError("⚠️ Error de Conexión", "No se pudo sincronizar con la base de datos de Gatolandia.");
-    }
-});
+        });
 
         // RESOLUCIÓN DE HOSPITAL SEGÚN TUS EXCEPCIONES Y DUCADOS
         function calcularHospitalReferencia(direccion) {
             if (!direccion) return "Hospital General de Miaumiau";
-            
+
             const dirUpper = direccion.toUpperCase();
 
             // 1. Excepción Ibailandia
@@ -327,12 +346,26 @@ onAuthStateChanged(auth, async (user) => {
 
             // 3. Excepción Territorios del Sur
             if (dirUpper.includes("TERRITORIOS DEL SUR")) {
-                const subJurisdicciones = [
-                    { key: "EL BOSQUE", name: "Hospital Metropolitano de El Bosque" },
-                    { key: "EL SUR", name: "Hospital Metropolitano de El Sur" },
-                    { key: "SUBGATUNA", name: "Hospital Metropolitano de Subgatuna" },
-                    { key: "MONTEAGUDO", name: "Hospital Metropolitano de Monteagudo" },
-                    { key: "VALDEAGUAS", name: "Hospital Metropolitano de Valdeaguas" }
+                const subJurisdicciones = [{
+                        key: "EL BOSQUE",
+                        name: "Hospital Metropolitano de El Bosque"
+                    },
+                    {
+                        key: "EL SUR",
+                        name: "Hospital Metropolitano de El Sur"
+                    },
+                    {
+                        key: "SUBGATUNA",
+                        name: "Hospital Metropolitano de Subgatuna"
+                    },
+                    {
+                        key: "MONTEAGUDO",
+                        name: "Hospital Metropolitano de Monteagudo"
+                    },
+                    {
+                        key: "VALDEAGUAS",
+                        name: "Hospital Metropolitano de Valdeaguas"
+                    }
                 ];
                 for (let juris of subJurisdicciones) {
                     if (dirUpper.includes(juris.key)) {
@@ -388,7 +421,10 @@ onAuthStateChanged(auth, async (user) => {
             const hoy = new Date();
             const fecha = `${hoy.getDate()}/${hoy.getMonth() + 1}/${hoy.getFullYear()}`;
             const hora = hoy.toTimeString().split(' ')[0];
-            return { fecha, hora };
+            return {
+                fecha,
+                hora
+            };
         }
 
         // RENDERIZAR DATOS EN LA TARJETA
@@ -419,60 +455,63 @@ onAuthStateChanged(auth, async (user) => {
             document.getElementById('status-title').classList.add('text-red-600');
             document.getElementById('status-message').textContent = message;
         }
-async function anadirAGoogleWallet() {
-    // 1. Datos dinámicos recopilados directamente de los elementos renderizados en la pantalla
-    const nombreCiudadano = document.getElementById('card-nombre').textContent.trim();
-    const dniCiudadano = document.getElementById('card-dni').textContent.trim();
-    const hospitalAsignado = document.getElementById('card-hospital').textContent.trim();
-    const csvVerificacion = document.getElementById('csv-code').textContent.trim();
-    const expId = document.getElementById('card-id-tramite').textContent.trim();
+        async function anadirAGoogleWallet() {
+            // 1. Datos dinámicos recopilados directamente de los elementos renderizados en la pantalla
+            const nombreCiudadano = document.getElementById('card-nombre').textContent.trim();
+            const dniCiudadano = document.getElementById('card-dni').textContent.trim();
+            const hospitalAsignado = document.getElementById('card-hospital').textContent.trim();
+            const csvVerificacion = document.getElementById('csv-code').textContent.trim();
+            const expId = document.getElementById('card-id-tramite').textContent.trim();
 
-    // 2. Definir la URL real de tu Cloudflare Worker desplegado
-    // REEMPLAZA ESTA URL por la que te dé Cloudflare (Ej: https://mi-firmador.tu-usuario.workers.dev)
-    const WORKER_URL = "https://tarjetasanitaria.gatogob-contacto.workers.dev/"; 
+            // 2. Definir la URL real de tu Cloudflare Worker desplegado
+            // REEMPLAZA ESTA URL por la que te dé Cloudflare (Ej: https://mi-firmador.tu-usuario.workers.dev)
+            const WORKER_URL = "https://tarjetasanitaria.gatogob-contacto.workers.dev/";
 
-    // Opcional: Puedes cambiar el estado de tu botón o mostrar un spinner aquí para dar feedback visual
-    console.log("[Gatolandia QA] Solicitando firma segura al Cloudflare Worker...");
+            // Opcional: Puedes cambiar el estado de tu botón o mostrar un spinner aquí para dar feedback visual
+            console.log("[Gatolandia QA] Solicitando firma segura al Cloudflare Worker...");
 
-    try {
-        // 3. Enviamos el payload limpio en formato JSON al Worker
-        const response = await fetch(WORKER_URL, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                nombre: nombreCiudadano,
-                dni: dniCiudadano,
-                hospital: hospitalAsignado,
-                csv: csvVerificacion,
-                expId: expId
-            })
-        });
+            try {
+                // 3. Enviamos el payload limpio en formato JSON al Worker
+                const response = await fetch(WORKER_URL, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        nombre: nombreCiudadano,
+                        dni: dniCiudadano,
+                        hospital: hospitalAsignado,
+                        csv: csvVerificacion,
+                        expId: expId
+                    })
+                });
 
-        // Validamos que el Worker haya respondido correctamente (Status 200 OK)
-        if (!response.ok) {
-            throw new Error(`El servidor de firmas respondió con estado: ${response.status}`);
+                // Validamos que el Worker haya respondido correctamente (Status 200 OK)
+                if (!response.ok) {
+                    throw new Error(`El servidor de firmas respondió con estado: ${response.status}`);
+                }
+
+                const resData = await response.json();
+
+                // 4. Si el Worker nos devuelve la URL oficial firmada de Google, abrimos la pasarela
+                if (resData.url) {
+                    console.log("[Gatolandia QA] Firma generada con éxito. Abriendo pasarela de Google Wallet...");
+                    window.open(resData.url, "_blank");
+                } else if (resData.error) {
+                    throw new Error(resData.error);
+                } else {
+                    throw new Error("Respuesta inválida del servidor de firmas.");
+                }
+
+            } catch (error) {
+                // Captura de errores de red o excepciones lanzadas por el Worker
+                console.error("[Gatolandia Wallet Error]:", error);
+                alert(`❌ Error al digitalizar tarjeta: ${error.message}\nRevisa la configuración de red o el estado del Cloudflare Worker.`);
+            }
         }
-
-        const resData = await response.json();
-
-        // 4. Si el Worker nos devuelve la URL oficial firmada de Google, abrimos la pasarela
-        if (resData.url) {
-            console.log("[Gatolandia QA] Firma generada con éxito. Abriendo pasarela de Google Wallet...");
-            window.open(resData.url, "_blank");
-        } else if (resData.error) {
-            throw new Error(resData.error);
-        } else {
-            throw new Error("Respuesta inválida del servidor de firmas.");
-        }
-
-    } catch (error) {
-        // Captura de errores de red o excepciones lanzadas por el Worker
-        console.error("[Gatolandia Wallet Error]:", error);
-        alert(`❌ Error al digitalizar tarjeta: ${error.message}\nRevisa la configuración de red o el estado del Cloudflare Worker.`);
-    }
-}
+        // Escuchador de clics para entornos de módulos de Firebase
+document.getElementById('btn-wallet').addEventListener('click', anadirAGoogleWallet);
     </script>
 </body>
+
 </html>
