@@ -163,6 +163,7 @@
         // Lógica de validación al iniciar
         // Lógica de validación al iniciar (FUNCIÓN COMPLETA)
 // Lógica de validación al iniciar (CORREGIDA PARA TU ESTRUCTURA DE MAPA)
+// Lógica de validación al iniciar con control de duplicados y limpieza
 onAuthStateChanged(auth, async (user) => {
     if (!user) {
         showError("⚠️ Autenticación Requerida", "Debes haber iniciado sesión en tu Carpeta Ciudadana para realizar este trámite.");
@@ -184,10 +185,10 @@ onAuthStateChanged(auth, async (user) => {
     expId = expId.trim();
 
     console.log("[Gatolandia QA] UID del Usuario Autenticado:", user.uid);
-    console.log("[Gatolandia QA] Buscando el expediente dentro del mapa 'tramites':", expId);
+    console.log("[Gatolandia QA] Buscando el expediente solicitado:", expId);
 
     try {
-        // 2. Leemos el documento del usuario (que contiene 'perfil' y 'tramites')
+        // 2. Leemos el documento del usuario
         const userDocRef = doc(db, "usuarios", user.uid);
         const userSnap = await getDoc(userDocRef);
 
@@ -197,23 +198,68 @@ onAuthStateChanged(auth, async (user) => {
         }
 
         const userData = userSnap.data();
-        
-        // 3. VALIDACIÓN ESTRICTA: Comprobamos si el EXP existe dentro del mapa 'tramites'
-        if (!userData.tramites || !userData.tramites[expId]) {
+        const todosLosTramites = userData.tramites || {};
+
+        // --- CONTROL DE DUPLICADOS ---
+        // Nombres prohibidos normalizados para comparar sin tildes ni mayúsculas
+        const nombresDuplicadosProhibidos = [
+            "tarjeta sanitaria",
+            "visualizacion online de la tarjeta sanitaria",
+            "visualización online de la tarjeta sanitaria"
+        ].map(n => n.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase());
+
+        let expedienteOriginalId = null;
+
+        // Buscamos si existe ya un trámite con ese nombre
+        for (const [id, info] of Object.entries(todosLosTramites)) {
+            if (id === expId) continue; // Saltamos el actual para no compararlo consigo mismo
+
+            if (info && info.nombre) {
+                const nombreNormalizado = info.nombre.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+                
+                if (nombresDuplicadosProhibidos.includes(nombreNormalizado)) {
+                    expedienteOriginalId = id;
+                    break; // Hemos encontrado el original más antiguo, paramos la búsqueda
+                }
+            }
+        }
+
+        // Si existe un trámite previo idéntico...
+        if (expedienteOriginalId) {
+            console.log(`[Gatolandia QA] Duplicado detectado. Redirigiendo al original: ${expedienteOriginalId}`);
+
+            // A) Si el trámite que traíamos en la URL (?id=EXP-nuevo) ya se había guardado en Firestore, lo borramos
+            if (todosLosTramites[expId]) {
+                import { deleteField } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+                
+                const campoAEliminar = {};
+                campoAEliminar[`tramites.${expId}`] = deleteField();
+                
+                await updateDoc(userDocRef, campoAEliminar);
+                console.log(`[Gatolandia QA] Trámite duplicado temporal '${expId}' eliminado de la base de datos.`);
+            }
+
+            // B) Redirigimos al usuario al trámite original existente
+            window.location.search = `?id=${expedienteOriginalId}`;
+            return; // Detenemos la ejecución de este script
+        }
+        // ------------------------------
+
+        // 3. VALIDACIÓN ESTRICTA: Comprobamos si el EXP actual existe dentro del mapa 'tramites'
+        if (!todosLosTramites[expId]) {
             console.error(`[Gatolandia Error] El expediente '${expId}' no existe dentro del objeto tramites del usuario.`);
             showError("⛔ Acceso Denegado", `El expediente '${expId}' no existe en tu registro de trámites.`);
             return;
         }
 
         // Si existe, extraemos los datos de ese trámite en concreto
-        let tramiteData = userData.tramites[expId];
+        let tramiteData = todosLosTramites[expId];
 
         // 4. Si el trámite existe pero no está completado, lo actualizamos en Firestore
         if (tramiteData.estado !== "completado") {
             const csvGenerado = generarCSVGatolandia();
             const fechaHoy = obtenerFechaGatolandia();
 
-            // Ojo: Para actualizar un mapa en Firestore usamos la notación de punto 'tramites.EXP-xxxx'
             const camposActualizados = {};
             camposActualizados[`tramites.${expId}.estado`] = "completado";
             camposActualizados[`tramites.${expId}.csv`] = csvGenerado;
