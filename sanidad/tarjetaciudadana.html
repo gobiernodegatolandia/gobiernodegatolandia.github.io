@@ -162,6 +162,7 @@
 
         // Lógica de validación al iniciar
         // Lógica de validación al iniciar (FUNCIÓN COMPLETA)
+// Lógica de validación al iniciar (CORREGIDA PARA TU ESTRUCTURA DE MAPA)
 onAuthStateChanged(auth, async (user) => {
     if (!user) {
         showError("⚠️ Autenticación Requerida", "Debes haber iniciado sesión en tu Carpeta Ciudadana para realizar este trámite.");
@@ -180,53 +181,50 @@ onAuthStateChanged(auth, async (user) => {
         return;
     }
 
-    // Limpiamos espacios en blanco por si acaso
     expId = expId.trim();
 
-    // Logs en consola de desarrollador (F12) para QA de Gatolandia
     console.log("[Gatolandia QA] UID del Usuario Autenticado:", user.uid);
-    console.log("[Gatolandia QA] Buscando ID de documento exacto en Firestore:", expId);
+    console.log("[Gatolandia QA] Buscando el expediente dentro del mapa 'tramites':", expId);
 
     try {
-        // 2. Comprobamos si el usuario tiene este expediente asignado en su subcolección
-        const tramiteDocRef = doc(db, "usuarios", user.uid, "tramites", expId);
-        const tramiteSnap = await getDoc(tramiteDocRef);
-
-        // Obtener datos del perfil general del ciudadano
+        // 2. Leemos el documento del usuario (que contiene 'perfil' y 'tramites')
         const userDocRef = doc(db, "usuarios", user.uid);
         const userSnap = await getDoc(userDocRef);
 
         if (!userSnap.exists()) {
-            showError("⚙️ Error de Registro", "No se han encontrado datos del perfil ciudadano en el sistema de Gatolandia.");
+            showError("⚙️ Error de Registro", "No se han encontrado datos del ciudadano en el sistema de Gatolandia.");
             return;
         }
 
         const userData = userSnap.data();
-
-        // VALIDACIÓN ESTRICTA DEL EXPEDIENTE
-        if (!tramiteSnap.exists()) {
-            console.error(`[Gatolandia Error] El documento '${expId}' no existe en la ruta usuarios/${user.uid}/tramites/`);
+        
+        // 3. VALIDACIÓN ESTRICTA: Comprobamos si el EXP existe dentro del mapa 'tramites'
+        if (!userData.tramites || !userData.tramites[expId]) {
+            console.error(`[Gatolandia Error] El expediente '${expId}' no existe dentro del objeto tramites del usuario.`);
             showError("⛔ Acceso Denegado", `El expediente '${expId}' no existe en tu registro de trámites.`);
             return;
         }
 
-        let tramiteData = tramiteSnap.data();
+        // Si existe, extraemos los datos de ese trámite en concreto
+        let tramiteData = userData.tramites[expId];
 
-        // 3. Si el trámite existe pero no está completado, lo completamos y asignamos CSV
+        // 4. Si el trámite existe pero no está completado, lo actualizamos en Firestore
         if (tramiteData.estado !== "completado") {
             const csvGenerado = generarCSVGatolandia();
             const fechaHoy = obtenerFechaGatolandia();
 
-            await updateDoc(tramiteDocRef, {
-                estado: "completado",
-                csv: csvGenerado,
-                fecha: fechaHoy.fecha,
-                fecha_firma: `${fechaHoy.fecha}, ${fechaHoy.hora}`,
-                nombre: "Tarjeta Sanitaria",
-                resultado: "EMITIDO"
-            });
+            // Ojo: Para actualizar un mapa en Firestore usamos la notación de punto 'tramites.EXP-xxxx'
+            const camposActualizados = {};
+            camposActualizados[`tramites.${expId}.estado`] = "completado";
+            camposActualizados[`tramites.${expId}.csv`] = csvGenerado;
+            camposActualizados[`tramites.${expId}.fecha`] = fechaHoy.fecha;
+            camposActualizados[`tramites.${expId}.fecha_firma`] = `${fechaHoy.fecha}, ${fechaHoy.hora}`;
+            camposActualizados[`tramites.${expId}.nombre`] = "Tarjeta Sanitaria";
+            camposActualizados[`tramites.${expId}.resultado`] = "EMITIDO";
 
-            // Actualizamos la variable local para pintar los datos nuevos
+            await updateDoc(userDocRef, camposActualizados);
+
+            // Actualizamos nuestra copia local para pintarla en la tarjeta
             tramiteData = {
                 ...tramiteData,
                 estado: "completado",
@@ -238,7 +236,7 @@ onAuthStateChanged(auth, async (user) => {
             };
         }
 
-        // 4. Todo OK -> Pintamos y mostramos la tarjeta en la pantalla
+        // 5. Todo OK -> Pintamos la tarjeta sanitaria en la pantalla
         cargarDatosEnPantalla(userData, tramiteData, expId);
 
     } catch (error) {
