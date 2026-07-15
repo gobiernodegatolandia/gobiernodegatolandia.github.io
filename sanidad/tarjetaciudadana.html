@@ -144,7 +144,8 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
         import { getFirestore, doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
+        import { deleteField } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        
         // Configuración de tu Firebase
         const firebaseConfig = {            
             apiKey: "AIzaSyCUBDdTMyQTwQo4FzKpDZDpOAKGPVcki4I",            
@@ -230,7 +231,7 @@ onAuthStateChanged(auth, async (user) => {
 
             // A) Si el trámite que traíamos en la URL (?id=EXP-nuevo) ya se había guardado en Firestore, lo borramos
             if (todosLosTramites[expId]) {
-                import { deleteField } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+                
                 
                 const campoAEliminar = {};
                 campoAEliminar[`tramites.${expId}`] = deleteField();
