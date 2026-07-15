@@ -419,97 +419,59 @@ onAuthStateChanged(auth, async (user) => {
             document.getElementById('status-title').classList.add('text-red-600');
             document.getElementById('status-message').textContent = message;
         }
-    function anadirAGoogleWallet() {
-    // 1. Datos dinámicos del ciudadano de Gatolandia
-    const nombreCiudadano = document.getElementById('card-nombre').textContent;
-    const dniCiudadano = document.getElementById('card-dni').textContent;
-    const hospitalAsignado = document.getElementById('card-hospital').textContent;
-    const csvVerificacion = document.getElementById('csv-code').textContent;
-    const expId = document.getElementById('card-id-tramite').textContent;
+async function anadirAGoogleWallet() {
+    // 1. Datos dinámicos recopilados directamente de los elementos renderizados en la pantalla
+    const nombreCiudadano = document.getElementById('card-nombre').textContent.trim();
+    const dniCiudadano = document.getElementById('card-dni').textContent.trim();
+    const hospitalAsignado = document.getElementById('card-hospital').textContent.trim();
+    const csvVerificacion = document.getElementById('csv-code').textContent.trim();
+    const expId = document.getElementById('card-id-tramite').textContent.trim();
 
-    // 2. Parámetros de tu cuenta de desarrollador de Google Pay/Wallet
-    const ISSUER_ID = "TU_ISSUER_ID_AQUÍ"; // Reemplaza con tu ID de Google Pay Console
-    const CLASS_ID = "TarjetaSanitariaGatolandia"; // El ID de la clase que creaste en la consola
-    const OBJECT_ID = `${ISSUER_ID}.${expId.replace('-', '_')}`; // ID único para este pase individual
+    // 2. Definir la URL real de tu Cloudflare Worker desplegado
+    // REEMPLAZA ESTA URL por la que te dé Cloudflare (Ej: https://mi-firmador.tu-usuario.workers.dev)
+    const WORKER_URL = "https://tarjetasanitaria.gatogob-contacto.workers.dev/"; 
 
-    // 3. Estructura del objeto del pase (GenericObject de Google Wallet API)
-    const passObject = {
-        "iss": `${ISSUER_ID}@developer.gserviceaccount.com`,
-        "aud": "google",
-        "typ": "savetowallet",
-        "origins": [],
-        "payload": {
-            "genericObjects": [
-                {
-                    "id": OBJECT_ID,
-                    "classId": `${ISSUER_ID}.${CLASS_ID}`,
-                    "genericType": "GENERIC_HEALTH_PASS",
-                    "hexBackgroundColor": "#0c4a6e", // Azul de tu tarjeta
-                    "logo": {
-                        "sourceUri": {
-                            "uri": "https://sedegatogob.firebaseapp.com/logo.png" // URL de tu logo corporativo
-                        }
-                    },
-                    "cardTitle": {
-                        "defaultValue": {
-                            "language": "es",
-                            "value": "REINO DE GATOLANDIA"
-                        }
-                    },
-                    "header": {
-                        "defaultValue": {
-                            "language": "es",
-                            "value": "Servicio Gatolandés de Salud"
-                        }
-                    },
-                    "textModulesData": [
-                        {
-                            "header": "CIUDADANO",
-                            "body": nombreCiudadano,
-                            "id": "name"
-                        },
-                        {
-                            "header": "DNI / IDENTIFICACIÓN",
-                            "body": dniCiudadano,
-                            "id": "dni"
-                        },
-                        {
-                            "header": "CENTRO ASIGNADO",
-                            "body": hospitalAsignado,
-                            "id": "hospital"
-                        },
-                        {
-                            "header": "CSV DE VERIFICACIÓN",
-                            "body": csvVerificacion,
-                            "id": "csv"
-                        }
-                    ],
-                    "barcode": {
-                        "type": "QR_CODE",
-                        "value": `https://sedegatogob.firebaseapp.com/verificar?csv=${csvVerificacion}`,
-                        "alternateText": csvVerificacion
-                    }
-                }
-            ]
+    // Opcional: Puedes cambiar el estado de tu botón o mostrar un spinner aquí para dar feedback visual
+    console.log("[Gatolandia QA] Solicitando firma segura al Cloudflare Worker...");
+
+    try {
+        // 3. Enviamos el payload limpio en formato JSON al Worker
+        const response = await fetch(WORKER_URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nombre: nombreCiudadano,
+                dni: dniCiudadano,
+                hospital: hospitalAsignado,
+                csv: csvVerificacion,
+                expId: expId
+            })
+        });
+
+        // Validamos que el Worker haya respondido correctamente (Status 200 OK)
+        if (!response.ok) {
+            throw new Error(`El servidor de firmas respondió con estado: ${response.status}`);
         }
-    };
 
-    // NOTA: Para producción, este objeto 'passObject' debe ser enviado a un backend en Node.js/Firebase Functions
-    // para ser firmado con tu clave privada (.json) usando una librería como 'google-auth-library' o 'jsonwebtoken'.
-    
-    // Si estás usando el entorno de pruebas (Demo Mode) de Google sin JWT firmado obligatoriamente,
-    // puedes codificar el objeto directamente en Base64 URL (solo para cuentas en modo borrador):
-    
-    const jsonString = JSON.stringify(passObject);
-    const base64Json = btoa(unescape(encodeURIComponent(jsonString)))
-        .replace(/\+/g, '-')
-        .replace(/\//g, '_')
-        .replace(/=+$/, '');
+        const resData = await response.json();
 
-    const walletUrl = `https://pay.google.com/gp/v/save/${base64Json}`;
+        // 4. Si el Worker nos devuelve la URL oficial firmada de Google, abrimos la pasarela
+        if (resData.url) {
+            console.log("[Gatolandia QA] Firma generada con éxito. Abriendo pasarela de Google Wallet...");
+            window.open(resData.url, "_blank");
+        } else if (resData.error) {
+            throw new Error(resData.error);
+        } else {
+            throw new Error("Respuesta inválida del servidor de firmas.");
+        }
 
-    // Abrimos la pasarela oficial de Google Wallet
-    window.open(walletUrl, "_blank");
+    } catch (error) {
+        // Captura de errores de red o excepciones lanzadas por el Worker
+        console.error("[Gatolandia Wallet Error]:", error);
+        alert(`❌ Error al digitalizar tarjeta: ${error.message}\nRevisa la configuración de red o el estado del Cloudflare Worker.`);
+    }
 }
     </script>
 </body>
