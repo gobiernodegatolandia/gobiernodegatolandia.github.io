@@ -23,7 +23,7 @@ Artículo 2. Estado y Territorio
 Gatolandia es un Estado unitario, indivisible y laico.
 
 
-Su organización territorial se estructura en Ducados, los cuales se dividen en Jurisdicciones, y estas en Municipios.
+Su organización territorial se estructura en Regiones, los cuales se dividen en Jurisdicciones, y estas en Municipios.
 
 
 La capital del Reino de Gatolandia es Miaumiau.
@@ -620,13 +620,13 @@ Autovías: identificadas como A-X o A-XX, con cartelería de color azul.
 Autopistas: identificadas como GAT-X o GAT-XX, con cartelería de color verde.
 No podrá existir coincidencia numérica entre autovías y autopistas. Es decir, no podrá coexistir A-1 y GAT-1.
 b) Calzadas Reales (o Nacionales)
-Son vías de interés nacional que conectan regiones, capitales ducales y enclaves estratégicos.
-La construcción corresponde al Estado. El mantenimiento y ejecución de obras será competencia de los Ducados.
+Son vías de interés nacional que conectan regiones, capitales Regionales y enclaves estratégicos.
+La construcción corresponde al Estado. El mantenimiento y ejecución de obras será competencia de los Regiones.
 Queda prohibida la imposición de peajes en estas vías.
 Se identifican como CR-X o CR-XX, con cartelería de color blanco.
-c) Carreteras Ducales (o Comarcales)
+c) Carreteras Regionales (o Comarcales)
 Son vías de ámbito comarcal que conectan municipios, zonas rurales y enclaves locales.
-La construcción corresponde al Ducado competente. El mantenimiento será compartido entre el Ducado y los Municipios beneficiarios.
+La construcción corresponde a la Región competente. El mantenimiento será compartido entre la Región y los Municipios beneficiarios.
 Podrán establecerse peajes limitados, exclusivamente aplicables a camiones y vehículos contaminantes, conforme a criterios ambientales definidos por el Ministerio de Infraestructuras.
 Se identifican como C-XX o C-XXX, con cartelería de color blanco.
 TÍTULO II – PLANIFICACIÓN, PROYECTOS Y EJECUCIÓN DE OBRAS
@@ -679,8 +679,8 @@ d) Mantenimiento de puentes, túneles y elementos de drenaje
 e) Medidas de seguridad vial
 Cada categoría de carretera se conservará conforme a su régimen competencial:
 Autovías y Autopistas: mantenimiento ordinario por concesionarias (si las hay) o por el Estado.
-Calzadas Reales: mantenimiento íntegro por los Ducados.
-Carreteras Ducales: mantenimiento conjunto entre Ducados y Municipios.
+Calzadas Reales: mantenimiento íntegro por los Regiones.
+Carreteras Regionales: mantenimiento conjunto entre Regiones y Municipios.
 Artículo 15. Supervisión estatal
 El Ministerio de Infraestructuras ejercerá supervisión permanente sobre toda la Red de Carreteras del Reino, independientemente de la titularidad del mantenimiento.
 El Ministerio podrá realizar inspecciones, auditorías técnicas y controles de seguridad en cualquier momento.
@@ -699,8 +699,8 @@ Artículo 17. Prohibición de peajes en Calzadas Reales
 Queda prohibida la imposición de peajes en las Calzadas Reales (CR-X / CR-XX).
 Ninguna entidad pública o privada podrá establecer tarifas, tasas o cobros por el uso de estas vías.
 El incumplimiento será considerado infracción grave y podrá conllevar sanciones económicas y administrativas.
-Artículo 18. Peajes en Carreteras Ducales
-Las Carreteras Ducales podrán establecer peajes exclusivamente para:
+Artículo 18. Peajes en Carreteras Regionales
+Las Carreteras Regionales podrán establecer peajes exclusivamente para:
 a) Camiones
 b) Vehículos contaminantes
 El Ministerio definirá los criterios para determinar qué vehículos se consideran contaminantes.
@@ -714,7 +714,7 @@ La señalización de las carreteras deberá ajustarse estrictamente a los colore
 Autovías (A-X / A-XX) → Azul
 Autopistas (GAT-X / GAT-XX) → Verde
 Calzadas Reales (CR-X / CR-XX) → Blanco
-Carreteras Ducales (C-XX / C-XXX) → Blanco
+Carreteras Regionales (C-XX / C-XXX) → Blanco
 El Ministerio garantizará la uniformidad de la señalización en todo el Reino.
 Cualquier modificación o instalación de señalización deberá ser autorizada por el Ministerio.
 TÍTULO IV – CONCESIONES Y CONTRATOS PÚBLICOS
@@ -1190,7 +1190,7 @@ No disponer de detectores, alarmas o aspersores
 
 Señalización inexistente o incorrecta
 
-Extintores caducados
+Extintores caRegiones
 
 Bloqueo de salidas de emergencia
 
@@ -1363,7 +1363,7 @@ Educación en Idiomas Regionales, la cual siempre será opcional y se deberán o
 
 TÍTULO IV – CENTROS EDUCATIVOS
 Artículo 8. Centros públicos
-Son de titularidad estatal o ducal.
+Son de titularidad estatal o Regional.
 
 Su acceso será universal y gratuito.
 
@@ -2184,8 +2184,8 @@ b) Declaración de vulneración de derechos por poderes públicos.
 
 3. Conflictos institucionales
 a) Entre poderes del Estado.
-b) Entre Ducados y Estado.
-c) Entre Ducados entre sí.
+b) Entre Regiones y Estado.
+c) Entre Regiones entre sí.
 
 4. Suspensión de normas
 a) Suspender cautelarmente leyes o actos contrarios a la Constitución.
@@ -2193,15 +2193,15 @@ a) Suspender cautelarmente leyes o actos contrarios a la Constitución.
 5. Interpretación constitucional
 a) Sus sentencias vinculan a todos los poderes públicos.
 
-CAPÍTULO 3 – TRIBUNALES SUPERIORES DE JUSTICIA DE LOS DUCADOS
+CAPÍTULO 3 – TRIBUNALES SUPERIORES DE JUSTICIA DE LOS Regiones
 Artículo 12. Competencias
 Los Tribunales Superiores de Justicia conocerán de:
 
-Recursos de apelación contra sentencias de juzgados del Ducado.
+Recursos de apelación contra sentencias de juzgados de la Región.
 
 Unificación de doctrina en el territorio.
 
-Control de legalidad de normas ducales.
+Control de legalidad de normas Regionales.
 
 Competencias civiles, penales, sociales y contenciosas.
 
@@ -3204,7 +3204,7 @@ La presente Ley entrará en vigor inmediatamente de su publicación en el Bolet�
 PREÁMBULO
 El Reino Democrático de Gatolandia, en ejercicio de su soberanía, establece mediante esta Ley la estructura territorial del Estado, los niveles de gobierno, las competencias de cada entidad territorial y los mecanismos de coordinación entre ellas.
 
-La presente Ley garantiza la unidad del Reino, la autonomía de los Ducados, la eficacia administrativa, la igualdad de derechos de la ciudadanía y el respeto a las identidades territoriales.
+La presente Ley garantiza la unidad del Reino, la autonomía de los Regiones, la eficacia administrativa, la igualdad de derechos de la ciudadanía y el respeto a las identidades territoriales.
 
 TÍTULO I – DISPOSICIONES GENERALES
 Artículo 1. Objeto
@@ -3214,7 +3214,7 @@ La división territorial del Reino.
 
 La organización y competencias del Estado.
 
-La organización y competencias de los Ducados.
+La organización y competencias de los Regiones.
 
 La organización y competencias de las Jurisdicciones.
 
@@ -3222,11 +3222,11 @@ La organización y competencias de los Municipios.
 
 La estructura interna de las Ciudades, Distritos y Barrios.
 
-El régimen especial de los Ducados de Administración Especial (DAE).
+El régimen especial de los Regiones de Administración Especial (DAE).
 
 La capitalidad del Reino.
 
-La aprobación de los Estatutos de Independencia Ducal.
+La aprobación de los Estatutos de Independencia Regional.
 
 Artículo 2. Capital del Reino
 La capital del Reino Democrático de Gatolandia es la Ciudad de Miaumiau, sede de:
@@ -3248,9 +3248,9 @@ los Ministerios del Estado
 Artículo 3. Niveles territoriales
 El Reino se organiza en:
 
-Ducados
+Regiones
 
-Jurisdicciones (si el Ducado las establece)
+Jurisdicciones (si la Región las establece)
 
 Municipios
 
@@ -3261,45 +3261,27 @@ Distritos (división interna de ciudades)
 Barrios (división interna de distritos)
 
 TÍTULO II – DIVISIÓN TERRITORIAL DEL REINO
-Artículo 4. Ducados del Reino
-El Reino Democrático de Gatolandia se divide en los siguientes Ducados:
+Artículo 4. Regiones del Reino
+El Reino Democrático de Gatolandia se divide en las siguientes Regiones:
 
-Gran Ducado de Miaumiau
-
+Región Centro-Montañas
+Región Centro-Océano
+Región Norte-Condado-Ángeles
+Región Oeste Montañés
+Región Gran Este
+Región de Ibailandia
+Región Norte Toñolandés
 Territorios del Sur
-
-Ducado de El Cerezal
-
-Ducado de Administración Especial de Ibailandia (DAE)
-
-Ducado de Administración Especial de Eloylandia (DAE)
-
-Ducado de El Norte
-
-Ducado de Planicies
-
-Ducado de San Antonio
-
-Ducado de Montañagatuna
-
-Ducado de El Gato
-
-Ducado de San Ibai
-
-Ducado de Salinas
-
-Ducado de Los Ángeles del Norte
-
-Señorío de Montañanevada
-
-Señorío de La Nevadina
+Eloylandia
+San Ibai
+Región del Sur Católico Montañés
 
 Artículo 5. Jurisdicciones
-Cada Ducado podrá dividirse en Jurisdicciones, que son unidades territoriales intermedias.
+Cada Región podrá dividirse en Jurisdicciones, que son unidades territoriales intermedias.
 
-Las Jurisdicciones se crean, modifican o suprimen mediante el Estatuto de Independencia Ducal.
+Las Jurisdicciones se crean, modifican o suprimen mediante el Estatuto de Independencia Regional.
 
-Si un Ducado no establece Jurisdicciones, se divide directamente en Municipios.
+Si un Región no establece Jurisdicciones, se divide directamente en Municipios.
 
 Artículo 6. Municipios
 El Municipio es la unidad territorial básica del Reino.
@@ -3392,32 +3374,32 @@ Protección de especies
 
 Normas básicas de emisiones
 
-Gestión del agua interducados
+Gestión del agua interRegiones
 
 Artículo 13. Competencias de seguridad
 Policía Nacional
 
 Guardia Territorial
 
-Coordinación de policías ducales
+Coordinación de policías Regionales
 
 Emergencias nacionales
 
-TÍTULO IV – LOS DUCADOS
-Artículo 14. Estatuto de Independencia Ducal
-Cada Ducado aprobará su Estatuto de Independencia Ducal mediante referéndum.
+TÍTULO IV – LOS Regiones
+Artículo 14. Estatuto de Independencia Regional
+Cada Región aprobará su Estatuto de Independencia Regional mediante referéndum.
 
 El Estatuto definirá:
-a) Jurisdicciones del Ducado
-b) Capital del Ducado
+a) Jurisdicciones de la Región
+b) Capital de la Región
 c) Símbolos oficiales
 d) Idiomas oficiales
-e) Municipios del Ducado
+e) Municipios de la Región
 f) Competencias propias
 g) Organización institucional
 
-Artículo 15. Competencias de los Ducados
-Los Ducados gestionan:
+Artículo 15. Competencias de los Regiones
+Los Regiones gestionan:
 
 Ordenación del territorio
 
@@ -3429,13 +3411,13 @@ Turismo
 
 Comercio interior
 
-Transporte dentro del Ducado
+Transporte dentro de la Región
 
 Servicios sociales
 
 Protección civil
 
-Policía Ducal
+Policía Regional
 
 Medio ambiente
 
@@ -3449,20 +3431,20 @@ Educación complementaria
 
 Sanidad complementaria
 
-TÍTULO V – DUCADOS DE ADMINISTRACIÓN ESPECIAL (DAE)
+TÍTULO V – REGIONES DE ADMINISTRACIÓN ESPECIAL (RAE)
 Artículo 16. Naturaleza
-Los DAE son Ducados con régimen especial por razones históricas, culturales o administrativas.
+Las RAE son Regiones con régimen especial por razones históricas, culturales o administrativas.
 
 Artículo 17. Competencias ampliadas
-Los DAE podrán recibir competencias adicionales mediante acuerdo bilateral con el Estado.
+Las RAE podrán recibir competencias adicionales mediante acuerdo bilateral con el Estado.
 
 Dicho acuerdo deberá ser:
 a) firmado por el Gobierno del Reino,
 b) ratificado por la Asamblea del Reino,
-c) aprobado por referéndum en el DAE.
+c) aprobado por referéndum en la RAE.
 
 Artículo 18. Materias susceptibles de ampliación
-Los DAE podrán asumir:
+Las RAE podrán asumir:
 
 Educación completa
 
@@ -3480,7 +3462,7 @@ Medios de comunicación públicos
 
 TÍTULO VI – JURISDICCIONES
 Artículo 19. Naturaleza
-Las Jurisdicciones son divisiones territoriales intermedias entre Ducado y Municipio.
+Las Jurisdicciones son divisiones territoriales intermedias entre Región y Municipio.
 
 Artículo 20. Competencias
 Las Jurisdicciones podrán gestionar:
