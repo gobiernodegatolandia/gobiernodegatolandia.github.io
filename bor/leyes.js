@@ -4217,7 +4217,7 @@ d) Responsabilidad civil en caso de daños.`,
             },
             {
                 id: 'publicidad',
-                titulo: 'Ley Publicitaria',
+                titulo: 'Ley sobre la Publicidad Emitida, Expuesta y Desarrollada',
                 meta: 'BOR nº 013 · 23/08/2026 · Asamblea Nacional',
                 estado: 'Vigente',
                 texto: `TÍTULO I – DISPOSICIONES GENERALES
