@@ -4508,7 +4508,7 @@ e) responsabilidad civil.`,
             },
             {
                 id: 'dispositivos-electronicos',
-                titulo: 'Ley Regulatoria sobre el Funcionamiento, Venta o Compra de Dispositivos Electrónicos de Uso Personal.',
+                titulo: 'Ley Regulatoria sobre el Funcionamiento, Venta o Compra de Dispositivos Electrónicos de Uso Personal',
                 meta: 'BOR nº 014 · 23/08/2026 · Asamblea Nacional',
                 estado: 'Vigente',
                 texto: `TÍTULO I – DISPOSICIONES GENERALES
