@@ -5054,7 +5054,7 @@ La presente Ley entrará en vigor a los seis meses de su publicación en el Bole
                 titulo: 'Orden Ministerial GDG/2026/017',
                 meta: 'BOR nº 017 · 01/09/2026 · Consejo de Ministros',
                 estado: 'Vigente',
-                texto: `ORDEN MINISTERIAL TDD/2026/42
+                texto: `ORDEN MINISTERIAL GDG/2026/017
 Por la que se fija el precio oficial por gigabyte para el servicio de roaming de líneas extranjeras en uso dentro del territorio del Reino Democrático de Gatolandia.
 
 Artículo 1. Objeto
