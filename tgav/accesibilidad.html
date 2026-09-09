@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accesibilidad TGAV — Gatolandia</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        /* VARIABLES TGAV (mismas que tu página principal) */
+        :root {
+            --primary: #5a2d82;
+            --primary-dark: #2d1640;
+            --accent: #E5C04B;
+            --bg-light: #f8fafc;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --white: #ffffff;
+            --border: #e2e8f0;
+        }
+
+        /* BASE */
+        body {
+            margin: 0;
+            font-family: 'Urbanist', sans-serif;
+            background: var(--white);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        /* TITULOS */
+        h1 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        h3 {
+            margin: 0 0 6px;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        /* TABS TGAV */
+        .tabs {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+
+        .tabs button {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            padding: 12px 18px;
+            border-radius: 14px;
+            cursor: pointer;
+            font-family: 'Urbanist', sans-serif;
+            font-weight: 700;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.25s;
+        }
+
+        .tabs button:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .tabs button.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* CONTENIDO */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* TARJETAS TGAV */
+        .access-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 22px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: flex-start;
+            gap: 18px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+            transition: 0.25s;
+        }
+
+        .access-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+        }
+
+        .access-card i {
+            font-size: 32px;
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        .access-card p {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        /* FOOTER */
+        footer {
+            margin-top: 40px;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <header>
+            <h1>Accesibilidad TGAV</h1>
+            <p style="color: var(--text-muted); font-size: 18px;">
+                Compromiso total con la inclusión: todos los pasajeros pueden disfrutar del servicio con seguridad y comodidad.
+            </p>
+        </header>
+
+        <!-- TABS -->
+        <div class="tabs">
+            <button class="active" data-target="ciegos"><i class="fa-solid fa-eye-slash"></i> Ciegos / Baja visión</button>
+            <button data-target="sordos"><i class="fa-solid fa-ear-listen"></i> Sordos / Hipoacusia</button>
+            <button data-target="mudos"><i class="fa-solid fa-comment-slash"></i> Comunicación</button>
+            <button data-target="menores"><i class="fa-solid fa-child"></i> Menores</button>
+            <button data-target="mascotas"><i class="fa-solid fa-dog"></i> Mascotas de asistencia</button>
+        </div>
+
+        <!-- CONTENIDO -->
+
+        <!-- CIEGOS -->
+        <div id="ciegos" class="tab-content active">
+            <div class="access-card">
+                <i class="fa-solid fa-braille"></i>
+                <div>
+                    <h3>Pavimento podotáctil y braille</h3>
+                    <p>Todos los andenes y pasillos cuentan con pavimento podotáctil y señalización en braille.</p>
+                </div>
+            </div>
+
+            <div class="access-card">
+                <i class="fa-solid fa-person-walking"></i>
+                <div>
+                    <h3>Asistencia personalizada</h3>
+                    <p>El personal puede guiar a personas con discapacidad visual desde la entrada hasta el tren.</p>
+                </div>
+            </div>
+
+            <div class="access-card">
+                <i class="fa-solid fa-volume-high"></i>
+                <div>
+                    <h3>Señalización sonora</h3>
+                    <p>Anuncios claros informan de llegadas, salidas y cambios de vía.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SORDOS -->
+        <div id="sordos" class="tab-content">
+            <div class="access-card">
+                <i class="fa-solid fa-volume-xmark"></i>
+                <div>
+                    <h3>Información visual</h3>
+                    <p>Paneles digitales muestran información en tiempo real.</p>
+                </div>
+            </div>
+
+            <div class="access-card">
+                <i class="fa-solid fa-sign-language"></i>
+                <div>
+                    <h3>Lengua de signos</h3>
+                    <p>En estaciones principales, personal formado en lengua de signos.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- MUDOS -->
+        <div id="mudos" class="tab-content">
+            <div class="access-card">
+                <i class="fa-solid fa-comments"></i>
+                <div>
+                    <h3>Comunicación digital</h3>
+                    <p>Pantallas y apps permiten enviar mensajes al personal.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- MENORES -->
+        <div id="menores" class="tab-content">
+            <div class="access-card">
+                <i class="fa-solid fa-child"></i>
+                <div>
+                    <h3>Acompañantes</h3>
+                    <p>Menores de 12 años pueden viajar con acompañante gratuito.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- MASCOTAS -->
+        <div id="mascotas" class="tab-content">
+            <div class="access-card">
+                <i class="fa-solid fa-dog"></i>
+                <div>
+                    <h3>Mascotas de asistencia</h3>
+                    <p>Perros guía y animales de apoyo pueden viajar sin restricciones.</p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            TGAV • Gatolandia — Todos los servicios cumplen con la normativa de accesibilidad vigente.
+        </footer>
+
+    </div>
+
+    <script>
+        const tabs = document.querySelectorAll('.tabs button');
+        const contents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                const target = tab.dataset.target;
+                contents.forEach(c => {
+                    c.classList.remove('active');
+                    if (c.id === target) c.classList.add('active');
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>
