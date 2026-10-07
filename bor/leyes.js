@@ -201,6 +201,39 @@ En situaciones de bloqueo institucional grave, crisis de gobernabilidad insosten
     c) Efectos sobre el Poder Ejecutivo y Legislativo: La aprobación de esta resolución provocará la disolución fulminante e irrevocable de la Asamblea Nacional y el cese inmediato del Presidente del Reino y de todo su gabinete de Ministros. A partir de ese momento, el Ejecutivo cesante permanecerá de forma estrictamente provisional como "Gobierno en funciones" para la gestión ordinaria de asuntos administrativos mínimos, quedando inhabilitado para aprobar decretos-leyes, firmar tratados internacionales o realizar nombramientos estratégicos.
     d) Convocatoria y plazos electorales: La misma resolución que disuelva los poderes fijará la fecha obligatoria para la celebración de nuevas Elecciones Generales, las cuales deberán ejecutarse de forma inexcusable en un plazo mínimo de treinta días y máximo de cuarenta y cinco días naturales a contar desde la publicación de la resolución en el Boletín Oficial del Reino. La nueva Asamblea Nacional resultante se constituirá dentro de los quince días posteriores a la proclamación oficial de los resultados electorales, procediendo de inmediato a la elección de un nuevo Presidente del Reino conforme al procedimiento ordinario.
 
+Artículo 7 Ter. Tipología de Leyes y Jerarquía Normativa
+
+1. Principio de Jerarquía: El ordenamiento jurídico del Reino de Gatolandia se estructura de forma estrictamente jerárquica. Ninguna norma de rango inferior podrá contradecir, modificar o derogar una norma de rango superior. La Constitución es la norma suprema del ordenamiento jurídico y prevalece de forma absoluta sobre todas las demás.
+
+2. Jerarquía Normativa y Mayorías: Las normas de la Nación se dividen, escalonan y aprueban conforme al siguiente orden de prelación:
+
+* Rango 1: La Constitución. Es la norma matriz de Gatolandia. Solo puede ser modificada de forma parcial o total mediante el procedimiento establecido en el Artículo 15.
+
+* Rango 1.5: Leyes de Anexo Constitucional (LAC). Son normas fundamentales de desarrollo obligatorio que regulan la arquitectura institucional crítica y las reglas del juego democrático del Estado. Para su aprobación, modificación o derogación se requerirá el voto favorable de una mayoría de tres cuartos (3/4) de los miembros totales de la Asamblea Nacional.
+
+* Rango 2: Tratados Internacionales. Los acuerdos suscritos con otros Estados u organismos internacionales, una vez aprobados por la Asamblea Nacional y ratificados por el Estado, forman parte del derecho interno con rango superior a las leyes nacionales, pero siempre supeditados a la Constitución.
+
+* Rango 3: Leyes Orgánicas. Son aquellas destinadas a regular el funcionamiento y estructura del Estado, u otros temas de suma importancia. Para su aprobación, modificación o derogación se requerirá el voto favorable de la mayoría absoluta de los miembros totales de la Asamblea Nacional.
+
+* Rango 4: Leyes Ordinarias. Son todas las demás leyes aprobadas por la Asamblea Nacional para la gestión y regulación común del Estado en materias no reservadas a los rangos superiores (sanidad, educación general, comercio, desarrollo regional, etc.). Se aprueban por mayoría simple de los asambleístas presentes.
+
+* Rango 5: Normas del Poder Ejecutivo (Decretos y Reglamentos). Disposiciones dictadas por el Presidente del Reino o su Consejo de Ministros con el único fin de aplicar y ejecutar las leyes emanadas de la Asamblea Nacional. Tienen prohibido regular materias reservadas a la ley. Las Órdenes Ministeriales dictadas de forma individual por los Ministros ocupan el escalón más bajo de este rango.
+
+3. Materias Reservadas en Exclusiva a las LAC: Se regularán obligatoriamente mediante Ley de Anexo Constitucional (LAC) los siguientes aspectos críticos para evitar la deriva autoritaria del Estado:
+
+* a) El Reglamento interno de funcionamiento, los debates, los turnos de palabra y el régimen sancionador de la Asamblea Nacional y de la Diputación Permanente.
+
+* b) La Ley de Educación en Valores Defensivos, Militares y de Primeros Auxilios (EVADE), incluyendo las directrices obligatorias de su temario, duración y exenciones.
+
+* c) Las competencias específicas, límites de actuación, presupuestos extraordinarios y protocolos de control de la Agencia Federal de Seguridad (AFS) y de las Fuerzas Armadas para garantizar su neutralidad política.
+
+* d) El procedimiento exacto de organización, recuento, auditoría y salvaguarda de los referéndums nacionales y consultas populares.
+
+4. De los Decretos-Leyes de Emergencia: En situaciones de extraordinaria y urgente necesidad, limitadas estrictamente a los supuestos de los Grados Primero y Segundo del Estado de Excepción (Artículo 10 bis), el Consejo de Ministros podrá dictar disposiciones legislativas provisionales en forma de Decretos-Leyes.
+
+* Quedan totalmente excluidos de la regulación por Decreto-Ley los derechos fundamentales del Artículo 5, el funcionamiento de los poderes institucionales del Estado y el régimen tributario nacional.
+
+* Estos Decretos-Leyes deberán ser sometidos de forma inmediata a debate y votación de totalidad en la Asamblea Nacional (o ante la Diputación Permanente si la cámara estuviera disuelta) en el plazo improrrogable de 30 días naturales desde su publicación, para su convalidación o derogación automática.
 
 Artículo 8. Las Funciones, Responsabilidades y Límites de la Corona
 
@@ -258,7 +291,7 @@ Artículo 10. Las Fuerzas Armadas, la Seguridad Nacional y la Supremacía del Po
 
 5. Del Principio de Obediencia Debida y Límites al Mando. Todos los miembros de las Fuerzas Armadas, de la AFS y de la PDL guardarán fidelidad a la Constitución y al pueblo soberano. Se prohíbe la obediencia ciega: ningún efectivo estará obligado a cumplir órdenes que impliquen la comisión de crímenes de guerra, violaciones de los Derechos Fundamentales del Artículo 5, o que atenten contra el orden democrático. El cumplimiento de una orden manifiestamente inconstitucional no eximirá de responsabilidad penal individual a quien la ejecute.
 
-6. Blindaje ante Crisis Institucionales. En el supuesto de que la Asamblea Nacional apruebe una Resolución de Asamblea de Cambio de Presidente o una Resolución de Disolución del Poder Ejecutivo conforme al Artículo 7 bis, las Fuerzas Armadas, la AFS y la PDL guardarán absoluta neutralidad política. Los mandos militares y policiales acatarán única y exclusivamente las órdenes que emanen del Ministerio de Defensa convalidado por la Asamblea Nacional o, en su defecto, las directrices directas de la Mesa de la Asamblea Nacional. Cualquier jefe que intente usar las armas para defender a un mandatario cesado o bloquear el parlamento será destituido de forma fulminante y juzgado por alta traición.
+6. Blindaje ante Crisis Institucionales. En el supuesto de que la Asamblea Nacional apruebe una Resolución de Asamblea de Cambio de Presidente o una Resolución de Disolución del Poder Ejecutivo conforme al Artículo 7 bis, las Fuerzas Armadas, la AFS y la PDL guardarán absoluta neutralidad política. Los mandos militares y policiales acatarán única y exclusivamente las órdenes que emanen del Ministerio de Defensa convalidado por la Asamblea Nacional o, en su defecto, las directrices directas de la Mesa de la Asamblea Nacional, o en caso de estar disuelta, las directrices directas de la Mesa de la Diputación Permanente. Cualquier jefe que intente usar las armas para defender a un mandatario cesado o bloquear el parlamento será destituido de forma fulminante y juzgado por alta traición.
 
 Artículo 10 bis. Del Estado de Excepción, sus Cinco Grados y las Garantías de Derechos
 
@@ -287,7 +320,8 @@ Artículo 10 bis. Del Estado de Excepción, sus Cinco Grados y las Garantías de
     a) Control de los 30 días: Deberá ser ratificado cada treinta (30) días naturales mediante mayoría simple de la cámara.
     b) Control de los 2 meses (60 días): Exigirá obligatoriamente el voto favorable de la mayoría absoluta de los miembros de la Asamblea Nacional, repitiéndose sucesivamente cada dos meses.
     c) Control de los 5 meses (150 días): Requerirá de forma excepcional la unanimidad absoluta de todos los votos de la Asamblea Nacional. Si un solo parlamentario vota en contra, el Estado de Excepción decaerá de forma fulminante.
-    d) Límite Máximo: Ningún Estado de Excepción podrá durar más de un (1) año consecutivo.
+    d) Límite Máximo: Ningún Estado de Excepción podrá durar más de un (1) año consecutivo. 
+    e) Se deberá esperar un mínimo de sesenta (60) días naturales entre la finalización de un Estado de Excepción y la entrada en vigor del siguiente.
 
 5. Del Referéndum Obligatorio y Voto de Castigo al terminar el Grado Quinto. En un plazo máximo de sesenta (60) días naturales tras la finalización del Grado Quinto (Conflicto Bélico), el Estado estará constitucionalmente obligado a convocar un Referéndum Nacional vinculante. En dicha consulta se presentará al pueblo soberano una pregunta directa para evaluar si la ciudadanía estuvo de acuerdo o no con la gestión y la necesidad del Estado de Excepción de Grado Quinto.
     - Si el voto por el "NO" a la gestión del conflicto supera el sesenta por ciento (60%) de los votos válidos emitidos por los ciudadanos, la Asamblea Nacional quedará automáticamente disuelta de pleno derecho y el Presidente del Reino y su Gobierno cesarán de forma fulminante. Se procederá de inmediato a la convocatoria de Elecciones Generales anticipadas en un plazo máximo de cuarenta y cinco días para renovar por completo los poderes del Estado.
@@ -475,12 +509,13 @@ Artículo 25 bis. El Tribunal Constitucional y su Independencia Política.
 3. Los 9 Magistrados serán elegidos de manera directa y exclusiva por la sociedad civil e institucional de carácter técnico, distribuidos de la siguiente forma:
     * Tres (3) Magistrados elegidos por el Consejo de Rectores y Decanos de las Facultades de Derecho de las Universidades Públicas y privadas del Reino.
     * Tres (3) Magistrados elegidos por voto secreto y directo en el seno del Colegio Nacional de Abogados de Gatolandia.
-    * Tres (3) Magistrados elegidos por sorteo público e insaculación de entre los jueces y magistrados de la Corte Suprema y Tribunales Superiores que cuenten con más de 20 años de carrera judicial intachable.
+    * Tres (3) Magistrados elegidos por sorteo público e insaculación de entre los jueces y magistrados de la Corte Suprema y Tribunales Superiores que cuenten con más de 20 años de carrera judicial intachable. Este sorteo e insaculación será organizado y supervisado de forma paritaria por una comisión mixta del Colegio de Abogados y el Consejo de Rectores de las Universidades Públicas y privadas, quedando prohibida cualquier intervención de empresas privadas o cualquier Institución Pública ajena a las dispuestas en este inciso.
+
 
 4. Para optar al cargo, los candidatos deberán acreditar un mínimo de 15 años de excelencia profesional en el ámbito jurídico o académico. No podrán ser elegidos aquellos ciudadanos que hayan militado en un partido político, ejercido cargos de confianza en el Gobierno o sido miembros de la Asamblea Nacional durante los 10 años anteriores a la fecha de la elección.
 
 5. Corresponde en exclusiva al Tribunal Constitucional resolver los Recursos de Inconstitucionalidad contra las leyes, los Recursos de Amparo frente a la vulneración de los derechos fundamentales y dictaminar, de forma previa a cualquier acción judicial o policial, la existencia del delito de «Desobediencia a la Democracia» regulado en el Artículo 63.
-6. El Tribunal Constitucional gozará de plena autonomía presupuestaria y financiera. El Estado garantizará una asignación presupuestaria anual mínima y fija equivalente al 0,5% del Presupuesto General del Reino, la cual será transferida directamente de forma trimestral. Dicha cuantía no podrá ser reducida, retenida ni modificada por el Poder Ejecutivo bajo ninguna circunstancia. El Tribunal gestionará de forma exclusiva y autónoma sus propios recursos materiales y de personal.
+6. El Tribunal Constitucional gozará de plena autonomía presupuestaria y financiera. El Estado garantizará una asignación presupuestaria anual mínima y fija equivalente al 0,5% del Presupuesto General del Reino más la última Tasa de Inflación anual publicada por el Banco Central del Estado, la cual será transferida directamente de forma trimestral. Dicha cuantía no podrá ser reducida, retenida ni modificada por el Poder Ejecutivo bajo ninguna circunstancia. El Tribunal gestionará de forma exclusiva y autónoma sus propios recursos materiales y de personal.
 
 Artículo 26. Garantías Procesales
 Todo ciudadano tiene derecho a un juez ordinario predeterminado por la ley.
