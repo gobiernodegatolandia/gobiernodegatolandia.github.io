@@ -16,7 +16,7 @@ Gatolandia es una Monarquía Parlamentaria.
 La soberanía reside en el pueblo de Gatolandia, del que emanan todos los poderes del Estado.
 
 
-El Rey es el Jefe de Estado y el Presidente del Reino ejerce el poder ejecutivo.
+El Rey o la Reina es el Jefe de Estado y el Presidente del Reino ejerce el poder ejecutivo.
 
 
 Artículo 2. Estado y Territorio
@@ -237,19 +237,19 @@ Artículo 7 Ter. Tipología de Leyes y Jerarquía Normativa
 
 Artículo 8. Las Funciones, Responsabilidades y Límites de la Corona
 
-1. El Rey es el Jefe de Estado, símbolo de su unidad, permanencia y neutralidad política. Representa al Reino de Gatolandia en las relaciones internacionales y ejerce las funciones diplomáticas y protocolares que de forma expresa le confiere esta Constitución. Carece por completo de potestad legislativa, judicial, de administración gubernamental o de dirección política de la nación.
+1. El Rey o la Reina es el Jefe de Estado, símbolo de su unidad, permanencia y neutralidad política. Representa al Reino de Gatolandia en las relaciones internacionales y ejerce las funciones diplomáticas y protocolares que de forma expresa le confiere esta Constitución. Carece por completo de potestad legislativa, judicial, de administración gubernamental o de dirección política de la nación.
 
-2. En su condición de Monarquía Parlamentaria, el Rey está estrictamente obligado a sancionar, firmar y promulgar cualquier ley ordinaria, ley orgánica, tratado internacional, nombramiento institucional o resolución emanada de la Asamblea Nacional o del Poder Judicial en un plazo máximo e improrrogable de cuarenta y dos (42) horas desde su notificación oficial.
+2. En su condición de Monarquía Parlamentaria, el Rey o la Reina está estrictamente obligado a sancionar, firmar y promulgar cualquier ley ordinaria, ley orgánica, tratado internacional, nombramiento institucional o resolución emanada de la Asamblea Nacional o del Poder Judicial en un plazo máximo e improrrogable de cuarenta y dos (42) horas desde su notificación oficial.
 
-3. Excepción de Salvaguarda Constitucional y Veto Real. Como única y exclusiva excepción a la obligatoriedad regulada en el apartado anterior, el Rey Martín XI y sus legítimos sucesores ostentarán el derecho de veto y veto suspensivo, pudiendo negarse de forma expresa a firmar o sancionar cualquier norma, reforma, ley o resolución parlamentaria si dicha disposición legal otorga, amplía, delega o transfiere más poderes, competencias o prerrogativas discrecionales a la propia figura del Rey (Corona) o al Poder Ejecutivo (Presidente del Reino y su Gobierno). En este supuesto, la norma será devuelta de inmediato al Tribunal Constitucional para que dictamine si vulnera el equilibrio y la separación de poderes del Estado.
+3. Excepción de Salvaguarda Constitucional y Veto Real. Como única y exclusiva excepción a la obligatoriedad regulada en el apartado anterior, el Rey o la Reina Martín XI y sus legítimos sucesores ostentarán el derecho de veto y veto suspensivo, pudiendo negarse de forma expresa a firmar o sancionar cualquier norma, reforma, ley o resolución parlamentaria si dicha disposición legal otorga, amplía, delega o transfiere más poderes, competencias o prerrogativas discrecionales a la propia figura del Rey o la Reina (Corona) o al Poder Ejecutivo (Presidente del Reino y su Gobierno). En este supuesto, la norma será devuelta de inmediato al Tribunal Constitucional para que dictamine si vulnera el equilibrio y la separación de poderes del Estado.
 
-4. De la Neutralidad Militar de la Corona. El Rey carece por completo de poder militar, mando operativo, estratégico o jerárquico sobre las Fuerzas Armadas del Reino de Gatolandia. No ostenta ningún título de mando supremo ni siquiera de carácter honorífico en tiempos de paz, crisis o guerra. Las Fuerzas Armadas dependen de forma única, directa y exclusiva del Ministerio de Defensa y del Presidente del Reino. Los honores que reciba el Rey por parte de las fuerzas militares serán de naturaleza estrictamente civil, protocolar y de cortesía de Estado.
+4. De la Neutralidad Militar de la Corona. El Rey o la Reina carece por completo de poder militar, mando operativo, estratégico o jerárquico sobre las Fuerzas Armadas del Reino de Gatolandia. No ostenta ningún título de mando supremo ni siquiera de carácter honorífico en tiempos de paz, crisis o guerra. Las Fuerzas Armadas dependen de forma única, directa y exclusiva del Ministerio de Defensa y del Presidente del Reino. Los honores que reciba el Rey o la Reina por parte de las fuerzas militares serán de naturaleza estrictamente civil, protocolar y de cortesía de Estado.
 
 5. En el marco del funcionamiento ordinario del Estado y de los mecanismos especiales del Artículo 7 bis, la actuación de la Corona será automática:
-    a) Aprobada una ley o resolución, el Rey estampará su firma de forma reglada. Si el Rey se encontrare en situación de incapacidad física o mental debidamente acreditada por el Tribunal Constitucional, o si venciere el plazo de 42 horas sin que el Rey hubiere firmado una norma válida (no sujeta a la excepción del apartado 3), la firma del Presidente de la Asamblea Nacional asumirá plenos efectos legales y constitucionales, dándose la norma por válidamente promulgada.
-    b) Tras la aprobación de una Resolución de Asamblea de Cambio de Presidente o de Disolución del Poder Ejecutivo, el Rey expedirá los decretos correspondientes de cese, nombramiento o convocatoria electoral en el plazo máximo de 42 horas, siendo un acto formal de obligado cumplimiento.
+    a) Aprobada una ley o resolución, el Rey o la Reina estampará su firma de forma reglada. Si el Rey o la Reina se encontrare en situación de incapacidad física o mental debidamente acreditada por el Tribunal Constitucional, o si venciere el plazo de 42 horas sin que el Rey o la Reina hubiere firmado una norma válida (no sujeta a la excepción del apartado 3), la firma del Presidente de la Asamblea Nacional asumirá plenos efectos legales y constitucionales, dándose la norma por válidamente promulgada.
+    b) Tras la aprobación de una Resolución de Asamblea de Cambio de Presidente o de Disolución del Poder Ejecutivo, el Rey o la Reina expedirá los decretos correspondientes de cese, nombramiento o convocatoria electoral en el plazo máximo de 42 horas, siendo un acto formal de obligado cumplimiento.
 
-6. Los actos del Rey carecerán de toda validez legal si no son debidamente refrendados por el Presidente del Reino o por el Presidente de la Asamblea Nacional, según corresponda. La responsabilidad jurídica y política de los actos de la Corona recaerá exclusivamente en la autoridad que los refrende, quedando la persona del Rey exenta de responsabilidad penal o política ante las leyes de Gatolandia.
+6. Los actos del Rey o la Reina carecerán de toda validez legal si no son debidamente refrendados por el Presidente del Reino o por el Presidente de la Asamblea Nacional, según corresponda. La responsabilidad jurídica y política de los actos de la Corona recaerá exclusivamente en la autoridad que los refrende, quedando la persona del Rey o la Reina exenta de responsabilidad penal o política ante las leyes de Gatolandia.
 
 Artículo 9. La Asamblea Nacional: Composición, Elección y Garantías Parlamentarias
 
@@ -269,6 +269,29 @@ Artículo 9. La Asamblea Nacional: Composición, Elección y Garantías Parlamen
 
 5. Funcionamiento y Convocatoria. La Asamblea Nacional se reunirá anualmente en dos periodos ordinarios de sesiones. Asimismo, podrá reunirse en sesión extraordinaria a petición de la Mesa de la Asamblea, de la Diputación Permanente o de la mayoría absoluta de los Asambleístas para debatir asuntos de urgencia nacional, mociones de cambio de Presidente o situaciones asociadas al Estado de Excepción.
 
+Artículo 9 Bis. El Procedimiento Ordinario de Elección e Investidura del Presidente
+
+1. El procedimiento de investidura del Presidente del Reino se activará obligatoriamente tras la celebración de Elecciones Generales, por el cese constitucional del Presidente debido a dimisión o fallecimiento, o de forma automática por la aprobación de la Resolución de Asamblea de Cambio de Presidente regulada en el Artículo 7 bis.1 de esta Constitución.
+
+2. Ronda de Consultas y Propuesta Real: En los supuestos de elecciones generales, dimisión o fallecimiento, el Jefe de Estado, en su condición de símbolo de unidad y neutralidad política, convocará y consultará formalmente a los portavoces designados por los grupos políticos con representación parlamentaria. Tras finalizar las consultas, y previa aceptación expresa por parte del interesado, el Jefe de Estado propondrá a la Asamblea Nacional un candidato a la Presidencia del Reino. Dicho candidato deberá ostentar obligatoriamente la condición de Asambleísta en activo. La propuesta será publicada de forma inmediata en el Boletín Oficial del Reino (BOR).
+
+3. Plazo de Convocatoria y Primera Votación: El Presidente de la Asamblea Nacional estará obligado a convocar el pleno de investidura en un plazo máximo e improrrogable de quince (15) días naturales a contar desde la publicación de la propuesta del Jefe de Estado en el BOR. El candidato expondrá su programa de gobierno y solicitará la confianza de la cámara. Para ser investido Presidente en esta primera vuelta, requerirá el voto favorable de la mayoría absoluta de los miembros totales de la Asamblea Nacional.
+
+4. Segunda Votación: Si no se alcanzase dicha mayoría absoluta, la misma propuesta se someterá a una nueva votación transcurridas cuarenta y ocho (48) horas naturales. En esta segunda vuelta, el candidato quedará investido si obtuviere la mayoría simple de los votos de los Asambleístas presentes.
+
+5. Votación de Continuidad o Disolución Anticipada: Si el candidato propuesto fracasara en ambas votaciones, el Presidente de la Asamblea Nacional convocará al pleno en el plazo de cuarenta y ocho (48) horas para someter a votación una única pregunta vinculante. La cámara deberá decidir por mayoría simple si solicita al Jefe de Estado el inicio de una nueva ronda de contactos con un candidato alternativo, o si prefiere la disolución inmediata de la cámara y la convocatoria de nuevas Elecciones Generales.
+
+6. Efectos del Bloqueo: Si la Asamblea votase a favor de una nueva ronda de contactos, el Jefe de Estado dispondrá de un plazo de diez (10) días para registrar una nueva propuesta en el BOR. Si la Asamblea votase a favor de elecciones, o si transcurrido un plazo máximo de dos (2) meses desde la primera votación de investidura ningún candidato lograra la confianza de la cámara, esta quedará disuelta de pleno derecho y se procederá a la convocatoria de elecciones en los plazos previstos por esta Constitución.
+
+Artículo 9 Ter. Garantías y Administración del Sistema Electoral
+
+1. Convocatoria y Plazos: Las Elecciones Generales Ordinarias se celebrarán tras la expiración del mandato de la legislatura regulado en el Artículo 9.2. El Decreto de Convocatoria será firmado por el Jefe de Estado con el refrendo del Presidente del Reino en funciones, debiendo fijar la fecha de las elecciones en un plazo inexcusable de entre treinta (30) y cuarenta y cinco (45) días naturales desde su publicación oficial.
+
+2. Barrera Electoral de Entrada: Para tener derecho a participar en la asignación proporcional de escaños dentro de cualquier circunscripción regional, las candidaturas o listas electorales deberán alcanzar un umbral mínimo del tres por ciento (3%) de los votos válidos emitidos en dicho territorio.
+
+3. Independencia y Control Electoral: La organización de los comicios, la gestión del censo nacional, la transparencia del escrutinio y la fiscalización digital de todos los procesos electorales y referéndums del Reino corresponderán en exclusiva a la Junta Electoral Central. Este órgano será de naturaleza estrictamente técnica, independiente y estará completamente separado de los Ministerios del Poder Ejecutivo.
+
+4. Remisión a las LAC: La composición y sistema de elección de los miembros de la Junta Electoral Central, el régimen de sanciones por delitos electorales, los formatos de salvaguarda de las papeletas y la fórmula matemática exacta para el reparto final de escaños se regularán obligatoriamente a través de la Ley de Anexo Constitucional (LAC) del Régimen Electoral General.
 
 
 Artículo 10. Las Fuerzas Armadas, la Seguridad Nacional y la Supremacía del Poder Civil
@@ -615,7 +638,7 @@ Gatolandia orientará su política exterior al respeto de los derechos humanos, 
 Se promoverá la defensa de la soberanía nacional y la igualdad entre los Estados.
 El Reino fomentará relaciones basadas en la solidaridad, la justicia y el desarrollo sostenible.
 Artículo 44. Representación Internacional
-El Rey ejercerá funciones protocolares y diplomáticas en representación del Reino de Gatolandia.
+El Rey o la Reina ejercerá funciones protocolares y diplomáticas en representación del Reino de Gatolandia.
 El Presidente del Reino, en coordinación con la Asamblea Nacional, será responsable de la dirección de la política exterior.
 Las misiones diplomáticas y consulares garantizarán la protección de los ciudadanos gatolandeses en el extranjero.
 Artículo 45. Cooperación Internacional
@@ -703,7 +726,7 @@ Las leyes y normas anteriores a la presente Constitución seguirán vigentes en 
 El Estado adaptará progresivamente su legislación para garantizar la plena aplicación de esta Constitución.
 Artículo 65. Entrada en Vigor
 La presente Constitución entrará en vigor inmediatamente después de su promulgación oficial.
-El Rey de Gatolandia, en nombre del pueblo, proclamará solemnemente la Constitución como norma suprema del Reino.
+El Rey o la Reina de Gatolandia, en nombre del pueblo, proclamará solemnemente la Constitución como norma suprema del Reino.
 DISPOSICIÓN DEROGATORIA
 Quedan derogadas todas las normas, leyes, decretos y disposiciones de los antiguos Estados soberanos que sean contrarias a la presente Constitución.
 Quedan derogadas todas las Constituciones de todos los antiguos Estados soberanos que forman el Reino Democrático de Gatolandia
@@ -726,13 +749,13 @@ Leyes Generales del Señorío Católico de Montañanevada y La Nevadina
 Ley 1/1908 sobre Lucha del Señorío contra religiones ajenas al catolicismo.
 En caso de conflicto entre esta Constitución y cualquier norma anterior, prevalecerá siempre la Constitución del Reino de Gatolandia.
 DISPOSICIÓN FINAL SOLEMNE
-En nombre del pueblo de Gatolandia, y bajo la autoridad de la Asamblea Nacional, se proclama la presente Constitución como norma suprema del Reino. El Rey Martín XI, en ejercicio de sus funciones, ordena su cumplimiento y respeto en todo el territorio nacional. La Constitución de Gatolandia será el fundamento de la unidad, la libertad y la prosperidad de las generaciones presentes y futuras.
-DISPOSICIÓN Y ALEGACIONES DEL REY MARTÍN XI
-"Hoy, en este año de unión y esperanza, proclamamos la Constitución del Reino de Gatolandia. Tras siglos de fragmentación y desafíos, volvemos a caminar juntos bajo un mismo marco de justicia, libertad e igualdad. Esta Constitución no es solo un texto jurídico: es el pacto de confianza entre el pueblo y sus instituciones. Prometo, como Rey, velar por su cumplimiento y defender la unidad de nuestra nación. Que Gatolandia florezca en paz, prosperidad y respeto mutuo."
+En nombre del pueblo de Gatolandia, y bajo la autoridad de la Asamblea Nacional, se proclama la presente Constitución como norma suprema del Reino. El Rey o la Reina Martín XI, en ejercicio de sus funciones, ordena su cumplimiento y respeto en todo el territorio nacional. La Constitución de Gatolandia será el fundamento de la unidad, la libertad y la prosperidad de las generaciones presentes y futuras.
+DISPOSICIÓN Y ALEGACIONES DEL Rey o la Reina MARTÍN XI
+"Hoy, en este año de unión y esperanza, proclamamos la Constitución del Reino de Gatolandia. Tras siglos de fragmentación y desafíos, volvemos a caminar juntos bajo un mismo marco de justicia, libertad e igualdad. Esta Constitución no es solo un texto jurídico: es el pacto de confianza entre el pueblo y sus instituciones. Prometo, como Rey o la Reina, velar por su cumplimiento y defender la unidad de nuestra nación. Que Gatolandia florezca en paz, prosperidad y respeto mutuo."
 DISPOSICIÓN Y ALEGACIONES DE LOS DESCENDIENTES DE GATES FUNES MALACHES
 "Nuestro ancestro, Gates Funes Malaches, unificó Gatolandia en 1874 con visión y valentía. Aunque el destino nos llevó a la división en pequeños estados, hoy, en 2023, volvemos a reunirnos bajo esta Constitución. Honramos su legado y celebramos que la obra de unidad que él inició se consolida definitivamente en este texto. Que la memoria de Gates Funes Malaches inspire a las generaciones futuras a mantener la unión, la justicia y la dignidad de Gatolandia."
 
-Y PARA QUE ASÍ CONSTE, YO, EL REY MARTÍN XI DE GATOLANDIA FIRMO, SANCIONO Y PROMULGO ESTA CONSTITUCIÓN, Y OBLIGO A TODOS MIS SÚBDITOS A CUMPLIRLA. QUIÉN NO LO HICIERE, QUE SE ATENDIERE A LAS CONSECUENCIAS DEL CÓDIGO PENAL DE NUESTRA CONSTITUCIÓN Y HONRADA PATRIA Y NACIÓN. ¡VIVA GATOLANDIA!
+Y PARA QUE ASÍ CONSTE, YO, EL Rey o la Reina MARTÍN XI DE GATOLANDIA FIRMO, SANCIONO Y PROMULGO ESTA CONSTITUCIÓN, Y OBLIGO A TODOS MIS SÚBDITOS A CUMPLIRLA. QUIÉN NO LO HICIERE, QUE SE ATENDIERE A LAS CONSECUENCIAS DEL CÓDIGO PENAL DE NUESTRA CONSTITUCIÓN Y HONRADA PATRIA Y NACIÓN. ¡VIVA GATOLANDIA!
 `,
                 historial: ['06/03/2023 · Publicación inicial (BOR nº 001)']
             },
