@@ -529,7 +529,11 @@
 
     <div id="toast-container"></div>
 
-    <script src="bor/leyes.js"></script>
+    <script>
+        // Anti-cache: bor/leyes.js se carga siempre fresco del servidor
+        // (parametro de hora en la URL), asi basta con recargar normalmente.
+        document.write('<scr' + 'ipt src="bor/leyes.js?_ts=' + Date.now() + '"></scr' + 'ipt>');
+    </script>
 
     <script>
         const lista = document.getElementById('lista');
@@ -572,6 +576,13 @@
             if (window.LEYES) renderizarLista();
         });
         document.addEventListener('bor:leyes-listas', renderizarLista);
+
+        // Cuando leyes.js detecta una ley nueva o modificada en el servidor,
+        // re-renderiza la lista y avisa discretamente (sin recargar la pagina).
+        document.addEventListener('bor:leyes-actualizadas', () => {
+            renderizarLista();
+            if (typeof notify === 'function') notify('El BOR se ha actualizado con las ultimas versiones de las leyes.');
+        });
 
         function abrirLey(l) {
             leyActual = l;
