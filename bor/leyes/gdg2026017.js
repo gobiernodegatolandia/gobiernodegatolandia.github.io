@@ -7,7 +7,6 @@ estado: "Vigente"
 historial:
   - 01/09/2026 · Publicación inicial (BOR nº 017)
 texto: |-
-  ORDEN MINISTERIAL GDG/2026/017
   Por la que se fija el precio oficial por gigabyte para el servicio de roaming de líneas extranjeras en uso dentro del territorio del Reino Democrático de Gatolandia.
 
   Artículo 1. Objeto

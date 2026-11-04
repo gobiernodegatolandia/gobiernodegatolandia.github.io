@@ -7,8 +7,6 @@ estado: "Vigente"
 historial:
   - 08/04/2026 · Publicación inicial (BOR nº 009)
 texto: |-
-  LEY ORGÁNICA 10/2026, DE 8 DE ABRIL, DE ORGANIZACIÓN TERRITORIAL DEL REINO DEMOCRÁTICO DE GATOLANDIA (LOTG)
-
   PREÁMBULO
   El Reino Democrático de Gatolandia, en ejercicio de su soberanía, establece mediante esta Ley la estructura territorial del Estado, los niveles de gobierno, las competencias de cada entidad territorial y los mecanismos de coordinación entre ellas.
 

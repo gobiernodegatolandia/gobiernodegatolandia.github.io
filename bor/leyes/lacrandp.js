@@ -1,14 +1,12 @@
 `
 ---
 id: lacrandp
-titulo: "LEY DE ANEXO CONSTITUCIONAL (LAC) DEL REGLAMENTO DE LA ASAMBLEA NACIONAL Y DE LA DIPUTACIÓN PERMANENTE"
+titulo: "Ley de Anexo Constitucional del Reglamento de la Asamblea Nacional y de la Diputación Permanente"
 meta: "BOR nº LAC-001 · 06/03/2023 · Asamblea Nacional"
 estado: "Vigente"
 historial:
   - 06/03/2023 · Publicación Inicial (BOR nº LAC-001)
 texto: |-
-  LEY DE ANEXO CONSTITUCIONAL (LAC) DEL REGLAMENTO DE LA ASAMBLEA NACIONAL Y DE LA DIPUTACIÓN PERMANENTE
-
   TÍTULO I: DE LA ORGANIZACIÓN INTERNA Y LA MESA DE LA CÁMARA
 
   Capítulo I: De la Sesión Constitutiva y la Elección de la Mesa

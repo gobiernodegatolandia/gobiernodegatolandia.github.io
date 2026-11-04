@@ -1,13 +1,12 @@
 `
 ---
 id: accesibilidad
-titulo: "Ley Orgánica de Accesibilidad"
+titulo: "Ley Orgánica de Accesibilidad Universal"
 meta: "BOR nº006 · 6 de marzo de 2023 · Asamblea Nacional"
 estado: "Vigente"
 historial:
   - 06/03/2023 · Publicación inicial (BOR nº 006)
 texto: |-
-                  LEY ORGÁNICA DE ACCESIBILIDAD UNIVERSAL DEL REINO DEMOCRÁTICO DE GATOLANDIA
   PREÁMBULO
   La presente Ley Orgánica garantiza la accesibilidad universal en todos los entornos, infraestructuras, servicios, edificios, transportes, tecnologías y comunicaciones del Reino de Gatolandia, asegurando que todas las personas, con o sin discapacidad, puedan desplazarse, comprender, utilizar y disfrutar del entorno en condiciones de seguridad, autonomía y dignidad.
 
