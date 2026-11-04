@@ -1,5 +1,5 @@
 `
-
+---
 id: nedg
 titulo: "Normativa Eléctrica Doméstica (NEDG)"
 meta: "BOR nº 010 · 09/06/2026 · Consejo de Ministros"
