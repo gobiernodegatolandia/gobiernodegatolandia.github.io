@@ -7,7 +7,6 @@ estado: "Vigente"
 historial:
   - 21/01/2026 · Publicación inicial (BOR nº 004)
 texto: |-
-  LEY DE SEGURIDAD CONTRA INCENDIOS Y PROTECCIÓN DE LA VIDA HUMANA DEL REINO DE GATOLANDIA
   PREÁMBULO
   La presente Ley tiene por objeto garantizar la protección de la vida humana, la integridad física y la seguridad de bienes frente a incendios y situaciones de emergencia, estableciendo normas obligatorias de prevención, señalización, detección, extinción y evacuación en todo el territorio del Reino.
 

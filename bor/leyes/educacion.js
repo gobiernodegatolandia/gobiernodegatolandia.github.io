@@ -7,7 +7,6 @@ estado: "Vigente"
 historial:
   - 06/03/2023 · Publicación inicial (BOR nº 005)
 texto: |-
-  LEY ORGÁNICA DE EDUCACIÓN DEL REINO DEMOCRÁTICO DE GATOLANDIA
   PREÁMBULO
   La educación constituye un pilar esencial para el desarrollo humano, la cohesión social y el progreso del Reino. La presente Ley Orgánica establece el marco general del Sistema Educativo Nacional Gatolandés (SENG), garantizando una educación pública, gratuita, inclusiva y de calidad, así como la regulación de la educación privada bajo estándares comunes.
 

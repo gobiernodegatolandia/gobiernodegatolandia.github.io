@@ -7,7 +7,6 @@ estado: "Vigente"
 historial:
   - 06/03/2023 · Publicación inicial (BOR nº 003)
 texto: |-
-  LEY ORGÁNICA DE CARRETERAS DEL REINO DEMOCRÁTICO DE GATOLANDIA
   PREÁMBULO
   En nombre del pueblo de Gatolandia, y en cumplimiento del principio constitucional de vertebración territorial, la Asamblea Nacional promulga la presente Ley Orgánica de Carreteras, que establece el régimen jurídico de la Red de Carreteras del Reino, garantizando su planificación racional, construcción segura, mantenimiento eficiente y uso responsable.
   TÍTULO I – DISPOSICIONES GENERALES

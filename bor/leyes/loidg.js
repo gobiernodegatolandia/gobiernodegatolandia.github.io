@@ -7,8 +7,6 @@ estado: "Vigente"
 historial:
   - 1/4/2026 · Publicación inicial (BOR nº 007)
 texto: |-
-  LEY ORGÁNICA 7/2026, DE 1 DE ABRIL, DE INDEPENDENCIA DIGITAL DE GATOLANDIA (LOIDG)
-
   PREÁMBULO
   El Reino Democrático de Gatolandia reconoce la independencia digital como un derecho fundamental.
   Toda persona tiene derecho a controlar su información, su identidad digital, su privacidad, su seguridad informática y su relación con la tecnología.

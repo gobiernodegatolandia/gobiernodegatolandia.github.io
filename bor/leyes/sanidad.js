@@ -8,7 +8,6 @@ historial:
   - 06/03/2023 · Publicación inicial (BOR nº 002)
   - 2/01/2025 · Organización de los artículos de la ley (BOR nº002-01)
 texto: |-
-  LEY ORGÁNICA DE SANIDAD DEL REINO DEMOCRÁTICO DE GATOLANDIA
   PREÁMBULO
   En nombre del pueblo de Gatolandia, y en cumplimiento del derecho fundamental a la salud consagrado en la Constitución del Reino, la Asamblea Nacional promulga la presente Ley Orgánica de Sanidad. Esta norma establece los principios, estructuras y garantías del Sistema Nacional de Salud de Gatolandia, asegurando el acceso universal, equitativo y digno a la atención sanitaria para todos los ciudadanos.
   TÍTULO I – PRINCIPIOS GENERALES
