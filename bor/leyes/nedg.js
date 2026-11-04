@@ -45,9 +45,6 @@ Artículo 2. Definiciones.
 A los efectos de esta Ley, se entiende por:
 
 
-
-
-
 NEDG: Normativa Eléctrica Doméstica de Gatolandia. La presente Ley constituye en sí misma la NEDG, con todas sus especificaciones técnicas, y sus remisiones internas a la NEDG se entenderán hechas a sus propios preceptos. Las disposiciones que la desarrollen tendrán el carácter de Instrucciones Técnicas Complementarias (ITC) y no podrán establecer requisitos inferiores a los de esta Ley.
 
 
