@@ -32,7 +32,7 @@
             font-family: 'Inter', sans-serif;
             background: var(--bg-body);
             color: var(--text-main);
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             overflow-x: hidden;
@@ -240,6 +240,31 @@
             color: white;
         }
 
+        /* Título de la ley dentro del texto (visible en pantalla,
+           al copiar, descargar e imprimir) */
+        .legal-text h1.ley-titulo {
+            font-size: 1.7rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1.3;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .legal-text p.ley-meta-inicio {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 4px !important;
+        }
+
+        .legal-text hr.ley-sep {
+            border: 0;
+            border-top: 2px solid var(--accent);
+            max-width: 300px;
+            margin: 25px auto 40px;
+        }
+
         .tag-vigente {
             background: #dcfce7;
             color: #166534;
@@ -257,6 +282,7 @@
             z-index: 9999;
         }
 
+        /* --- MOBILE-FRIENDLY --- */
         @media (max-width: 900px) {
             .modal-sidebar {
                 display: none;
@@ -264,6 +290,96 @@
 
             .modal-content-area {
                 padding: 25px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            nav {
+                padding: 10px 15px;
+            }
+
+            .brand {
+                gap: 8px;
+            }
+
+            .brand img {
+                width: 34px;
+                height: 23px;
+            }
+
+            .brand h1 {
+                font-size: 0.85rem;
+                letter-spacing: 0.5px;
+            }
+
+            header {
+                padding: 30px 15px;
+            }
+
+            header h2 {
+                font-size: 1.4rem !important;
+            }
+
+            header p {
+                font-size: 0.85rem;
+            }
+
+            #buscadorGlobal {
+                padding: 13px 15px 13px 45px;
+                font-size: 0.95rem;
+            }
+
+            main {
+                grid-template-columns: 1fr;
+                padding: 20px 15px;
+                gap: 14px;
+            }
+
+            .ley-card {
+                padding: 18px;
+            }
+
+            .ley-card h2 {
+                font-size: 1.05rem;
+            }
+
+            .modal-header {
+                padding: 10px 12px;
+                gap: 8px;
+            }
+
+            #modal-titulo {
+                font-size: 0.85rem !important;
+            }
+
+            .tag-vigente {
+                display: none;
+            }
+
+            .action-btn {
+                width: 36px;
+                height: 36px;
+                border-radius: 8px;
+                flex-shrink: 0;
+            }
+
+            .modal-content-area {
+                padding: 20px 15px;
+            }
+
+            .legal-text {
+                font-size: 1rem;
+                line-height: 1.7;
+            }
+
+            .legal-text h1.ley-titulo {
+                font-size: 1.3rem;
+            }
+
+            #toast-container {
+                left: 15px;
+                right: 15px;
+                bottom: 15px;
             }
         }
 
@@ -309,6 +425,15 @@
                 border-bottom: 2px solid black;
                 margin-bottom: 30px;
                 padding-bottom: 10px;
+            }
+
+            .legal-text h1.ley-titulo {
+                font-size: 15pt;
+                color: black !important;
+            }
+
+            .legal-text p.ley-meta-inicio {
+                color: #333 !important;
             }
         }
 
@@ -383,7 +508,8 @@
             </div>
             <div class="tag-vigente" id="estado-tag">Vigente</div>
             <div class="action-btn" onclick="copiarLey()" title="Copiar Texto"><i class="fa-solid fa-copy"></i></div>
-            <div class="action-btn" onclick="window.print()" title="Imprimir Ley"><i class="fa-solid fa-print"></i></div>
+            <div class="action-btn" onclick="descargarLey()" title="Descargar Ley"><i class="fa-solid fa-download"></i></div>
+            <div class="action-btn" onclick="imprimirLey()" title="Imprimir Ley"><i class="fa-solid fa-print"></i></div>
         </div>
 
         <div class="modal-body">
@@ -409,6 +535,7 @@
         const lista = document.getElementById('lista');
         const modal = document.getElementById('modal');
         let textoOriginal = '';
+        let leyActual = null;
 
         function notify(msg) {
             const container = document.getElementById('toast-container');
@@ -422,12 +549,13 @@
             }, 3000);
         }
 
-        window.onload = () => {
-            if (typeof LEYES !== 'undefined') {
-                LEYES.forEach(l => {
-                    const card = document.createElement('div');
-                    card.className = 'ley-card';
-                    card.innerHTML = `
+        // Se llama cuando bor/leyes.js termina de escanear /bor/leyes/.
+        function renderizarLista() {
+            lista.innerHTML = '';
+            (window.LEYES || []).forEach(l => {
+                const card = document.createElement('div');
+                card.className = 'ley-card';
+                card.innerHTML = `
                     <div>
                         <div class="meta"><i class="fa-solid fa-file-shield"></i> DOCUMENTO OFICIAL</div>
                         <h2>${l.titulo}</h2>
@@ -435,13 +563,18 @@
                     </div>
                     <div style="margin-top:20px; font-weight:700; font-size:0.8rem; color:var(--accent)">VER DOCUMENTO <i class="fa-solid fa-arrow-right"></i></div>
                 `;
-                    card.onclick = () => abrirLey(l);
-                    lista.appendChild(card);
-                });
-            }
-        };
+                card.onclick = () => abrirLey(l);
+                lista.appendChild(card);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.LEYES) renderizarLista();
+        });
+        document.addEventListener('bor:leyes-listas', renderizarLista);
 
         function abrirLey(l) {
+            leyActual = l;
             document.getElementById('modal-titulo').textContent = l.titulo;
             document.getElementById('modal-meta').textContent = l.meta;
             document.getElementById('estado-tag').textContent = l.estado;
@@ -451,6 +584,24 @@
             contentArea.innerHTML = '';
             indice.innerHTML = '';
             textoOriginal = l.texto;
+
+            // El título de la ley forma parte del texto: aparece en pantalla,
+            // al copiar, al descargar y al imprimir.
+            const h1 = document.createElement('h1');
+            h1.className = 'ley-titulo';
+            h1.textContent = l.titulo;
+            contentArea.appendChild(h1);
+
+            if (l.meta) {
+                const pm = document.createElement('p');
+                pm.className = 'ley-meta-inicio';
+                pm.textContent = l.meta;
+                contentArea.appendChild(pm);
+            }
+
+            const sep = document.createElement('hr');
+            sep.className = 'ley-sep';
+            contentArea.appendChild(sep);
 
             l.texto.split('\n').forEach((line, i) => {
                 if (!line.trim()) return;
@@ -487,14 +638,69 @@
             modal.classList.remove('activo');
         }
 
+        // Texto completo de la ley: título + referencia del BOR + cuerpo.
+        // Se usa al copiar y al descargar, para que el título siempre acompañe al texto.
+        function textoCompleto() {
+            if (!leyActual) return textoOriginal;
+            const cabecera = [leyActual.titulo];
+            if (leyActual.meta) cabecera.push(leyActual.meta);
+            return cabecera.join('\n') + '\n\n' + textoOriginal;
+        }
+
+        // Nombre de archivo a partir del título de la ley (sin caracteres inválidos).
+        function nombreArchivoLey() {
+            const base = (leyActual && leyActual.titulo) ? leyActual.titulo : 'ley';
+            return base
+                .replace(/[<>:"/\\|?*\u0000-\u001F]/g, '')
+                .replace(/\s+/g, ' ')
+                .trim()
+                .substring(0, 120) + '.txt';
+        }
+
         function copiarLey() {
+            const texto = textoCompleto();
+            const done = () => notify('Copiado al portapapeles con éxito');
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(texto).then(done).catch(() => copiarFallback(texto, done));
+            } else {
+                copiarFallback(texto, done);
+            }
+        }
+
+        function copiarFallback(texto, done) {
             const el = document.createElement('textarea');
-            el.value = textoOriginal;
+            el.value = texto;
+            el.style.position = 'fixed';
+            el.style.opacity = '0';
             document.body.appendChild(el);
             el.select();
-            document.execCommand('copy');
+            try { document.execCommand('copy'); } catch (e) {}
             document.body.removeChild(el);
-            notify("Copiado al portapapeles con éxito");
+            done();
+        }
+
+        function descargarLey() {
+            if (!leyActual) return;
+            const blob = new Blob(['\uFEFF' + textoCompleto()], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = nombreArchivoLey(); // el título de la ley es el nombre del archivo
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            setTimeout(() => URL.revokeObjectURL(url), 1500);
+            notify('Descargando «' + a.download + '»');
+        }
+
+        function imprimirLey() {
+            if (!leyActual) return;
+            // El título de la ley pasa a ser el título del documento:
+            // aparece en el encabezado del papel y en el PDF guardado.
+            const tituloPrevio = document.title;
+            document.title = leyActual.titulo;
+            window.print();
+            setTimeout(() => { document.title = tituloPrevio; }, 500);
         }
 
         document.getElementById('buscadorGlobal').addEventListener('input', (e) => {
