@@ -132,3 +132,28 @@ async function cargarLeyes() {
     if (!leyes || !leyes.length) leyes = await cargarPorIndiceEstatico();
     return leyes;
 }
+
+// Orden de publicación: por número de BOR si la meta lo contiene
+// ("BOR nº 001 ..."), y como desempate, el nombre del archivo.
+function ordenarLeyes(leyes) {
+    const numBor = l => {
+        const m = (l.meta || '').match(/n[º°o]\s*0*(\d+)/i);
+        return m ? parseInt(m[1], 10) : 999999;
+    };
+    return leyes.slice().sort((a, b) =>
+        numBor(a) - numBor(b) || a.id.localeCompare(b.id, 'es'));
+}
+
+// Rellena la variable global LEYES que usa bor.html.
+async function publicarLeyes() {
+    try {
+        const leyes = await cargarLeyes();
+        window.LEYES = ordenarLeyes(leyes);
+    } catch (e) {
+        console.error('BOR: no se pudieron cargar las leyes', e);
+        window.LEYES = [];
+    }
+    document.dispatchEvent(new CustomEvent('bor:leyes-listas'));
+}
+
+publicarLeyes();
