@@ -16,7 +16,7 @@ Las sucesivas transformaciones tecnológicas —la generalización del autoconsu
 
 Los siniestros de origen eléctrico en el hogar, en su mayoría evitables mediante instalaciones correctas, materiales adecuados y mantenimiento periódico, justifican un nivel de protección elevado y uniforme en todo el territorio del Reino, sin distinción entre espacios públicos y privados.
 
-Por ello, con arreglo a las facultades conferidas por la Constitución del Reino Democrático de Gatolandia, el Gobierno presenta a la Asamblea Popular la siguiente,
+Por ello, con arreglo a las facultades conferidas por la Constitución del Reino Democrático de Gatolandia, el Gobierno presenta a la Asamblea Nacional la siguiente,
 
 LEY
 
@@ -550,7 +550,7 @@ DISPOSICIÓN FINAL
 
 Única. Esta Ley entrará en vigor el día siguiente al de su publicación en el Boletín Oficial del Reino Democrático de Gatolandia.
 
-Dada en el Palacio de la Asamblea Popular del Reino Democrático de Gatolandia, a 4 de noviembre de 2026.
+Dada en el Palacio de la Asamblea Nacional del Reino Democrático de Gatolandia, a 4 de noviembre de 2026.
 ---
 
 `;
