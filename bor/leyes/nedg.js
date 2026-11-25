@@ -8,13 +8,7 @@ historial:
   - 09/06/2026 · Publicación iniciar (BOR nº 010)
   - 09/07/2026 · Entrada en vigor
 texto: |-
-# LEY 1/2026, DE 4 DE NOVIEMBRE, DE NORMATIVA ELÉCTRICA DOMÉSTICA DEL REINO DEMOCRÁTICO DE GATOLANDIA
-
-**ÍDO.** Boletín Oficial del Reino Democrático de Gatolandia, n.º 1, de 4 de noviembre de 2026.
-
-
-
-## PREÁMBULO
+PREÁMBULO
 
 La instalación eléctrica doméstica es un elemento esencial para la vida cotidiana de las ciudadanas y ciudadanos del Reino Democrático de Gatolandia, cuya seguridad, fiabilidad y eficiencia constituyen un interés general cuya protección compete a los poderes públicos.
 
@@ -24,63 +18,63 @@ Los siniestros de origen eléctrico en el hogar, en su mayoría evitables median
 
 Por ello, con arreglo a las facultades conferidas por la Constitución del Reino Democrático de Gatolandia, el Gobierno presenta a la Asamblea Popular la siguiente,
 
-## LEY
+LEY
 
 
 
-## TÍTULO PRELIMINAR. DISPOSICIONES GENERALES
+TÍTULO PRELIMINAR. DISPOSICIONES GENERALES
 
-**Artículo 1. Objeto y ámbito de aplicación.**
+Artículo 1. Objeto y ámbito de aplicación.
 
 1. Esta Ley tiene por objeto regular las instalaciones eléctricas de uso doméstico en el Reino Democrático de Gatolandia, comprendiendo su diseño, cálculo, ejecución, verificación, puesta en servicio, modificación, ampliación, mantenimiento, inspección, certificación y explotación.
 2. Será de aplicación a toda vivienda, ya sea unifamiliar, plurifamiliar o destinada a residencia temporal, incluidas sus zonas comunes asociadas y las instalaciones de autoconsumo y de recarga de vehículos eléctricos vinculadas a ellas, tanto en espacios públicos como en lugares privados.
 3. Quedan excluidas del ámbito de esta Ley las instalaciones industriales y de servicios, que se regirán por su normativa específica, sin perjuicio de la aplicación subsidiaria de esta Ley cuando así lo disponga su normativa propia.
 
-**Artículo 2. Definiciones.**
+Artículo 2. Definiciones.
 
 A los efectos de esta Ley, se entiende por:
 
-- **NEDG:** Normativa Eléctrica Doméstica de Gatolandia. La **presente Ley constituye en sí misma la NEDG**, con todas sus especificaciones técnicas, y sus remisiones internas a la NEDG se entenderán hechas a sus propios preceptos. Las disposiciones que la desarrollen tendrán el carácter de Instrucciones Técnicas Complementarias (ITC) y no podrán establecer requisitos inferiores a los de esta Ley.
-- **IGA:** Interruptor General Automático del cuadro eléctrico doméstico.
-- **ID:** Interruptor Diferencial.
-- **PIA:** Pequeño Interruptor Automático de protección de circuito.
-- **PCS:** Protección contra Sobretensiones de origen atmosférico o de conmutación.
-- **PSS:** Protección contra Subtensiones.
-- **ICP:** Interruptor de Control de Potencia.
-- **LSZH:** cables con cubierta Libre de Sustancias Halogenadas (*Low Smoke Zero Halogen*).
-- **Obturador de seguridad:** dispositivo de protección de tomas de corriente que impide la introducción de objetos extraños en los alveolos.
-- **Circuito:** conjunto de conductores y componentes alimentados desde un mismo PIA y protegidos por él.
-- **Zona de baño:** volumen delimitado alrededor de la ducha, bañera o lavabo, clasificado en zonas 0, 1 y 2 conforme a la presente NEDG.
-- **Autoconsumo:** consumo por parte de una persona usuaria de energía eléctrica producida en su propia instalación, con o sin excedentes.
-- **Instalador habilitado:** persona física o jurídica autorizada conforme al artículo 51 de esta Ley.
-- **Boletín de Instalación Eléctrica (BIE):** documento expedido por instalador habilitado que acredita la ejecución o modificación conforme a esta Ley.
-- **Certificado de Instalación Individual (CII):** documento suscrito por instalador habilitado que acredita la verificación de la instalación.
+- NEDG: Normativa Eléctrica Doméstica de Gatolandia. La presente Ley constituye en sí misma la NEDG, con todas sus especificaciones técnicas, y sus remisiones internas a la NEDG se entenderán hechas a sus propios preceptos. Las disposiciones que la desarrollen tendrán el carácter de Instrucciones Técnicas Complementarias (ITC) y no podrán establecer requisitos inferiores a los de esta Ley.
+- IGA: Interruptor General Automático del cuadro eléctrico doméstico.
+- ID: Interruptor Diferencial.
+- PIA: Pequeño Interruptor Automático de protección de circuito.
+- PCS: Protección contra Sobretensiones de origen atmosférico o de conmutación.
+- PSS: Protección contra Subtensiones.
+- ICP: Interruptor de Control de Potencia.
+- LSZH: cables con cubierta Libre de Sustancias Halogenadas (*Low Smoke Zero Halogen*).
+- Obturador de seguridad: dispositivo de protección de tomas de corriente que impide la introducción de objetos extraños en los alveolos.
+- Circuito: conjunto de conductores y componentes alimentados desde un mismo PIA y protegidos por él.
+- Zona de baño: volumen delimitado alrededor de la ducha, bañera o lavabo, clasificado en zonas 0, 1 y 2 conforme a la presente NEDG.
+- Autoconsumo: consumo por parte de una persona usuaria de energía eléctrica producida en su propia instalación, con o sin excedentes.
+- Instalador habilitado: persona física o jurídica autorizada conforme al artículo 51 de esta Ley.
+- Boletín de Instalación Eléctrica (BIE): documento expedido por instalador habilitado que acredita la ejecución o modificación conforme a esta Ley.
+- Certificado de Instalación Individual (CII): documento suscrito por instalador habilitado que acredita la verificación de la instalación.
 
-**Artículo 3. Características generales de la tensión de suministro.**
+Artículo 3. Características generales de la tensión de suministro.
 
-1. Toda instalación doméstica funcionará con corriente alterna a **230 V** de tensión nominal entre fases y conductores y **50 Hz** de frecuencia.
+1. Toda instalación doméstica funcionará con corriente alterna a 230 V de tensión nominal entre fases y conductores y 50 Hz de frecuencia.
 2. Las variaciones admitidas en las condiciones de suministro se ajustarán a lo dispuesto en la presente NEDG, que no podrá admitir desviaciones superiores al ±10 % de la tensión nominal ni al ±0,5 Hz de la frecuencia nominal.
-3. El esquema de conexión a tierra de las instalaciones domésticas será, con carácter general, del tipo **TN-S**, admitiéndose el esquema TT en núcleos rurales o edificios antiguos en tanto no se complete su adaptación conforme al Título XI.
+3. El esquema de conexión a tierra de las instalaciones domésticas será, con carácter general, del tipo TN-S, admitiéndose el esquema TT en núcleos rurales o edificios antiguos en tanto no se complete su adaptación conforme al Título XI.
 
-**Artículo 4. Obligatoriedad general de seguridad.**
+Artículo 4. Obligatoriedad general de seguridad.
 
 1. Toda instalación eléctrica doméstica deberá proyectarse y ejecutarse de forma que no presente riesgo de daño a las personas ni a los bienes, ni produzca perturbaciones en otras instalaciones o equipos.
 2. La responsabilidad por los daños derivados de una instalación defectuosa corresponderá a quien la ejecute, mantenga o explote, conforme a la legislación civil y penal aplicable.
 3. La mera conformidad formal con los mínimos de esta Ley no eximirá de la obligación de adoptar toda medida razonable para garantizar la seguridad efectiva de la instalación.
 
-**Artículo 5. Uso de materiales. Obligatoriedad de conductores libres de halógenos.**
+Artículo 5. Uso de materiales. Obligatoriedad de conductores libres de halógenos.
 
 1. Todos los materiales, aparatos y componentes empleados en las instalaciones reguladas por esta Ley deberán estar certificados conforme a la presente NEDG y disponer de marcado de conformidad.
-2. Los cables y conductores libres de sustancias halogenadas (LSZH) tendrán carácter **obligatorio en todas las instalaciones y en todos los emplazamientos, públicos o privados**, incluidos viviendas, garajes, trasteros, cuartos técnicos, jardines y cualquier otro lugar de uso doméstico o comunitario.
+2. Los cables y conductores libres de sustancias halogenadas (LSZH) tendrán carácter obligatorio en todas las instalaciones y en todos los emplazamientos, públicos o privados, incluidos viviendas, garajes, trasteros, cuartos técnicos, jardines y cualquier otro lugar de uso doméstico o comunitario.
 3. Queda prohibida la comercialización, instalación y utilización de cables con cubiertas halogenadas en las instalaciones reguladas por esta Ley.
 
 
 
-## TÍTULO I. BASES DE TOMA DE CORRIENTE Y CONTADORES
+TÍTULO I. BASES DE TOMA DE CORRIENTE Y CONTADORES
 
-**Artículo 6. Base y clavija de toma de corriente obligatoria.**
+Artículo 6. Base y clavija de toma de corriente obligatoria.
 
-1. Es obligatorio en todo el territorio del Reino el uso de la base y clavija de toma de corriente **Tipo F (Schuko), CEE 7/4**, con las siguientes especificaciones mínimas:
+1. Es obligatorio en todo el territorio del Reino el uso de la base y clavija de toma de corriente Tipo F (Schuko), CEE 7/4, con las siguientes especificaciones mínimas:
   - Tensión nominal: 250 V.
   - Intensidad nominal: 16 A.
   - Toma de tierra mediante contactos laterales metálicos.
@@ -88,22 +82,22 @@ A los efectos de esta Ley, se entiende por:
   - Separación entre clavijas: 19 mm.
   - Longitud de las clavijas: 19 mm.
   - Profundidad mínima de la base: igual o superior a 15 mm.
-2. En las viviendas en las que residan, estén de visita o puedan acceder menores de edad, será obligatoria la instalación de **obturadores de seguridad** en todas las bases de toma de corriente, incluidas las de terrazas, garajes y zonas comunes de uso doméstico.
+2. En las viviendas en las que residan, estén de visita o puedan acceder menores de edad, será obligatoria la instalación de obturadores de seguridad en todas las bases de toma de corriente, incluidas las de terrazas, garajes y zonas comunes de uso doméstico.
 3. Queda prohibida la instalación de bases de toma de corriente sin obturador en guarderías, escuelas infantiles y cualquier espacio destinado a menores.
 4. Se admitirán bases con obturadores de doble seguridad como solución de mayor nivel de protección.
 
-**Artículo 7. Contador eléctrico inteligente.**
+Artículo 7. Contador eléctrico inteligente.
 
-1. El contador inteligente será **obligatorio en todas las viviendas**, sin excepción alguna. El contador deberá permitir la lectura a distancia, el registro horario del consumo y la comunicación con la distribuidora.
-2. Queda **prohibida** la instalación y utilización del ICP (Interruptor de Control de Potencia).
+1. El contador inteligente será obligatorio en todas las viviendas, sin excepción alguna. El contador deberá permitir la lectura a distancia, el registro horario del consumo y la comunicación con la distribuidora.
+2. Queda prohibida la instalación y utilización del ICP (Interruptor de Control de Potencia).
 3. La sustitución de contadores no inteligentes será en todo caso gratuita para la persona titular del suministro, con cargo a la distribuidora, y no podrá implicar interrupción del suministro superior a cuatro horas.
 4. Las entidades distribuidoras deberán garantizar el derecho de acceso de la persona titular a sus datos de consumo en tiempo real, en formato abierto y sin coste adicional.
 
 
 
-## TÍTULO II. CABLEADO Y CONDUCTORES
+TÍTULO II. CABLEADO Y CONDUCTORES
 
-**Artículo 8. Tipos de cable.**
+Artículo 8. Tipos de cable.
 
 Todos los cables empleados en instalaciones domésticas deberán ser:
 
@@ -113,7 +107,7 @@ Todos los cables empleados en instalaciones domésticas deberán ser:
 - resistentes a 90 °C;
 - certificados con arreglo a la presente NEDG.
 
-**Artículo 9. Colores normalizados de identificación de conductores.**
+Artículo 9. Colores normalizados de identificación de conductores.
 
 1. Los conductores deberán identificarse obligatoriamente con los siguientes colores:
   - Fase: marrón.
@@ -124,7 +118,7 @@ Todos los cables empleados en instalaciones domésticas deberán ser:
 2. Queda prohibido el empleo del color amarillo/verde para cualquier función distinta del conductor de protección, así como el uso de conductores azules como fase.
 3. En instalaciones trifásicas domésticas se admitirán los colores gris y negro para las fases adicionales, conforme a la presente NEDG.
 
-**Artículo 10. Secciones mínimas de los conductores.**
+Artículo 10. Secciones mínimas de los conductores.
 
 1. Las secciones mínimas de los conductores serán las siguientes:
   - Iluminación: 1,5 mm².
@@ -142,11 +136,11 @@ Todos los cables empleados en instalaciones domésticas deberán ser:
 4. Los conductores activos deberán estar protegidos contra sobreintensidades y sobrecargas conforme al Título IV.
 5. Queda prohibido el empalme de conductores fuera de cajas de conexión registrables y accesibles.
 
-**Artículo 11. Conductor de tierra en circuitos de iluminación.**
+Artículo 11. Conductor de tierra en circuitos de iluminación.
 
-Será obligatorio el paso de conductor de protección (tierra) por **todos los tubos de iluminación**, incluso cuando el punto de luz no requiera conexión a tierra, a fin de posibilitar futuras ampliaciones y garantizar la continuidad del circuito de protección.
+Será obligatorio el paso de conductor de protección (tierra) por todos los tubos de iluminación, incluso cuando el punto de luz no requiera conexión a tierra, a fin de posibilitar futuras ampliaciones y garantizar la continuidad del circuito de protección.
 
-**Artículo 12. Canalizaciones.**
+Artículo 12. Canalizaciones.
 
 1. Los tubos y canales protectoras serán de material no propagante de la llama y libres de halógenos.
 2. El grado de ocupación de los tubos no superará el 60 % de su sección útil para 3 conductores y el 40 % para 4 o más.
@@ -156,9 +150,9 @@ Será obligatorio el paso de conductor de protección (tierra) por **todos los t
 
 
 
-## TÍTULO III. CIRCUITOS DE LA INSTALACIÓN
+TÍTULO III. CIRCUITOS DE LA INSTALACIÓN
 
-**Artículo 13. Circuitos mínimos obligatorios.**
+Artículo 13. Circuitos mínimos obligatorios.
 
 Toda vivienda dispondrá, como mínimo, de los siguientes circuitos independientes:
 
@@ -174,7 +168,7 @@ Toda vivienda dispondrá, como mínimo, de los siguientes circuitos independient
 - C10: cargador de vehículo eléctrico, cuando exista.
 - C11: autoconsumo, cuando exista.
 
-**Artículo 14. Puntos mínimos por estancia.**
+Artículo 14. Puntos mínimos por estancia.
 
 1. Las viviendas dispondrán como mínimo de los siguientes puntos:
   - Tres tomas de corriente en cada estancia distinta de baños, pasillos y cocinas.
@@ -185,34 +179,34 @@ Toda vivienda dispondrá, como mínimo, de los siguientes circuitos independient
   - Tres tomas en terrazas y balcones, con grado de protección mínimo IP44.
 2. En cocinas, cada circuito específico dispondrá de su propia base o conexión directa, y ninguna base de uso general será compartida con circuitos dedicados.
 
-**Artículo 15. Circuito exclusivo de vehículos eléctricos.**
+Artículo 15. Circuito exclusivo de vehículos eléctricos.
 
 1. La recarga de vehículos eléctricos se efectuará siempre mediante circuito exclusivo conforme al Título X de esta Ley.
 2. Queda prohibida la recarga mediante alargadores, regletas o bases de uso general, incluso de forma ocasional.
 
 
 
-## TÍTULO IV. CUADRO ELÉCTRICO DOMÉSTICO
+TÍTULO IV. CUADRO ELÉCTRICO DOMÉSTICO
 
-**Artículo 16. Elementos obligatorios del cuadro.**
+Artículo 16. Elementos obligatorios del cuadro.
 
 Toda vivienda dispondrá, como mínimo, de los siguientes dispositivos en su cuadro eléctrico:
 
-a. **Interruptor General Automático (IGA)**, con intensidad mínima de 40 A y curva C, que permita cortar selectivamente toda la instalación.
-b. **Interruptores Diferenciales (ID)**, con las siguientes condiciones:
+a. Interruptor General Automático (IGA), con intensidad mínima de 40 A y curva C, que permita cortar selectivamente toda la instalación.
+b. Interruptores Diferenciales (ID), con las siguientes condiciones:
   - Sensibilidad de 30 mA.
   - Tipo AC o tipo A, según la naturaleza de los electrodomésticos del circuito; el tipo A será obligatorio en los circuitos con aparatos con electrónica de potencia, y el tipo B en el circuito de recarga de vehículos eléctricos cuando el fabricante lo requiera.
   - Un diferencial como máximo por cada 5 circuitos.
-  - El circuito del cargador de vehículo eléctrico dispondrá de un **diferencial propio e independiente**.
+  - El circuito del cargador de vehículo eléctrico dispondrá de un diferencial propio e independiente.
   - Prueba de funcionamiento obligatoria al menos cada seis meses.
-c. **Protección contra Sobretensiones (PCS)**, tipo 2, obligatoria en toda instalación, instalada en el origen del cuadro, a menos de 10 m del IGA o mediante PCS adicional en cuadros secundarios más alejados.
-d. **Protección contra Subtensiones (PSS)**, obligatoria en toda instalación, que corte o avise ante caídas de tensión que puedan dañar equipos.
-e. **Pequeños Interruptores Automáticos (PIA)** con las condiciones del artículo 17.
+c. Protección contra Sobretensiones (PCS), tipo 2, obligatoria en toda instalación, instalada en el origen del cuadro, a menos de 10 m del IGA o mediante PCS adicional en cuadros secundarios más alejados.
+d. Protección contra Subtensiones (PSS), obligatoria en toda instalación, que corte o avise ante caídas de tensión que puedan dañar equipos.
+e. Pequeños Interruptores Automáticos (PIA) con las condiciones del artículo 17.
 
-**Artículo 17. Pequeños Interruptores Automáticos.**
+Artículo 17. Pequeños Interruptores Automáticos.
 
-1. Todos los PIA serán de **curva C**.
-2. Todos los PIA incorporarán un **amperímetro integrado**, digital o analógico, con las siguientes condiciones:
+1. Todos los PIA serán de curva C.
+2. Todos los PIA incorporarán un amperímetro integrado, digital o analógico, con las siguientes condiciones:
   - Resolución mínima de medición de 0,5 A.
   - Indicación clara y visible de la aproximación del circuito a su límite de intensidad.
 3. Los PIA tendrán como mínimo las siguientes intensidades nominales:
@@ -228,7 +222,7 @@ e. **Pequeños Interruptores Automáticos (PIA)** con las condiciones del artíc
   - Autoconsumo: según potencia del inversor.
 4. El calibre del PIA y la sección del conductor serán siempre coordinados conforme a la presente NEDG, de modo que el conductor quede protegido frente a sobrecargas y cortocircuitos.
 
-**Artículo 18. Ubicación y señalización del cuadro.**
+Artículo 18. Ubicación y señalización del cuadro.
 
 1. El cuadro eléctrico se instalará:
   - A una altura comprendida entre 1,40 m y 1,80 m desde el nivel del suelo.
@@ -239,16 +233,16 @@ e. **Pequeños Interruptores Automáticos (PIA)** con las condiciones del artíc
 2. Queda prohibido instalar el cuadro dentro de cuartos de baño, terrazas abiertas, garajes no ventilados o espacios en los que pueda acumularse humedad o condensación.
 3. Cada circuito estará identificado de forma inequívoca y la identificación se mantendrá actualizada tras toda modificación.
 
-**Artículo 19. Selectividad y respaldo.**
+Artículo 19. Selectividad y respaldo.
 
 1. Las protecciones se coordinarán para garantizar la máxima selectividad posible, prefiriéndose la selectividad total entre IGA, ID y PIA.
 2. En viviendas de más de 150 m² o con cuadros secundarios, cada cuadro secundario contará con su propio interruptor general y sus propias protecciones conforme a este Título.
 
 
 
-## TÍTULO V. ENCHUFES E INTERRUPTORES
+TÍTULO V. ENCHUFES E INTERRUPTORES
 
-**Artículo 20. Alturas de instalación.**
+Artículo 20. Alturas de instalación.
 
 Las bases de toma de corriente e interruptores se instalarán a las siguientes alturas desde el nivel del suelo:
 
@@ -257,27 +251,27 @@ Las bases de toma de corriente e interruptores se instalarán a las siguientes a
 - Enchufes de cocina: entre 110 y 130 cm.
 - Enchufes de baño: mínimo 100 cm de las zonas de agua.
 
-**Artículo 21. Distancias mínimas de seguridad.**
+Artículo 21. Distancias mínimas de seguridad.
 
-1. Distancia mínima entre enchufe y fregadero: **1 metro**.
-2. Distancia mínima entre enchufe y ducha o bañera: **2,25 metros**.
-3. Los enchufes instalados en exteriores tendrán como mínimo grado de protección **IP44**.
+1. Distancia mínima entre enchufe y fregadero: 1 metro.
+2. Distancia mínima entre enchufe y ducha o bañera: 2,25 metros.
+3. Los enchufes instalados en exteriores tendrán como mínimo grado de protección IP44.
 4. Los interruptores de zonas húmedas se instalarán fuera de las zonas 0, 1 y 2, y en el exterior de los cuartos de baño cuando no sea posible su cumplimiento.
 
-**Artículo 22. Toma de tierra en tomas de corriente.**
+Artículo 22. Toma de tierra en tomas de corriente.
 
-Todas las bases de toma de corriente deberán disponer de **toma de tierra funcional**, conectada al circuito de protección de la instalación.
+Todas las bases de toma de corriente deberán disponer de toma de tierra funcional, conectada al circuito de protección de la instalación.
 
-**Artículo 23. Medidas de seguridad de personas con movilidad reducida.**
+Artículo 23. Medidas de seguridad de personas con movilidad reducida.
 
 1. En viviendas sujetas a requisitos de accesibilidad, la altura de interruptores y enchufes se ajustará a lo dispuesto en la normativa de accesibilidad del Reino, admitiéndose alturas comprendidas entre 40 y 120 cm.
 2. En zonas comunes de edificios, la señalética y protección de cuadros y tomas atenderá a las mismas condiciones.
 
 
 
-## TÍTULO VI. PUESTA A TIERRA
+TÍTULO VI. PUESTA A TIERRA
 
-**Artículo 24. Instalación de tierra.**
+Artículo 24. Instalación de tierra.
 
 1. Toda instalación dispondrá de una toma de tierra propia, calculada conforme a la presente NEDG, con resistencia de dispersión adecuada para que las tensiones de paso y de contacto no superen los valores límite fijados.
 2. El conductor de protección será continuo en toda la instalación, de sección conforme a la presente NEDG, con color amarillo/verde y sin interrupciones ni dispositivos de corte intercalados.
@@ -287,12 +281,12 @@ Todas las bases de toma de corriente deberán disponer de **toma de tierra funci
 
 
 
-## TÍTULO VII. ZONAS HÚMEDAS
+TÍTULO VII. ZONAS HÚMEDAS
 
-**Artículo 25. Cuartos de baño.**
+Artículo 25. Cuartos de baño.
 
 1. En los cuartos de baño será obligatorio:
-  - Iluminación con grado de protección mínimo **IP44**.
+  - Iluminación con grado de protección mínimo IP44.
   - Enchufes tipo F con toma de tierra.
   - Distancia mínima de 1 metro a las zonas de agua.
   - Uso de aparatos con clase de protección adecuada conforme a la presente NEDG.
@@ -300,7 +294,7 @@ Todas las bases de toma de corriente deberán disponer de **toma de tierra funci
 3. En la zona 2 solo se instalarán aparatos protegidos y con alimentación mediante diferencial de 30 mA.
 4. Los radiadores, toalleros y estufas eléctricas de baño serán de clase II como mínimo y se instalarán conforme a las distancias de la presente NEDG.
 
-**Artículo 26. Cocinas.**
+Artículo 26. Cocinas.
 
 1. En las cocinas será obligatorio:
   - Instalación de enchufes reforzados para horno, cocina eléctrica, microondas y frigorífico, cada uno en su circuito o grupo conforme a la presente NEDG.
@@ -308,7 +302,7 @@ Todas las bases de toma de corriente deberán disponer de **toma de tierra funci
   - Separación de las canalizaciones eléctricas respecto de las de gas, con la distancia mínima del artículo 12.3.
 2. Las tomas de cocina estarán dotadas de tapa o sistema de protección frente a salpicaduras cuando se sitúen a menos de 1 m del fregadero, y serán IP44 en tal caso.
 
-**Artículo 27. Terrazas, jardines y garajes.**
+Artículo 27. Terrazas, jardines y garajes.
 
 1. Toda toma o aparato eléctrico situado en el exterior tendrá grado de protección mínimo IP44 y estará protegido por diferencial de 30 mA.
 2. En jardines y zonas enterradas húmedas se exigirá el uso de cable de uso enterrado conforme a la presente NEDG, o tubo protector rígido impermeable.
@@ -316,9 +310,9 @@ Todas las bases de toma de corriente deberán disponer de **toma de tierra funci
 
 
 
-## TÍTULO VIII. SEGURIDAD CONTRA INCENDIOS
+TÍTULO VIII. SEGURIDAD CONTRA INCENDIOS
 
-**Artículo 28. Medidas obligatorias.**
+Artículo 28. Medidas obligatorias.
 
 Todas las viviendas dispondrán obligatoriamente de:
 
@@ -329,7 +323,7 @@ Todas las viviendas dispondrán obligatoriamente de:
 - Toma de tierra funcional, conforme al Título VI.
 - Protección contra contactos eléctricos directos e indirectos, mediante aislamiento, barreras, obstrucción y los dispositivos de corte del Título IV.
 
-**Artículo 29. Protección en cocina y noche.**
+Artículo 29. Protección en cocina y noche.
 
 1. En cocinas se instalará al menos un detector de humo adicional, con aviso sonoro en el resto de la vivienda.
 2. Se recomienda la instalación de detectores de humo interconectados y de dispositivos de corte de suministro por fuga de calor.
@@ -337,30 +331,30 @@ Todas las viviendas dispondrán obligatoriamente de:
 
 
 
-## TÍTULO IX. EFICIENCIA ENERGÉTICA
+TÍTULO IX. EFICIENCIA ENERGÉTICA
 
-**Artículo 30. Iluminación.**
+Artículo 30. Iluminación.
 
-1. La iluminación mediante tecnología **LED** será obligatoria:
+1. La iluminación mediante tecnología LED será obligatoria:
   - En toda obra nueva.
   - En toda reforma integral de la instalación de iluminación.
 2. En sustituciones puntuales de luminarias existentes, las nuevas luminarias instaladas serán siempre LED.
 3. Se recomienda la instalación de regulación, sensores de presencia y domótica de eficiencia.
 
-**Artículo 31. Paneles solares.**
+Artículo 31. Paneles solares.
 
-La instalación de paneles solares en viviendas tendrá carácter de **recomendación** y no de obligación.
+La instalación de paneles solares en viviendas tendrá carácter de recomendación y no de obligación.
 
-**Artículo 32. Etiquetado y mínimos de eficiencia.**
+Artículo 32. Etiquetado y mínimos de eficiencia.
 
 1. Los electrodomésticos de gran consumo instalados en obra nueva de viviendas serán como mínimo de clase A de eficiencia energética, conforme a la clasificación vigente en la presente NEDG.
 2. En toda vivienda se instalará como mínimo un punto de recarga previsión conforme al Título X o las canalizaciones necesarias para su instalación futura.
 
 
 
-## TÍTULO X. AUTOCONSUMO DOMÉSTICO
+TÍTULO X. AUTOCONSUMO DOMÉSTICO
 
-**Artículo 33. Instalaciones permitidas.**
+Artículo 33. Instalaciones permitidas.
 
 Se permiten las instalaciones de:
 
@@ -369,7 +363,7 @@ Se permiten las instalaciones de:
 - Inversores inteligentes.
 - Sistemas híbridos solar–red.
 
-**Artículo 34. Requisitos de conexión a red.**
+Artículo 34. Requisitos de conexión a red.
 
 Toda instalación de autoconsumo con conexión a red deberá incluir:
 
@@ -378,28 +372,28 @@ Toda instalación de autoconsumo con conexión a red deberá incluir:
 - Contador bidireccional.
 - Permiso municipal previo de la autoridad competente.
 
-**Artículo 35. Compensación de excedentes.**
+Artículo 35. Compensación de excedentes.
 
 1. Las personas titulares de instalaciones de autoconsumo tendrán derecho a la compensación de excedentes conforme determine la normativa del Reino.
 2. No se aplicarán cargos de peaje o impuesto alguno sobre la energía autoconsumida instantáneamente en la propia vivienda.
 
-**Artículo 36. Baterías domésticas.**
+Artículo 36. Baterías domésticas.
 
 1. Las baterías se instalarán en locales ventilados, secos, con temperatura controlada y fuera del alcance de personas no autorizadas.
 2. Queda prohibida la instalación de baterías en cuartos de baño, dormitorios y viviendas en general, salvo que se trate de equipos compactos certificados conforme a la presente NEDG para uso doméstico.
 3. Las baterías dispondrán de sistema de gestión que impida la sobrecarga, la descarga profunda y el sobrecalentamiento.
 4. Las baterías de ión-litio llevarán sistema de protección contra incendio conforme a la presente NEDG y certificado de seguridad del fabricante.
 
-**Artículo 37. Inspección y mantenimiento de autoconsumo.**
+Artículo 37. Inspección y mantenimiento de autoconsumo.
 
 1. Las instalaciones de autoconsumo se someterán a inspección conforme al Título XIII.
 2. El mantenimiento se efectuará conforme al manual del fabricante y a la presente NEDG.
 
 
 
-## TÍTULO XI. CARGADORES DE VEHÍCULOS ELÉCTRICOS
+TÍTULO XI. CARGADORES DE VEHÍCULOS ELÉCTRICOS
 
-**Artículo 38. Requisitos de las instalaciones de recarga.**
+Artículo 38. Requisitos de las instalaciones de recarga.
 
 1. Las instalaciones de recarga doméstica de vehículos eléctricos cumplirán los siguientes requisitos:
   - Circuito exclusivo e independiente.
@@ -409,29 +403,29 @@ Toda instalación de autoconsumo con conexión a red deberá incluir:
   - Toma mural certificada conforme a la presente NEDG.
 2. Queda prohibido utilizar el enchufe doméstico tipo F para la recarga de vehículos eléctricos, incluso mediante adaptadores, alargadores o bases reforzadas.
 
-**Artículo 39. Garajes.**
+Artículo 39. Garajes.
 
 1. En obra nueva o reforma, si el garaje dispone de cargador de vehículo eléctrico, este deberá conectarse a la red eléctrica del hogar.
 2. Dicha instalación dispondrá de su propio PIA y su propio diferencial, independientes del resto de circuitos.
 3. En edificios plurifamiliares, la comunidad no podrá oponerse sin causa justificada a la instalación de puntos de recarga por parte de las personas propietarias, sin perjuicio de la responsabilidad por los daños causados.
 4. El punto de recarga en garaje tendrá como mínimo grado de protección IP44 y protección mecánica frente a impactos.
 
-## TÍTULO XII. EDIFICIOS ANTIGUOS
+TÍTULO XII. EDIFICIOS ANTIGUOS
 
-**Artículo 40. Obligación de adaptación.**
+Artículo 40. Obligación de adaptación.
 
 1. Será obligatorio reformar los edificios antiguos para dotarlos de toma de tierra funcional, supere o no los 10.000 Reales de los incisos siguientes.
-2. Solo será obligatoria la reforma completa de la instalación eléctrica cuando el coste de la misma supere los **10.000 Reales**.
+2. Solo será obligatoria la reforma completa de la instalación eléctrica cuando el coste de la misma supere los 10.000 Reales.
 3. Toda intervención de sustitución parcial de conductores, bases o cuadro implicará que los nuevos elementos cumplan íntegramente esta Ley.
 4. Las viviendas de alquiler turístico, trasteros y garajes asociados se consideran, a los efectos de este Título, edificios antiguos si sus instalaciones no cumplen los requisitos de seguridad básicos.
 
-**Artículo 41. Instalaciones históricas y catalogadas.**
+Artículo 41. Instalaciones históricas y catalogadas.
 
 En inmuebles catalogados, la administración competente podrá autorizar soluciones alternativas de carácter equivalente en seguridad, previo informe técnico favorable, cuando la aplicación estricta de esta Ley comprometa la protección del patrimonio.
 
-## TÍTULO XIII. INSPECCIONES Y MANTENIMIENTO
+TÍTULO XIII. INSPECCIONES Y MANTENIMIENTO
 
-**Artículo 42. Periodicidad de las inspecciones.**
+Artículo 42. Periodicidad de las inspecciones.
 
 1. Las inspecciones se realizarán con la siguiente periodicidad:
   - Viviendas: cada 10 años.
@@ -444,7 +438,7 @@ En inmuebles catalogados, la administración competente podrá autorizar solucio
   - Tras la compra de una vivienda, si el certificado vigente tuviera más de 8 años de antigüedad.
 4. El CII tendrá una validez igual al periodo de la inspección correspondiente y deberá conservarse y exhibirse a requerimiento de la autoridad competente.
 
-**Artículo 43. Mantenimiento obligatorio.**
+Artículo 43. Mantenimiento obligatorio.
 
 El mantenimiento de la instalación comprenderá, como mínimo:
 
@@ -455,19 +449,19 @@ El mantenimiento de la instalación comprenderá, como mínimo:
 - Revisión del estado de los conductores visibles y cajas de conexión.
 - Verificación del correcto funcionamiento de detectores de humos y extintor, conforme a las indicaciones del fabricante.
 
-**Artículo 44. Obligaciones de las personas propietarias y arrendadoras.**
+Artículo 44. Obligaciones de las personas propietarias y arrendadoras.
 
 1. La persona propietaria de la vivienda responderá del cumplimiento de las obligaciones de inspección y mantenimiento, sin perjuicio de su repercusión conforme al contrato de arrendamiento en los términos que establezca la legislación de vivienda del Reino.
 2. En toda nueva transmisión de uso de una vivienda, la parte arrendadora entregará copia del CII vigente.
 
-## TÍTULO XIV. PROFESIONALES Y CERTIFICACIÓN
+TÍTULO XIV. PROFESIONALES Y CERTIFICACIÓN
 
-**Artículo 45. Habilitación de instaladores.**
+Artículo 45. Habilitación de instaladores.
 
-1. Toda instalación, modificación, ampliación o reparación de las instalaciones reguladas por esta Ley deberá ser ejecutada por **instalador habilitado**, que asumirá la responsabilidad técnica de la obra.
+1. Toda instalación, modificación, ampliación o reparación de las instalaciones reguladas por esta Ley deberá ser ejecutada por instalador habilitado, que asumirá la responsabilidad técnica de la obra.
 2. Queda prohibida la ejecución de instalaciones por personas no habilitadas, salvo operaciones de simple mantenimiento de uso tales como sustitución de una lámpara o base de toma de corriente en condiciones idénticas.
 
-**Artículo 46. Documentación de la instalación.**
+Artículo 46. Documentación de la instalación.
 
 1. Toda instalación o modificación se documentará mediante:
   - Memoria técnica con esquema unifilar y cálculos justificativos.
@@ -476,16 +470,16 @@ El mantenimiento de la instalación comprenderá, como mínimo:
 2. Un ejemplar completo de dicha documentación se conservará junto al cuadro eléctrico y otro se depositará ante la autoridad competente.
 3. Tras toda modificación, la documentación se actualizará en un plazo máximo de 30 días.
 
-**Artículo 47. Garantía de la instalación.**
+Artículo 47. Garantía de la instalación.
 
-1. Las instalaciones ejecutadas conforme a esta Ley tendrán una garantía mínima de **3 años** sobre la ejecución, sin perjuicio de las garantías comerciales de los materiales y aparatos.
+1. Las instalaciones ejecutadas conforme a esta Ley tendrán una garantía mínima de 3 años sobre la ejecución, sin perjuicio de las garantías comerciales de los materiales y aparatos.
 2. En obra nueva, la garantía de la instalación no será inferior a la garantía general de la edificación prevista en la legislación del Reino.
 
 
 
-## TÍTULO XV. RÉGIMEN SANCIONADOR
+TÍTULO XV. RÉGIMEN SANCIONADOR
 
-**Artículo 48. Infracciones.**
+Artículo 48. Infracciones.
 
 Constituyen infracciones de esta Ley:
 
@@ -502,15 +496,15 @@ j. No mantener actualizada la documentación de la instalación.
 k. Utilizar el enchufe tipo F para la recarga de vehículos eléctricos.
 l. Manipular el contador inteligente o sus comunicaciones.
 
-**Artículo 49. Calificación de las infracciones.**
+Artículo 49. Calificación de las infracciones.
 
-1. Las infracciones se califican en **leves**, **graves** y **muy graves**, conforme a la siguiente regla:
+1. Las infracciones se califican en leves, graves y muy graves, conforme a la siguiente regla:
   - Leves: las infracciones de los apartados a), g), j) y k) cuando no generen riesgo para las personas.
   - Graves: las infracciones de los apartados b), c), d), e), h), i) y l).
   - Muy graves: la infracción del apartado f) y las del apartado anterior cuando generen daño efectivo o riesgo cierto de muerte o lesiones graves.
 2. La reincidencia en una infracción leve en el plazo de un año tendrá la consideración de grave; la reincidencia en grave en el plazo de tres años tendrá la consideración de muy grave.
 
-**Artículo 50. Sanciones.**
+Artículo 50. Sanciones.
 
 1. La comisión de las infracciones previstas dará lugar, según su gravedad, a:
   - Multa económica.
@@ -523,33 +517,33 @@ l. Manipular el contador inteligente o sus comunicaciones.
 4. Las sanciones serán compatibles con la exigencia de reparación y, en su caso, de responsabilidades civiles y penales, y con el corte temporal del suministro cuando exista riesgo inminente.
 5. En caso de riesgo inminente para las personas, la autoridad podrá ordenar de forma inmediata y motivada el corte del suministro de la instalación afectada, con comunicación a su titular en un plazo máximo de 24 horas.
 
-**Artículo 51. Prescripción.**
+Artículo 51. Prescripción.
 
 1. Las infracciones leves prescribirán al año, las graves a los tres años y las muy graves a los cinco años, contados desde la comisión del hecho.
 2. Las sanciones impuestas prescribirán al año, a los dos años y a los tres años, respectivamente, desde la firmeza de la resolución.
 
 
 
-## DISPOSICIONES ADICIONALES
+DISPOSICIONES ADICIONALES
 
-**Primera.** La presente Ley constituye en sí misma la Normativa Eléctrica Doméstica de Gatolandia (NEDG), con todas sus especificaciones técnicas, sin que sea precisa norma adicional para su aplicación directa. El Gobierno podrá aprobar, en su caso, Instrucciones Técnicas Complementarias (ITC) de desarrollo, que en ningún caso podrán establecer requisitos de seguridad inferiores a los fijados en esta Ley.
+Primera. La presente Ley constituye en sí misma la Normativa Eléctrica Doméstica de Gatolandia (NEDG), con todas sus especificaciones técnicas, sin que sea precisa norma adicional para su aplicación directa. El Gobierno podrá aprobar, en su caso, Instrucciones Técnicas Complementarias (ITC) de desarrollo, que en ningún caso podrán establecer requisitos de seguridad inferiores a los fijados en esta Ley.
 
-**Segunda.** El Boletín Oficial del Reino publicará periódicamente la lista de materiales y dispositivos certificados conforme a la presente NEDG.
+Segunda. El Boletín Oficial del Reino publicará periódicamente la lista de materiales y dispositivos certificados conforme a la presente NEDG.
 
-**Tercera.** Las administraciones del Reino promoverán campañas de información ciudadana sobre seguridad eléctrica doméstica, con especial atención a los riesgos en cuartos de baño y cocinas, y a la recarga de vehículos eléctricos.
+Tercera. Las administraciones del Reino promoverán campañas de información ciudadana sobre seguridad eléctrica doméstica, con especial atención a los riesgos en cuartos de baño y cocinas, y a la recarga de vehículos eléctricos.
 
-**Cuarta.** Las entidades distribuidoras de energía eléctrica quedan obligadas a cooperar con las administraciones competentes en la detección de anomalías graves de suministro que puedan derivarse de instalaciones defectuosas, respetando en todo caso la normativa de protección de datos.
+Cuarta. Las entidades distribuidoras de energía eléctrica quedan obligadas a cooperar con las administraciones competentes en la detección de anomalías graves de suministro que puedan derivarse de instalaciones defectuosas, respetando en todo caso la normativa de protección de datos.
 
-## DISPOSICIÓN TRANSITORIA
+DISPOSICIÓN TRANSITORIA
 
-**Única.** Las instalaciones existentes a la entrada en vigor de esta Ley dispondrán de un plazo de **cinco años** para adaptarse a lo dispuesto en los artículos 7 (contador inteligente), 22 (toma de tierra en enchufes) y 28 (seguridad contra incendios), sin perjuicio de lo establecido en el Título XII para edificios antiguos.
+Única. Las instalaciones existentes a la entrada en vigor de esta Ley dispondrán de un plazo de cinco años para adaptarse a lo dispuesto en los artículos 7 (contador inteligente), 22 (toma de tierra en enchufes) y 28 (seguridad contra incendios), sin perjuicio de lo establecido en el Título XII para edificios antiguos.
 
-## DISPOSICIÓN DEROGATORIA
+DISPOSICIÓN DEROGATORIA
 
-**Única.** Quedan derogadas cuantas disposiciones de igual o inferior rango se opongan a lo dispuesto en esta Ley, y en particular toda norma que admita el ICP regulado en el artículo 7.2.
+Única. Quedan derogadas cuantas disposiciones de igual o inferior rango se opongan a lo dispuesto en esta Ley, y en particular toda norma que admita el ICP regulado en el artículo 7.2.
 
-## DISPOSICIÓN FINAL
+DISPOSICIÓN FINAL
 
-**Única.** Esta Ley entrará en vigor el día siguiente al de su publicación en el Boletín Oficial del Reino Democrático de Gatolandia.
+Única. Esta Ley entrará en vigor el día siguiente al de su publicación en el Boletín Oficial del Reino Democrático de Gatolandia.
 ---
 `;
